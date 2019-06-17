@@ -84,7 +84,10 @@
 
 ####混淆保护自己项目的部分代码以及引用的第三方jar包library-end####
 
-
+# banner 的混淆代码
+-keep class com.youth.banner.** {
+    *;
+ }
 
 #保持 native 方法不被混淆
 -keepclasseswithmembernames class * {

@@ -128,6 +128,9 @@ dependencies {
     //通用recyclerview适配器
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.40'
 
+    //无限轮播
+    implementation 'com.youth.banner:banner:1.4.10'
+
     //注解
     implementation 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'

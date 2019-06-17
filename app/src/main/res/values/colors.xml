@@ -5,7 +5,6 @@
     <color name="baseBackGround">#f5fbf5</color>
     <color name="black">#000000</color>
     <color name="white">#ffffff</color>
-    <color name="black_322e2b">#322e2b</color>
     <color name="color_primary_f5">#f5f5f5</color>
 
     <color name="text_black33">#333333</color>
@@ -15,24 +14,13 @@
     <color name="text_black75">#757575</color>
     <color name="text_green_9ace32">#9ace32</color>
     <color name="text_hint_bdbdbd">#bdbdbd</color>
-    <color name="text_red_f76060">#f76060</color>
-    <color name="text_red_f04f4f">#f04f4f</color>
-    <color name="text_orange_f7bc2e">#f7bc2e</color>
-
 
 
     <!--zxing-->
-    <color name="contents_text">#000000</color>
-    <color name="encode_view">#ffffff</color>
     <color name="possible_result_points">#ffbd21</color>
-    <color name="result_minor_text">#c0c0c0</color>
-    <color name="result_points">#99cc00</color>
-    <color name="result_text">#ffffff</color>
     <color name="result_view">#000000</color>
-    <color name="status_text">#ffffff</color>
     <color name="viewfinder_mask">#50000000</color>
     <color name="react">#9ace32</color>
     <color name="scanLineColor">#9ace32</color>
-    <color name="defaultColor">#ffffff</color>
 
 </resources>

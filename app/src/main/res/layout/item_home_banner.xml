@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        app:cardCornerRadius="6dp"
+        android:layout_height="wrap_content">
+
+        <com.youth.banner.Banner
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/banner"
+            android:layout_width="match_parent"
+            app:indicator_width="7dp"
+            app:indicator_height="7dp"
+            app:indicator_margin="3dp"
+            android:layout_height="200dp" />
+    </android.support.v7.widget.CardView>
+
+
+</LinearLayout>

@@ -7,13 +7,6 @@
     <!--<item name="android:windowExitAnimation">@anim/bga_sbl_activity_backward_exit</item>-->
     <!--</style>-->
 
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
-
-    <style name="ToolbarTheme" parent="@style/ThemeOverlay.AppCompat.ActionBar">
-        <item name="actionMenuTextColor">#ffffff</item> <!--  菜单字体颜色-->
-        <item name="android:textSize">18sp</item> <!-- 菜单字体大小-->
-    </style>
-
     <!-- 全局主题. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!--colorPrimary对应ActionBar的颜色-->
@@ -38,11 +31,6 @@
     </style>
 
     <!-- 无系统状态栏、全屏/背景透明  （查看大图专用）-->
-    <style name="AppFullsTheme" parent="Theme.AppCompat.Light.NoActionBar">
-            <item name="android:windowNoTitle">true</item>    
-            <item name="android:windowFullscreen">true</item>
-        <item name="android:windowIsTranslucent">true</item>
-    </style>
 
     <!--无滑动返回的页面-->
     <style name="MainTheme" parent="AppTheme">
@@ -95,19 +83,6 @@
 
     <!--*************************** 其他 ***************************-->
 
-    <style name="MyEditText" parent="Theme.AppCompat.Light">
-        <item name="colorControlNormal">@color/text_green_9ace32</item>
-        <item name="colorControlActivated">@color/text_green_9ace32</item>
-    </style>
-
     <!-- Base application theme. -->
-    <style name="ZxingTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="colorPrimary">#000000</item>
-        <item name="colorPrimaryDark">#000000</item>
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-        <item name="android:windowActionBarOverlay">true</item>
-        <item name="android:windowBackground">@null</item>
-    </style>
 
 </resources>
