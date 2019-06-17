@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--选中红色-->
+    <item
+        android:state_checked="true">
+<shape>
+    <stroke android:color="@color/text_green_9ace32" android:width="1dp"/>
+    <corners android:radius="9dp"/>
+</shape>
+    </item>
+    <!--未选中灰色-->
+    <item>
+        <shape>
+            <stroke android:color="@color/text_blackA6" android:width="1dp"/>
+            <corners android:radius="9dp"/>
+        </shape>
+    </item>
+</selector>

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/white"
+              android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/status_bar_height"/>
+
+    <ImageView
+        android:id="@+id/img_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="29dp"
+        android:padding="5dp"
+        android:src="@mipmap/ic_main_back"/>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="27dp"
+        android:gravity="center"
+        android:text="输入验证码"
+        android:textColor="@color/text_black40"
+        android:textSize="19sp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:gravity="center"
+        android:text="已发送4位数验证码至"
+        android:textColor="@color/text_black75"
+        android:textSize="13sp"/>
+
+    <TextView
+        android:id="@+id/tv_phone_number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:gravity="center"
+        android:textColor="@color/text_black45"
+        android:textSize="13sp"
+        tools:text="13576102823"/>
+
+
+        <EditText
+            android:id="@+id/et_vcode"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_width="match_parent"
+            android:paddingLeft="18dp"
+            android:paddingRight="18dp"
+            android:layout_height="46dp"
+            android:background="@drawable/bg_phone_login"
+            android:inputType="number"
+            android:hint="输入验证码"
+            android:maxLength="4"
+            android:textColor="@color/text_black33"
+            android:textColorHint="@color/text_hint_bdbdbd"
+            android:textSize="15sp"/>
+
+    <TextView
+        android:id="@+id/tv_login"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:enabled="false"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="18dp"
+        android:background="@drawable/bg_btn_phone_login"
+        android:gravity="center"
+        android:text="注册/登录"
+        android:textColor="@color/white"
+        android:textSize="15sp"/>
+
+    <TextView
+        android:id="@+id/tv_resend"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="13dp"
+        android:gravity="center"
+        android:textColor="@color/text_green_9ace32"
+        android:textSize="13sp"
+        android:text="重新发送"/>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_marginBottom="13dp"
+        android:gravity="center"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="10sp"
+            android:layout_gravity="center_vertical"
+            android:text="登录代表你已同意"/>
+
+        <TextView
+            android:id="@+id/tv_privacy_agreement"
+            android:layout_width="wrap_content"
+            android:textSize="11sp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:textColor="#5b92e1"
+            android:layout_height="wrap_content"
+            android:text="《金玖洲隐私政策》"/>
+
+    </LinearLayout>
+
+</LinearLayout>

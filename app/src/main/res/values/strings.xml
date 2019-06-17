@@ -1,0 +1,54 @@
+<resources>
+    <string name="app_name">Yo宝</string>
+    <string name="exit_str">再按一次返回键退出Yo宝！</string>
+    <string name="loading">加载中，请稍后</string>
+    <string name="save_picture_success">图片成功保存至%s目录 </string>
+
+    <string name="withdraw_deposit_alipay_warm_prompt">1．使用银行卡提现需要您输入正确的身份证号和姓名。\n2．您可以通过提现记录查看明细。\n3．我们承诺不会向任何人透露您的个人隐私信息。\n4．如您在提现中遇到其他问题，请把相关问题反馈给我们。 </string>
+
+    <string name="bind_alipay">1．请填写支付宝中绑定银行卡填写的真实姓名。\n2．为了保证顺利提现，不要特意更改其他账号，否则会导致提现
+不通过\n3．我们承诺不会向任何人透露您的个人隐私信息</string>
+
+    <string name="bind_owner">1．请填写车主真实姓名以保证开通更多会员福利 \n2．为了保证会员车主能顺利的享受保险福利，请填写与车主真实姓名 \n3．我们承诺不会向任何人透露您的个人信息</string>
+
+    <string name="bind_wechat">1．请填写微信中绑定银行卡填写的真实姓名。\n2．为了保证顺利提现，不要特意更改其他账号，否则会导致提现
+不通过\n3．我们承诺不会向任何人透露您的个人隐私信息</string>
+
+    <plurals name="error_over_count">
+        <item quantity="one">最多选择一个文件</item>
+        <item quantity="many">最多只能选择 %1$d 个文件</item>
+    </plurals>
+    <!--FlowLayout-->
+    <string name="gravity_left">left</string>
+    <string name="gravity_center">center</string>
+    <string name="gravity_right">right</string>
+
+    <!--权限-->
+    <string name="permission_title">权限申请</string>
+    <string name="permission_message">存储、电话、定位权限为必选项，全部开通才可以正常使用APP</string>
+    <string name="permission_message_camera">没有相机权限您就不能进行拍照哦，请您前往设置页面打开拍照和读取sd卡的权限！</string>
+    <string name="permission_message_setting">电话权限、存储权限、定位权限为必选项，全部开通才可以正常使用APP,请到设置中开启\n\n设置路径——>Yo宝——>权限</string>
+    <string name="permission_button_setting">去设置</string>
+    <string name="permission_button_application">申请</string>
+    <string name="cancle">取消</string>
+
+    <string name="year">年</string>
+    <string name="month">月</string>
+    <string name="day">日</string>
+    <string name="hour">时</string>
+    <string name="minute">分</string>
+
+    <!--时间选择器-->
+    <color name="date_picker_text_one">#282828</color>
+    <color name="date_picker_text_two">#333333</color>
+
+    <!--zxing-->
+    <string name="msg_camera_framework_bug">相机被占用或没有相机权限，请检查</string>
+    <string name="button_ok">退出</string>
+    <string name="scan_code">扫一扫</string>
+    <string name="open_flash">打开闪光灯</string>
+    <string name="close_flash">关闭闪光灯</string>
+    <string name="gallery">相册</string>
+    <string name="scan_failed_tip">图片解析失败，换个图片试试.</string>
+
+</resources>

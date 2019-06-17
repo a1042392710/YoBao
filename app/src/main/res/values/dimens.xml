@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--状态栏添加values 与values-19适配-->
+    <dimen name="status_bar_height">0dp</dimen>
+    <!-- zxing-->
+    <dimen name="base_toolbar_height">48dp</dimen>
+    <dimen name="zxing_toolbar_height">48dp</dimen>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+</resources>

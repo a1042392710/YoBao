@@ -1,0 +1,251 @@
+package com.jjz.energy.base;
+
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.graphics.Color;
+import android.os.Build;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.Toast;
+
+import com.jjz.energy.R;
+import com.jjz.energy.util.LoadingDialogUtil;
+import com.jjz.energy.util.StatusBarUtils;
+import com.jude.swipbackhelper.SwipeBackHelper;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+
+import butterknife.ButterKnife;
+
+/**
+ * Created by chenhao on 2018/8/28.
+ */
+
+public abstract class BaseActivity<P extends BasePresenter> extends AppCompatActivity implements
+        IBaseView {
+    private static final String TAG = "BaseActivity";
+
+    /**
+     * 通用加载dialog
+     */
+    private LoadingDialogUtil mLoadingDialogUtil;
+    /**
+     * Presenter
+     */
+    protected P mPresenter;
+    /**
+     * 退出app的时间
+     */
+    private long mExitTime;
+    /**
+     * 上下文对象
+     */
+    protected Context mContext;
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        //沉浸状态栏
+        StatusBarUtils.setColorNoTranslucent(this, Color.TRANSPARENT);
+        //右滑返回
+        swipeBackInit();
+        mContext = this;
+        //布局绑定
+        setContentView(layoutId());
+        //注解绑定
+        ButterKnife.bind(this);
+        //获取presenter
+        mPresenter = getPresenter();
+        //初始化进度条
+        mLoadingDialogUtil = new LoadingDialogUtil();
+        //初始化数据
+        initView();
+    }
+
+    /**
+     * 初始化右滑手势返回
+     */
+    private void swipeBackInit() {
+        SwipeBackHelper.onCreate(this);
+        SwipeBackHelper.getCurrentPage(this)//获取当前页面
+                .setSwipeBackEnable(true)//设置是否可滑动
+                .setSwipeEdge(200)//可滑动的范围。px。200表示为左边200px的屏幕
+                .setSwipeEdgePercent(0.1f)//可滑动的范围。百分比。0.2表示为左边20%的屏幕
+                .setSwipeSensitivity(0.5f)//对横向滑动手势的敏感程度。0为迟钝 1为敏感
+                .setScrimColor(Color.WHITE)//底层阴影颜色
+                .setClosePercent(0.8f)//触发关闭Activity百分比
+                .setSwipeRelateEnable(false)//是否与下一级activity联动(微信效果)。默认关
+                .setSwipeRelateOffset(500);//activity联动时的偏移量。默认500px。
+    }
+
+    @Override
+    protected void onPostCreate(@Nullable Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        SwipeBackHelper.onPostCreate(this);
+    }
+
+
+    //======================================== 实用方法
+
+    /**
+     * 收回软键盘
+     */
+    protected  void  disMissSoftKeyboard(){
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(), 0);
+    }
+    /**
+     * 弹起软键盘
+     */
+    public void showSoftInputFromWindow(EditText editText){
+        editText.setFocusable(true);
+        editText.setFocusableInTouchMode(true);
+        editText.requestFocus();
+        InputMethodManager inputManager =
+                (InputMethodManager) editText.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputManager.showSoftInput(editText, 0);
+    }
+
+    /**
+     * 提示
+     */
+    protected Toast mTasot;
+
+    public void showToast(String msg) {
+        if (mTasot == null) {
+            mTasot = Toast.makeText(this, msg, Toast.LENGTH_SHORT);
+        }
+        mTasot.setText(msg);
+        mTasot.setDuration(Toast.LENGTH_SHORT);
+        mTasot.show();
+    }
+
+    //退出app
+    protected void exit() {
+        if ((System.currentTimeMillis() - mExitTime) > 2000) {
+            showToast(getString(R.string.exit_str));
+            mExitTime = System.currentTimeMillis();
+        } else {
+            //用户退出处理
+            finish();
+            System.exit(0);
+        }
+    }
+
+    /**
+     * 开启加载进度条
+     */
+    public void startProgressDialog() {
+        mLoadingDialogUtil.showDialogForLoading(this, true);
+    }
+
+    /**
+     * 停止加载进度条
+     */
+    public void stopProgressDialog() {
+        mLoadingDialogUtil.cancelDialogForLoading();
+    }
+
+
+    /**
+     * 半透明窗体，给Dialog实现背景变暗效果
+     */
+    public View mDialogView = null;
+
+    /**
+     * window背景是否变暗
+     *
+     * @param isDark
+     */
+    public void setDarkWindow(boolean isDark) {
+
+        if (mDialogView == null) {
+            mDialogView = new View(this);
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams
+                    (LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+            mDialogView.setLayoutParams(layoutParams);
+            mDialogView.setVisibility(View.VISIBLE);
+            mDialogView.setBackgroundColor(getResources().getColor(R.color.black));
+            mDialogView.setAlpha(0.6f);
+            FrameLayout rootView = getWindow().getDecorView().findViewById(android.R.id.content);
+            rootView.addView(mDialogView);
+        }
+        //添加一个半透明的view 通过显示隐藏的方式来产生背景变暗效果
+        if (isDark) {
+            mDialogView.setVisibility(View.VISIBLE);
+        } else {
+            mDialogView.setVisibility(View.GONE);
+        }
+    }
+
+    /**
+     * 关闭刷新
+     */
+    protected void closeRefresh(SmartRefreshLayout view) {
+        view.finishRefresh(300);
+        view.finishLoadMore(300);
+    }
+
+
+    // ====================================== 生命周期和子类实现
+
+
+    @Override
+    protected void onResume() {
+        /**
+         * 设置为横屏
+         */
+        if (Build.VERSION.SDK_INT != 26) {
+            // 设置横竖屏
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        }
+        super.onResume();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ButterKnife.bind(this).unbind();
+        SwipeBackHelper.onDestroy(this);
+        disMissSoftKeyboard();
+//        FixInputMethodMemory.fixFocusedViewLeak(this, null);
+        //取消 view 的绑定
+        if (mPresenter != null) {
+            mPresenter.onDestroy();
+        }
+        //关闭页面时关闭弹窗
+        mLoadingDialogUtil.cancelDialogForLoading();
+    }
+
+    //获得presenter
+    protected abstract P getPresenter();
+
+    protected abstract int layoutId();
+
+    protected abstract void initView();
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+}
