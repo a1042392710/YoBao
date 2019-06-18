@@ -69,6 +69,19 @@
         <item name="android:windowExitAnimation">@anim/pop_center_hidden_anim</item>
         <!-- 指定消失的动画xml -->
     </style>
+    <!--首页的radiobuttom-->
+    <style name="radio_button_style">
+        <!-- Customize your theme here. -->
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">0dp</item>
+        <!--<item name="android:layout_gravity">center_vertical</item>-->
+        <item name="android:textSize">10sp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:button">@null</item>
+        <item name="android:drawablePadding">4dp</item>
+        <item name="android:textColor">@drawable/rb_text_drawable_selector</item>
+        <item name="android:layout_weight">1</item>
+    </style>
 
     <!--时间选择器-->
     <style name="time_dialog" parent="android:style/Theme.Dialog">

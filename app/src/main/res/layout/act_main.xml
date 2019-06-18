@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:app="http://schemas.android.com/apk/res-auto"
-              android:orientation="vertical"
               android:layout_width="match_parent"
+              android:orientation="vertical"
               android:layout_height="match_parent">
 
     <com.jjz.energy.util.NoScrollViewPager
@@ -10,13 +10,57 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"/>
-
-    <android.support.design.widget.BottomNavigationView
-        android:id="@+id/bottom_toolbar"
+    <View
         android:layout_width="match_parent"
-        android:background="@color/white"
-        app:itemIconTint="@drawable/select_bottom_color"
-        app:itemTextColor="@drawable/select_bottom_color"
-        android:layout_height="55dp"
-        app:menu="@menu/bottom_navigation_tab"/>
+        android:layout_height="0.5dp"
+        android:background="@color/color_primary_f5"/>
+        <RadioGroup
+            android:id="@+id/rg_bottom"
+            android:paddingBottom="3dp"
+            android:clipChildren="false"
+            android:layout_width="match_parent"
+            android:background="@color/white"
+            android:gravity="bottom"
+            android:layout_height="50dp"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/rb_home"
+                android:checked="true"
+                android:text="首页"
+                android:drawableTop="@drawable/checked_rb_home"
+                style="@style/radio_button_style"/>
+
+            <RadioButton
+                android:id="@+id/rb_cimmundity"
+                android:text="社区"
+                android:drawableTop="@drawable/checked_rb_community"
+                style="@style/radio_button_style"/>
+
+            <ImageView
+                android:id="@+id/img_home_go"
+                android:layout_width="33dp"
+                android:layout_height="33dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_gravity="center_vertical"
+                android:src="@mipmap/ic_home_go" />
+
+            <RadioButton
+                android:id="@+id/rb_notice"
+                android:text="消息"
+                android:drawableTop="@drawable/checked_rb_notice"
+                style="@style/radio_button_style"/>
+
+            <RadioButton
+                android:id="@+id/rb_mine"
+                android:text="我的"
+                android:drawableTop="@drawable/checked_rb_mine"
+                style="@style/radio_button_style"/>
+        </RadioGroup>
+
+
+
+
+
 </LinearLayout>

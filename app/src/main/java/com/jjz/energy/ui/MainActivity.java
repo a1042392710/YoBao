@@ -1,11 +1,13 @@
 package com.jjz.energy.ui;
 
 import android.content.pm.ActivityInfo;
-import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.view.KeyEvent;
+import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import com.jjz.energy.R;
 import com.jjz.energy.base.BaseActivity;
@@ -20,16 +22,27 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * @Features: 主页面
  * @author: create by chenhao on 2019/3/21
  */
-public class MainActivity extends BaseActivity  {
+public class MainActivity extends BaseActivity {
     @BindView(R.id.vp_main)
     NoScrollViewPager vpMain;
-    @BindView(R.id.bottom_toolbar)
-    BottomNavigationView bottomNavigationView;
+    @BindView(R.id.rb_home)
+    RadioButton rbHome;
+    @BindView(R.id.rb_cimmundity)
+    RadioButton rbCimmundity;
+    @BindView(R.id.img_home_go)
+    ImageView imgHomeGo;
+    @BindView(R.id.rb_notice)
+    RadioButton rbNotice;
+    @BindView(R.id.rb_mine)
+    RadioButton rbMine;
+    @BindView(R.id.rg_bottom)
+    RadioGroup rgBottom;
 
     @Override
     protected BasePresenter getPresenter() {
@@ -47,38 +60,18 @@ public class MainActivity extends BaseActivity  {
         SwipeBackHelper.getCurrentPage(this).setSwipeBackEnable(false);//设置是否可滑动
         //设置竖屏
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
-            int itemId = item.getItemId();
-            switch (itemId){
-                case R.id.tab_one:
-                    vpMain.setCurrentItem(0);
-                    item.setChecked(true);
-                    break;
-                case R.id.tab_two:
-                    vpMain.setCurrentItem(1);
-                    item.setChecked(true);
-                    break;
-                case R.id.tab_three:
-                    //未登录
-//                    if (!UserLoginBiz.getInstance(mContext).detectUserLoginStatus()){
-//                        startActivity(new Intent(mContext, PhoneLoginActivity.class));
-//                    }else{
-                        vpMain.setCurrentItem(2);
-                        item.setChecked(true);
-//                    }
-                    break;
-                case R.id.tab_four:
-                    vpMain.setCurrentItem(3);
-                    item.setChecked(true);
-                    break;
-                case R.id.tab_five:
-                    vpMain.setCurrentItem(4);
-                    item.setChecked(true);
-                    break;
+
+        rgBottom.setOnCheckedChangeListener((group, checkedId) -> {
+            if (checkedId==R.id.rb_home){
+                vpMain.setCurrentItem(0);
+            }else if (checkedId==R.id.rb_cimmundity){
+                vpMain.setCurrentItem(1);
+            }else if (checkedId==R.id.rb_notice){
+                vpMain.setCurrentItem(3);
+            }else if (checkedId==R.id.rb_mine){
+                vpMain.setCurrentItem(4);
             }
-            return false;
         });
-        bottomNavigationView.setSelectedItemId(R.id.tab_one);
         vpMain.setOffscreenPageLimit(3);
         vpMain.setAdapter(new ViewPagerAdapter(getSupportFragmentManager()));
     }
@@ -93,24 +86,30 @@ public class MainActivity extends BaseActivity  {
     }
 
 
-
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void setCurrentItem(MainEvent event) {
-        if (event.getEventMsg()== MainEvent.GO_MINE){
-            bottomNavigationView.setSelectedItemId(R.id.tab_three);
-        }else if (event.getEventMsg()== MainEvent.GO_HOT){
-            bottomNavigationView.setSelectedItemId(R.id.tab_two);
-        }else{
-            bottomNavigationView.setSelectedItemId(R.id.tab_one);
-        }
+//        if (event.getEventMsg() == MainEvent.GO_MINE) {
+//        } else if (event.getEventMsg() == MainEvent.GO_HOT) {
+//            bottomNavigationView.setSelectedItemId(R.id.tab_two);
+//        } else {
+//            bottomNavigationView.setSelectedItemId(R.id.tab_one);
+//        }
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if(EventBus.getDefault().isRegistered(this)) {
+        if (EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().unregister(this);
         }
+    }
+
+
+
+    @OnClick(R.id.img_home_go)
+    public void onViewClicked() {
+        //发布
+        showToast("发布");
     }
 
     class ViewPagerAdapter extends FragmentPagerAdapter {
@@ -122,14 +121,15 @@ public class MainActivity extends BaseActivity  {
         }
 
         @Override
-        public Fragment getItem(int position){ return mFragments[position];}
+        public Fragment getItem(int position) { return mFragments[position];}
 
         @Override
         public int getCount() { return 3;}
     }
 
     @Override
-    public void showLoading( ) {}
+    public void showLoading() {}
+
     @Override
     public void stopLoading() {}
 }
