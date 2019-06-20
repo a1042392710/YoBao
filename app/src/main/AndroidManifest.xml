@@ -77,10 +77,16 @@
             android:theme="@style/MainTheme"
             android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
 
+        <!--搜索页-->
+        <activity
+            android:name=".ui.home.SearchActivity"
+            android:configChanges="orientation|screenSize"/>
+
         <!--登录-->
         <activity
             android:name="com.jjz.energy.ui.login.PhoneLoginActivity"
             android:configChanges="orientation|screenSize"/>
+
         <!--获取验证码-->
         <activity android:name="com.jjz.energy.ui.login.GetVCodeActivity"
                   android:configChanges="orientation|screenSize"/>

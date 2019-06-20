@@ -1,5 +1,6 @@
 package com.jjz.energy.ui.home;
 
+import android.content.Intent;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v7.widget.CardView;
@@ -153,6 +154,7 @@ public class HomeFragment extends BaseFragment {
                 break;
                 //搜索
             case R.id.card_search:
+                startActivity(new Intent(mContext,SearchActivity.class));
                 break;
                 //通知
             case R.id.img_notice:

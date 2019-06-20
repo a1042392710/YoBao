@@ -17,6 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="19dp"
+        android:paddingBottom="7dp"
         android:gravity="center_vertical"
         android:layout_marginRight="19dp"
         android:orientation="horizontal">
@@ -38,12 +39,12 @@
             android:id="@+id/card_search"
             android:layout_width="0dp"
             app:cardBackgroundColor="#f8f8f8"
-            android:elevation="0dp"
+            app:cardElevation="0dp"
             android:layout_marginLeft="19dp"
             app:cardCornerRadius="5dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:layout_height="30dp">
+            android:layout_height="27dp">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -111,7 +112,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="13dp"
-                        android:layout_marginTop="12dp"
+                        android:layout_marginTop="7dp"
                         android:layout_marginRight="13dp"
                         app:cardCornerRadius="6dp">
 
