@@ -56,6 +56,16 @@ public class HomeFragment extends BaseFragment {
     ImageView imgNotice;
     @BindView(R.id.collapsing_toolbar)
     CollapsingToolbarLayout collapsingToolbar;
+    @BindView(R.id.ll_logistics)
+    LinearLayout llLogistics;
+    @BindView(R.id.ll_insurance)
+    LinearLayout llInsurance;
+    @BindView(R.id.ll_old)
+    LinearLayout llOld;
+    @BindView(R.id.ll_charitable)
+    LinearLayout llCharitable;
+    @BindView(R.id.ll_education)
+    LinearLayout llEducation;
 
     @Override
     protected BasePresenter getPresenter() {
@@ -146,19 +156,36 @@ public class HomeFragment extends BaseFragment {
     }
 
 
-    @OnClick({R.id.tv_city, R.id.card_search, R.id.img_notice})
+    @OnClick({R.id.tv_city, R.id.card_search, R.id.img_notice,R.id.ll_logistics, R.id.ll_insurance, R.id.ll_old, R.id.ll_charitable,
+            R.id.ll_education})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             //切换城市
             case R.id.tv_city:
                 break;
-                //搜索
+            //搜索
             case R.id.card_search:
-                startActivity(new Intent(mContext,SearchActivity.class));
+                startActivity(new Intent(mContext, SearchActivity.class));
                 break;
-                //通知
+            //通知
             case R.id.img_notice:
+                break;
+                //物流
+            case R.id.ll_logistics:
+                break;
+                //保险
+            case R.id.ll_insurance:
+                break;
+                //养老
+            case R.id.ll_old:
+                break;
+                //公益
+            case R.id.ll_charitable:
+                break;
+                //教育
+            case R.id.ll_education:
                 break;
         }
     }
+
 }

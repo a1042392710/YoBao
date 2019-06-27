@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="horizontal"
+              android:layout_width="match_parent"
+              android:layout_marginTop="20dp"
+              android:paddingLeft="5dp"
+              android:paddingRight="5dp"
+              android:layout_height="wrap_content">
+
+
+    <LinearLayout
+        android:id="@+id/ll_logistics"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:src="@mipmap/ic_menu_logistics"
+            android:layout_width="45dp"
+            android:layout_height="45dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="物流专区"
+            android:textColor="@color/text_black33"
+            android:layout_marginTop="6dp"
+            android:textSize="11sp"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_insurance"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:src="@mipmap/ic_menu_insurance"
+            android:layout_width="45dp"
+            android:layout_height="45dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="保险专区"
+            android:textColor="@color/text_black33"
+            android:layout_marginTop="6dp"
+            android:textSize="11sp"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_old"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:src="@mipmap/ic_menu_old"
+            android:layout_width="45dp"
+            android:layout_height="45dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="养老专区"
+            android:textColor="@color/text_black33"
+            android:layout_marginTop="6dp"
+            android:textSize="11sp"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_charitable"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:src="@mipmap/ic_menu_charitable"
+            android:layout_width="45dp"
+            android:layout_height="45dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="公益专区"
+            android:textColor="@color/text_black33"
+            android:layout_marginTop="6dp"
+            android:textSize="11sp"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_education"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:src="@mipmap/ic_menu_education"
+            android:layout_width="45dp"
+            android:layout_height="45dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="教育专区"
+            android:textColor="@color/text_black33"
+            android:layout_marginTop="6dp"
+            android:textSize="11sp"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+</LinearLayout>
