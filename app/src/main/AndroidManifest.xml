@@ -19,7 +19,6 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <!--读取设备硬件信息，统计数据-->
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <!--读取系统信息，包含系统版本等信息，用作统计-->
     <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
 
     <uses-permission android:name="android.permission.WRITE_SETTINGS"
@@ -34,8 +33,6 @@
     <!--打电话-->
     <uses-permission android:name="android.permission.CALL_PHONE" />
 
-
-    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.FLASHLIGHT" />
     <!--zxing-->
     <uses-feature android:name="android.hardware.camera" />
@@ -89,6 +86,37 @@
 
         <!--获取验证码-->
         <activity android:name="com.jjz.energy.ui.login.GetVCodeActivity"
+                  android:configChanges="orientation|screenSize"/>
+
+        <!--发布物流-->
+        <activity android:name="com.jjz.energy.ui.logistics.ReleaseLogisticsActivity"
+                  android:configChanges="orientation|screenSize"/>
+        <!--物流中心-->
+        <activity android:name="com.jjz.energy.ui.logistics.LogisticsActivity"
+                  android:configChanges="orientation|screenSize"/>
+        <!--物流详情-->
+        <activity android:name="com.jjz.energy.ui.logistics.LogisticsDetailActivity"
+                  android:configChanges="orientation|screenSize"/>
+
+        <!--公益慈善首页-->
+        <activity android:name="com.jjz.energy.ui.charitable.CharitableActivity"
+                  android:configChanges="orientation|screenSize"/>
+
+        <!--公益慈善详情-->
+        <activity android:name="com.jjz.energy.ui.charitable.CharitableDetailActivity"
+                  android:configChanges="orientation|screenSize"/>
+
+        <!--保险-->
+        <activity android:name="com.jjz.energy.ui.insurance.InsuranceActivity"
+                  android:configChanges="orientation|screenSize"/>
+        <!--保险列表-->
+        <activity android:name="com.jjz.energy.ui.insurance.InsuranceDetailActivity"
+                  android:configChanges="orientation|screenSize"/>
+        <!--养老-->
+        <activity android:name="com.jjz.energy.ui.pension.PensionActivity"
+                  android:configChanges="orientation|screenSize"/>
+        <!--教育-->
+        <activity android:name="com.jjz.energy.ui.education.EducationActivity"
                   android:configChanges="orientation|screenSize"/>
 
         <!--zxing-->

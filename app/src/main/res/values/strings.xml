@@ -13,16 +13,6 @@
     <string name="permission_message">存储、电话、定位权限为必选项，全部开通才可以正常使用APP</string>
     <string name="permission_button_application">申请</string>
 
-    <string name="year">年</string>
-    <string name="month">月</string>
-    <string name="day">日</string>
-    <string name="hour">时</string>
-    <string name="minute">分</string>
-
-    <!--时间选择器-->
-    <color name="date_picker_text_one">#282828</color>
-    <color name="date_picker_text_two">#333333</color>
-
     <!--zxing-->
     <string name="msg_camera_framework_bug">相机被占用或没有相机权限，请检查</string>
     <string name="button_ok">退出</string>

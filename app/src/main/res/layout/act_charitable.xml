@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/white"
+              android:orientation="vertical">
+
+    <!--顶部通知栏-->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/status_bar_height"
+        android:background="@color/white"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:paddingTop="12dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="8dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:id="@+id/img_back"
+            android:paddingTop="5dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="5dp"
+            android:src="@mipmap/ic_main_back"/>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="0dp"
+            android:layout_height="27dp"
+            android:layout_marginStart="19dp"
+            android:layout_marginEnd="59dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            app:cardBackgroundColor="#f8f8f8"
+            app:cardCornerRadius="5dp"
+            app:cardElevation="0dp">
+
+            <EditText
+                android:id="@+id/et_search"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="5dp"
+                android:background="#f8f8f8"
+                android:drawableLeft="@mipmap/ic_search"
+                android:drawablePadding="5dp"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:hint="项目名称"
+                android:textColor="#acacac"
+                android:textSize="13sp"/>
+        </android.support.v7.widget.CardView>
+
+    </LinearLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/img_banner"
+                android:layout_width="match_parent"
+                android:layout_height="181dp"
+                android:layout_margin="18dp"
+                android:src="@color/color_primary_f5"/>
+
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="27dp"
+                android:layout_marginStart="18dp"
+                android:layout_marginEnd="18dp"
+                android:gravity="center"
+                app:cardBackgroundColor="#f5f5f9"
+                app:cardCornerRadius="14dp"
+                app:cardElevation="0dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingLeft="15dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/ic_orange_notice"/>
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="7dp"
+                        android:layout_marginTop="6dp"
+                        android:layout_marginRight="7dp"
+                        android:layout_marginBottom="6dp"
+                        android:background="#e7e7e7"/>
+
+
+                    <ImageView
+                        android:id="@+id/img_notice_head"
+                        android:layout_width="14dp"
+                        android:layout_height="14dp"
+                        android:src="@color/color_primary_f5"/>
+
+                    <TextView
+                        android:id="@+id/tv_notice_content"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:ellipsize="end"
+                        android:maxEms="18"
+                        android:maxLines="1"
+                        android:text="陈先生捐赠1000.00元给贫困孤儿协会"
+                        android:textColor="@color/text_black33"
+                        android:textSize="11sp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="20dp"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:text="2分钟前"
+                        android:textColor="#a4a4a4"
+                        android:textSize="11sp"/>
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="18dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginBottom="18dp"
+                android:text="公益项目"
+                android:textColor="@color/text_black33"
+                android:textSize="18sp"/>
+
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_charitable"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="15dp"
+                android:paddingTop="5dp"/>
+
+
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+</LinearLayout>

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_marginTop="20dp"
+                android:layout_height="wrap_content"
+                xmlns:app="http://schemas.android.com/apk/res-auto">
+    
+    
+    <ImageView
+        android:id="@+id/item_img_photo"
+        android:layout_width="122dp"
+        android:layout_height="84dp"/>
+
+<TextView
+    android:id="@+id/item_tv_title"
+    android:layout_width="match_parent"
+    android:layout_toRightOf="@id/item_img_photo"
+    android:layout_marginLeft="16dp"
+    android:layout_marginTop="4dp"
+    android:textSize="15sp"
+    android:maxLines="1"
+    android:ellipsize="end"
+    android:textColor="@color/text_black33"
+    android:text="希望小学"
+    android:layout_height="wrap_content"/>
+
+    <LinearLayout
+        android:id="@+id/ll_teacher"
+        android:layout_below="@id/item_tv_title"
+        android:layout_alignLeft="@id/item_tv_title"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:textSize="12sp"
+            android:textColor="#b3b3b3"
+            android:text="师资:"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/item_tv_teacher_num"
+            android:layout_width="wrap_content"
+            android:text="102"
+            android:textSize="12sp"
+            android:textColor="#65cb99"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:textSize="12sp"
+            android:textColor="#b3b3b3"
+            android:text="人"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/item_tv_content"
+        android:layout_below="@id/ll_teacher"
+        android:layout_marginTop="1dp"
+        android:layout_width="match_parent"
+        android:layout_alignLeft="@id/item_tv_title"
+        android:textSize="12sp"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:textColor="@color/text_a4"
+        android:text="教学特点:1对1上课,量身定制课程"
+        android:layout_height="wrap_content"/>
+
+
+
+    <LinearLayout
+        android:layout_marginTop="5dp"
+        android:layout_alignLeft="@id/item_tv_content"
+        android:layout_below="@id/item_tv_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+        <RatingBar
+            android:id="@+id/ratingbar"
+            android:rating="4"
+            android:layout_width="wrap_content"
+            style="@style/Widget.AppCompat.RatingBar.Small"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/item_tv_location"
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:textColor="#b3b3b3"
+            android:text="1.85km"
+            android:textSize="11sp"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+</RelativeLayout>

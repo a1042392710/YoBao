@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:gravity="center"
+              android:paddingTop="5dp"
+              android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/item_img_insurance_type"
+        android:layout_width="wrap_content"
+        android:src="@mipmap/ic_test_car"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:id="@+id/item_tv_insurance_type"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="11dp"
+        android:text="车险"
+        android:textColor="@color/text_black33"
+        android:textSize="14sp"
+        android:layout_height="wrap_content"/>
+
+
+</LinearLayout>

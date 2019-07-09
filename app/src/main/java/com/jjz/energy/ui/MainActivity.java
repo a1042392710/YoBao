@@ -1,5 +1,6 @@
 package com.jjz.energy.ui;
 
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -14,6 +15,7 @@ import com.jjz.energy.base.BaseActivity;
 import com.jjz.energy.base.BasePresenter;
 import com.jjz.energy.entry.MainEvent;
 import com.jjz.energy.ui.home.HomeFragment;
+import com.jjz.energy.ui.logistics.ReleaseLogisticsActivity;
 import com.jjz.energy.util.NoScrollViewPager;
 import com.jude.swipbackhelper.SwipeBackHelper;
 
@@ -108,8 +110,8 @@ public class MainActivity extends BaseActivity {
 
     @OnClick(R.id.img_home_go)
     public void onViewClicked() {
-        //发布
-        showToast("发布");
+        //发布物流
+       startActivity(new Intent(mContext, ReleaseLogisticsActivity.class));
     }
 
     class ViewPagerAdapter extends FragmentPagerAdapter {

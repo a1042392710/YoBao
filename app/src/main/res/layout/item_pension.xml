@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_marginTop="20dp"
+                android:layout_height="wrap_content"
+                xmlns:app="http://schemas.android.com/apk/res-auto">
+    
+    
+    <ImageView
+        android:id="@+id/item_img_photo"
+        android:layout_width="122dp"
+        android:layout_height="84dp"/>
+
+<TextView
+    android:id="@+id/item_tv_title"
+    android:layout_width="match_parent"
+    android:layout_toRightOf="@id/item_img_photo"
+    android:layout_marginLeft="16dp"
+    android:layout_marginTop="4dp"
+    android:textSize="15sp"
+    android:maxLines="1"
+    android:ellipsize="end"
+    android:textColor="@color/text_black33"
+    android:text="如何愉快的拥有好心情"
+    android:layout_height="wrap_content"/>
+
+
+    <TextView
+        android:id="@+id/item_tv_content"
+        android:layout_below="@id/item_tv_title"
+        android:layout_marginTop="19dp"
+        android:layout_width="match_parent"
+        android:layout_toRightOf="@id/item_img_photo"
+        android:layout_marginLeft="16dp"
+        android:textSize="14sp"
+        android:maxLines="2"
+        android:ellipsize="end"
+        android:textColor="@color/text_a4"
+        android:text="升级！市面最低价，保额翻倍可达100w意外0免赔，100%报销"
+        android:layout_height="wrap_content"/>
+
+</RelativeLayout>

@@ -15,6 +15,11 @@ import com.jjz.energy.R;
 import com.jjz.energy.adapter.HomeCommodityTypeAdapter;
 import com.jjz.energy.base.BaseFragment;
 import com.jjz.energy.base.BasePresenter;
+import com.jjz.energy.ui.charitable.CharitableActivity;
+import com.jjz.energy.ui.education.EducationActivity;
+import com.jjz.energy.ui.insurance.InsuranceActivity;
+import com.jjz.energy.ui.logistics.LogisticsActivity;
+import com.jjz.energy.ui.pension.PensionActivity;
 import com.jjz.energy.util.glide.GlideImageLoader;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
@@ -170,20 +175,25 @@ public class HomeFragment extends BaseFragment {
             //通知
             case R.id.img_notice:
                 break;
-                //物流
+                //物
             case R.id.ll_logistics:
+                startActivity(new Intent(mContext, LogisticsActivity.class));
                 break;
                 //保险
             case R.id.ll_insurance:
+                startActivity(new Intent(mContext, InsuranceActivity.class));
                 break;
                 //养老
             case R.id.ll_old:
+                startActivity(new Intent(mContext, PensionActivity.class));
                 break;
                 //公益
             case R.id.ll_charitable:
+                startActivity(new Intent(mContext, CharitableActivity.class));
                 break;
                 //教育
             case R.id.ll_education:
+                startActivity(new Intent(mContext, EducationActivity.class));
                 break;
         }
     }
