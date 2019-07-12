@@ -8,7 +8,6 @@ import android.widget.ImageView;
 
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jjz.energy.R;
-import com.jjz.energy.adapter.CharitableAdapter;
 import com.jjz.energy.base.BaseActivity;
 import com.jjz.energy.base.BasePresenter;
 import com.jjz.energy.base.BaseRecycleNewAdapter;
@@ -106,6 +105,7 @@ public class EducationActivity extends BaseActivity {
      * @author: create by chenhao on 2019/6/18
      */
     public class EducationAdapter extends BaseRecycleNewAdapter<String> {
+
         public EducationAdapter(int layoutResId, @Nullable List<String> data) {
             super(layoutResId, data);
         }
