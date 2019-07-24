@@ -61,6 +61,7 @@ public class EducationActivity extends BaseActivity {
      * 初始化商品分类列表
      */
     private void initRv() {
+        //圆角
         GlideUtils.loadRoundCircleImage(mContext, "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1562647756133&di=0f48dc26b04bc3594ec3506917c9cc77&imgtype=0&src=http%3A%2F%2Fpic2.ooopic.com%2F12%2F45%2F61%2F60bOOOPIC5e.jpg", imgBanner);
 
         rvEducation.setLayoutManager(new LinearLayoutManager(mContext) {
@@ -69,9 +70,6 @@ public class EducationActivity extends BaseActivity {
                 return false;
             }
         });
-//        取消嵌套rv 的焦点获取，使其不自动滚动到底部
-//        rvType.setFocusableInTouchMode(false);
-//        rvType.requestFocus();
         List<String> list = new ArrayList<>();
         list.add("");
         list.add("");
@@ -79,9 +77,7 @@ public class EducationActivity extends BaseActivity {
         list.add("");
         list.add("");
         list.add("");
-        EducationAdapter mCharitableAdapter =
-                new EducationAdapter(R.layout.item_education, list);
-        rvEducation.setAdapter(mCharitableAdapter);
+        rvEducation.setAdapter(new EducationAdapter(R.layout.item_education, list));
     }
 
     @Override

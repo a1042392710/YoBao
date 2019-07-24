@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#f92769</color>
-    <color name="colorAccent">#f92769</color>
+    <color name="colorPrimary">#ffffff</color>
+    <color name="colorAccent">#fe8977</color>
     <color name="baseBackGround">#f5fbf5</color>
     <color name="black">#000000</color>
     <color name="white">#ffffff</color>
@@ -17,7 +17,6 @@
     <color name="text_black40">#404040</color>
     <color name="text_black45">#454545</color>
     <color name="text_black75">#757575</color>
-    <color name="text_green_9ace32">#9ace32</color>
     <color name="text_hint_bdbdbd">#bdbdbd</color>
 
 
@@ -28,5 +27,6 @@
     <color name="react">#9ace32</color>
     <color name="scanLineColor">#9ace32</color>
     <color name="text_a4">#a4a4a4</color>
+    <color name="color_bg_f7">#f7f7f7</color>
 
 </resources>

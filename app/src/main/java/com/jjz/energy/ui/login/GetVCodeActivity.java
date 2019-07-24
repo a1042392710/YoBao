@@ -184,7 +184,7 @@ public class GetVCodeActivity extends BaseActivity<GetCodePresenter> implements 
         //先构造SpannableString
         SpannableString spanString = new SpannableString(toast);
         //再构造一个改变字体颜色的Span
-        ForegroundColorSpan span = new ForegroundColorSpan(getResources().getColor(R.color.text_green_9ace32));
+        ForegroundColorSpan span = new ForegroundColorSpan(getResources().getColor(R.color.red_fe8977));
         //将这个Span应用于指定范围的字体
         spanString.setSpan(span, toast.indexOf("？")+1, toast.indexOf("s")+1, Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
         //设置给EditText显示出来
@@ -233,7 +233,7 @@ public class GetVCodeActivity extends BaseActivity<GetCodePresenter> implements 
                     //倒计时完毕置为可点击状态
                     tvResend.setEnabled(true);
                     tvResend.setTextColor(getResources().getColor(R.color
-                            .text_green_9ace32));
+                            .red_fe8977));
                     tvResend.setText("重新发送");
                 })
                 .subscribe();

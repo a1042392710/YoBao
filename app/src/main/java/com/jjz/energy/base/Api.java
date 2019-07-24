@@ -1,5 +1,6 @@
 package com.jjz.energy.base;
 
+import com.jjz.energy.entry.BindOwnerInfoBean;
 import com.jjz.energy.entry.LoginBean;
 import com.jjz.energy.util.networkUtil.ResponseData;
 
@@ -31,10 +32,23 @@ public interface Api {
     @FormUrlEncoded
     @POST("user/smsLogin")
     Flowable<ResponseData<LoginBean>> login(@Field(PACK_NO) String pack_no);
+
     //密码登录
     @FormUrlEncoded
     @POST("user/pwdLogin ")
     Flowable<ResponseData<LoginBean>> pwdLogin(@Field(PACK_NO) String pack_no);
+
+    //提交车主信息
+    @FormUrlEncoded
+    @POST("user/setUserinfo")
+    Flowable<ResponseData<String>> putBindOwnerInfo(@Field(PACK_NO) String pack_no);
+
+    //获取车主信息
+    @FormUrlEncoded
+    @POST("user/getUserinfo")
+    Flowable<ResponseData<BindOwnerInfoBean>> getBindOwnernfo(@Field(PACK_NO) String pack_no);
+
+
     /**
      * 下载文件
      */

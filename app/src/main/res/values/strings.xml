@@ -22,4 +22,11 @@
     <string name="gallery">相册</string>
     <string name="scan_failed_tip">图片解析失败，换个图片试试.</string>
 
+    <string name="bind_alipay">1．请填写支付宝中绑定银行卡填写的真实姓名。\n2．为了保证顺利收款，不要特意更改其他账号，否则会导致收款不到账
+\n3．我们承诺不会向任何人透露您的个人隐私信息</string>
+
+    <string name="bind_owner">1．请填写车主真实姓名以保证开通更多会员福利 \n2．为了保证会员车主能顺利的享受保险福利，请填写与车主真实姓名 \n3．我们承诺不会向任何人透露您的个人信息</string>
+
+    <string name="bind_wechat">1．请填写微信中绑定银行卡填写的真实姓名。\n2．为了保证顺利收款，不要特意更改其他账号，否则会导致收款不到账\n3．我们承诺不会向任何人透露您的个人隐私信息</string>
+
 </resources>

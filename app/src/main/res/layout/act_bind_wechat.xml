@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:focusable="true"
+              android:focusableInTouchMode="true"
+              android:background="@color/color_bg_f7"
+              android:layout_height="match_parent">
+
+    <include layout="@layout/view_tool_bar"/>
+
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="43dp"
+        android:orientation="horizontal"
+        android:paddingLeft="18dp"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:paddingRight="18dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="真实姓名"
+            android:textColor="#262628"
+            android:textSize="13sp"
+            android:layout_height="wrap_content"/>
+
+        <EditText
+            android:id="@+id/et_name"
+            android:layout_width="match_parent"
+            android:background="@color/white"
+            android:textSize="13sp"
+            android:layout_marginLeft="30dp"
+            android:hint="请输入真实姓名"
+            android:textColor="#666666"
+            android:layout_height="match_parent"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="1dp"
+        android:layout_width="match_parent"
+        android:layout_height="43dp"
+        android:orientation="horizontal"
+        android:paddingLeft="18dp"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:paddingRight="18dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="手机号码"
+            android:textColor="#262628"
+            android:textSize="13sp"
+            android:layout_height="wrap_content"/>
+
+        <EditText
+            android:id="@+id/et_phone"
+            android:layout_width="match_parent"
+            android:background="@color/white"
+            android:textSize="13sp"
+            android:layout_marginLeft="30dp"
+            android:inputType="number"
+            android:hint="请输入手机号码"
+            android:textColor="#666666"
+            android:layout_height="match_parent"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="1dp"
+        android:layout_width="match_parent"
+        android:layout_height="43dp"
+        android:orientation="horizontal"
+        android:paddingLeft="18dp"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:paddingRight="18dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="微信授权"
+            android:textColor="#262628"
+            android:textSize="13sp"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/tv_wechat_nickname"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:textSize="13sp"
+            tools:text="南昌彭于晏"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="30dp"
+            android:textColor="#666666"
+            android:layout_height="match_parent"/>
+
+
+        <TextView
+            android:id="@+id/tv_is_bind_wechat"
+            android:paddingRight="10dp"
+            android:paddingLeft="10dp"
+            android:layout_width="wrap_content"
+            android:hint="未授权"
+            android:textColor="@color/text_black33"
+            android:gravity="end|center"
+            android:textSize="12sp"
+            android:layout_height="match_parent"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:src="@mipmap/ic_gray_right_more"
+            android:layout_height="wrap_content"/>
+        
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_bind_toast"
+        android:layout_width="match_parent"
+        android:text="为保证顺利收款，请您先授权微信"
+        android:textSize="12sp"
+        android:layout_marginLeft="18dp"
+        android:layout_marginTop="13dp"
+        android:textColor="@color/red_fe8977"
+        android:layout_height="wrap_content"/>
+
+
+    <TextView
+        android:id="@+id/tv_bind"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:textColor="@color/white"
+        android:text="安全绑定"
+        android:layout_marginLeft="18dp"
+        android:layout_marginRight="18dp"
+        android:layout_marginTop="78dp"
+        android:gravity="center"
+        android:background="@drawable/bg_btn_orange"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:text="温馨提示"
+        android:layout_marginLeft="18dp"
+        android:layout_marginTop="60dp"
+        android:textColor="#262628"
+        android:textSize="13sp"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/tv_bind_warm_prompt"
+        android:layout_marginLeft="18dp"
+        android:layout_marginRight="18dp"
+        android:lineSpacingExtra="13dp"
+        android:layout_marginTop="20dp"
+        android:textSize="12sp"
+        android:text="@string/bind_wechat"
+        android:textColor="@color/text_blackA6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+</LinearLayout>

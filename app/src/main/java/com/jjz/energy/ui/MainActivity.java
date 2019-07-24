@@ -16,6 +16,8 @@ import com.jjz.energy.base.BasePresenter;
 import com.jjz.energy.entry.MainEvent;
 import com.jjz.energy.ui.home.HomeFragment;
 import com.jjz.energy.ui.logistics.ReleaseLogisticsActivity;
+import com.jjz.energy.ui.mine.MineFragment;
+import com.jjz.energy.ui.notice.NoticeFragment;
 import com.jjz.energy.util.NoScrollViewPager;
 import com.jude.swipbackhelper.SwipeBackHelper;
 
@@ -69,12 +71,12 @@ public class MainActivity extends BaseActivity {
             }else if (checkedId==R.id.rb_cimmundity){
                 vpMain.setCurrentItem(1);
             }else if (checkedId==R.id.rb_notice){
-                vpMain.setCurrentItem(3);
+                vpMain.setCurrentItem(2);
             }else if (checkedId==R.id.rb_mine){
-                vpMain.setCurrentItem(4);
+                vpMain.setCurrentItem(3);
             }
         });
-        vpMain.setOffscreenPageLimit(3);
+//        vpMain.setOffscreenPageLimit(3);
         vpMain.setAdapter(new ViewPagerAdapter(getSupportFragmentManager()));
     }
 
@@ -116,7 +118,7 @@ public class MainActivity extends BaseActivity {
 
     class ViewPagerAdapter extends FragmentPagerAdapter {
         private Fragment[] mFragments = new Fragment[]{new HomeFragment(), new HomeFragment(),
-                new HomeFragment(), new HomeFragment(), new HomeFragment()};
+                    new NoticeFragment(), new MineFragment()};
 
         public ViewPagerAdapter(FragmentManager fm) {
             super(fm);
@@ -126,7 +128,7 @@ public class MainActivity extends BaseActivity {
         public Fragment getItem(int position) { return mFragments[position];}
 
         @Override
-        public int getCount() { return 3;}
+        public int getCount() { return mFragments.length;}
     }
 
     @Override

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="62dp">
+
+
+    <TextView
+        android:id="@+id/item_tv_notice_time"
+        android:layout_width="wrap_content"
+        android:text="06:19"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="18dp"
+        android:textSize="@dimen/sp_12"
+        android:textColor="#bcbcbc"
+        android:layout_height="wrap_content"/>
+    
+    <ImageView
+        android:id="@+id/item_img_head"
+        android:layout_width="41dp"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="18dp"
+        android:src="@color/color_primary_f92"
+        android:layout_height="41dp"/>
+
+    <TextView
+        android:id="@+id/item_tv_notice_title"
+        android:layout_width="wrap_content"
+        android:text="南昌彭于晏"
+        android:textColor="@color/text_black33"
+        android:textSize="13sp"
+        android:layout_toRightOf="@id/item_img_head"
+        android:layout_alignTop="@id/item_img_head"
+        android:layout_marginLeft="9dp"
+        android:layout_height="wrap_content"/>
+
+
+    <TextView
+        android:id="@+id/item_tv_notice_content"
+        android:layout_width="wrap_content"
+        android:text="客气了亲"
+        android:textColor="#bcbcbc"
+        android:layout_marginTop="4dp"
+        android:textSize="12sp"
+        android:layout_below="@id/item_tv_notice_title"
+        android:layout_toRightOf="@id/item_img_head"
+        android:layout_marginLeft="9dp"
+        android:layout_height="wrap_content"/>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_height="0.7dp"
+        android:background="@color/color_bg_f7"/>
+
+
+    
+</RelativeLayout>

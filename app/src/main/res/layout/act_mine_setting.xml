@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="#f7f7f7"
+              android:orientation="vertical">
+
+    <include layout="@layout/view_tool_bar"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/ll_information"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:paddingLeft="19dp"
+                android:background="@color/white"
+                android:paddingRight="19dp"
+                android:layout_height="51dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:textColor="@color/text_black33"
+                    android:textSize="13sp"
+                    android:gravity="center_vertical"
+                    android:text="个人资料"
+                    android:layout_height="match_parent"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:src="@mipmap/ic_right_arrow"
+                    android:layout_gravity="center_vertical"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:paddingLeft="19dp"
+                android:layout_marginTop="1dp"
+                android:background="@color/white"
+                android:paddingRight="13dp"
+                android:layout_height="51dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:textColor="@color/text_black33"
+                    android:textSize="13sp"
+                    android:gravity="center_vertical"
+                    android:text="消息通知"
+                    android:layout_height="match_parent"/>
+
+                <Switch
+                    android:id="@+id/switch_notice"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:layout_width="wrap_content"
+                    android:switchMinWidth="40dp"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                android:id="@+id/ll_bind_car"
+                android:layout_width="match_parent"
+                android:paddingLeft="19dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/white"
+                android:paddingRight="19dp"
+                android:layout_height="51dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:textColor="@color/text_black33"
+                    android:textSize="13sp"
+                    android:gravity="center_vertical"
+                    android:text="绑定车辆"
+                    android:layout_height="match_parent"/>
+
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:src="@mipmap/ic_right_arrow"
+                    android:layout_gravity="center_vertical"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                android:id="@+id/ll_acount"
+                android:layout_marginTop="1dp"
+                android:background="@color/white"
+                android:layout_width="match_parent"
+                android:paddingLeft="19dp"
+                android:paddingRight="19dp"
+                android:layout_height="51dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:textColor="@color/text_black33"
+                    android:textSize="13sp"
+                    android:gravity="center_vertical"
+                    android:text="收款账户"
+                    android:layout_height="match_parent"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:src="@mipmap/ic_right_arrow"
+                    android:layout_gravity="center_vertical"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+
+
+
+            <LinearLayout
+                android:id="@+id/ll_privacy"
+                android:layout_width="match_parent"
+                android:paddingLeft="19dp"
+                android:paddingRight="19dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/white"
+                android:layout_height="51dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:textColor="@color/text_black33"
+                    android:textSize="13sp"
+                    android:gravity="center_vertical"
+                    android:text="隐私政策"
+                    android:layout_height="match_parent"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:src="@mipmap/ic_right_arrow"
+                    android:layout_gravity="center_vertical"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+
+
+            <TextView
+                android:id="@+id/tv_login_out"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginBottom="30dp"
+                android:textColor="@color/white"
+                android:text="退出登录"
+                android:layout_marginLeft="18dp"
+                android:layout_marginRight="18dp"
+                android:gravity="center"
+                android:background="@drawable/bg_btn_orange"/>
+
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

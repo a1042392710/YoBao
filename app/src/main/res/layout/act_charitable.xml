@@ -15,6 +15,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:paddingTop="12dp"
+        android:paddingBottom="12dp"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:orientation="horizontal"
@@ -153,6 +154,7 @@
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_charitable"
                 android:layout_width="match_parent"
+                android:paddingBottom="12dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="3dp"
                 android:layout_marginRight="15dp"

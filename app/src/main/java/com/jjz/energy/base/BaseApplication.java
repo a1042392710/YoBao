@@ -41,7 +41,7 @@ public class BaseApplication extends Application {
     static {
         //SmartRefreshLayout 刷新教程
         SmartRefreshLayout.setDefaultRefreshHeaderCreator((context, layout) -> {
-            layout.setPrimaryColorsId(R.color.colorPrimary, R.color.text_green_9ace32);//全局设置主题颜色
+            layout.setPrimaryColorsId(R.color.colorPrimary, R.color.red_fe8977);//全局设置主题颜色
             return new ClassicsHeader(context);//.setTimeFormat(new DynamicTimeFormat("更新于 %s"));//指定为经典Header，默认是 贝塞尔雷达Header
         });
         //设置全局的Footer构建器

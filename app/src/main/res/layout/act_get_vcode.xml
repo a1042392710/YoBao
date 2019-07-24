@@ -86,7 +86,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="13dp"
         android:gravity="center"
-        android:textColor="@color/text_green_9ace32"
+        android:textColor="@color/red_fe8977"
         android:textSize="13sp"
         android:text="重新发送"/>
 

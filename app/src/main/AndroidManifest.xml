@@ -118,6 +118,27 @@
         <!--教育-->
         <activity android:name="com.jjz.energy.ui.education.EducationActivity"
                   android:configChanges="orientation|screenSize"/>
+        <!--个人资料-->
+        <activity android:name="com.jjz.energy.ui.mine.MineInfomationActivity"
+                  android:configChanges="orientation|screenSize"/>
+        <!--个人设置-->
+        <activity android:name="com.jjz.energy.ui.mine.MineSettingActivity"
+                  android:configChanges="orientation|screenSize"/>
+        <!--绑定车辆-->
+        <activity android:name="com.jjz.energy.ui.mine.OwnerInfoActivity"
+                  android:configChanges="orientation|screenSize"/>
+        <!--我发布的-->
+        <activity android:name="com.jjz.energy.ui.mine.MinePutActivity"
+                  android:configChanges="orientation|screenSize"/>
+        <!--我买到的-->
+        <activity android:name="com.jjz.energy.ui.mine.MineBuyerActivity"
+                  android:configChanges="orientation|screenSize"/>
+        <!--我卖出的-->
+        <activity android:name="com.jjz.energy.ui.mine.MineSellerActivity"
+                  android:configChanges="orientation|screenSize"/>
+        <!--我收藏的-->
+        <activity android:name="com.jjz.energy.ui.mine.MineLikeActivity"
+                  android:configChanges="orientation|screenSize"/>
 
         <!--zxing-->
         <activity

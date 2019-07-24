@@ -25,7 +25,7 @@
                 android:id="@+id/img_banner"
                 android:layout_width="match_parent"
                 android:layout_height="198dp"
-                android:background="@color/text_green_9ace32"/>
+                android:background="@color/red_fe8977"/>
 
             <LinearLayout
                 android:id="@+id/ll_activity"
