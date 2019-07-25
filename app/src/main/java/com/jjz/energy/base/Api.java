@@ -1,5 +1,6 @@
 package com.jjz.energy.base;
 
+import com.jjz.energy.entry.BindBean;
 import com.jjz.energy.entry.BindOwnerInfoBean;
 import com.jjz.energy.entry.LoginBean;
 import com.jjz.energy.util.networkUtil.ResponseData;
@@ -48,6 +49,15 @@ public interface Api {
     @POST("user/getUserinfo")
     Flowable<ResponseData<BindOwnerInfoBean>> getBindOwnernfo(@Field(PACK_NO) String pack_no);
 
+    //提交微信和支付宝信息
+    @FormUrlEncoded
+    @POST("user/setUserBindInfo")
+    Flowable<ResponseData<String>> putBindInfo(@Field(PACK_NO) String pack_no);
+
+    //获取微信和支付宝绑定信息
+    @FormUrlEncoded
+    @POST("user/getUserBindInfo")
+    Flowable<ResponseData<BindBean>> getBindInfo(@Field(PACK_NO) String pack_no);
 
     /**
      * 下载文件

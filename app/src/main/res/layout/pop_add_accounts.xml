@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:background="@drawable/bg_white_radius_top"
+              android:layout_height="wrap_content">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:text="添加收款账户"
+        android:textColor="@color/text_black33"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="27dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_height="wrap_content"/>
+
+    
+    <LinearLayout
+        android:id="@+id/item_ll_alipay"
+        android:layout_width="match_parent"
+        android:paddingLeft="37dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_height="55dp">
+
+        <ImageView
+            android:layout_width="34dp"
+            android:src="@mipmap/ic_alipay"
+            android:layout_height="34dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="添加支付宝账户"
+            android:textSize="14sp"
+            android:textColor="#b8b8b8"
+            android:layout_marginLeft="22dp"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/item_ll_wechat"
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:paddingLeft="37dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_height="55dp">
+
+        <ImageView
+            android:layout_width="34dp"
+            android:src="@mipmap/ic_wechat"
+            android:layout_height="34dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="添加微信账户"
+            android:textSize="14sp"
+            android:textColor="#b8b8b8"
+            android:layout_marginLeft="22dp"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/item_tv_cancle"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginBottom="15dp"
+        android:text="取消"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        android:background="@drawable/bg_btn_phone_login"
+        android:layout_marginRight="15dp"
+        android:layout_height="45dp"/>
+
+</LinearLayout>

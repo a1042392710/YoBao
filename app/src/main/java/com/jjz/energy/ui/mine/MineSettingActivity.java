@@ -78,6 +78,7 @@ public class MineSettingActivity extends BaseActivity {
 
             //收款账户
             case R.id.ll_acount:
+                startActivity(new Intent(mContext, MineAccountsActivity.class));
                 break;
 
             //隐私政策

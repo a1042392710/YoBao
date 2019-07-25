@@ -139,6 +139,15 @@
         <!--我收藏的-->
         <activity android:name="com.jjz.energy.ui.mine.MineLikeActivity"
                   android:configChanges="orientation|screenSize"/>
+        <!--收款账户-->
+        <activity android:name="com.jjz.energy.ui.mine.MineAccountsActivity"
+                  android:configChanges="orientation|screenSize"/>
+        <!--绑定微信-->
+        <activity android:name="com.jjz.energy.ui.mine.BindWechatActivity"
+                  android:configChanges="orientation|screenSize"/>
+        <!--绑定支付宝-->
+        <activity android:name="com.jjz.energy.ui.mine.BindAliPayActivity"
+                  android:configChanges="orientation|screenSize"/>
 
         <!--zxing-->
         <activity
