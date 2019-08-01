@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/background_dark">
+
+
+
+    <com.jjz.energy.widgets.FxScaleBUGViewPager
+        android:id="@+id/pager"
+        android:layout_width="match_parent"
+        android:overScrollMode="never"
+        android:layout_height="match_parent"/>
+
+    <LinearLayout
+        android:id="@+id/guideGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="15dp"
+
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_selectwhere"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:shadowColor="#ff000000"
+            android:shadowRadius="7"
+            android:shadowDx="4"
+            android:shadowDy="4"
+            android:textSize="18sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="/"
+            android:textColor="@color/white"
+            android:shadowColor="#ff000000"
+            android:shadowRadius="7"
+            android:shadowDx="4"
+            android:shadowDy="4"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/tv_sum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:shadowColor="#ff000000"
+            android:shadowRadius="7"
+            android:shadowDx="4"
+            android:shadowDy="4"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+</RelativeLayout>

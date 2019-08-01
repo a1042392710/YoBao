@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/color_bg_f7"
+              android:orientation="vertical">
+
+    <include layout="@layout/view_tool_bar"/>
+
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:minHeight="115dp"
+                android:layout_height="wrap_content"
+                android:background="@color/white">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_photo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginLeft="18dp"
+                    android:layout_marginRight="18dp"
+                    android:layout_marginBottom="12dp"/>
+
+            </RelativeLayout>
+
+            <EditText
+                android:id="@+id/et_commodity_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@color/white"
+                android:ellipsize="end"
+                android:hint="宝贝标题 品牌型号卖家喜欢搜索的"
+                android:maxLines="2"
+                android:paddingLeft="18dp"
+                android:paddingTop="16dp"
+                android:paddingRight="18dp"
+                android:paddingBottom="6dp"
+                android:textColor="@color/text_black33"
+                android:textColorHint="#949494"
+                android:textSize="15sp"/>
+
+            <EditText
+                android:id="@+id/et_commodity_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:gravity="top"
+                android:hint="详情描述一下宝贝转手原因，规格尺寸，新旧程度等"
+                android:minHeight="110dp"
+                android:paddingLeft="18dp"
+                android:paddingTop="6dp"
+                android:paddingRight="18dp"
+                android:paddingBottom="6dp"
+                android:textColor="@color/text_black33"
+                android:textColorHint="#949494"
+                android:textSize="13sp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="18dp"
+                android:paddingRight="18dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/ic_gray_location"/>
+
+                <TextView
+                    android:id="@+id/tv_location_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="6dp"
+                    android:text="南昌 东湖区"
+                    android:textColor="@color/text_black33"
+                    android:textSize="13sp"/>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1"/>
+
+                <CheckBox
+                    android:id="@+id/cb_is_new_commodity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="全新宝贝"
+                    android:textColor="@color/text_black33"
+                    android:textSize="13sp"/>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="18dp"
+                android:paddingRight="18dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="分类"
+                    android:textColor="@color/text_black33"
+                    android:textSize="13sp"/>
+
+                <TextView
+                    android:id="@+id/tv_commodity_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:text="选择分类"
+                    android:textColor="#969696"
+                    android:textSize="13sp"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/ic_gray_right_more"/>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="1dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="18dp"
+                android:paddingRight="18dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="价格"
+                    android:textColor="@color/text_black33"
+                    android:textSize="13sp"/>
+
+                <TextView
+                    android:id="@+id/tv_commodity_money"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:text="开个价"
+                    android:textColor="#969696"
+                    android:textSize="13sp"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/ic_gray_right_more"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+</LinearLayout>

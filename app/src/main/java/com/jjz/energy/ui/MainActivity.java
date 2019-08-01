@@ -6,7 +6,10 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.view.KeyEvent;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
@@ -15,10 +18,12 @@ import com.jjz.energy.base.BaseActivity;
 import com.jjz.energy.base.BasePresenter;
 import com.jjz.energy.entry.MainEvent;
 import com.jjz.energy.ui.home.HomeFragment;
+import com.jjz.energy.ui.home.PutCommodityActivity;
 import com.jjz.energy.ui.logistics.ReleaseLogisticsActivity;
 import com.jjz.energy.ui.mine.MineFragment;
 import com.jjz.energy.ui.notice.NoticeFragment;
 import com.jjz.energy.util.NoScrollViewPager;
+import com.jjz.energy.util.PopWindowUtil;
 import com.jude.swipbackhelper.SwipeBackHelper;
 
 import org.greenrobot.eventbus.EventBus;
@@ -112,8 +117,26 @@ public class MainActivity extends BaseActivity {
 
     @OnClick(R.id.img_home_go)
     public void onViewClicked() {
+        View view = View.inflate(mContext,R.layout.item_put_commodity,null);
+        ImageView item_img_close = view.findViewById(R.id.item_img_close);
+        LinearLayout item_ll_put_post = view.findViewById(R.id.item_ll_put_post);
+        LinearLayout item_ll_put_logistics = view.findViewById(R.id.item_ll_put_logistics);
+        LinearLayout item_ll_put_idle = view.findViewById(R.id.item_ll_put_idle);
+        PopupWindow  popupWindow= PopWindowUtil.getInstance().showAllWindow(mContext,view);
+        //关闭
+        item_img_close.setOnClickListener(v -> popupWindow.dismiss());
         //发布物流
-       startActivity(new Intent(mContext, ReleaseLogisticsActivity.class));
+        item_ll_put_logistics.setOnClickListener(v -> {
+            popupWindow.dismiss();
+            //发布物流
+            startActivity(new Intent(mContext, ReleaseLogisticsActivity.class));
+        });
+        //发布宝贝
+        item_ll_put_idle.setOnClickListener(v -> {
+            popupWindow.dismiss();
+            //发布宝贝
+            startActivity(new Intent(mContext, PutCommodityActivity.class));
+        });
     }
 
     class ViewPagerAdapter extends FragmentPagerAdapter {

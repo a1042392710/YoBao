@@ -5,5 +5,9 @@
     <!-- zxing-->
     <dimen name="base_toolbar_height">48dp</dimen>
     <dimen name="zxing_toolbar_height">48dp</dimen>
+
+    <dimen name="gudieview_width">6dp</dimen>
+    <dimen name="gudieview_heigh">6dp</dimen>
+
     <!-- Default screen margins, per the Android Design guidelines. -->
 </resources>

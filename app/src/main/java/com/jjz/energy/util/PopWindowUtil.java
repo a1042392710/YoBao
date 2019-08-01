@@ -12,6 +12,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
@@ -32,6 +33,10 @@ public class PopWindowUtil {
      * 底部弹出的   PopWindow
      */
     private PopupWindow bottomWindow;
+    /**
+     * 全屏弹出的   PopWindow
+     */
+    private PopupWindow allWindow;
 
 
     private PopWindowUtil() {
@@ -190,6 +195,34 @@ public class PopWindowUtil {
         return bottomWindow;
     }
 
+    /**
+     * 底部弹出的View
+     */
+    public PopupWindow showAllWindow(Context context, View view) {
+        allWindow = new PopupWindow(view, ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup. LayoutParams.WRAP_CONTENT, true);
+        allWindow.setAnimationStyle(R.style.popwindow_center_anim_style);
+        allWindow.setBackgroundDrawable(new ColorDrawable(0x00000000));
+        allWindow.setOutsideTouchable(false);
+        allWindow.setTouchable(true);
+        allWindow.setFocusable(true);
+        //设置为全屏
+        WindowManager wm= (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        DisplayMetrics metrics= new DisplayMetrics();
+        wm.getDefaultDisplay().getMetrics(metrics);
+        allWindow.setHeight(metrics.heightPixels);
+        allWindow.setWidth(metrics.widthPixels);
+        //popWindow 消失
+        allWindow.setOnDismissListener(() -> {
+            try {
+                Thread.sleep(200);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+        allWindow.showAtLocation(view, Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
+        return allWindow;
+    }
+
 
     public interface OnCountersignListener {
         //确认
@@ -201,7 +234,6 @@ public class PopWindowUtil {
         //确认
         void countersign();
     }
-
 
 
     /**

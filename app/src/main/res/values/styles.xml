@@ -61,14 +61,15 @@
         <item name="android:windowEnterAnimation">@anim/bottom_dialog_enter</item>
         <item name="android:windowExitAnimation">@anim/bottom_dialog_exit</item>
     </style>
+
     <!--dialog 中心弹出动画-->
     <style name="popwindow_center_anim_style">
         <item name="android:windowEnterAnimation">@anim/pop_center_show_anim</item>
         <!-- 指定显示的动画xml -->
-
         <item name="android:windowExitAnimation">@anim/pop_center_hidden_anim</item>
         <!-- 指定消失的动画xml -->
     </style>
+
     <!--首页的radiobuttom-->
     <style name="radio_button_style">
         <!-- Customize your theme here. -->

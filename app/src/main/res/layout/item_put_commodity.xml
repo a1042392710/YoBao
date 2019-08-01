@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/translucent">
+
+
+0
+    <ImageView
+        android:id="@+id/item_img_close"
+        android:src="@mipmap/ic_close_gray"
+        android:padding="10dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="33dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+
+
+    <LinearLayout
+        android:id="@+id/item_ll_put"
+        android:layout_above="@id/item_img_close"
+        android:layout_marginBottom="80dp"
+        android:layout_width="match_parent"
+        android:paddingLeft="57dp"
+        android:paddingRight="57dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/item_ll_put_idle"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:layout_height="wrap_content">
+            
+            <ImageView
+                android:layout_width="48dp"
+                android:src="@mipmap/ic_put_idle"
+                android:layout_height="48dp"/>
+
+            <TextView
+                android:text="发布闲置"
+                android:layout_marginTop="15dp"
+                android:textColor="#6c6c6c"
+                android:textSize="13sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/item_ll_put_logistics"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="48dp"
+                android:src="@mipmap/ic_put_logistics"
+                android:layout_height="48dp"/>
+
+            <TextView
+                android:text="发布物流"
+                android:layout_marginTop="15dp"
+                android:textColor="#6c6c6c"
+                android:textSize="13sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/item_ll_put_post"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="48dp"
+                android:src="@mipmap/ic_put_post"
+                android:layout_height="48dp"/>
+
+            <TextView
+                android:text="发布帖子"
+                android:layout_marginTop="15dp"
+                android:textColor="#6c6c6c"
+                android:textSize="13sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:textSize="18sp"
+        android:textColor="#6c6c6c"
+        android:layout_marginBottom="40dp"
+        android:layout_above="@id/item_ll_put"
+        android:layout_centerHorizontal="true"
+        android:text="请选择您的发布类别"
+        android:layout_height="wrap_content"/>
+
+
+</RelativeLayout>

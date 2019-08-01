@@ -148,6 +148,12 @@
         <!--绑定支付宝-->
         <activity android:name="com.jjz.energy.ui.mine.BindAliPayActivity"
                   android:configChanges="orientation|screenSize"/>
+        <!--发布宝贝-->
+        <activity android:name="com.jjz.energy.ui.home.PutCommodityActivity"
+                  android:configChanges="orientation|screenSize"/>
+        <!--查看大图-->
+        <activity android:name="com.jjz.energy.ui.ImagePagerActivity"
+                  android:configChanges="orientation|screenSize"/>
 
         <!--zxing-->
         <activity
