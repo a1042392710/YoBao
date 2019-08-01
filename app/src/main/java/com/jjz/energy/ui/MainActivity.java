@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 
 import com.jjz.energy.R;
 import com.jjz.energy.base.BaseActivity;
@@ -119,12 +120,18 @@ public class MainActivity extends BaseActivity {
     public void onViewClicked() {
         View view = View.inflate(mContext,R.layout.item_put_commodity,null);
         ImageView item_img_close = view.findViewById(R.id.item_img_close);
+        //取消弹窗
+        RelativeLayout item_rl_cancle = view.findViewById(R.id.item_rl_cancle);
+        //发布帖子
         LinearLayout item_ll_put_post = view.findViewById(R.id.item_ll_put_post);
+        //发布物流
         LinearLayout item_ll_put_logistics = view.findViewById(R.id.item_ll_put_logistics);
+        //发布闲置
         LinearLayout item_ll_put_idle = view.findViewById(R.id.item_ll_put_idle);
         PopupWindow  popupWindow= PopWindowUtil.getInstance().showAllWindow(mContext,view);
-        //关闭
+        //关闭弹窗
         item_img_close.setOnClickListener(v -> popupWindow.dismiss());
+        item_rl_cancle.setOnClickListener(v -> popupWindow.dismiss());
         //发布物流
         item_ll_put_logistics.setOnClickListener(v -> {
             popupWindow.dismiss();

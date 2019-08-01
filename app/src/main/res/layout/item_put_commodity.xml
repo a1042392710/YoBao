@@ -3,10 +3,10 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/item_rl_cancle"
     android:background="@color/translucent">
 
 
-0
     <ImageView
         android:id="@+id/item_img_close"
         android:src="@mipmap/ic_close_gray"
