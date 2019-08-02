@@ -174,15 +174,10 @@ public class PutCommodityActivity extends BaseActivity {
     }
 
     /**
-     * 记录获取焦点的EditText  0 出手价 1 原价  2运费
-     */
-//    private  int foucsIndex = 0;
-    /**
      * 输入金额/邮费等
      */
     private void showMoneyPopView() {
-        View popView = View.inflate(mContext,R.layout.item_input_money,null);
-
+        View popView = View.inflate(mContext, R.layout.item_input_money, null);
         //出手价
         EditText item_et_new_moeny = popView.findViewById(R.id.item_et_new_money);
         TextView item_tv_new_moeny = popView.findViewById(R.id.item_tv_new_money);
@@ -194,9 +189,9 @@ public class PutCommodityActivity extends BaseActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (!StringUtil.isEmpty(s.toString())){
+                if (!StringUtil.isEmpty(s.toString())) {
                     item_tv_new_moeny.setTextColor(getResources().getColor(R.color.text_black33));
-                }else{
+                } else {
                     item_tv_new_moeny.setTextColor(getResources().getColor(R.color.text_black96));
                 }
             }
@@ -206,14 +201,7 @@ public class PutCommodityActivity extends BaseActivity {
 
             }
         });
-//        item_et_new_moeny.setFocusable(true);
-//        disableShowSoftInput(item_et_new_moeny);
-//        //记录获取焦点的EditText
-//        item_et_new_moeny.setOnFocusChangeListener((v, hasFocus) -> {
-//                if (hasFocus){
-//                    foucsIndex  = 0;
-//                }
-//        });
+
         //原价
         EditText item_et_old_moeny = popView.findViewById(R.id.item_et_old_moeny);
         TextView item_tv_old_money = popView.findViewById(R.id.item_tv_old_money);
@@ -225,9 +213,9 @@ public class PutCommodityActivity extends BaseActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (!StringUtil.isEmpty(s.toString())){
+                if (!StringUtil.isEmpty(s.toString())) {
                     item_tv_old_money.setTextColor(getResources().getColor(R.color.text_black33));
-                }else{
+                } else {
                     item_tv_old_money.setTextColor(getResources().getColor(R.color.text_black96));
                 }
             }
@@ -237,12 +225,7 @@ public class PutCommodityActivity extends BaseActivity {
 
             }
         });
-//        disableShowSoftInput(item_et_old_moeny);
-//        item_et_old_moeny.setOnFocusChangeListener((v, hasFocus) -> {
-//            if (hasFocus){
-//                foucsIndex  = 1;
-//            }
-//        });
+
         //运费
         EditText item_et_freight = popView.findViewById(R.id.item_et_freight);
         TextView item_tv_freight = popView.findViewById(R.id.item_tv_freight);
@@ -254,9 +237,9 @@ public class PutCommodityActivity extends BaseActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (!StringUtil.isEmpty(s.toString())){
+                if (!StringUtil.isEmpty(s.toString())) {
                     item_tv_freight.setTextColor(getResources().getColor(R.color.text_black33));
-                }else{
+                } else {
                     item_tv_freight.setTextColor(getResources().getColor(R.color.text_black96));
                 }
             }
@@ -266,138 +249,21 @@ public class PutCommodityActivity extends BaseActivity {
 
             }
         });
-//        disableShowSoftInput(item_et_freight);
-//        item_et_freight.setOnFocusChangeListener((v, hasFocus) -> {
-//            if (hasFocus){
-//                foucsIndex  = 2;
-//            }
-//        });
         //是否包邮
         CheckBox item_cb_shipping = popView.findViewById(R.id.item_cb_shipping);
         //包邮则清除运费内容
         item_cb_shipping.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (isChecked){
+            if (isChecked) {
                 item_et_freight.setText("");
             }
         });
-      PopupWindow popupWindow = PopWindowUtil.getInstance().showBottomWindow(mContext,popView);
+        PopupWindow popupWindow = PopWindowUtil.getInstance().showBottomWindow(mContext, popView);
 //        //确认
         popView.findViewById(R.id.item_tv_sure).setOnClickListener(v -> {
             popupWindow.dismiss();
 //            //todo 保存所填写的参数
         });
-//        //回退
-//        popView.findViewById(R.id.item_img_delete).setOnClickListener(v -> {
-//            //todo 根据当前焦点所在的editText，来进行回退操作
-//            if (foucsIndex==0){
-//                String str = item_et_new_moeny.getText().toString();
-//                if (!StringUtil.isEmpty(str)){
-//                    item_et_new_moeny.setText(str.substring(0,str.length()-1));
-//                    item_et_new_moeny.setSelection(str.length()-1);
-//                }
-//            }else if (foucsIndex==1){
-//                String str = item_et_old_moeny.getText().toString();
-//                if (!StringUtil.isEmpty(str)){
-//                    item_et_old_moeny.setText(str.substring(0,str.length()-1));
-//                    item_et_old_moeny.setSelection(str.length()-1);
-//                }
-//            }else if (foucsIndex==2){
-//                String str = item_et_freight.getText().toString();
-//                if (!StringUtil.isEmpty(str)){
-//                    item_et_freight.setText(str.substring(0,str.length()-1));
-//                    item_et_freight.setSelection(str.length()-1);
-//                }
-//            }
-//        });
-//
-//        //取消
-//        popView.findViewById(R.id.item_img_cancle).setOnClickListener(v -> {
-//            popupWindow.dismiss();
-//        });
-//        keyboardClick(item_et_new_moeny,item_et_old_moeny,item_et_freight,popView.findViewById(R.id.item_tv_zero));
-//        keyboardClick(item_et_new_moeny,item_et_old_moeny,item_et_freight,popView.findViewById(R.id.item_tv_one));
-//        keyboardClick(item_et_new_moeny,item_et_old_moeny,item_et_freight,popView.findViewById(R.id.item_tv_two));
-//        keyboardClick(item_et_new_moeny,item_et_old_moeny,item_et_freight,popView.findViewById(R.id.item_tv_three));
-//        keyboardClick(item_et_new_moeny,item_et_old_moeny,item_et_freight,popView.findViewById(R.id.item_tv_four));
-//        keyboardClick(item_et_new_moeny,item_et_old_moeny,item_et_freight,popView.findViewById(R.id.item_tv_five));
-//        keyboardClick(item_et_new_moeny,item_et_old_moeny,item_et_freight,popView.findViewById(R.id.item_tv_six));
-//        keyboardClick(item_et_new_moeny,item_et_old_moeny,item_et_freight,popView.findViewById(R.id.item_tv_seven));
-//        keyboardClick(item_et_new_moeny,item_et_old_moeny,item_et_freight,popView.findViewById(R.id.item_tv_eight));
-//        keyboardClick(item_et_new_moeny,item_et_old_moeny,item_et_freight,popView.findViewById(R.id.item_tv_nine));
-//        keyboardClick(item_et_new_moeny,item_et_old_moeny,item_et_freight,popView.findViewById(R.id.item_tv_mark));
     }
-
-    /**
-     * 键盘点击事件
-     */
-//    private void  keyboardClick(EditText et1 ,EditText et2 ,EditText et3, TextView view){
-//       view.setOnClickListener(v -> {
-//                switch (foucsIndex){
-//                    //出售价
-//                    case  0:
-//                        //不允许重复小数
-//                        if (view.getText().toString().equals(".")&&et1.getText().toString().contains(".")){
-//                            return;
-//                        }
-//                        String s1 = et1.getText().toString()+view.getText().toString();
-//                        //判断小数长度
-//                        if (!StringUtil.isCorrectDecimalAndLenth(s1,10)){
-//                            return;
-//                        }
-//                        et1.setText(s1);
-//                        et1.setSelection(s1.length());
-//                        break;
-//                        //原价
-//                    case 1:
-//                        //不允许重复小数
-//                        if (view.getText().toString().equals(".")&&et1.getText().toString().contains(".")){
-//                            return;
-//                        }
-//                        String s2 = et2.getText().toString()+view.getText().toString();
-//                        //判断小数长度
-//                        if (!StringUtil.isCorrectDecimalAndLenth(s2,10)){
-//                            return;
-//                        }
-//                        et2.setText(s2);
-//                        et2.setSelection(s2.length());
-//                        break;
-//                    //运费
-//                    case 2:
-//                        //运费没有小数点
-//                        if (view.getText().toString().equals(".")){
-//                            return;
-//                        }
-//                        String s3= et3.getText().toString()+view.getText().toString();
-//                        //判断小数长度
-//                        if (!StringUtil.isCorrectDecimalAndLenth(s3,3)){
-//                            return;
-//                        }
-//                        et3.setText(s3);
-//                        et3.setSelection(s3.length());
-//                        break;
-//
-//                }
-//       });
-//    }
-
-
-
-    //只显示光标不显示软键盘
-//    public void disableShowSoftInput(EditText et) {
-//        if (android.os.Build.VERSION.SDK_INT <= 10) {
-//            et.setInputType(InputType.TYPE_NULL);
-//        } else {
-//            Class<EditText> cls = EditText.class;
-//            Method method;
-//            try {
-//                method = cls.getMethod("setShowSoftInputOnFocus", boolean.class);
-//                method.setAccessible(true);
-//                method.invoke(et, false);
-//            } catch (Exception e) {
-//            }
-//        }
-//
-//    }
     // ================================================  权限相关
 
     /**
