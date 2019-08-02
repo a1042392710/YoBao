@@ -6,6 +6,8 @@ import android.content.pm.PackageManager;
 import android.view.Display;
 import android.view.WindowManager;
 
+import com.blankj.utilcode.util.ToastUtils;
+
 import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.text.ParseException;
@@ -20,6 +22,28 @@ import java.util.regex.Pattern;
  * Date: 2018/12/19 下午1:53
  */
 public class StringUtil {
+
+    /**
+     * 限定只能小数点后两位
+     */
+    public static boolean isCorrectDecimalAndLenth(String s,int lenth) {
+
+
+        //小数点后不能超过两位
+        if (s.toString().contains(".")) {
+            if (s.length() - 1 - s.toString().indexOf(".") > 2) {
+                ToastUtils.showShort("小数后最后两位");
+             return false;
+            }
+        }
+        //长度不能超过指定位数
+        if (s.length()>lenth){
+            return false;
+        }
+
+        return true;
+    }
+
 
     /**
      * 判断手机号
