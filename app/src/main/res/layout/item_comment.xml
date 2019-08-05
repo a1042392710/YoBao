@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="91dp">
+
+    <ImageView
+        android:id="@+id/item_img_head"
+        android:layout_marginTop="15dp"
+        android:layout_width="34dp"
+        android:src="@mipmap/ic_default_head"
+        android:layout_height="34dp"/>
+
+    <TextView
+        android:id="@+id/item_tv_user_name"
+        android:layout_marginTop="15dp"
+        android:layout_width="match_parent"
+        android:text="南昌彭于晏"
+        android:layout_toRightOf="@id/item_img_head"
+        android:textSize="12sp"
+        android:textColor="#999999"
+        android:includeFontPadding="false"
+        android:layout_marginLeft="10dp"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/item_tv_comment"
+        android:layout_width="match_parent"
+        android:text="确实是大自然的搬运工"
+        android:textSize="13sp"
+        android:textColor="@color/text_black33"
+        android:includeFontPadding="false"
+        android:layout_alignLeft="@id/item_tv_user_name"
+        android:layout_below="@id/item_tv_user_name"
+        android:layout_marginTop="5dp"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/item_tv_time"
+        android:layout_width="match_parent"
+        android:text="10分钟前"
+        android:textSize="11sp"
+        android:textColor="#bcbcbc"
+        android:includeFontPadding="false"
+        android:layout_alignLeft="@id/item_tv_user_name"
+        android:layout_below="@id/item_tv_comment"
+        android:layout_marginTop="13dp"
+        android:layout_height="wrap_content"/>
+
+
+
+
+
+</RelativeLayout>

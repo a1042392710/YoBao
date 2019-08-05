@@ -118,6 +118,8 @@ public class HomeFragment extends BaseFragment {
         HomeCommodityTypeAdapter commodityTypeAdapter =
                 new HomeCommodityTypeAdapter(R.layout.item_commodity_grid, list);
         rvType.setAdapter(commodityTypeAdapter);
+
+        commodityTypeAdapter.setOnItemClickListener((adapter, view, position) -> startActivity(new Intent(mContext,CommodityDetailActivity.class)));
     }
 
     /**

@@ -154,6 +154,9 @@
         <!--查看大图-->
         <activity android:name="com.jjz.energy.ui.ImagePagerActivity"
                   android:configChanges="orientation|screenSize"/>
+        <!--商品详情-->
+        <activity android:name="com.jjz.energy.ui.home.CommodityDetailActivity"
+                  android:configChanges="orientation|screenSize"/>
 
         <!--zxing-->
         <activity

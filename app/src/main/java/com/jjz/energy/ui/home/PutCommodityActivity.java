@@ -172,7 +172,8 @@ public class PutCommodityActivity extends BaseActivity {
               break;
         }
     }
-
+    //存储金额信息
+    private MoneyInfo mMoneyInfo;
     /**
      * 输入金额/邮费等
      */
@@ -198,7 +199,7 @@ public class PutCommodityActivity extends BaseActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-
+                judgeNumber(s,item_et_new_moeny);
             }
         });
 
@@ -222,7 +223,7 @@ public class PutCommodityActivity extends BaseActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-
+                judgeNumber(s,item_et_new_moeny);
             }
         });
 
@@ -257,13 +258,82 @@ public class PutCommodityActivity extends BaseActivity {
                 item_et_freight.setText("");
             }
         });
+        //如果已经存储了信息,则写入
+        if (mMoneyInfo!=null){
+            item_et_new_moeny.setText(mMoneyInfo.newMoney);
+            item_et_old_moeny.setText(mMoneyInfo.oldMoney);
+            item_et_freight.setText(mMoneyInfo.freight);
+            item_cb_shipping.setChecked(mMoneyInfo.isFreight);
+        }
+
         PopupWindow popupWindow = PopWindowUtil.getInstance().showBottomWindow(mContext, popView);
 //        //确认
-        popView.findViewById(R.id.item_tv_sure).setOnClickListener(v -> {
+        popView.findViewById(R.id.item_tv_sure);
+        popView.setOnClickListener(v -> {
+            //保存信息
+            if (StringUtil.isEmpty(item_et_new_moeny.getText().toString())) {
+                showToast("请输入价格");
+                return;
+            }
+            if (StringUtil.isEmpty(item_et_old_moeny.getText().toString())) {
+                showToast("请输入原价");
+                return;
+            }
+            mMoneyInfo = new MoneyInfo(item_et_new_moeny.getText().toString(),
+                    item_et_old_moeny.getText().toString(), item_et_freight.getText().toString(),
+                    item_cb_shipping.isChecked());
+            tvCommodityMoney.setText(mMoneyInfo.newMoney);
             popupWindow.dismiss();
-//            //todo 保存所填写的参数
         });
     }
+
+    /**
+     * 金额输入框中的内容限制（最大：小数点前7位，小数点后2位）
+     *
+     * @param edt
+     */
+    public  void judgeNumber(Editable edt,EditText editText) {
+
+        String temp = edt.toString();
+        int posDot = temp.indexOf(".");//返回指定字符在此字符串中第一次出现处的索引
+        int index = editText.getSelectionStart();//获取光标位置
+        //  if (posDot == 0) {//必须先输入数字后才能输入小数点
+        //  edt.delete(0, temp.length());//删除所有字符
+        //  return;
+        //  }
+        if (posDot < 0) {//不包含小数点
+            if (temp.length() <= 7) {
+                return;//小于五位数直接返回
+            } else {
+                edt.delete(index-1, index);//删除光标前的字符
+                return;
+            }
+        }
+        if (posDot > 7) {//小数点前大于5位数就删除光标前一位
+            edt.delete(index-1, index);//删除光标前的字符
+            return;
+        }
+        if (temp.length() - posDot - 1 > 2)//如果包含小数点
+        {
+            edt.delete(index-1, index);//删除光标前的字符
+            return;
+        }
+    }
+
+    class MoneyInfo{
+      private  String oldMoney ;
+        private    String newMoney;
+        private    boolean isFreight;
+        private   String freight;
+
+        public MoneyInfo(String newMoney,String oldMoney, String freight ,boolean isFreight) {
+            this.oldMoney = oldMoney;
+            this.newMoney = newMoney;
+            this.isFreight = isFreight;
+            this.freight = freight;
+        }
+    }
+
     // ================================================  权限相关
 
     /**
