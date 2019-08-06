@@ -161,6 +161,7 @@ public class CommodityDetailActivity extends BaseActivity {
                 break;
                 //卖家头像
             case R.id.tv_seller_head:
+                startActivity(new Intent(mContext,HomePageActivity.class));
                 break;
                 //发表评论
             case R.id.tv_comment_send:

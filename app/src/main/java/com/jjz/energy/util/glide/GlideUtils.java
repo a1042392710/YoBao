@@ -2,10 +2,14 @@ package com.jjz.energy.util.glide;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -15,8 +19,11 @@ import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.FutureTarget;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.target.Target;
+import com.bumptech.glide.request.transition.Transition;
 import com.jjz.energy.R;
+import com.zhouwei.blurlibrary.EasyBlur;
 
 import java.io.File;
 
@@ -236,8 +243,6 @@ public class GlideUtils {
                 .circleCrop()//设置圆形
                 .placeholder(loading)
                 .error(error)
-                //.priority(Priority.HIGH)
-//                .bitmapTransform(new GlideCircleTransformation())
                 .diskCacheStrategy(DiskCacheStrategy.ALL);
 
         Glide.with(context).load(url).apply(options).into(imageView);
@@ -286,23 +291,39 @@ public class GlideUtils {
 
 
     /**
-     * 加载模糊图片（自定义透明度）
+     * 毛玻璃效果（自定义透明度）
      *
      * @param context
      * @param url
-     * @param imageView
-     * @param blur      模糊度，一般1-100够了，越大越模糊
+     * @param view
      */
-    public static void loadBlurImage(Context context, String url, ImageView imageView, int blur) {
-        RequestOptions options = new RequestOptions()
-                .centerCrop()
-                .placeholder(placeholderSoWhite)
-                .error(errorSoWhite)
-                .bitmapTransform(new BlurTransformation(blur))
-                .diskCacheStrategy(DiskCacheStrategy.ALL);
-        Glide.with(context).load(url).apply(options).into(imageView);
-    }
+    public static void loadBlurImage(Context context, String url, View view) {
 
+        RequestOptions options = new RequestOptions()
+                .placeholder(R.color.bg_8680)
+                .error(R.color.bg_8680)
+                .diskCacheStrategy(DiskCacheStrategy.ALL);
+
+        SimpleTarget<Bitmap> simpleTarget = new SimpleTarget<Bitmap>() {
+            @Override
+            public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<?
+                    super Bitmap> transition) {
+                //先裁剪，后模糊
+                Bitmap finalBitmap =EasyBlur.with(context)
+                        .bitmap(resource) //要模糊的图片
+                        .radius(15)//模糊半径
+                        .scale(5)//缩放倍数
+                        .blur();
+                Drawable drawable = new BitmapDrawable(finalBitmap);
+                view.setBackground(drawable);
+            }
+        };
+        Glide.with(context)
+                .asBitmap()
+                .load(url)
+                .apply(options)
+                .into(simpleTarget);
+    }
 
     /**
      * Glide.with(this).asGif()    //强制指定加载动态图片
@@ -358,12 +379,9 @@ public class GlideUtils {
                         .submit();
                 final File imageFile = target.get();
                 Log.d("logcat", "下载好的图片文件路径=" + imageFile.getPath());
-                ((Activity)context).runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
+                ((Activity)context).runOnUiThread(() -> {
 
-                        }
-                    });
+                });
             } catch (Exception e) {
                 e.printStackTrace();
             }

@@ -12,6 +12,7 @@
 
     <color name="text_black33">#333333</color>
     <color name="text_black96">#969696</color>
+    <color name="text_black99">#999999</color>
     <color name="text_black66">#666666</color>
     <color name="text_black6a">#6a6a6a</color>
     <color name="text_blackA6">#a6a6a6</color>
@@ -30,5 +31,6 @@
     <color name="scanLineColor">#9ace32</color>
     <color name="text_a4">#a4a4a4</color>
     <color name="color_bg_f7">#f7f7f7</color>
+    <color name="bg_8680">#8c8680</color>
 
 </resources>

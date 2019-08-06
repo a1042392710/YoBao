@@ -105,9 +105,6 @@ public class HomeFragment extends BaseFragment {
         tablayout.addTab(tablayout.newTab().setText("数码3C"));
 
         rvType.setLayoutManager(new GridLayoutManager(mContext, 2));
-//        取消嵌套rv 的焦点获取，使其不自动滚动到底部
-//        rvType.setFocusableInTouchMode(false);
-//        rvType.requestFocus();
         List<String> list = new ArrayList<>();
         list.add("");
         list.add("");

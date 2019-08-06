@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/ll_header"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:background="@color/bg_8680"
+        android:orientation="vertical">
+
+        <!--顶部通知栏-->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/base_toolbar_height"
+            android:layout_marginTop="@dimen/status_bar_height"
+            android:minHeight="@dimen/base_toolbar_height"
+            android:visibility="visible"
+            app:layout_scrollFlags="exitUntilCollapsed">
+
+            <!--返回-->
+            <LinearLayout
+                android:id="@+id/ll_toolbar_left"
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <!--返回图片-->
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/ic_white_back"
+                    tools:ignore="ContentDescription"/>
+            </LinearLayout>
+
+
+            <!--标题-->
+            <TextView
+                android:id="@+id/tv_toolbar_title"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:lines="1"
+                android:maxEms="10"
+                android:text="他的主页"
+                android:textColor="@color/white"
+                android:textSize="17sp"/>
+
+            <!--右边文字-->
+            <ImageView
+                android:id="@+id/tv_toolbar_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="8dp"
+                android:gravity="center"
+                android:padding="10dp"
+                android:src="@mipmap/ic_more"/>
+
+        </RelativeLayout>
+
+     <RelativeLayout
+         android:layout_width="match_parent"
+         android:paddingLeft="15dp"
+         android:paddingRight="15dp"
+         android:layout_height="wrap_content">
+         <ImageView
+             android:id="@+id/img_head"
+             android:layout_width="71dp"
+             android:layout_marginRight="21dp"
+             android:src="@mipmap/ic_default_head"
+             android:layout_marginTop="25dp"
+             android:layout_height="71dp"/>
+
+         <TextView
+             android:id="@+id/tv_user_name"
+             android:layout_width="wrap_content"
+             android:text="南昌彭于晏"
+             android:textSize="17sp"
+             android:textColor="@color/white"
+             android:includeFontPadding="false"
+             android:layout_toRightOf="@id/img_head"
+             android:layout_alignTop="@id/img_head"
+             android:layout_height="wrap_content"/>
+
+         <TextView
+             android:id="@+id/tv_user_time"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_below="@id/tv_user_name"
+             android:layout_marginTop="7dp"
+             android:layout_toRightOf="@id/img_head"
+             android:text="3小时前活跃"
+             android:textColor="@color/white"
+             android:textSize="11sp"/>
+
+
+         <TextView
+             android:id="@+id/tv_user_like_and_fans"
+             android:layout_width="wrap_content"
+             android:layout_marginTop="7dp"
+             android:text="关注 14   粉丝 11"
+             android:textSize="11sp"
+             android:textColor="@color/white"
+             android:layout_toEndOf="@id/img_head"
+             android:layout_below="@id/tv_user_time"
+             android:layout_height="wrap_content"/>
+
+         <TextView
+             android:id="@+id/tv_user_desc"
+             android:layout_width="wrap_content"
+             android:layout_marginTop="8dp"
+             android:text="他现居浙江温州，90后水瓶座男生，自由职业喜欢宠物..."
+             android:textSize="12sp"
+             android:maxLines="2"
+             android:ellipsize="end"
+             android:textColor="@color/white"
+             android:layout_toEndOf="@id/img_head"
+             android:layout_below="@id/tv_user_like_and_fans"
+             android:layout_height="wrap_content"/>
+
+
+
+             <TextView
+                 android:id="@+id/tv_like_user"
+                 android:layout_width="81dp"
+                 android:layout_height="33dp"
+                 android:layout_alignParentRight="true"
+                 android:layout_alignTop="@id/img_head"
+                 android:layout_marginTop="10dp"
+                 android:textColor="@color/white"
+                 android:background="@drawable/bg_like_user"
+                 android:textSize="13sp"
+                 android:gravity="center"
+                 android:text="关注"/>
+
+
+
+     </RelativeLayout>
+
+
+    </LinearLayout>
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tablayout"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center_horizontal"
+        app:tabBackground="@null"
+        app:tabIndicatorColor="#ff505b"
+        app:tabIndicatorFullWidth="false"
+        app:tabIndicatorHeight="2dp"
+        app:tabMode="fixed"
+        app:tabRippleColor="@null"
+        app:tabSelectedTextColor="#ff505b"
+        app:tabTextColor="@color/text_black99"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:background="@color/white"/>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/no_scroll_vp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="3dp"
+        android:layout_marginRight="15dp"/>
+</LinearLayout>

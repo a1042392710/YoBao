@@ -62,13 +62,17 @@ public class MineSettingActivity extends BaseActivity {
         stopProgressDialog();
     }
 
-    @OnClick({R.id.ll_toolbar_left, R.id.ll_bind_car, R.id.ll_acount, R.id.tv_login_out,
+    @OnClick({R.id.ll_toolbar_left, R.id.ll_information, R.id.ll_bind_car, R.id.ll_acount,
+            R.id.tv_login_out,
             R.id.ll_privacy})
     public void onViewClicked(View view) {
         switch (view.getId()) {
 
             case R.id.ll_toolbar_left:
                 finish();
+            //个人资料
+            case R.id.ll_information:
+                startActivity(new Intent(mContext, MineInfomationActivity.class));
                 break;
 
             //车辆绑定

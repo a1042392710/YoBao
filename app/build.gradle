@@ -15,6 +15,11 @@ android {
 //        }
         // 设置支持multidex
         multiDexEnabled true
+
+        //使用renderscript 兼容包
+        renderscriptTargetApi 25
+        renderscriptSupportModeEnabled true
+
     }
 
     signingConfigs {
@@ -117,6 +122,8 @@ dependencies {
 
     //工具类
     implementation 'com.blankj:utilcode:1.19.0'
+    //高斯模糊
+    implementation 'com.github.pinguo-zhouwei:EasyBlur:v1.0.0'
 
     //图片加载
     implementation 'com.github.bumptech.glide:glide:4.7.1'

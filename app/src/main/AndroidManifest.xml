@@ -47,6 +47,7 @@
         android:roundIcon="@mipmap/ic_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
+        tools:replace="android:allowBackup"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
 
@@ -156,6 +157,9 @@
                   android:configChanges="orientation|screenSize"/>
         <!--商品详情-->
         <activity android:name="com.jjz.energy.ui.home.CommodityDetailActivity"
+                  android:configChanges="orientation|screenSize"/>
+        <!--个人主页-->
+        <activity android:name="com.jjz.energy.ui.home.HomePageActivity"
                   android:configChanges="orientation|screenSize"/>
 
         <!--zxing-->
