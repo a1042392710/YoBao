@@ -82,19 +82,31 @@
 
         <!--登录-->
         <activity
-            android:name="com.jjz.energy.ui.login.PhoneLoginActivity"
+            android:name="com.jjz.energy.ui.login.LoginActivity"
+            android:configChanges="orientation|screenSize"/>
+
+        <!--忘记密码 验证手机号-->
+        <activity
+            android:name="com.jjz.energy.ui.login.LoginVerifyMobileNumberActivity"
+            android:configChanges="orientation|screenSize"/>
+
+        <!--重置 验证手机号-->
+        <activity
+            android:name="com.jjz.energy.ui.login.LoginResetPasswordActivity"
             android:configChanges="orientation|screenSize"/>
 
         <!--获取验证码-->
-        <activity android:name="com.jjz.energy.ui.login.GetVCodeActivity"
+        <activity android:name="com.jjz.energy.ui.login.LoginInputCodeActivity"
                   android:configChanges="orientation|screenSize"/>
 
         <!--发布物流-->
         <activity android:name="com.jjz.energy.ui.logistics.ReleaseLogisticsActivity"
                   android:configChanges="orientation|screenSize"/>
+
         <!--物流中心-->
         <activity android:name="com.jjz.energy.ui.logistics.LogisticsActivity"
                   android:configChanges="orientation|screenSize"/>
+
         <!--物流详情-->
         <activity android:name="com.jjz.energy.ui.logistics.LogisticsDetailActivity"
                   android:configChanges="orientation|screenSize"/>
@@ -110,54 +122,71 @@
         <!--保险-->
         <activity android:name="com.jjz.energy.ui.insurance.InsuranceActivity"
                   android:configChanges="orientation|screenSize"/>
+
         <!--保险列表-->
         <activity android:name="com.jjz.energy.ui.insurance.InsuranceDetailActivity"
                   android:configChanges="orientation|screenSize"/>
+
         <!--养老-->
         <activity android:name="com.jjz.energy.ui.pension.PensionActivity"
                   android:configChanges="orientation|screenSize"/>
+
         <!--教育-->
         <activity android:name="com.jjz.energy.ui.education.EducationActivity"
                   android:configChanges="orientation|screenSize"/>
+
         <!--个人资料-->
         <activity android:name="com.jjz.energy.ui.mine.MineInfomationActivity"
                   android:configChanges="orientation|screenSize"/>
+
         <!--个人设置-->
         <activity android:name="com.jjz.energy.ui.mine.MineSettingActivity"
                   android:configChanges="orientation|screenSize"/>
+
         <!--绑定车辆-->
         <activity android:name="com.jjz.energy.ui.mine.OwnerInfoActivity"
                   android:configChanges="orientation|screenSize"/>
+
         <!--我发布的-->
         <activity android:name="com.jjz.energy.ui.mine.MinePutActivity"
                   android:configChanges="orientation|screenSize"/>
+
         <!--我买到的-->
         <activity android:name="com.jjz.energy.ui.mine.MineBuyerActivity"
                   android:configChanges="orientation|screenSize"/>
+
         <!--我卖出的-->
         <activity android:name="com.jjz.energy.ui.mine.MineSellerActivity"
                   android:configChanges="orientation|screenSize"/>
+
         <!--我收藏的-->
         <activity android:name="com.jjz.energy.ui.mine.MineLikeActivity"
                   android:configChanges="orientation|screenSize"/>
+
         <!--收款账户-->
         <activity android:name="com.jjz.energy.ui.mine.MineAccountsActivity"
                   android:configChanges="orientation|screenSize"/>
+
         <!--绑定微信-->
         <activity android:name="com.jjz.energy.ui.mine.BindWechatActivity"
                   android:configChanges="orientation|screenSize"/>
+
         <!--绑定支付宝-->
         <activity android:name="com.jjz.energy.ui.mine.BindAliPayActivity"
                   android:configChanges="orientation|screenSize"/>
+
         <!--发布宝贝-->
         <activity android:name="com.jjz.energy.ui.home.PutCommodityActivity"
                   android:configChanges="orientation|screenSize"/>
+
         <!--查看大图-->
         <activity android:name="com.jjz.energy.ui.ImagePagerActivity"
                   android:configChanges="orientation|screenSize"/>
+
         <!--商品详情-->
         <activity android:name="com.jjz.energy.ui.home.CommodityDetailActivity"
                   android:configChanges="orientation|screenSize"/>
+
         <!--个人主页-->
         <activity android:name="com.jjz.energy.ui.home.HomePageActivity"
                   android:configChanges="orientation|screenSize"/>

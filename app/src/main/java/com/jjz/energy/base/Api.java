@@ -24,20 +24,42 @@ public interface Api {
 //        String BASE_URL = "http://api.jjznewenergy.com/app/";
      String PACK_NO = "params";
 
+    //登录
+    @FormUrlEncoded
+    @POST("user/login")
+    Flowable<ResponseData<LoginBean>> getLogin(
+            @Field(PACK_NO) String data
+    );
+
     //获取验证码
     @FormUrlEncoded
     @POST("user/sendValidateCode")
-    Flowable<ResponseData<String>> getVCode(@Field(PACK_NO) String pack_no);
+    Flowable<ResponseData<LoginBean>> getAuthCode(
+            @Field(PACK_NO) String data
+    );
 
-    //登录
+    //验证码登录
     @FormUrlEncoded
     @POST("user/smsLogin")
-    Flowable<ResponseData<LoginBean>> login(@Field(PACK_NO) String pack_no);
+    Flowable<ResponseData<LoginBean>> loginVCode(
+            @Field(PACK_NO) String data
+    );
 
-    //密码登录
+
+    //忘记密码 = 提交验证码
     @FormUrlEncoded
-    @POST("user/pwdLogin ")
-    Flowable<ResponseData<LoginBean>> pwdLogin(@Field(PACK_NO) String pack_no);
+    @POST("user/forgetPassword")
+    Flowable<ResponseData<LoginBean>> forgotPasswordPutVCode(
+            @Field(PACK_NO) String data
+    );
+
+    //忘记密码 = 重置密码
+    @FormUrlEncoded
+    @POST("user/setNewpassword")
+    Flowable<ResponseData<LoginBean>> resetPassword(
+            @Field(PACK_NO) String data
+    );
+
 
     //提交车主信息
     @FormUrlEncoded

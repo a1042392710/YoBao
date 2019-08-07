@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+
+    <View
+        android:id="@+id/view_status"
+        android:layout_width="match_parent"
+        android:background="@color/white"
+        android:layout_height="@dimen/status_bar_height"/>
+
+
+    <ImageView
+        android:id="@+id/img_close"
+        android:layout_width="wrap_content"
+        android:padding="15dp"
+        android:layout_marginTop="10dp"
+        android:src="@mipmap/ic_main_back"
+        android:layout_marginLeft="5dp"
+        android:layout_below="@id/view_status"
+        android:layout_height="wrap_content"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/img_close"
+        android:orientation="vertical">
+
+        <!--验证手机号码-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="26dp"
+            android:text="验证手机号码"
+            android:textColor="@color/text_black45"
+            android:textSize="24sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="75dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <!--+86-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="44dp"
+                android:text="+86"
+                android:textColor="@color/text_a4"
+                android:textSize="18sp" />
+
+            <!--倒三角形图标-->
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:src="@mipmap/mine_login_triangle"
+                tools:ignore="ContentDescription" />
+            <!--输入手机号码-->
+            <EditText
+                android:id="@+id/et_verify_mobile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="44dp"
+                android:background="@null"
+                android:hint="输入手机号码"
+                android:inputType="phone"
+                android:paddingBottom="7dp"
+                android:paddingEnd="5dp"
+                android:paddingStart="12dp"
+                android:paddingTop="7dp"
+                android:textColor="@color/text_black33"
+                android:textColorHint="#cfcfcf"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <!--输入框的下标线-->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginEnd="44dp"
+            android:layout_marginStart="44dp"
+            android:background="@color/color_bg_f7" />
+        <!--确定-->
+        <TextView
+            android:id="@+id/tv_verify_mobile_number_sure"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginEnd="44dp"
+            android:layout_marginStart="44dp"
+            android:layout_marginTop="36dp"
+            android:background="@drawable/mine_login_nomal"
+            android:gravity="center"
+            android:text="确定"
+            android:textColor="@color/white"
+            android:textSize="15sp" />
+
+
+    </LinearLayout>
+</RelativeLayout>

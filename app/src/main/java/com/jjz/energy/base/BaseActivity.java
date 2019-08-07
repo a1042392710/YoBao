@@ -16,9 +16,12 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.blankj.utilcode.util.ActivityUtils;
 import com.jjz.energy.R;
+import com.jjz.energy.ui.login.LoginActivity;
 import com.jjz.energy.util.LoadingDialogUtil;
 import com.jjz.energy.util.StatusBarUtils;
+import com.jjz.energy.util.networkUtil.UserLoginBiz;
 import com.jude.swipbackhelper.SwipeBackHelper;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
@@ -93,6 +96,39 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
 
 
     //======================================== 实用方法
+    /**
+     * 没登录就前往登录页面
+     *
+     * @return
+     */
+    protected void loginStartActivity(Class<?> cls) {
+        //未登录
+        if (!UserLoginBiz.getInstance(mContext).detectUserLoginStatus()) {
+            ActivityUtils.startActivity(LoginActivity.class);
+        } else {
+            Intent intent = new Intent();
+            intent.setClass(mContext, cls);
+            startActivity(intent);
+        }
+    }
+    /**
+     * 没登录就前往登录页面
+     *
+     * @return
+     */
+    protected void loginStartActivity(Class<?> cls,Bundle bundle) {
+        //未登录
+        if (!UserLoginBiz.getInstance(mContext).detectUserLoginStatus()) {
+            ActivityUtils.startActivity(LoginActivity.class);
+        } else {
+            Intent intent = new Intent();
+            intent.setClass(mContext, cls);
+            if (bundle!=null){
+                intent.putExtras(bundle);
+            }
+            startActivity(intent);
+        }
+    }
 
     /**
      * 收回软键盘

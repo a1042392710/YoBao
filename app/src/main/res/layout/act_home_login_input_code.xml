@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/white">
+
+    <View
+        android:id="@+id/view_status"
+        android:layout_width="match_parent"
+        android:background="@color/white"
+        android:layout_height="@dimen/status_bar_height"/>
+
+
+    <ImageView
+        android:id="@+id/img_close"
+        android:layout_width="wrap_content"
+        android:padding="15dp"
+        android:layout_marginTop="10dp"
+        android:src="@mipmap/ic_main_back"
+        android:layout_marginLeft="5dp"
+        android:layout_below="@id/view_status"
+        android:layout_height="wrap_content"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/img_close"
+        android:orientation="vertical">
+
+        <!--欢迎使用Yo宝商城-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="26dp"
+            android:text="输入验证码"
+            android:textColor="@color/text_black45"
+            android:textSize="24sp" />
+        <!--+86-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:text="已发送4位数验证码至"
+            android:textColor="@color/text_black75"
+            android:textSize="13sp" />
+        <!--+86-->
+        <TextView
+            android:id="@+id/tv_login_input_code_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="6dp"
+            tools:text="+188 2312 5352"
+            android:textColor="@color/text_black45"
+            android:textSize="13sp" />
+
+
+        <com.jjz.energy.widgets.SeparatedEditText
+            android:id="@+id/login_input_code_underline"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginEnd="44dp"
+            android:layout_marginStart="44dp"
+            android:layout_marginTop="20dp"
+            android:inputType="number"
+            app:blockSpacing="16dp"
+            app:borderColor="@color/lightGrey"
+            app:separateType="3"
+            app:textColor="@color/text_black45" />
+
+        <!--确定-->
+        <TextView
+            android:id="@+id/tv_login_input_code_sure"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginEnd="44dp"
+            android:layout_marginStart="44dp"
+            android:layout_marginTop="36dp"
+            android:background="@drawable/mine_login_nomal"
+            android:gravity="center"
+            android:enabled="true"
+            android:text="确定"
+            android:textColor="@color/white"
+            android:textSize="15sp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="60dp"
+            android:layout_marginStart="60dp"
+            android:layout_marginTop="13dp">
+
+            <!--重新发送-->
+            <TextView
+                android:id="@+id/tv_login_input_code_get"
+                android:layout_width="wrap_content"
+                android:padding="5dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:text="获取验证码"
+                android:textColor="#ff2d1a"
+                android:textSize="13sp" />
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+</RelativeLayout>

@@ -4,60 +4,28 @@ import android.annotation.SuppressLint;
 
 import com.jjz.energy.base.BasePresenter;
 import com.jjz.energy.entry.LoginBean;
-import com.jjz.energy.model.GetCodeModel;
+import com.jjz.energy.model.LoginInputCodeModel;
 import com.jjz.energy.util.networkUtil.CommonSubscriber;
-import com.jjz.energy.view.IGetCodeView;
+import com.jjz.energy.view.ILoginInputCodeView;
 
 /**
- * create by: 获取验证码
- * Date: 2018/9/17 下午4:22
+ * @ author CH
+ * @ fuction 获取验证码
  */
-public class GetCodePresenter extends BasePresenter<GetCodeModel, IGetCodeView> {
+public class LoginInputCodePresenter extends BasePresenter<LoginInputCodeModel, ILoginInputCodeView> {
 
 
-    public GetCodePresenter(IGetCodeView view) {
+    public LoginInputCodePresenter(ILoginInputCodeView view) {
         initPresenter(view);
     }
 
-
     /**
      * 获取验证码
-     * @param map
      */
     @SuppressLint("CheckResult")
-    public void getVCode(String map) {
+    public void getVCode(String data) {
 
-        addSubscribe(mModel.getVCode(map)
-                .subscribeWith(new CommonSubscriber<String>() {
-
-                    @Override
-                    protected void startLoading() {
-                        mView.showLoading();
-                    }
-
-                    @Override
-                    protected void onSuccess(String response) {
-                        mView.stopLoading();
-                        mView.isGetCodeSuccess(response);
-                    }
-
-                    @Override
-                    protected void onFail(String errorMsg) {
-                        mView.isFail(errorMsg);
-                        mView.stopLoading();
-                    }
-                }));
-
-    }
-
-    /**
-     * 登录
-     * @param map
-     */
-    @SuppressLint("CheckResult")
-    public void login(String map) {
-
-        addSubscribe(mModel.login(map)
+        addSubscribe(mModel.requestAuthCode(data)
                 .subscribeWith(new CommonSubscriber<LoginBean>() {
 
                     @Override
@@ -66,27 +34,27 @@ public class GetCodePresenter extends BasePresenter<GetCodeModel, IGetCodeView> 
                     }
 
                     @Override
-                    protected void onSuccess(LoginBean response) {
+                    protected void onSuccess(LoginBean loginBean) {
                         mView.stopLoading();
-                        mView.isLoginSuccess(response);
+                        mView.getAuthCodeSuc(loginBean);
                     }
 
                     @Override
                     protected void onFail(String errorMsg) {
-                        mView.isFail(errorMsg);
+                        mView.getAuthCodeFail(errorMsg);
                         mView.stopLoading();
                     }
                 }));
 
     }
+
     /**
-     * 密码登录
-     * @param map
+     * 验证码登录
      */
     @SuppressLint("CheckResult")
-    public void pwdLogin(String map) {
+    public void loginVCode(String data) {
 
-        addSubscribe(mModel.pwdLogin(map)
+        addSubscribe(mModel.loginVCode(data)
                 .subscribeWith(new CommonSubscriber<LoginBean>() {
 
                     @Override
@@ -95,22 +63,53 @@ public class GetCodePresenter extends BasePresenter<GetCodeModel, IGetCodeView> 
                     }
 
                     @Override
-                    protected void onSuccess(LoginBean response) {
+                    protected void onSuccess(LoginBean loginBean) {
                         mView.stopLoading();
-                        mView.isPwdLoginSuccess(response);
+                        mView.loginVCodeSuc(loginBean);
                     }
 
                     @Override
                     protected void onFail(String errorMsg) {
-                        mView.isFail(errorMsg);
+                        mView.loginVCodeFail(errorMsg);
                         mView.stopLoading();
                     }
                 }));
 
     }
+
+    /**
+     * 忘记密码  提交验证码
+     */
+    @SuppressLint("CheckResult")
+    public void forgotPasswordPutVCode(String data) {
+
+        addSubscribe(mModel.forgotPasswordPutVCode(data)
+                .subscribeWith(new CommonSubscriber<LoginBean>() {
+
+                    @Override
+                    protected void startLoading() {
+                        mView.showLoading();
+                    }
+
+                    @Override
+                    protected void onSuccess(LoginBean loginBean) {
+                        mView.stopLoading();
+                        mView.forgotPasswordSuc(loginBean);
+                    }
+
+                    @Override
+                    protected void onFail(String errorMsg) {
+                        mView.forgotPasswordFail(errorMsg);
+                        mView.stopLoading();
+                    }
+                }));
+
+    }
+
+
+
     @Override
-    protected GetCodeModel createModel() {
-        return new GetCodeModel();
+    protected LoginInputCodeModel createModel() {
+        return new LoginInputCodeModel();
     }
-
 }

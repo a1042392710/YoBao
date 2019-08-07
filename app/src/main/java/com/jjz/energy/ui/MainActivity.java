@@ -20,11 +20,13 @@ import com.jjz.energy.base.BasePresenter;
 import com.jjz.energy.entry.MainEvent;
 import com.jjz.energy.ui.home.HomeFragment;
 import com.jjz.energy.ui.home.PutCommodityActivity;
+import com.jjz.energy.ui.login.LoginActivity;
 import com.jjz.energy.ui.logistics.ReleaseLogisticsActivity;
 import com.jjz.energy.ui.mine.MineFragment;
 import com.jjz.energy.ui.notice.NoticeFragment;
 import com.jjz.energy.util.NoScrollViewPager;
 import com.jjz.energy.util.PopWindowUtil;
+import com.jjz.energy.util.networkUtil.UserLoginBiz;
 import com.jude.swipbackhelper.SwipeBackHelper;
 
 import org.greenrobot.eventbus.EventBus;
@@ -77,9 +79,18 @@ public class MainActivity extends BaseActivity {
             }else if (checkedId==R.id.rb_cimmundity){
                 vpMain.setCurrentItem(1);
             }else if (checkedId==R.id.rb_notice){
-                vpMain.setCurrentItem(2);
+                if (UserLoginBiz.getInstance(mContext).detectUserLoginStatus()){
+                    vpMain.setCurrentItem(2);
+                }else{
+                    startActivity(new Intent(mContext, LoginActivity.class));
+                }
+
             }else if (checkedId==R.id.rb_mine){
-                vpMain.setCurrentItem(3);
+                if (UserLoginBiz.getInstance(mContext).detectUserLoginStatus()){
+                    vpMain.setCurrentItem(3);
+                }else{
+                    startActivity(new Intent(mContext, LoginActivity.class));
+                }
             }
         });
 //        vpMain.setOffscreenPageLimit(3);
