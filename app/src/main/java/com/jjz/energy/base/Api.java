@@ -3,6 +3,7 @@ package com.jjz.energy.base;
 import com.jjz.energy.entry.BindBean;
 import com.jjz.energy.entry.BindOwnerInfoBean;
 import com.jjz.energy.entry.LoginBean;
+import com.jjz.energy.entry.ModifyLoginPassWordBean;
 import com.jjz.energy.util.networkUtil.ResponseData;
 
 import io.reactivex.Flowable;
@@ -45,6 +46,10 @@ public interface Api {
             @Field(PACK_NO) String data
     );
 
+    //修改登录密码
+    @FormUrlEncoded
+    @POST("user/editPassword")
+    Flowable<ResponseData<ModifyLoginPassWordBean>> getModifyLoginPassWord(@Field(PACK_NO) String data);
 
     //忘记密码 = 提交验证码
     @FormUrlEncoded

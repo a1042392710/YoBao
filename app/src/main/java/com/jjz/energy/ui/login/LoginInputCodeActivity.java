@@ -114,10 +114,10 @@ public class LoginInputCodeActivity extends BaseActivity<LoginInputCodePresenter
                 if (!StringUtils.isEmpty(code) && code.length() == 4) {
                     //登录验证
                     if (scene == 1) {
-//                        loginVCode();
+                        loginVCode();
                     } else {
                         //忘记密码的验证
-//                        forgotPassword();
+                        forgotPassword();
                     }
 
                 } else {
@@ -127,7 +127,7 @@ public class LoginInputCodeActivity extends BaseActivity<LoginInputCodePresenter
                 break;
             //获取验证码
             case R.id.tv_login_input_code_get:
-//                getVCode();
+                getVCode();
                 break;
         }
     }

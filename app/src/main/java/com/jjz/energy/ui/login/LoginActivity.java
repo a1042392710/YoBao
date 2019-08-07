@@ -12,9 +12,17 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.StringUtils;
 import com.jjz.energy.R;
 import com.jjz.energy.base.BaseActivity;
-import com.jjz.energy.base.BasePresenter;
+import com.jjz.energy.entry.LoginBean;
+import com.jjz.energy.presenter.LoginPresenter;
 import com.jjz.energy.util.StringUtil;
+import com.jjz.energy.util.Utils;
+import com.jjz.energy.util.networkUtil.PacketUtil;
+import com.jjz.energy.view.ILoginView;
 import com.jude.swipbackhelper.SwipeBackHelper;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.atomic.AtomicReference;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -24,7 +32,7 @@ import butterknife.OnClick;
  * @ date  2018/12/14  14:26
  * @ fuction  登录
  */
-public class LoginActivity extends BaseActivity {
+public class LoginActivity extends BaseActivity<LoginPresenter> implements ILoginView {
 
     //手机号输入框
     @BindView(R.id.et_home_login_mobile)
@@ -63,8 +71,8 @@ public class LoginActivity extends BaseActivity {
     private boolean isCodeLogin = true;
 
     @Override
-    protected BasePresenter getPresenter() {
-        return null;
+    protected LoginPresenter getPresenter() {
+        return new LoginPresenter(this);
     }
 
     @Override
@@ -184,7 +192,7 @@ public class LoginActivity extends BaseActivity {
                             etHomeLoginMobile.getText().toString().trim()).putExtra("scene", "1"));
                 }else{
                     //密码登录 直接验证账号密码
-//                    initLoginInterFace(etHomeLoginMobile.getText().toString().trim(), etHomeLoginPassword.getText().toString().trim());
+                    initLoginInterFace(etHomeLoginMobile.getText().toString().trim(), etHomeLoginPassword.getText().toString().trim());
                 }
                 break;
 //                //微信登录
@@ -203,6 +211,23 @@ public class LoginActivity extends BaseActivity {
     }
 
     //================================== 辅助方法
+
+    /**
+     * 登录接口
+     *
+     * @param username  手机号
+     * @param password  密码
+     */
+    private void initLoginInterFace(String username, String password) {
+        long time = System.currentTimeMillis(); //当前时间
+        String passwordValue = Utils.MD5Encode(Utils.MD5Encode(Utils.MD5Encode(password) + time) + username);//MD5加密后的密码
+        AtomicReference<Map<String, String>> hashMap = new AtomicReference<>(new HashMap<>());
+        hashMap.get().put("username", username);
+        hashMap.get().put("password", passwordValue);
+        hashMap.get().put("timestamp", time+"");
+        mPresenter.getLoginDate(PacketUtil.getRequestPacket(hashMap));
+
+    }
 
     /**
      * 切换登录状方式
@@ -254,7 +279,30 @@ public class LoginActivity extends BaseActivity {
     }
 
 
+
+
     //================================================ 方法重写
+
+    @Override
+    public void getLoginFail(String msg) {
+        showToast(msg);
+    }
+
+    //登录
+    @Override
+    public void getLoginSuc(LoginBean data) {
+        saveLoginData(data);
+    }
+
+    /**
+     * 保存登录信息
+     * @param data
+     */
+    private void saveLoginData(LoginBean data){
+        //登录成功，保存用户信息
+        showToast("登录成功");
+        loginSuc(data);
+    }
 
 
 
