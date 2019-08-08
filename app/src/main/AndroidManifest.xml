@@ -89,6 +89,10 @@
         <activity
             android:name="com.jjz.energy.ui.login.LoginVerifyMobileNumberActivity"
             android:configChanges="orientation|screenSize"/>
+        <!--设置和修改登录密码 -->
+        <activity
+            android:name="com.jjz.energy.ui.mine.MineSettingPasswordActivity"
+            android:configChanges="orientation|screenSize"/>
 
         <!--重置 验证手机号-->
         <activity

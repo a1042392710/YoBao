@@ -86,11 +86,11 @@ public class MainActivity extends BaseActivity {
                 }
 
             }else if (checkedId==R.id.rb_mine){
-                if (UserLoginBiz.getInstance(mContext).detectUserLoginStatus()){
+//                if (UserLoginBiz.getInstance(mContext).detectUserLoginStatus()){
                     vpMain.setCurrentItem(3);
-                }else{
-                    startActivity(new Intent(mContext, LoginActivity.class));
-                }
+//                }else{
+//                    startActivity(new Intent(mContext, LoginActivity.class));
+//                }
             }
         });
 //        vpMain.setOffscreenPageLimit(3);
