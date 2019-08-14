@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.jjz.energy.R;
 import com.jjz.energy.base.BaseActivity;
 import com.jjz.energy.base.BasePresenter;
+import com.jjz.energy.util.glide.GlideUtils;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -52,6 +53,7 @@ public class MineSettingActivity extends BaseActivity {
     @Override
     protected void initView() {
         tvToolbarTitle.setText("个人设置");
+
     }
 
     @Override

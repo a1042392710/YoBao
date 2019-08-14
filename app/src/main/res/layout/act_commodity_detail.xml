@@ -72,7 +72,7 @@
                     android:id="@+id/tv_talk"
                     android:layout_width="75dp"
                     android:layout_height="30dp"
-                    android:background="@drawable/bg_btn_orange"
+                    android:background="@drawable/bg_orange_solid"
                     android:gravity="center"
                     android:text="聊一聊"
                     android:textColor="@color/white"
@@ -105,7 +105,7 @@
                     android:layout_alignParentTop="true"
                     android:layout_marginLeft="4dp"
                     android:layout_marginTop="1dp"
-                    android:background="@drawable/bg_btn_orange"
+                    android:background="@drawable/bg_orange_solid"
                     android:paddingLeft="4dp"
                     android:paddingTop="1dp"
                     android:paddingRight="4dp"
@@ -230,7 +230,7 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginRight="18dp"
                 android:layout_marginBottom="16dp"
-                android:background="@drawable/bg_gray_solid"
+                android:background="@drawable/bg_gray_solid_f7"
                 android:orientation="horizontal">
 
                 <LinearLayout
@@ -346,7 +346,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="10dp"
-                    android:background="@drawable/bg_gray_solid"
+                    android:background="@drawable/bg_gray_solid_f7"
                     android:orientation="horizontal">
 
                     <EditText
@@ -440,7 +440,7 @@
             android:id="@+id/tv_buy"
             android:layout_width="75dp"
             android:layout_height="30dp"
-            android:background="@drawable/bg_btn_orange"
+            android:background="@drawable/bg_orange_solid"
             android:gravity="center"
             android:text="马上买"
             android:textColor="@color/white"

@@ -14,6 +14,7 @@ import com.jjz.energy.R;
 import com.jjz.energy.base.BaseFragment;
 import com.jjz.energy.base.BasePresenter;
 import com.jjz.energy.base.BaseRecycleNewAdapter;
+import com.jjz.energy.util.glide.GlideUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,6 +49,10 @@ public class MineFragment extends BaseFragment {
     TextView tvFeedback;
     @BindView(R.id.tv_about_us)
     TextView tvAboutUs;
+    @BindView(R.id.tv_fans_sum)
+    TextView tvFansSum;
+    @BindView(R.id.tv_like_sum)
+    TextView tvLikeSum;
 
     @Override
     protected BasePresenter getPresenter() {
@@ -57,6 +62,7 @@ public class MineFragment extends BaseFragment {
     @Override
     protected void initView() {
         initRv();
+        GlideUtils.loadCircleImage(mContext,"http://b-ssl.duitang.com/uploads/item/201407/22/20140722182918_tV8aa.jpeg",imgHead);
 
     }
 
@@ -96,7 +102,7 @@ public class MineFragment extends BaseFragment {
 
 
     @OnClick({R.id.img_setting, R.id.ll_mine_release, R.id.ll_mine_seller, R.id.ll_mine_buyer,
-            R.id.ll_mine_like, R.id.tv_feedback, R.id.tv_about_us ,R.id.img_head})
+            R.id.ll_mine_like, R.id.tv_feedback, R.id.tv_about_us ,R.id.img_head  ,R.id.tv_like_sum ,R.id.tv_fans_sum  })
     public void onViewClicked(View view) {
         switch (view.getId()) {
             //设置
@@ -121,7 +127,15 @@ public class MineFragment extends BaseFragment {
                 break;
                 //我收藏的
             case R.id.ll_mine_like:
-                startActivity(new Intent(mContext,MineLikeActivity.class));
+                startActivity(new Intent(mContext,MineLikeCommodityActivity.class));
+                break;
+                //我关注的人
+            case R.id.tv_like_sum:
+                startActivity(new Intent(mContext,MineFansAndLikeActivity.class).putExtra("index",0));
+                break;
+                //我的粉丝
+            case R.id.tv_fans_sum:
+                startActivity(new Intent(mContext,MineFansAndLikeActivity.class).putExtra("index",1));
                 break;
                 //意见反馈
             case R.id.tv_feedback:

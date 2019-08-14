@@ -205,7 +205,7 @@
                 android:layout_marginLeft="18dp"
                 android:layout_marginRight="18dp"
                 android:gravity="center"
-                android:background="@drawable/bg_btn_orange"/>
+                android:background="@drawable/bg_orange_solid"/>
 
 
         </LinearLayout>

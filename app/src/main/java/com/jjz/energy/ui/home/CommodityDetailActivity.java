@@ -19,7 +19,7 @@ import com.jjz.energy.base.BaseApplication;
 import com.jjz.energy.base.BasePresenter;
 import com.jjz.energy.base.BaseRecycleNewAdapter;
 import com.jjz.energy.ui.ImagePagerActivity;
-import com.jjz.energy.ui.mine.MineLikeActivity;
+import com.jjz.energy.ui.mine.MineLikeCommodityActivity;
 import com.jjz.energy.util.glide.GlideUtils;
 
 import java.util.ArrayList;
@@ -171,7 +171,7 @@ public class CommodityDetailActivity extends BaseActivity {
                 break;
                 //收藏夹
             case R.id.tv_favorites:
-                startActivity(new Intent(mContext, MineLikeActivity.class));
+                startActivity(new Intent(mContext, MineLikeCommodityActivity.class));
                 break;
                 //立即购买
             case R.id.tv_buy:

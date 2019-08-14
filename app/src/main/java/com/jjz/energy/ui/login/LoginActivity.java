@@ -205,6 +205,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements ILogi
 //                break;
 //                //退出
             case R.id.img_close:
+                setResult(0);
                 finish();
                 break;
         }

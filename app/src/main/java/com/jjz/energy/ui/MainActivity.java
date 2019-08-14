@@ -2,6 +2,7 @@ package com.jjz.energy.ui;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -18,6 +19,7 @@ import com.jjz.energy.R;
 import com.jjz.energy.base.BaseActivity;
 import com.jjz.energy.base.BasePresenter;
 import com.jjz.energy.entry.MainEvent;
+import com.jjz.energy.ui.community.CommunityFragment;
 import com.jjz.energy.ui.home.HomeFragment;
 import com.jjz.energy.ui.home.PutCommodityActivity;
 import com.jjz.energy.ui.login.LoginActivity;
@@ -56,6 +58,11 @@ public class MainActivity extends BaseActivity {
     @BindView(R.id.rg_bottom)
     RadioGroup rgBottom;
 
+    /**
+     * 选中的按钮下标
+     */
+    private int selectIndex = 0;
+
     @Override
     protected BasePresenter getPresenter() {
         return null;
@@ -75,17 +82,21 @@ public class MainActivity extends BaseActivity {
 
         rgBottom.setOnCheckedChangeListener((group, checkedId) -> {
             if (checkedId==R.id.rb_home){
+                selectIndex = 0;
                 vpMain.setCurrentItem(0);
             }else if (checkedId==R.id.rb_cimmundity){
+                selectIndex = 1;
                 vpMain.setCurrentItem(1);
             }else if (checkedId==R.id.rb_notice){
+                selectIndex = 2;
                 if (UserLoginBiz.getInstance(mContext).detectUserLoginStatus()){
                     vpMain.setCurrentItem(2);
                 }else{
-                    startActivity(new Intent(mContext, LoginActivity.class));
+                    startActivityForResult(new Intent(mContext, LoginActivity.class),0);
                 }
 
             }else if (checkedId==R.id.rb_mine){
+                selectIndex = 3;
 //                if (UserLoginBiz.getInstance(mContext).detectUserLoginStatus()){
                     vpMain.setCurrentItem(3);
 //                }else{
@@ -106,6 +117,16 @@ public class MainActivity extends BaseActivity {
         return super.onKeyDown(keyCode, event);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        //回到首页
+        if (!UserLoginBiz.getInstance(mContext).detectUserLoginStatus()&&selectIndex==2){
+            selectIndex=0;
+            vpMain.setCurrentItem(0);
+            rbHome.setChecked(true);
+        }
+    }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void setCurrentItem(MainEvent event) {
@@ -158,7 +179,7 @@ public class MainActivity extends BaseActivity {
     }
 
     class ViewPagerAdapter extends FragmentPagerAdapter {
-        private Fragment[] mFragments = new Fragment[]{new HomeFragment(), new HomeFragment(),
+        private Fragment[] mFragments = new Fragment[]{new HomeFragment(), new CommunityFragment(),
                     new NoticeFragment(), new MineFragment()};
 
         public ViewPagerAdapter(FragmentManager fm) {

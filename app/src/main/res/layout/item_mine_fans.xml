@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="65dp"
+                android:paddingLeft="18dp">
+
+    <TextView
+        android:id="@+id/item_tv_is_like"
+        android:layout_width="68dp"
+        android:textColor="@color/white"
+        android:text="关注"
+        android:textSize="13sp"
+        android:gravity="center"
+        android:layout_marginRight="18dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/bg_gray_solid_f7"
+        android:layout_height="29dp"/>
+
+    <ImageView
+        android:id="@+id/item_img_head"
+        android:layout_width="46dp"
+        android:layout_height="46dp"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="12dp"
+        android:src="@mipmap/ic_default_head"/>
+    
+    
+    <TextView
+        android:layout_alignTop="@id/item_img_head"
+        android:id="@+id/item_tv_user_name"
+        android:textSize="13sp"
+        android:textColor="@color/text_black33"
+        android:layout_width="wrap_content"
+        android:text="南昌彭于晏"
+        android:includeFontPadding="false"
+        android:layout_toRightOf="@id/item_img_head"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/item_tv_user_desc"
+        android:layout_toRightOf="@id/item_img_head"
+        android:layout_marginTop="9dp"
+        android:includeFontPadding="false"
+        android:maxLines="1"
+        android:maxEms="13"
+        android:ellipsize="end"
+        android:textSize="12sp"
+        android:textColor="#b0b0b0"
+        android:layout_below="@id/item_tv_user_name"
+        android:text="我是英雄联盟最骚的骚猪"
+        android:layout_toLeftOf="@id/item_tv_is_like"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/color_bg_f7"/>
+
+</RelativeLayout>

@@ -133,7 +133,7 @@
         android:layout_marginRight="18dp"
         android:layout_marginTop="78dp"
         android:gravity="center"
-        android:background="@drawable/bg_btn_orange"/>
+        android:background="@drawable/bg_orange_solid"/>
 
     <TextView
         android:layout_width="wrap_content"

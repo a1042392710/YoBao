@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.jjz.energy.R;
 import com.jjz.energy.base.BaseActivity;
 import com.jjz.energy.base.BasePresenter;
+import com.jjz.energy.util.glide.GlideUtils;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -52,6 +53,7 @@ public class MineInfomationActivity extends BaseActivity {
     @Override
     protected void initView() {
     tvToolbarTitle.setText("个人资料");
+        GlideUtils.loadCircleImage(mContext,"http://b-ssl.duitang.com/uploads/item/201407/22/20140722182918_tV8aa.jpeg",imgHead);
     }
 
     @Override

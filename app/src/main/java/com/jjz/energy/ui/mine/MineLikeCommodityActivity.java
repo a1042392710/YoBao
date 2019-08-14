@@ -23,7 +23,7 @@ import butterknife.OnClick;
  * @Features: 我收藏的
  * @author: create by chenhao on 2019/7/24
  */
-public class MineLikeActivity extends BaseActivity {
+public class MineLikeCommodityActivity extends BaseActivity {
     @BindView(R.id.ll_toolbar_left)
     LinearLayout llToolbarLeft;
     @BindView(R.id.tv_toolbar_title)

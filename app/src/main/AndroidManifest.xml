@@ -164,7 +164,7 @@
                   android:configChanges="orientation|screenSize"/>
 
         <!--我收藏的-->
-        <activity android:name="com.jjz.energy.ui.mine.MineLikeActivity"
+        <activity android:name="com.jjz.energy.ui.mine.MineLikeCommodityActivity"
                   android:configChanges="orientation|screenSize"/>
 
         <!--收款账户-->
@@ -193,6 +193,10 @@
 
         <!--个人主页-->
         <activity android:name="com.jjz.energy.ui.home.HomePageActivity"
+        android:configChanges="orientation|screenSize"/>
+
+        <!--我的喜欢和我的关注-->
+        <activity android:name="com.jjz.energy.ui.mine.MineFansAndLikeActivity"
                   android:configChanges="orientation|screenSize"/>
 
         <!--zxing-->

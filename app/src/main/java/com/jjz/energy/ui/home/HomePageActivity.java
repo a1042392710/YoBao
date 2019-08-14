@@ -66,7 +66,7 @@ public class HomePageActivity extends BaseActivity {
     @Override
     protected void initView() {
         //初始化Tablayou和ViewPager
-        initRvAndVp();
+        initVpAndVp();
         //设置头像
         GlideUtils.loadCircleImage(mContext,headImg,imgHead);
         //设置背景为头像高斯模糊后的图片
@@ -74,9 +74,9 @@ public class HomePageActivity extends BaseActivity {
     }
 
     /**
-     * 初始化商品分类列表
+     * 初始化tblayout列表和vp
      */
-    private void initRvAndVp() {
+    private void initVpAndVp() {
         //初始化ViewPager 并与TabLayout绑定
         noScrollVp.setAdapter(new ViewPagerAdapter(getSupportFragmentManager()));
         tablayout.setupWithViewPager(noScrollVp);
