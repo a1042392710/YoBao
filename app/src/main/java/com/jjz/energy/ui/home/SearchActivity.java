@@ -1,5 +1,6 @@
 package com.jjz.energy.ui.home;
 
+import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -49,11 +50,14 @@ public class SearchActivity extends BaseActivity {
         initFlowLayout();
     }
 
+    private String[] mVals = {"清洁剂", "尾气清洁剂", "久速", "清洁剂", "尾气", "久速", "清洁剂", "陈大帅", "周星星", "清洁剂"
+            , "尾气清洁剂", "久速"};
+
     /**
      * 给TagFlowLayout 赋值
      */
     private void initFlowLayout() {
-        String[] mVals = {"清洁剂","尾气清洁剂","久速","清洁剂","尾气","久速","清洁剂","陈大帅","周星星","清洁剂","尾气清洁剂","久速" };
+
         final LayoutInflater mInflater = LayoutInflater.from(this);
         tlSearch.setAdapter(new TagAdapter<String>(mVals) {
 
@@ -69,6 +73,8 @@ public class SearchActivity extends BaseActivity {
         tlSearch.setOnTagClickListener((view, position, parent) -> {
             //记录选中的意见下标
 //            seleteFeedPosition = String.valueOf(position + 1);
+            startActivity(new Intent(mContext,SearchResultActivity.class).putExtra("search_data",mVals[position]));
+            finish();
             return true;
         });
     }

@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/white"
+              android:orientation="vertical">
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/status_bar_height"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp">
+
+        <ImageView
+            android:id="@+id/img_finish"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:src="@mipmap/ic_main_back"/>
+
+
+        <EditText
+            android:id="@+id/et_search"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="15dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_gray_solid_f7"
+            android:drawableLeft="@mipmap/ic_search"
+            android:drawablePadding="5dp"
+            android:hint="搜索"
+            android:paddingLeft="17dp"
+            android:textColor="@color/text_black33"
+            android:textSize="13sp"/>
+
+        <ImageView
+            android:id="@+id/img_notice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="13dp"
+            android:layout_marginRight="10dp"
+            android:padding="10dp"
+            android:src="@mipmap/ic_notice"/>
+
+    </LinearLayout>
+
+
+    <RadioGroup
+        android:id="@+id/rg_sort"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/white"
+        android:clipChildren="false"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:paddingBottom="3dp">
+
+        <View
+            android:layout_width="0dp"
+            android:layout_weight="0.3"
+            android:layout_height="1dp"/>
+
+        <RadioButton
+            android:id="@+id/rb_sort_comprehensive"
+            style="@style/radio_button_style_sort"
+            android:checked="true"
+            android:text="综合排序"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="1dp"/>
+
+        <RadioButton
+            android:id="@+id/rb_sort_credit"
+            style="@style/radio_button_style_sort"
+            android:text="信用排序"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="1dp"/>
+
+        <RadioButton
+            android:id="@+id/rb_sort_region"
+            style="@style/radio_button_style_sort"
+            android:drawablePadding="5dp"
+            android:drawableRight="@mipmap/ic_up_and_dwon"
+            android:text="区域"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="1dp"/>
+
+        <RadioButton
+            android:id="@+id/rb_sort_list"
+            style="@style/radio_button_style_sort"
+            android:drawablePadding="5dp"
+            android:drawableRight="@mipmap/ic_filter"
+            android:text="筛选"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_weight="0.3"
+            android:layout_height="1dp"/>
+
+    </RadioGroup>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.7dp"
+        android:background="@color/color_bg_f7"/>
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:layout_width="match_parent"
+        android:id="@+id/smart_refresh"
+        android:paddingTop="10dp"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_search_result"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+
+
+</LinearLayout>

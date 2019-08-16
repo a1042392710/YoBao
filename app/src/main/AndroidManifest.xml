@@ -199,6 +199,10 @@
         <activity android:name="com.jjz.energy.ui.mine.MineFansAndLikeActivity"
                   android:configChanges="orientation|screenSize"/>
 
+        <!--搜索结果-->
+        <activity android:name="com.jjz.energy.ui.home.SearchResultActivity"
+                  android:configChanges="orientation|screenSize"/>
+
         <!--zxing-->
         <activity
             android:name="com.jjz.energy.zxing.android.CaptureActivity"

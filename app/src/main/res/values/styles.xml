@@ -84,6 +84,19 @@
         <item name="android:layout_weight">1</item>
     </style>
 
+    <!--搜索页排序的radiobuttom-->
+    <style name="radio_button_style_sort">
+        <!-- Customize your theme here. -->
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:padding">10dp</item>
+        <!--<item name="android:layout_gravity">center_vertical</item>-->
+        <item name="android:textSize">12sp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:button">@null</item>
+        <item name="android:textColor">@drawable/rb_text_drawable_selector_two</item>
+    </style>
+
     <!--*************************** 其他 ***************************-->
 
     <!-- Base application theme. -->
