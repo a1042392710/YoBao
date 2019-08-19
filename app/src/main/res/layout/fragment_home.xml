@@ -90,6 +90,7 @@
         <android.support.design.widget.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:stateListAnimator="@drawable/appbar_elevation"
             android:background="@color/white">
 
 
@@ -98,6 +99,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:contentScrim="@android:color/transparent"
+
                 app:expandedTitleGravity="top"
                 app:expandedTitleMarginEnd="64dp"
                 app:expandedTitleMarginStart="48dp"
@@ -164,6 +166,7 @@
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rvType"
                 android:layout_width="match_parent"
+                android:layout_marginTop="2dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="3dp"
                 android:layout_marginRight="15dp"
