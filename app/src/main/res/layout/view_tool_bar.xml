@@ -46,7 +46,7 @@
             android:lines="1"
             android:maxEms="10"
             android:textColor="#333333"
-            android:textSize="18sp" />
+            android:textSize="17sp" />
 
         <!--右边文字-->
         <TextView

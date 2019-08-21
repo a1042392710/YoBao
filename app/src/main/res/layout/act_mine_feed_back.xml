@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/in_toolbar"
+        layout="@layout/view_tool_bar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="21dp"
+                android:layout_marginTop="24dp"
+                android:background="@color/white"
+                android:text="请选择反馈类型"
+                android:textColor="#0e0e10"
+                android:textSize="14sp"/>
+
+            <com.jjz.energy.util.flowlayout.TagFlowLayout
+                android:id="@+id/flowlayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:max_select="1"
+                android:background="@color/white"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="21dp"
+                android:background="@color/white"
+                android:layout_marginTop="24dp"
+                android:text="请输入手机号码"
+                android:textColor="#0e0e10"
+                android:textSize="14sp" />
+
+            <EditText
+                android:id="@+id/et_feed_back_phone"
+                android:layout_width="match_parent"
+                android:layout_marginLeft="21dp"
+                android:layout_marginRight="21dp"
+                android:inputType="number"
+                android:layout_marginTop="20dp"
+                android:layout_height="40dp"
+                android:background="@drawable/bg_gray_solid_f7"
+                android:paddingLeft="13dp"
+                android:hint="请输入手机号码，仅用于我们向您核实问题"
+                android:textColor="@color/text_black45"
+                android:textColorHint="#cbcbcb"
+                android:textSize="13sp" />
+
+
+            <EditText
+                android:id="@+id/et_feed_back_content"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="20dp"
+                android:maxLength="300"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/bg_gray_solid_f7"
+                android:gravity="top"
+                android:hint="在此输入您遇见的问题，很抱歉给您带来不好的体验，我们将尽快和您联系…"
+                android:padding="13dp"
+                android:textColor="@color/text_black45"
+                android:textColorHint="#cbcbcb"
+                android:textSize="13sp" />
+
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_feed_back"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:background="@color/white"
+                android:paddingLeft="20dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:layout_marginLeft="21dp"
+                android:text="@string/feed_back_toast"
+                android:textColor="#999999"
+                android:textSize="10sp" />
+
+
+
+            <TextView
+                android:id="@+id/tv_submit"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="18dp"
+                android:layout_marginRight="18dp"
+                android:layout_marginTop="28dp"
+                android:layout_marginBottom="27dp"
+                android:background="@drawable/bg_orange_solid"
+                android:gravity="center"
+                android:text="提交"
+                android:textColor="@color/white"
+                android:textSize="15sp"/>
+
+        </LinearLayout>
+    </ScrollView>
+
+
+</LinearLayout>

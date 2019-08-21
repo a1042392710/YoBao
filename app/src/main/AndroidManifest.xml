@@ -203,6 +203,10 @@
         <activity android:name="com.jjz.energy.ui.home.SearchResultActivity"
                   android:configChanges="orientation|screenSize"/>
 
+        <!--意见反馈-->
+        <activity android:name="com.jjz.energy.ui.mine.FeedBackActivity"
+                  android:configChanges="orientation|screenSize"/>
+
         <!--zxing-->
         <activity
             android:name="com.jjz.energy.zxing.android.CaptureActivity"

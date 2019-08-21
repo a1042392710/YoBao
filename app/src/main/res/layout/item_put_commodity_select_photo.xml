@@ -2,27 +2,26 @@
 
 <RelativeLayout
     android:id="@+id/rl_photo"
-    android:layout_width="77dp"
+    android:layout_width="80dp"
     android:layout_marginBottom="10dp"
-    android:layout_height="77dp"
+    android:layout_height="80dp"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
     <ImageView
         android:id="@+id/img_photo"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="70dp"
+        android:layout_alignParentBottom="true"
+        android:layout_height="70dp"
         android:scaleType="centerCrop"
         tools:src="@mipmap/ic_add_photo" />
 
     <ImageView
         android:id="@+id/img_delect"
         android:layout_alignParentRight="true"
-        android:layout_marginTop="2dp"
-        android:layout_marginLeft="2dp"
         android:src="@mipmap/ic_delete_photo"
-        android:layout_width="20dp"
-        android:layout_height="20dp"/>
+        android:layout_width="17dp"
+        android:layout_height="17dp"/>
 
     </RelativeLayout>
 

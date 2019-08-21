@@ -22,6 +22,9 @@
     <string name="gallery">相册</string>
     <string name="scan_failed_tip">图片解析失败，换个图片试试.</string>
 
+
+    <string name="feed_back_toast">为了更好的反馈您的问题，您可以上传图片，图片3张，最大不超过5M（选填）</string>
+
     <string name="bind_alipay">1．请填写支付宝中绑定银行卡填写的真实姓名。\n2．为了保证顺利收款，不要特意更改其他账号，否则会导致收款不到账
 \n3．我们承诺不会向任何人透露您的个人隐私信息</string>
 
