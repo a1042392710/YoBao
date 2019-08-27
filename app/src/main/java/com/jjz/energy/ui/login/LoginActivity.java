@@ -192,7 +192,8 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements ILogi
                             etHomeLoginMobile.getText().toString().trim()).putExtra("scene", "1"));
                 }else{
                     //密码登录 直接验证账号密码
-                    initLoginInterFace(etHomeLoginMobile.getText().toString().trim(), etHomeLoginPassword.getText().toString().trim());
+//                    initLoginInterFace(etHomeLoginMobile.getText().toString().trim(), etHomeLoginPassword.getText().toString().trim());
+                    finish();
                 }
                 break;
 //                //微信登录

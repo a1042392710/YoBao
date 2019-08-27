@@ -45,7 +45,7 @@
                 android:layout_height="48dp"/>
 
             <TextView
-                android:text="发布闲置"
+                android:text="发布宝贝"
                 android:layout_marginTop="15dp"
                 android:textColor="#6c6c6c"
                 android:textSize="13sp"

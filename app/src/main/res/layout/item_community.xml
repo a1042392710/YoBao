@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="horizontal"
+              android:layout_width="match_parent"
+              android:paddingLeft="18dp"
+              android:paddingRight="18dp"
+              android:paddingTop="20dp"
+              android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/item_img_user_head"
+        android:layout_width="46dp"
+        android:src="@mipmap/ic_default_head"
+        android:layout_height="46dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_marginLeft="10dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="7dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/item_tv_user_name"
+            android:layout_width="wrap_content"
+            android:text="南昌彭于晏"
+            android:textSize="13sp"
+            android:textColor="@color/text_black33"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/item_tv_put_time"
+            android:text="10分钟前"
+            android:layout_width="wrap_content"
+            android:textColor="#bcbcbc"
+            android:layout_marginTop="2dp"
+            android:textSize="12sp"
+            android:layout_height="wrap_content"/>
+
+
+        <TextView
+            android:id="@+id/item_tv_content"
+            android:layout_marginTop="15dp"
+            android:text="金玖洲新能源给全国各地带来了不一样的便利，让生活变得多姿多彩。"
+            android:layout_width="match_parent"
+            android:textSize="13sp"
+            android:textColor="@color/text_black33"
+            android:layout_height="wrap_content"/>
+
+
+        <ImageView
+            android:id="@+id/img_one_photo"
+            android:layout_width="wrap_content"
+            android:layout_marginTop="19dp"
+            android:visibility="gone"
+            android:minWidth="110dp"
+            android:layout_height="131dp"/>
+
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/item_rv_photo"
+            android:layout_width="wrap_content"
+            android:paddingTop="15dp"
+            android:layout_height="wrap_content"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginTop="20dp"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/item_tv_like"
+                android:layout_width="wrap_content"
+                android:text="629"
+                android:textColor="#a9a9a9"
+                android:drawablePadding="5dp"
+                android:padding="5dp"
+                android:drawableLeft="@mipmap/ic_unchecked_like_two"
+                android:textSize="12sp"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/item_tv_comment"
+                android:layout_marginLeft="21dp"
+                android:layout_width="wrap_content"
+                android:drawableLeft="@mipmap/ic_comment"
+                android:drawablePadding="5dp"
+                android:padding="5dp"
+                android:text="29"
+                android:textColor="#a9a9a9"
+                android:textSize="12sp"
+                android:layout_height="wrap_content"/>
+            <View
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="1dp"/>
+
+            <ImageView
+                android:layout_marginRight="5dp"
+                android:id="@+id/item_img_share"
+                android:layout_width="wrap_content"
+                android:padding="5dp"
+                android:src="@mipmap/ic_more_black"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.7dp"
+            android:layout_marginTop="13dp"
+            android:background="#f6f6f6"/>
+
+
+    </LinearLayout>
+
+</LinearLayout>

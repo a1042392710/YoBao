@@ -143,6 +143,7 @@ public class MineFragment extends BaseFragment {
                 break;
                 //关于我们
             case R.id.tv_about_us:
+                startActivity(new Intent(mContext,AboutUsActivity.class));
                 break;
         }
     }

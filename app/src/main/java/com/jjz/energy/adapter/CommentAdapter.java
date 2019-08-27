@@ -1,9 +1,12 @@
 package com.jjz.energy.adapter;
 
 import android.support.annotation.Nullable;
+import android.widget.ImageView;
 
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.jjz.energy.R;
 import com.jjz.energy.base.BaseRecycleNewAdapter;
+import com.jjz.energy.util.glide.GlideUtils;
 
 import java.util.List;
 
@@ -18,6 +21,7 @@ public class CommentAdapter  extends BaseRecycleNewAdapter<String> {
 
     @Override
     protected void convert(BaseViewHolder helper, String item) {
-
+        ImageView imgHead = helper.getView(R.id.item_img_head);
+        GlideUtils.loadCircleImage(mContext,"http://b-ssl.duitang.com/uploads/item/201711/10/20171110225150_ym2jw.jpeg",imgHead);
     }
 }

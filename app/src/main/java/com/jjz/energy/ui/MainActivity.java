@@ -20,9 +20,9 @@ import com.jjz.energy.base.BaseActivity;
 import com.jjz.energy.base.BasePresenter;
 import com.jjz.energy.entry.MainEvent;
 import com.jjz.energy.ui.community.CommunityFragment;
+import com.jjz.energy.ui.community.PutCommunityActivity;
 import com.jjz.energy.ui.home.HomeFragment;
 import com.jjz.energy.ui.home.PutCommodityActivity;
-import com.jjz.energy.ui.login.LoginActivity;
 import com.jjz.energy.ui.logistics.ReleaseLogisticsActivity;
 import com.jjz.energy.ui.mine.MineFragment;
 import com.jjz.energy.ui.notice.NoticeFragment;
@@ -80,28 +80,30 @@ public class MainActivity extends BaseActivity {
         //设置竖屏
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
+
+
+
         rgBottom.setOnCheckedChangeListener((group, checkedId) -> {
-            if (checkedId==R.id.rb_home){
+            if (checkedId == R.id.rb_home) {
                 selectIndex = 0;
                 vpMain.setCurrentItem(0);
-            }else if (checkedId==R.id.rb_cimmundity){
+            } else if (checkedId == R.id.rb_cimmundity) {
                 selectIndex = 1;
-                vpMain.setCurrentItem(1);
-            }else if (checkedId==R.id.rb_notice){
+//                if (UserLoginBiz.getInstance(mContext).detectUserLoginStatus()){
+                    vpMain.setCurrentItem(1);
+//                }else{
+//                    startActivityForResult(new Intent(mContext, LoginActivity.class),0);
+//                }
+            } else if (checkedId == R.id.rb_notice) {
                 selectIndex = 2;
-                if (UserLoginBiz.getInstance(mContext).detectUserLoginStatus()){
-                    vpMain.setCurrentItem(2);
-                }else{
-                    startActivityForResult(new Intent(mContext, LoginActivity.class),0);
-                }
-
+//                if (UserLoginBiz.getInstance(mContext).detectUserLoginStatus()){
+                vpMain.setCurrentItem(2);
+//                }else{
+//                    startActivityForResult(new Intent(mContext, LoginActivity.class),0);
+//                }
             }else if (checkedId==R.id.rb_mine){
                 selectIndex = 3;
-//                if (UserLoginBiz.getInstance(mContext).detectUserLoginStatus()){
                     vpMain.setCurrentItem(3);
-//                }else{
-//                    startActivity(new Intent(mContext, LoginActivity.class));
-//                }
             }
         });
 //        vpMain.setOffscreenPageLimit(3);
@@ -120,8 +122,8 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        //回到首页
-        if (!UserLoginBiz.getInstance(mContext).detectUserLoginStatus()&&selectIndex==2){
+        //未登录状态，回到主页都切换到HomeFragment
+        if (requestCode==0&&!UserLoginBiz.getInstance(mContext).detectUserLoginStatus()){
             selectIndex=0;
             vpMain.setCurrentItem(0);
             rbHome.setChecked(true);
@@ -158,7 +160,7 @@ public class MainActivity extends BaseActivity {
         LinearLayout item_ll_put_post = view.findViewById(R.id.item_ll_put_post);
         //发布物流
         LinearLayout item_ll_put_logistics = view.findViewById(R.id.item_ll_put_logistics);
-        //发布闲置
+        //发布宝贝
         LinearLayout item_ll_put_idle = view.findViewById(R.id.item_ll_put_idle);
         PopupWindow  popupWindow= PopWindowUtil.getInstance().showAllWindow(mContext,view);
         //关闭弹窗
@@ -175,6 +177,12 @@ public class MainActivity extends BaseActivity {
             popupWindow.dismiss();
             //发布宝贝
             startActivity(new Intent(mContext, PutCommodityActivity.class));
+        });
+        //发布帖子
+        item_ll_put_post.setOnClickListener(v -> {
+            popupWindow.dismiss();
+            //发布宝贝
+            startActivity(new Intent(mContext, PutCommunityActivity.class));
         });
     }
 

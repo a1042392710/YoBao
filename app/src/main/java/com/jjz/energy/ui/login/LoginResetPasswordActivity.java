@@ -3,7 +3,7 @@ package com.jjz.energy.ui.login;
 import android.content.Intent;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.LinearLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.StringUtils;
@@ -29,8 +29,8 @@ import butterknife.OnClick;
 public class LoginResetPasswordActivity extends BaseActivity<LoginResetPasswordPresenter> implements ILoginResetPasswordView {
 
 
-    @BindView(R.id.ll_toolbar_left)
-    LinearLayout llToolbarLeft;
+    @BindView(R.id.img_close)
+    ImageView imgClose;
     @BindView(R.id.et_reset_password_input_new_pw)
     EditText etResetPasswordInputNewPw;
     @BindView(R.id.et_reset_password_again_input_new_pw)
@@ -62,10 +62,10 @@ public class LoginResetPasswordActivity extends BaseActivity<LoginResetPasswordP
     }
 
 
-    @OnClick({R.id.ll_toolbar_left, R.id.tv_reset_password_login})
+    @OnClick({R.id.img_close, R.id.tv_reset_password_login})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.ll_toolbar_left:
+            case R.id.img_close:
                 finish();
                 break;
             //确定
@@ -86,6 +86,9 @@ public class LoginResetPasswordActivity extends BaseActivity<LoginResetPasswordP
                     return;
                 }
                 submit();
+                //todo
+                //清空栈 再跳转首页
+                startActivity(new Intent(mContext, LoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
                 break;
         }
     }

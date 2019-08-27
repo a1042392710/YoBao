@@ -115,9 +115,15 @@ public class LoginInputCodeActivity extends BaseActivity<LoginInputCodePresenter
                     //登录验证
                     if (scene == 1) {
                         loginVCode();
+                        //TODO
+                        //跳转首页
+                        ActivityUtils.finishActivity(LoginActivity.class);
+                        finish();
                     } else {
                         //忘记密码的验证
                         forgotPassword();
+                        //TODO
+                        startActivity(new Intent(mContext,LoginResetPasswordActivity.class).putExtra("code", mCode).putExtra("mobile",mMobile ));
                     }
 
                 } else {
@@ -179,8 +185,7 @@ public class LoginInputCodeActivity extends BaseActivity<LoginInputCodePresenter
         SpUtil.init(BaseApplication.getAppContext()).commit(Constant.LOGIN_ID, decode_token);
         //存储用户信息
         UserLoginBiz.getInstance(BaseApplication.getAppContext()).loginSuccess(loginBean);
-        //清空栈 再跳转首页
-//        startActivity(new Intent(mContext, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK));
+        //跳转首页
         ActivityUtils.finishActivity(LoginActivity.class);
         finish();
     }

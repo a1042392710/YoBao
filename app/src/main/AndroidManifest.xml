@@ -75,6 +75,11 @@
             android:theme="@style/MainTheme"
             android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
 
+        <!--通用网页-->
+        <activity
+            android:name="com.jjz.energy.base.BaseWebActivity"
+            android:configChanges="orientation|screenSize"/>
+
         <!--搜索页-->
         <activity
             android:name=".ui.home.SearchActivity"
@@ -205,6 +210,18 @@
 
         <!--意见反馈-->
         <activity android:name="com.jjz.energy.ui.mine.FeedBackActivity"
+                  android:configChanges="orientation|screenSize"/>
+
+        <!--发帖子-->
+        <activity android:name="com.jjz.energy.ui.community.PutCommunityActivity"
+                  android:configChanges="orientation|screenSize"/>
+
+        <!--帖子详情-->
+        <activity android:name="com.jjz.energy.ui.community.CommunityDetailActivity"
+                  android:configChanges="orientation|screenSize"/>
+
+        <!--关于我们-->
+        <activity android:name="com.jjz.energy.ui.mine.AboutUsActivity"
                   android:configChanges="orientation|screenSize"/>
 
         <!--zxing-->
