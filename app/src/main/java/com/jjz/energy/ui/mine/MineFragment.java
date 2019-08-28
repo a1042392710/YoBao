@@ -72,14 +72,14 @@ public class MineFragment extends BaseFragment {
     private void initRv() {
         rvMine.setLayoutManager(new GridLayoutManager(mContext,4));
         List<MineBean> list = new ArrayList<>();
-        list.add(new MineBean("我的钱包",1));
-        list.add(new MineBean("我的会员",1));
-        list.add(new MineBean("我的足迹",1));
-        list.add(new MineBean("我的保险",1));
-        list.add(new MineBean("我的教育",1));
-        list.add(new MineBean("我的慈善",1));
-        list.add(new MineBean("我的评价",1));
-        list.add(new MineBean("我的客服",1));
+        list.add(new MineBean("我的帖子",R.mipmap.ic_mine_post));
+        list.add(new MineBean("我的物流",R.mipmap.ic_mine_logistics));
+        list.add(new MineBean("我的保险",R.mipmap.ic_mine_insurance));
+        list.add(new MineBean("我的养老",R.mipmap.ic_mine_pension));
+        list.add(new MineBean("我的公益",R.mipmap.ic_mine_charity));
+        list.add(new MineBean("我的教育",R.mipmap.ic_mine_education));
+        list.add(new MineBean("我的评价",R.mipmap.ic_mine_comment));
+        list.add(new MineBean("我的客服",R.mipmap.ic_mine_service));
         MineAdapter mineAdapter = new MineAdapter(R.layout.item_mine_type,list);
         rvMine.setAdapter(mineAdapter);
 
@@ -182,7 +182,10 @@ public class MineFragment extends BaseFragment {
 
         @Override
         protected void convert(BaseViewHolder helper, MineBean item) {
-
+         ImageView img = helper.getView(R.id.item_img_photo);
+         TextView tv = helper.getView(R.id.item_tv_title);
+         img.setImageResource(item.getImg());
+            tv.setText(item.getTitle());
 
         }
     }
