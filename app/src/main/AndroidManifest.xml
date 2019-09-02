@@ -219,9 +219,16 @@
         <!--帖子详情-->
         <activity android:name="com.jjz.energy.ui.community.CommunityDetailActivity"
                   android:configChanges="orientation|screenSize"/>
+        <!--我的帖子-->
+        <activity android:name="com.jjz.energy.ui.mine.MinePostActivity"
+                  android:configChanges="orientation|screenSize"/>
 
         <!--关于我们-->
         <activity android:name="com.jjz.energy.ui.mine.AboutUsActivity"
+                  android:configChanges="orientation|screenSize"/>
+
+        <!--选择城市-->
+        <activity android:name="com.jjz.energy.ui.city.CityPickerActivity"
                   android:configChanges="orientation|screenSize"/>
 
         <!--zxing-->

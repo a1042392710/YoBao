@@ -8,6 +8,7 @@
 
     <dimen name="gudieview_width">6dp</dimen>
     <dimen name="gudieview_heigh">6dp</dimen>
+    <dimen name="font_12sp">12sp</dimen>
 
     <!-- Default screen margins, per the Android Design guidelines. -->
 </resources>

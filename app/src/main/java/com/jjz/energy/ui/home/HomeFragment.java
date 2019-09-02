@@ -15,14 +15,21 @@ import com.jjz.energy.R;
 import com.jjz.energy.adapter.HomeCommodityTypeAdapter;
 import com.jjz.energy.base.BaseFragment;
 import com.jjz.energy.base.BasePresenter;
+import com.jjz.energy.entry.event.LocationEvent;
 import com.jjz.energy.ui.charitable.CharitableActivity;
+import com.jjz.energy.ui.city.CityPickerActivity;
 import com.jjz.energy.ui.education.EducationActivity;
 import com.jjz.energy.ui.insurance.InsuranceActivity;
 import com.jjz.energy.ui.logistics.LogisticsActivity;
 import com.jjz.energy.ui.pension.PensionActivity;
+import com.jjz.energy.util.StringUtil;
 import com.jjz.energy.util.glide.GlideImageLoader;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,14 +79,11 @@ public class HomeFragment extends BaseFragment {
     @BindView(R.id.ll_education)
     LinearLayout llEducation;
 
-    @Override
-    protected BasePresenter getPresenter() {
-        return null;
-    }
+
 
     @Override
     protected void initView() {
-
+        EventBus.getDefault().register(this);
         //初始化banner
         List<String> beans = new ArrayList<>();
         beans.add("http://pic1.win4000.com/wallpaper/0/559b8b91b3afa.jpg");
@@ -90,6 +94,24 @@ public class HomeFragment extends BaseFragment {
         initYoBao();
         //初始化Tablayou和商品分类列表
         initRv();
+    }
+
+    /**
+     * 初始化banner
+     */
+    private void initBanner(List<String> homeBeans) {
+        //设置图片加载器
+        banner.setImageLoader(new GlideImageLoader());
+        //设置图片集合
+        banner.setImages(homeBeans);
+        //设置轮播时间
+        banner.setDelayTime(3000);
+        //设置指示器位置（当banner模式中有指示器时）
+        banner.setIndicatorGravity(BannerConfig.RIGHT);
+        //轮播点击事件
+        banner.setOnBannerListener(position -> {
+        });
+        banner.start();
     }
 
     /**
@@ -125,38 +147,8 @@ public class HomeFragment extends BaseFragment {
 
     }
 
-    /**
-     * 初始化banner
-     */
-    private void initBanner(List<String> homeBeans) {
-        //设置图片加载器
-        banner.setImageLoader(new GlideImageLoader());
-        //设置图片集合
-        banner.setImages(homeBeans);
-        //设置轮播时间
-        banner.setDelayTime(3000);
-        //设置指示器位置（当banner模式中有指示器时）
-        banner.setIndicatorGravity(BannerConfig.RIGHT);
-        //轮播点击事件
-        banner.setOnBannerListener(position -> {
-        });
-        banner.start();
-    }
 
-    @Override
-    protected int layoutId() {
-        return R.layout.fragment_home;
-    }
 
-    @Override
-    public void showLoading() {
-        startProgressDialog();
-    }
-
-    @Override
-    public void stopLoading() {
-        stopProgressDialog();
-    }
 
 
     @OnClick({R.id.tv_city, R.id.card_search, R.id.img_notice,R.id.ll_logistics, R.id.ll_insurance, R.id.ll_old, R.id.ll_charitable,
@@ -165,6 +157,7 @@ public class HomeFragment extends BaseFragment {
         switch (view.getId()) {
             //切换城市
             case R.id.tv_city:
+                startActivity(new Intent(mContext, CityPickerActivity.class));
                 break;
             //搜索
             case R.id.card_search:
@@ -173,11 +166,11 @@ public class HomeFragment extends BaseFragment {
             //通知
             case R.id.img_notice:
                 break;
-                //物
+            //物流
             case R.id.ll_logistics:
                 startActivity(new Intent(mContext, LogisticsActivity.class));
                 break;
-                //保险
+            //保险
             case R.id.ll_insurance:
                 startActivity(new Intent(mContext, InsuranceActivity.class));
                 break;
@@ -196,4 +189,44 @@ public class HomeFragment extends BaseFragment {
         }
     }
 
+    /**
+     * 当前城市
+     */
+    private String mCityName ;
+    //接受定位消息，显示城市名称
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void  setCity(LocationEvent locationEvent){
+        mCityName = locationEvent.getEventMsg();
+        //显示当前城市
+        if (!StringUtil.isEmpty(mCityName)){
+            tvCity.setText(mCityName);
+        }
+    }
+
+    @Override
+    protected BasePresenter getPresenter() {
+        return null;
+    }
+
+    @Override
+    protected int layoutId() {
+        return R.layout.fragment_home;
+    }
+
+
+    @Override
+    public void showLoading() {
+        startProgressDialog();
+    }
+
+    @Override
+    public void stopLoading() {
+        stopProgressDialog();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
 }

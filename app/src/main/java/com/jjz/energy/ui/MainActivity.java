@@ -1,11 +1,12 @@
 package com.jjz.energy.ui;
 
+import android.Manifest;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.net.Uri;
+import android.provider.Settings;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
@@ -14,34 +15,40 @@ import android.widget.PopupWindow;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
+import com.baidu.location.BDAbstractLocationListener;
+import com.baidu.location.BDLocation;
+import com.baidu.location.LocationClient;
+import com.baidu.location.LocationClientOption;
 import com.jjz.energy.R;
+import com.jjz.energy.adapter.ViewPagerAdapter;
 import com.jjz.energy.base.BaseActivity;
 import com.jjz.energy.base.BasePresenter;
-import com.jjz.energy.entry.MainEvent;
-import com.jjz.energy.ui.community.CommunityFragment;
+import com.jjz.energy.entry.event.LocationEvent;
 import com.jjz.energy.ui.community.PutCommunityActivity;
-import com.jjz.energy.ui.home.HomeFragment;
 import com.jjz.energy.ui.home.PutCommodityActivity;
 import com.jjz.energy.ui.logistics.ReleaseLogisticsActivity;
-import com.jjz.energy.ui.mine.MineFragment;
-import com.jjz.energy.ui.notice.NoticeFragment;
 import com.jjz.energy.util.NoScrollViewPager;
 import com.jjz.energy.util.PopWindowUtil;
 import com.jjz.energy.util.networkUtil.UserLoginBiz;
 import com.jude.swipbackhelper.SwipeBackHelper;
 
 import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
+
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import permissions.dispatcher.NeedsPermission;
+import permissions.dispatcher.OnNeverAskAgain;
+import permissions.dispatcher.RuntimePermissions;
 
 /**
  * @Features: 主页面
  * @author: create by chenhao on 2019/3/21
  */
+@RuntimePermissions
 public class MainActivity extends BaseActivity {
     @BindView(R.id.vp_main)
     NoScrollViewPager vpMain;
@@ -63,6 +70,14 @@ public class MainActivity extends BaseActivity {
      */
     private int selectIndex = 0;
 
+
+    //定位
+    public LocationClient mLocationClient = null;
+    //定位监听
+    public MyLocationListener mMyLocationListener = new MyLocationListener();
+    //定位配置
+    private LocationClientOption option = new LocationClientOption();
+
     @Override
     protected BasePresenter getPresenter() {
         return null;
@@ -75,14 +90,18 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        EventBus.getDefault().register(this);
         SwipeBackHelper.getCurrentPage(this).setSwipeBackEnable(false);//设置是否可滑动
         //设置竖屏
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        initListener();
+        initLocation();
+        vpMain.setAdapter(new ViewPagerAdapter(getSupportFragmentManager()));
+    }
 
-
-
-
+    /**
+     * 初始化监听
+     */
+    private void initListener() {
         rgBottom.setOnCheckedChangeListener((group, checkedId) -> {
             if (checkedId == R.id.rb_home) {
                 selectIndex = 0;
@@ -90,7 +109,7 @@ public class MainActivity extends BaseActivity {
             } else if (checkedId == R.id.rb_cimmundity) {
                 selectIndex = 1;
 //                if (UserLoginBiz.getInstance(mContext).detectUserLoginStatus()){
-                    vpMain.setCurrentItem(1);
+                vpMain.setCurrentItem(1);
 //                }else{
 //                    startActivityForResult(new Intent(mContext, LoginActivity.class),0);
 //                }
@@ -103,51 +122,10 @@ public class MainActivity extends BaseActivity {
 //                }
             }else if (checkedId==R.id.rb_mine){
                 selectIndex = 3;
-                    vpMain.setCurrentItem(3);
+                vpMain.setCurrentItem(3);
             }
         });
-//        vpMain.setOffscreenPageLimit(3);
-        vpMain.setAdapter(new ViewPagerAdapter(getSupportFragmentManager()));
     }
-
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
-            exit();
-            return true;
-        }
-        return super.onKeyDown(keyCode, event);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        //未登录状态，回到主页都切换到HomeFragment
-        if (requestCode==0&&!UserLoginBiz.getInstance(mContext).detectUserLoginStatus()){
-            selectIndex=0;
-            vpMain.setCurrentItem(0);
-            rbHome.setChecked(true);
-        }
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void setCurrentItem(MainEvent event) {
-//        if (event.getEventMsg() == MainEvent.GO_MINE) {
-//        } else if (event.getEventMsg() == MainEvent.GO_HOT) {
-//            bottomNavigationView.setSelectedItemId(R.id.tab_two);
-//        } else {
-//            bottomNavigationView.setSelectedItemId(R.id.tab_one);
-//        }
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (EventBus.getDefault().isRegistered(this)) {
-            EventBus.getDefault().unregister(this);
-        }
-    }
-
 
 
     @OnClick(R.id.img_home_go)
@@ -186,21 +164,122 @@ public class MainActivity extends BaseActivity {
         });
     }
 
-    class ViewPagerAdapter extends FragmentPagerAdapter {
-        private Fragment[] mFragments = new Fragment[]{new HomeFragment(), new CommunityFragment(),
-                    new NoticeFragment(), new MineFragment()};
-
-        public ViewPagerAdapter(FragmentManager fm) {
-            super(fm);
-        }
-
-        @Override
-        public Fragment getItem(int position) { return mFragments[position];}
-
-        @Override
-        public int getCount() { return mFragments.length;}
+    //=============================================================== 定位
+    /**
+     * 初始化定位设置
+     */
+    private void initLocation() {
+        //声明LocationClient类
+        mLocationClient = new LocationClient(Objects.requireNonNull(mContext).getApplicationContext());
+        //是否需要地址信息，默认为不需要
+        option.setIsNeedAddress(true);
+        //定位模式为高精度
+        option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);
+        //只定位一次
+        option.setScanSpan(0);
+        //是否需要位置描述信息
+        option.setIsNeedLocationDescribe(true);
+        //将配置好的参数绑定
+        mLocationClient.setLocOption(option);
+        //注册监听函数
+        mLocationClient.registerLocationListener(mMyLocationListener);
+        MainActivityPermissionsDispatcher.startLocationWithCheck(this);
     }
 
+
+    @NeedsPermission(Manifest.permission.ACCESS_FINE_LOCATION)
+    void startLocation() {
+        mLocationClient.start();
+    }
+
+    //用户选择的不再询问后回调  非必须的方法
+    @OnNeverAskAgain(Manifest.permission.ACCESS_FINE_LOCATION)
+    public void multiNeverAsk() {
+
+        View view = View.inflate(mContext, R.layout.item_pop_defult_view, null);
+        TextView pop_tv_message = view.findViewById(R.id.pop_tv_message);
+        TextView pop_tv_ok = view.findViewById(R.id.pop_tv_ok);
+        pop_tv_message.setText("没有定位权限将无法定位当前城市哦，请您前往设置页面打开定位权限！");
+        pop_tv_ok.setText("去设置");
+
+        PopWindowUtil.getInstance().showPopupWindow(mContext, view);
+        pop_tv_ok.setOnClickListener(v -> {
+            Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+            Uri uri1 = Uri.parse("package:" + getPackageName());
+            intent.setData(uri1);
+            startActivityForResult(intent, 20);
+        });
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        MainActivityPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
+    }
+
+
+    /**
+     * 定位信息回调
+     */
+    public class MyLocationListener extends BDAbstractLocationListener {
+        @Override
+        public void onReceiveLocation(BDLocation location) {
+            //定位成功
+            if (null != location && location.getLocType() != BDLocation.TypeServerError) {
+                //此处的BDLocation为定位结果信息类，通过它的各种get方法可获取定位相关的全部结果
+                String locationDescribe = location.getLocationDescribe();
+                //发送一个包含市区信息的消息
+                EventBus.getDefault().post(new LocationEvent(location.getCity()));
+                //获取到地址后取消定位
+                mLocationClient.unRegisterLocationListener(mMyLocationListener);
+                mLocationClient.stop();
+            }else{
+                showToast("定位失败，请打开位置信息");
+            }
+        }
+    }
+
+    //================================================================= 生命周期和其他
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //再次显示的时候重新定位
+        if (null != mLocationClient && mLocationClient.isStarted()) {
+            mLocationClient.requestLocation();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        //取消定位
+        mLocationClient.unRegisterLocationListener(mMyLocationListener);
+        mLocationClient.stop();
+    }
+
+    //禁止返回
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+            exit();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        //未登录状态，回到主页都切换到HomeFragment
+        if (requestCode==0&&!UserLoginBiz.getInstance(mContext).detectUserLoginStatus()){
+            //记录选中的按钮
+            selectIndex=0;
+            vpMain.setCurrentItem(0);
+            rbHome.setChecked(true);
+        }
+    }
     @Override
     public void showLoading() {}
 

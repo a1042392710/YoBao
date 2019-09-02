@@ -53,7 +53,7 @@ public class MineFragment extends BaseFragment {
     TextView tvFansSum;
     @BindView(R.id.tv_like_sum)
     TextView tvLikeSum;
-
+    private List<MineBean> mList;
     @Override
     protected BasePresenter getPresenter() {
         return null;
@@ -70,18 +70,47 @@ public class MineFragment extends BaseFragment {
      * 初始化网格数据
      */
     private void initRv() {
-        rvMine.setLayoutManager(new GridLayoutManager(mContext,4));
-        List<MineBean> list = new ArrayList<>();
-        list.add(new MineBean("我的帖子",R.mipmap.ic_mine_post));
-        list.add(new MineBean("我的物流",R.mipmap.ic_mine_logistics));
-        list.add(new MineBean("我的保险",R.mipmap.ic_mine_insurance));
-        list.add(new MineBean("我的养老",R.mipmap.ic_mine_pension));
-        list.add(new MineBean("我的公益",R.mipmap.ic_mine_charity));
-        list.add(new MineBean("我的教育",R.mipmap.ic_mine_education));
-        list.add(new MineBean("我的评价",R.mipmap.ic_mine_comment));
-        list.add(new MineBean("我的客服",R.mipmap.ic_mine_service));
-        MineAdapter mineAdapter = new MineAdapter(R.layout.item_mine_type,list);
+        rvMine.setLayoutManager(new GridLayoutManager(mContext, 4));
+        mList = new ArrayList<>();
+        mList.add(new MineBean("我的帖子", R.mipmap.ic_mine_post));
+        mList.add(new MineBean("我的物流", R.mipmap.ic_mine_logistics));
+        mList.add(new MineBean("我的保险", R.mipmap.ic_mine_insurance));
+        mList.add(new MineBean("我的养老", R.mipmap.ic_mine_pension));
+        mList.add(new MineBean("我的公益", R.mipmap.ic_mine_charity));
+        mList.add(new MineBean("我的教育",R.mipmap.ic_mine_education));
+        mList.add(new MineBean("我的评价",R.mipmap.ic_mine_comment));
+        mList.add(new MineBean("我的客服",R.mipmap.ic_mine_service));
+        MineAdapter mineAdapter = new MineAdapter(R.layout.item_mine_type,mList);
         rvMine.setAdapter(mineAdapter);
+        mineAdapter.setOnItemClickListener((adapter, view, position) -> {
+            switch (position){
+                //我的帖子
+                case 0:
+                    startActivity(new Intent(mContext,MinePostActivity.class));
+                    break;
+                    //我的物流
+                case 1:
+                    break;
+                    //我的保险
+                case 2:
+                    break;
+                    //我的养老
+                case 3:
+                    break;
+                    //我的公益
+                case 4:
+                    break;
+                    //我的教育
+                case 5:
+                    break;
+                    //我的评价
+                case 6:
+                    break;
+                    //我的客服
+                case 7:
+                    break;
+            }
+        });
 
     }
 

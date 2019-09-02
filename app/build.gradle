@@ -155,4 +155,6 @@ dependencies {
     implementation files('libs/BaiduLBS_Android.jar')
     implementation files('libs/core-3.3.3.jar')
 
+    //拼音
+    implementation 'com.belerweb:pinyin4j:2.5.0'
 }

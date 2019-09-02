@@ -70,6 +70,7 @@ public class CommunityDetailActivity extends BaseActivity {
     protected void initView() {
         tvToolbarTitle.setText("南昌彭于晏");
         initRv();
+
     }
 
     /**
