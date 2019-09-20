@@ -1,5 +1,6 @@
 package com.jjz.energy.ui.mine;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,6 +14,7 @@ import com.jjz.energy.R;
 import com.jjz.energy.base.BaseActivity;
 import com.jjz.energy.base.BasePresenter;
 import com.jjz.energy.base.BaseRecycleNewAdapter;
+import com.jjz.energy.ui.community.CommunityDetailActivity;
 import com.jjz.energy.util.glide.GlideUtils;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
@@ -60,7 +62,11 @@ public class MinePostActivity extends BaseActivity {
         list.add("");
         list.add("");
         list.add("");
-        rvMinePost.setAdapter(new MinePostAdapter(R.layout.item_mine_post, list));
+        MinePostAdapter minePostAdapter = new MinePostAdapter(R.layout.item_mine_post, list);
+        rvMinePost.setAdapter(minePostAdapter);
+        minePostAdapter.setOnItemClickListener((adapter, view, position) -> {
+            startActivity(new Intent(mContext, CommunityDetailActivity.class));
+        });
     }
 
     @Override

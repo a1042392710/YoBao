@@ -131,7 +131,8 @@
 
                     <include layout="@layout/include_five_plate"/>
 
-                    <include layout="@layout/include_yo_bao"/>
+                    <include layout="@layout/include_five_plate_two"/>
+<!--                    <include layout="@layout/include_yo_bao"/>-->
 
                     <View
                         android:layout_width="match_parent"

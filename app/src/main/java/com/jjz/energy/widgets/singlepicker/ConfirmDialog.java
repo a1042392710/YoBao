@@ -32,9 +32,9 @@ public abstract class ConfirmDialog<V extends View> extends BaseDialog<View> {
     protected CharSequence submitText = "";
     protected CharSequence titleText = "";
     protected int cancelTextColor = 0xFF999999;
-    protected int submitTextColor =0xFF59B29C;
+    protected int submitTextColor =0xFFFE8977;
     protected int titleTextColor = 0xFF999999;
-    protected int pressedTextColor = 0XFF0288CE;
+    protected int pressedTextColor = 0XFFF92769;
     protected int cancelTextSize = 16;
     protected int submitTextSize = 16;
     protected int titleTextSize = 19;
@@ -308,12 +308,9 @@ public abstract class ConfirmDialog<V extends View> extends BaseDialog<View> {
         if (cancelTextSize != 0) {
             cancelButton.setTextSize(cancelTextSize);
         }
-        cancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dismiss();
-                onCancel();
-            }
+        cancelButton.setOnClickListener(v -> {
+            dismiss();
+            onCancel();
         });
         topButtonLayout.addView(cancelButton);
 
@@ -353,12 +350,9 @@ public abstract class ConfirmDialog<V extends View> extends BaseDialog<View> {
         if (submitTextSize != 0) {
             submitButton.setTextSize(submitTextSize);
         }
-        submitButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dismiss();
-                onSubmit();
-            }
+        submitButton.setOnClickListener(v -> {
+            dismiss();
+            onSubmit();
         });
         topButtonLayout.addView(submitButton);
 

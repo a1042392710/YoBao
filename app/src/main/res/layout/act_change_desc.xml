@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:background="@color/white"
+              android:layout_height="match_parent">
+
+    <include layout="@layout/view_tool_bar"/>
+
+
+   <EditText
+       android:id="@+id/et_desc"
+       android:layout_marginTop="10dp"
+       android:layout_width="match_parent"
+       tools:text="心若向阳,何惧悲伤"
+       android:textSize="14sp"
+       android:maxLines="2"
+       android:minHeight="50dp"
+       android:ellipsize="end"
+       android:textColor="@color/text_black33"
+       android:layout_marginLeft="10dp"
+       android:layout_marginRight="10dp"
+       android:paddingLeft="12dp"
+       android:layout_height="wrap_content"/>
+
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="22dp"
+        android:textSize="13sp"
+        android:text="可以简单的描述下自己"
+        android:layout_height="wrap_content"/>
+
+
+</LinearLayout>

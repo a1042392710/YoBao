@@ -53,7 +53,7 @@ public class WheelListView extends ListView implements ListView.OnScrollListener
 
     public static final int TEXT_SIZE = 18;//sp
     public static final float TEXT_ALPHA = 0.8f;
-    public static final int TEXT_COLOR_FOCUS = 0xFF59B29C;
+    public static final int TEXT_COLOR_FOCUS = 0xFFFE8977;
     public static final int TEXT_COLOR_NORMAL = 0xFF666666;
 
     public static final int ITEM_OFF_SET = 2;

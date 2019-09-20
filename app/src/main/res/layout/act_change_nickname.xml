@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:background="@color/white"
+              android:layout_height="match_parent">
+
+    <include layout="@layout/view_tool_bar"/>
+
+
+   <EditText
+       android:id="@+id/et_nick_name"
+       android:layout_marginTop="10dp"
+       android:layout_width="match_parent"
+       tools:text="南昌彭于晏"
+       android:textSize="14sp"
+       android:textColor="@color/text_black33"
+       android:layout_marginLeft="10dp"
+       android:maxLength="13"
+       android:layout_marginRight="10dp"
+       android:paddingLeft="12dp"
+       android:layout_height="50dp"/>
+
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="22dp"
+        android:textSize="13sp"
+        android:text="好名字可以让你的朋友更容易记住你"
+        android:layout_height="wrap_content"/>
+
+
+</LinearLayout>

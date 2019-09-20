@@ -9,7 +9,10 @@ import android.widget.TextView;
 import com.jjz.energy.R;
 import com.jjz.energy.base.BaseActivity;
 import com.jjz.energy.base.BasePresenter;
-import com.jjz.energy.util.glide.GlideUtils;
+import com.jjz.energy.ui.mine.information.MineAccountsActivity;
+import com.jjz.energy.ui.mine.information.MineInfomationActivity;
+import com.jjz.energy.ui.mine.information.MineSettingPasswordActivity;
+import com.jjz.energy.ui.mine.information.OwnerInfoActivity;
 
 import butterknife.BindView;
 import butterknife.OnClick;

@@ -1,4 +1,4 @@
-package com.jjz.energy.ui.mine;
+package com.jjz.energy.ui.mine.information;
 
 import android.view.View;
 import android.widget.EditText;

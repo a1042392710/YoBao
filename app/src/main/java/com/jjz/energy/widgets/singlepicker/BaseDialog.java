@@ -148,23 +148,17 @@ public abstract class BaseDialog<V extends View> implements DialogInterface.OnKe
     }
 
     public void setOnDismissListener(final DialogInterface.OnDismissListener onDismissListener) {
-        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-            @Override
-            public void onDismiss(DialogInterface dialogInterface) {
-                BaseDialog.this.onDismiss(dialogInterface);
-                onDismissListener.onDismiss(dialogInterface);
-            }
+        dialog.setOnDismissListener(dialogInterface -> {
+            BaseDialog.this.onDismiss(dialogInterface);
+            onDismissListener.onDismiss(dialogInterface);
         });
     }
 
     public void setOnKeyListener(final DialogInterface.OnKeyListener onKeyListener) {
-        dialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
-            @Override
-            public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
-                                BaseDialog.this.onKey(dialog, keyCode, event);
-                                return onKeyListener.onKey(dialog, keyCode, event);
-                            }
-         });
+        dialog.setOnKeyListener((dialog, keyCode, event) -> {
+                            BaseDialog.this.onKey(dialog, keyCode, event);
+                            return onKeyListener.onKey(dialog, keyCode, event);
+                        });
     }
 
     /**

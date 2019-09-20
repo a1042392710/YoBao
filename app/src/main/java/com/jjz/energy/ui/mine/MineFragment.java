@@ -14,6 +14,7 @@ import com.jjz.energy.R;
 import com.jjz.energy.base.BaseFragment;
 import com.jjz.energy.base.BasePresenter;
 import com.jjz.energy.base.BaseRecycleNewAdapter;
+import com.jjz.energy.ui.mine.information.MineInfomationActivity;
 import com.jjz.energy.util.glide.GlideUtils;
 
 import java.util.ArrayList;
@@ -73,13 +74,13 @@ public class MineFragment extends BaseFragment {
         rvMine.setLayoutManager(new GridLayoutManager(mContext, 4));
         mList = new ArrayList<>();
         mList.add(new MineBean("我的帖子", R.mipmap.ic_mine_post));
+        mList.add(new MineBean("我的公益", R.mipmap.ic_mine_charity));
         mList.add(new MineBean("我的物流", R.mipmap.ic_mine_logistics));
         mList.add(new MineBean("我的保险", R.mipmap.ic_mine_insurance));
         mList.add(new MineBean("我的养老", R.mipmap.ic_mine_pension));
-        mList.add(new MineBean("我的公益", R.mipmap.ic_mine_charity));
         mList.add(new MineBean("我的教育",R.mipmap.ic_mine_education));
         mList.add(new MineBean("我的评价",R.mipmap.ic_mine_comment));
-        mList.add(new MineBean("我的客服",R.mipmap.ic_mine_service));
+        mList.add(new MineBean("我的积分",R.mipmap.ic_mine_integral));
         MineAdapter mineAdapter = new MineAdapter(R.layout.item_mine_type,mList);
         rvMine.setAdapter(mineAdapter);
         mineAdapter.setOnItemClickListener((adapter, view, position) -> {
@@ -140,7 +141,7 @@ public class MineFragment extends BaseFragment {
                 break;
             //头像
             case R.id.img_head:
-                startActivity(new Intent(mContext,MineInfomationActivity.class));
+                startActivity(new Intent(mContext, MineInfomationActivity.class));
                 break;
                 //我发布的
             case R.id.ll_mine_release:

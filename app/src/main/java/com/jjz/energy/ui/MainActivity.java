@@ -96,6 +96,7 @@ public class MainActivity extends BaseActivity {
         initListener();
         initLocation();
         vpMain.setAdapter(new ViewPagerAdapter(getSupportFragmentManager()));
+        vpMain.setOffscreenPageLimit(3);
     }
 
     /**

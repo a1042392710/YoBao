@@ -32,4 +32,12 @@
 
     <string name="bind_wechat">1．请填写微信中绑定银行卡填写的真实姓名。\n2．为了保证顺利收款，不要特意更改其他账号，否则会导致收款不到账\n3．我们承诺不会向任何人透露您的个人隐私信息</string>
 
+
+    <string name="year">年</string>
+    <string name="month">月</string>
+    <string name="day">日</string>
+    <string name="hour">时</string>
+    <string name="minute">分</string>
+
+
 </resources>

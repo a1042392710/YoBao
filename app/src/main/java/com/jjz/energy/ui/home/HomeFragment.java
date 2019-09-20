@@ -44,30 +44,14 @@ import butterknife.OnClick;
 public class HomeFragment extends BaseFragment {
 
 
-    @BindView(R.id.banner)
-    Banner banner;
-    @BindView(R.id.tv_service_point_distance)
-    TextView tvServicePointDistance;
-    @BindView(R.id.tv_location_description)
-    TextView tvLocationDescription;
-    @BindView(R.id.ll_location_distance)
-    LinearLayout llLocationDistance;
-    @BindView(R.id.tv_business_hours)
-    TextView tvBusinessHours;
-    @BindView(R.id.ll_business_hours)
-    LinearLayout llBusinessHours;
-    @BindView(R.id.tablayout)
-    TabLayout tablayout;
-    @BindView(R.id.rvType)
-    RecyclerView rvType;
     @BindView(R.id.tv_city)
     TextView tvCity;
     @BindView(R.id.card_search)
     CardView cardSearch;
     @BindView(R.id.img_notice)
     ImageView imgNotice;
-    @BindView(R.id.collapsing_toolbar)
-    CollapsingToolbarLayout collapsingToolbar;
+    @BindView(R.id.banner)
+    Banner banner;
     @BindView(R.id.ll_logistics)
     LinearLayout llLogistics;
     @BindView(R.id.ll_insurance)
@@ -78,8 +62,20 @@ public class HomeFragment extends BaseFragment {
     LinearLayout llCharitable;
     @BindView(R.id.ll_education)
     LinearLayout llEducation;
-
-
+    @BindView(R.id.ll_jiusu)
+    LinearLayout llJiusu;
+    @BindView(R.id.ll_same_city)
+    LinearLayout llSameCity;
+    @BindView(R.id.ll_barter)
+    LinearLayout llBarter;
+    @BindView(R.id.ll_shop_discount)
+    LinearLayout llShopDiscount;
+    @BindView(R.id.collapsing_toolbar)
+    CollapsingToolbarLayout collapsingToolbar;
+    @BindView(R.id.tablayout)
+    TabLayout tablayout;
+    @BindView(R.id.rvType)
+    RecyclerView rvType;
 
     @Override
     protected void initView() {
@@ -137,7 +133,7 @@ public class HomeFragment extends BaseFragment {
         HomeCommodityTypeAdapter commodityTypeAdapter =
                 new HomeCommodityTypeAdapter(R.layout.item_commodity_grid, list);
         rvType.setAdapter(commodityTypeAdapter);
-        commodityTypeAdapter.setOnItemClickListener((adapter, view, position) -> startActivity(new Intent(mContext,CommodityDetailActivity.class)));
+        commodityTypeAdapter.setOnItemClickListener((adapter, view, position) -> startActivity(new Intent(mContext, CommodityDetailActivity.class)));
     }
 
     /**
@@ -148,10 +144,8 @@ public class HomeFragment extends BaseFragment {
     }
 
 
-
-
-
-    @OnClick({R.id.tv_city, R.id.card_search, R.id.img_notice,R.id.ll_logistics, R.id.ll_insurance, R.id.ll_old, R.id.ll_charitable,
+    @OnClick({R.id.tv_city, R.id.card_search, R.id.img_notice, R.id.ll_logistics,
+            R.id.ll_insurance, R.id.ll_old, R.id.ll_charitable,
             R.id.ll_education})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -174,15 +168,15 @@ public class HomeFragment extends BaseFragment {
             case R.id.ll_insurance:
                 startActivity(new Intent(mContext, InsuranceActivity.class));
                 break;
-                //养老
+            //养老
             case R.id.ll_old:
                 startActivity(new Intent(mContext, PensionActivity.class));
                 break;
-                //公益
+            //公益
             case R.id.ll_charitable:
                 startActivity(new Intent(mContext, CharitableActivity.class));
                 break;
-                //教育
+            //教育
             case R.id.ll_education:
                 startActivity(new Intent(mContext, EducationActivity.class));
                 break;
@@ -192,13 +186,14 @@ public class HomeFragment extends BaseFragment {
     /**
      * 当前城市
      */
-    private String mCityName ;
+    private String mCityName;
+
     //接受定位消息，显示城市名称
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void  setCity(LocationEvent locationEvent){
+    public void setCity(LocationEvent locationEvent) {
         mCityName = locationEvent.getEventMsg();
         //显示当前城市
-        if (!StringUtil.isEmpty(mCityName)){
+        if (!StringUtil.isEmpty(mCityName)) {
             tvCity.setText(mCityName);
         }
     }

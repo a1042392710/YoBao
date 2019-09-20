@@ -181,14 +181,11 @@ public class SinglePicker<T> extends WheelPicker {
             wheelListView.setOffset(offset);
             wheelListView.setCanLoop(canLoop);
             wheelListView.setItems(itemStrings, selectedItemIndex);
-            wheelListView.setOnWheelChangeListener(new WheelListView.OnWheelChangeListener() {
-                @Override
-                public void onItemSelected(boolean isUserScroll, int index, String item) {
-                    selectedItemIndex = index;
-                    selectedItem = item;
-                    if (onSingleWheelListener != null) {
-                        onSingleWheelListener.onWheeled(selectedItemIndex, item);
-                    }
+            wheelListView.setOnWheelChangeListener((isUserScroll, index, item) -> {
+                selectedItemIndex = index;
+                selectedItem = item;
+                if (onSingleWheelListener != null) {
+                    onSingleWheelListener.onWheeled(selectedItemIndex, item);
                 }
             });
 

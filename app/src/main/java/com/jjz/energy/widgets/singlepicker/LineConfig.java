@@ -13,7 +13,7 @@ public  class LineConfig {
         FILL, WRAP
     }
     private static final int LINE_ALPHA = 220;
-    private static final int LINE_COLOR = 0xFF59B29C;
+    private static final int LINE_COLOR = 0xFFFE8977;
     private static final float LINE_THICK = 2f;//px
     private boolean visible = true;
     private boolean shadowVisible = false;

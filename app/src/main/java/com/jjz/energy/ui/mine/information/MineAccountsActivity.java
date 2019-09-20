@@ -1,4 +1,4 @@
-package com.jjz.energy.ui.mine;
+package com.jjz.energy.ui.mine.information;
 
 import android.content.Intent;
 import android.view.View;
@@ -109,13 +109,13 @@ public class MineAccountsActivity extends BaseActivity {
         LinearLayout item_ll_alipay = popView.findViewById(R.id.item_ll_alipay);
         item_ll_alipay.setOnClickListener(v -> {
             //todo 先判断是否已经存在账户
-            startActivity(new Intent(mContext,BindAliPayActivity.class));
+            startActivity(new Intent(mContext, BindAliPayActivity.class));
         });
         //选中微信
         LinearLayout item_ll_wechat = popView.findViewById(R.id.item_ll_wechat);
         item_ll_wechat.setOnClickListener(v -> {
             //todo 先判断是否已经存在账户
-            startActivity(new Intent(mContext,BindWechatActivity.class));
+            startActivity(new Intent(mContext, BindWechatActivity.class));
         });
         //取消
         TextView item_tv_cancle = popView.findViewById(R.id.item_tv_cancle);
