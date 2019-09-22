@@ -158,7 +158,7 @@
 -keep class com.taobao.sophix.**{*;}
 -keep class com.ta.utdid2.device.**{*;}
 #防止inline
--dontoptimize
+#-dontoptimize  已存在
 
 # Glide 的混淆代码
 -dontwarn com.bumptech.glide.**
@@ -262,3 +262,14 @@
 #支付宝
 -dontwarn android.net.**
 -keep class android.net.SSLCertificateSocketFactory{*;}
+
+#极光推送
+#-dontoptimize 已存在
+#-dontpreverify 已存在
+
+-dontwarn cn.jpush.**
+-keep class cn.jpush.** { *; }
+-keep class * extends cn.jpush.android.helpers.JPushMessageReceiver { *; }
+
+-dontwarn cn.jiguang.**
+-keep class cn.jiguang.** { *; }

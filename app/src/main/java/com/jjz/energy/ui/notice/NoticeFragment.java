@@ -1,5 +1,6 @@
 package com.jjz.energy.ui.notice;
 
+import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -17,6 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import cn.jpush.im.android.api.JMessageClient;
+import cn.jpush.im.api.BasicCallback;
 
 /**
  * @Features: 消息
@@ -76,6 +79,21 @@ public class NoticeFragment extends BaseFragment {
         NoticeAdapter noticeAdapter = new NoticeAdapter(R.layout.item_notice,list);
         rvNewNotice.setAdapter(noticeAdapter);
         rvOldNotice.setAdapter(noticeAdapter);
+        //消息点击进聊天
+        noticeAdapter.setOnItemClickListener((adapter, view, position) -> {
+            startActivity(new Intent(mContext,IMActivity.class));
+        });
+
+        //登录 方小杰
+        JMessageClient.login("cds123", "123456", new BasicCallback() {
+            @Override
+            public void gotResult(int i, String s) {
+                if (i==0){
+                    showToast("登录成功");
+                }
+
+            }
+        });
     }
 
     /**
@@ -89,6 +107,7 @@ public class NoticeFragment extends BaseFragment {
 
         @Override
         protected void convert(BaseViewHolder helper, String item) {
+
 
         }
     }

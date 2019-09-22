@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_bg_f7"
+    android:orientation="vertical">
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/status_bar_height"
+        android:background="@color/white" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/base_toolbar_height"
+        android:background="@color/white">
+
+        <ImageView
+            android:id="@+id/img_im_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:paddingLeft="15dp"
+            android:paddingRight="30dp"
+            android:src="@mipmap/ic_main_back" />
+
+        <TextView
+            android:id="@+id/tv_im_title"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text=""
+            android:textColor="@color/text_black33"
+            android:textSize="17sp" />
+
+    </RelativeLayout>
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_im"
+        android:layout_width="match_parent"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:elevation="3dp"
+        android:orientation="horizontal"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp">
+
+
+        <EditText
+            android:id="@+id/et_im"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_gray_broke"
+            android:gravity="center_vertical"
+            android:hint="聊点什么吧"
+            android:imeOptions="actionSend"
+            android:paddingLeft="10dp"
+            android:paddingTop="7dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="7dp"
+            android:singleLine="true"
+            android:textColor="@color/text_blackA6"
+            android:textCursorDrawable="@null"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tv_send"
+            android:text="发送"
+            android:textColor="@color/red_fe8977"
+            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:gravity="center"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp" />
+
+    </LinearLayout>
+</LinearLayout>

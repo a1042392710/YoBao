@@ -185,7 +185,7 @@ public class GlideUtils {
 
 
     /**
-     * 加载圆形图片
+     * 加载圆形图片  指定Url
      */
     public static void loadCircleImage(Context context, String url, ImageView imageView) {
         RequestOptions options = new RequestOptions()
@@ -198,6 +198,22 @@ public class GlideUtils {
                 .diskCacheStrategy(DiskCacheStrategy.ALL);
 
         Glide.with(context).load(url).apply(options).into(imageView);
+    }
+
+    /**
+     * 加载圆形图片  指定Bitmap
+     */
+    public static void loadCircleImage(Context context, Bitmap bitmap, ImageView imageView) {
+        RequestOptions options = new RequestOptions()
+                .centerCrop()
+                .circleCrop()//设置圆形
+                .placeholder(placeholderSoWhite)
+                .error(errorSoWhite)
+                //.priority(Priority.HIGH)
+//                .bitmapTransform(new GlideCircleTransformation())
+                .diskCacheStrategy(DiskCacheStrategy.ALL);
+
+        Glide.with(context).load(bitmap).apply(options).into(imageView);
     }
 
     /**

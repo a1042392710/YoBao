@@ -10,19 +10,20 @@ android {
         versionCode 3
         versionName "2.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
         ndk {
             //选择要添加的对应cpu类型的.so库。
             abiFilters 'armeabi', 'armeabi-v7a', 'arm64-v8a'
             // 还可以添加 'x86', 'x86_64', 'mips', 'mips64'
         }
-
+        //极光推送
         manifestPlaceholders = [
                 JPUSH_PKGNAME : applicationId,
                 JPUSH_APPKEY : "c2bc84572f9d78d3522bc456", //JPush上注册的包名对应的appkey.
                 JPUSH_CHANNEL : "developer-default", //暂时填写默认值即可.
         ]
 
-        // 设置支持multidex
+        // 设置支持multidex 分包
         multiDexEnabled true
 
         //使用renderscript 兼容包
@@ -56,10 +57,12 @@ android {
         }
     }
     sourceSets {
+        //指定架包路径
         main {
             jniLibs.srcDir 'libs'
         }
     }
+    //使用java新特性
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -169,6 +172,8 @@ dependencies {
 
     //极光推送
     implementation 'cn.jiguang.sdk:jpush:3.1.1'  // 此处以JPush 3.1.6 版本为例。
-    implementation 'cn.jiguang.sdk:jcore:1.2.5'  // 此处以JCore 1.2.5 版本为例。
+    //极光IM
+    implementation 'cn.jiguang.sdk:jmessage:2.9.0'  // 此处以JMessage 2.9.0 版本为例。
+    implementation  'cn.jiguang.sdk:jcore:2.1.2'  // 此处以JCore 2.1.2 版本为例。
 
 }

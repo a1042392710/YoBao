@@ -14,6 +14,7 @@ import com.squareup.leakcanary.LeakCanary;
 import com.tencent.bugly.Bugly;
 
 import cn.jpush.android.api.JPushInterface;
+import cn.jpush.im.android.api.JMessageClient;
 
 
 public class BaseApplication extends Application {
@@ -33,13 +34,14 @@ public class BaseApplication extends Application {
         //bugly 参数3  调试开关 /测试时true 发布时false
         Bugly.init(getApplicationContext(), "549524cc16", true);
         //极光推送
-        JPushInterface.setDebugMode(true);
+        JPushInterface.setDebugMode(true);// true则会打印debug级别的日志，false则只会打印warning级别以上的日志
         JPushInterface.init(this);
+        //极光IM  指定是否开启消息漫游 默认不开启
+        JMessageClient.init(this,false);
         //内存泄漏工具
-        if (LeakCanary.isInAnalyzerProcess(this)) {//1
-            return;
+        if (!LeakCanary.isInAnalyzerProcess(this)) {
+            LeakCanary.install(this);
         }
-        LeakCanary.install(this);
     }
     //static 代码段可以防止内存泄露
     static {
