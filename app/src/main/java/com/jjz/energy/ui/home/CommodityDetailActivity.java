@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.ActivityUtils;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jjz.energy.R;
 import com.jjz.energy.adapter.CommentAdapter;
@@ -20,6 +21,7 @@ import com.jjz.energy.base.BasePresenter;
 import com.jjz.energy.base.BaseRecycleNewAdapter;
 import com.jjz.energy.ui.ImagePagerActivity;
 import com.jjz.energy.ui.mine.MineLikeCommodityActivity;
+import com.jjz.energy.ui.mine.shop_order.SureBuyActivity;
 import com.jjz.energy.util.glide.GlideUtils;
 
 import java.util.ArrayList;
@@ -181,6 +183,7 @@ public class CommodityDetailActivity extends BaseActivity {
                 break;
                 //立即购买
             case R.id.tv_buy:
+                ActivityUtils.startActivity(SureBuyActivity.class);
                 break;
         }
     }

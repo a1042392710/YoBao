@@ -13,8 +13,7 @@ import com.blankj.utilcode.util.StringUtils;
 import com.jjz.energy.base.BaseApplication;
 import com.jjz.energy.base.Constant;
 import com.jjz.energy.entry.LoginBean;
-import com.jjz.energy.util.AesUtils;
-import com.jjz.energy.util.SpUtil;
+import com.jjz.energy.util.system.SpUtil;
 import com.jjz.energy.util.StringUtil;
 import com.jjz.energy.util.Utils;
 

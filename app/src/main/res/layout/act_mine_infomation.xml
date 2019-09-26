@@ -311,7 +311,7 @@
                     android:textColor="@color/text_black33"
                     android:textSize="13sp"
                     android:gravity="center_vertical"
-                    android:text="收货地址"
+                    android:text="收货地址管理"
                     android:layout_height="match_parent"/>
 
                 <ImageView

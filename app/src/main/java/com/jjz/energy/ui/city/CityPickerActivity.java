@@ -28,7 +28,7 @@ import com.jjz.energy.ui.city.bean.CityPickerBean;
 import com.jjz.energy.ui.city.bean.LocateState;
 import com.jjz.energy.ui.city.util.PinyinUtils;
 import com.jjz.energy.ui.city.util.ReadAssetsFileUtil;
-import com.jjz.energy.util.PopWindowUtil;
+import com.jjz.energy.util.system.PopWindowUtil;
 import com.jjz.energy.util.city.widget.SideLetterBar;
 
 import org.greenrobot.eventbus.EventBus;

@@ -3,7 +3,6 @@ package com.jjz.energy.util.networkUtil;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import com.jjz.energy.base.Api;
 import com.jjz.energy.base.BaseApplication;
-import com.jjz.energy.util.StringConverterFactory;
 import com.jjz.energy.util.fastjson.FastJsonConverterFactory;
 
 import java.io.File;

@@ -18,7 +18,7 @@ import com.jjz.energy.adapter.CommonSelectPhotoAdapter;
 import com.jjz.energy.base.BaseActivity;
 import com.jjz.energy.base.BasePresenter;
 import com.jjz.energy.base.Constant;
-import com.jjz.energy.util.PopWindowUtil;
+import com.jjz.energy.util.system.PopWindowUtil;
 import com.jjz.energy.util.glide.MyGlideEngine;
 import com.zhihu.matisse.Matisse;
 import com.zhihu.matisse.MimeType;

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 点击之后的图标 -->
+    <item
+        android:state_checked="true"
+        android:drawable="@mipmap/ic_select_rb" />
+
+    <item
+        android:state_checked="false"
+        android:drawable="@mipmap/ic_unselect_rb"
+        />
+</selector>

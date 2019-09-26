@@ -28,10 +28,10 @@ import com.jjz.energy.base.BasePresenter;
 import com.jjz.energy.entry.event.LocationEvent;
 import com.jjz.energy.ui.community.PutCommunityActivity;
 import com.jjz.energy.ui.home.PutCommodityActivity;
-import com.jjz.energy.ui.login.LoginActivity;
-import com.jjz.energy.ui.logistics.ReleaseLogisticsActivity;
-import com.jjz.energy.util.NoScrollViewPager;
-import com.jjz.energy.util.PopWindowUtil;
+import com.jjz.energy.ui.home.login.LoginActivity;
+import com.jjz.energy.ui.home.logistics.ReleaseLogisticsActivity;
+import com.jjz.energy.widgets.NoScrollViewPager;
+import com.jjz.energy.util.system.PopWindowUtil;
 import com.jjz.energy.util.networkUtil.UserLoginBiz;
 import com.jude.swipbackhelper.SwipeBackHelper;
 
@@ -124,7 +124,11 @@ public class MainActivity extends BaseActivity {
                 }
             } else if (checkedId == R.id.rb_mine) {
                 selectIndex = 3;
-                vpMain.setCurrentItem(3);
+                if (UserLoginBiz.getInstance(mContext).detectUserLoginStatus()) {
+                    vpMain.setCurrentItem(3);
+                } else {
+                    startActivityForResult(new Intent(mContext, LoginActivity.class), 0);
+                }
             }
         });
     }

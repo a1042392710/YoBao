@@ -15,8 +15,8 @@ import com.jjz.energy.entry.LoginBean;
 import com.jjz.energy.entry.MineBean;
 import com.jjz.energy.presenter.mine.MinePresenter;
 import com.jjz.energy.ui.mine.information.MineInfomationActivity;
-import com.jjz.energy.util.PopWindowUtil;
-import com.jjz.energy.util.SpUtil;
+import com.jjz.energy.util.system.PopWindowUtil;
+import com.jjz.energy.util.system.SpUtil;
 import com.jjz.energy.util.StringUtil;
 import com.jjz.energy.util.glide.GlideUtils;
 import com.jjz.energy.util.networkUtil.PacketUtil;
@@ -107,8 +107,8 @@ public class MineFragment  extends BaseLazyFragment<MinePresenter> implements IP
             //昵称
             tvNickName.setText(mLoginBean.getNickname());
             //关注数量和粉丝数量
-            tvFansSum.setText("100万");
-            tvLikeSum.setText("50");
+            tvFansSum.setText("粉丝:100万");
+            tvLikeSum.setText("关注:50");
         }
     }
 

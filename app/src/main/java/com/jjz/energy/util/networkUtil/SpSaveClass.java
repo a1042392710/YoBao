@@ -5,7 +5,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.alibaba.fastjson.JSONObject;
-import com.jjz.energy.util.SpUtil;
+import com.jjz.energy.util.system.SpUtil;
 import com.jjz.energy.util.Utils;
 
 public class SpSaveClass

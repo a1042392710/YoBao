@@ -1,5 +1,6 @@
 package com.jjz.energy.base;
 
+import com.jjz.energy.entry.AddressBean;
 import com.jjz.energy.entry.AgencyBean;
 import com.jjz.energy.entry.BindBean;
 import com.jjz.energy.entry.BindOwnerInfoBean;
@@ -10,12 +11,12 @@ import com.jjz.energy.entry.MapMarkerBean;
 import com.jjz.energy.entry.MineWalletBean;
 import com.jjz.energy.entry.MineWalletListBean;
 import com.jjz.energy.entry.ModifyLoginPassWordBean;
+import com.jjz.energy.entry.OrderBean;
+import com.jjz.energy.entry.OrderDetailBean;
 import com.jjz.energy.entry.ShareInfoBean;
 import com.jjz.energy.entry.ShopMarkerBean;
 import com.jjz.energy.entry.VipListInfo;
 import com.jjz.energy.entry.WithdrawListBean;
-import com.jjz.energy.entry.OrderBean;
-import com.jjz.energy.entry.OrderDetailBean;
 import com.jjz.energy.util.networkUtil.ResponseData;
 import com.jjz.energy.wxapi.OrderPayTypeBean;
 
@@ -41,6 +42,9 @@ public interface Api {
 //     String BASE_URL = "http://172.16.32.5/app/";
         String BASE_URL = "http://api.jjznewenergy.com/app/";
      String PACK_NO = "params";
+
+
+     //================================================== 用户
 
     //登录
     @FormUrlEncoded
@@ -82,7 +86,6 @@ public interface Api {
             @Field(PACK_NO) String data
     );
 
-
     //提交车主信息
     @FormUrlEncoded
     @POST("user/setUserinfo")
@@ -102,6 +105,39 @@ public interface Api {
     @FormUrlEncoded
     @POST("user/getUserBindInfo")
     Flowable<ResponseData<BindBean>> getBindInfo(@Field(PACK_NO) String pack_no);
+
+
+    //=================================================== 收货地址
+
+    /**
+     * 我的 == 添加收货地址
+     */
+    @FormUrlEncoded
+    @POST("user/addressSave")
+    Flowable<ResponseData<AddressBean>> addAddress(@Field(PACK_NO) String pack_no);
+
+    /**
+     * 我的 == 删除收货地址
+     */
+    @FormUrlEncoded
+    @POST("user/delAddress")
+    Flowable<ResponseData<AddressBean>> deleteAddress(@Field(PACK_NO) String pack_no);
+
+    /**
+     * 我的 == 设为默认收货地址
+     */
+    @FormUrlEncoded
+    @POST("user/myAddress")
+    Flowable<ResponseData<AddressBean>> defaultAddress(@Field(PACK_NO) String pack_no);
+
+    /**
+     * 我的 == 收货地址列表
+     */
+    @FormUrlEncoded
+    @POST("user/myAddress")
+    Flowable<ResponseData<AddressBean>> getAddressList(@Field(PACK_NO) String pack_no);
+
+
 
     //======================================================== 全部复制
     /**

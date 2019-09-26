@@ -19,7 +19,7 @@ import com.jjz.energy.adapter.CommonSelectPhotoAdapter;
 import com.jjz.energy.base.BaseActivity;
 import com.jjz.energy.base.BasePresenter;
 import com.jjz.energy.base.Constant;
-import com.jjz.energy.util.PopWindowUtil;
+import com.jjz.energy.util.system.PopWindowUtil;
 import com.jjz.energy.util.flowlayout.FlowLayout;
 import com.jjz.energy.util.flowlayout.TagAdapter;
 import com.jjz.energy.util.flowlayout.TagFlowLayout;

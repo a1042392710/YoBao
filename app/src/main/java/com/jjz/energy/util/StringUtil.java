@@ -18,7 +18,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * create by: xy
+ *  字符串工具类
  * Date: 2018/12/19 下午1:53
  */
 public class StringUtil {

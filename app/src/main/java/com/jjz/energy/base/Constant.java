@@ -1,7 +1,7 @@
 package com.jjz.energy.base;
 
 /**
- * create by: xy
+ * create by: CH
  * Date: 2018/9/13 下午2:13
  * 常量
  */

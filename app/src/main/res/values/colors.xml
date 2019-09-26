@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#ffffff</color>
     <color name="colorAccent">#fe8977</color>
-    <color name="baseBackGround">#f5fbf5</color>
+    <color name="baseBackGround">#f7f7f7</color>
     <color name="black">#000000</color>
     <color name="white">#ffffff</color>
     <color name="gray_f6">#f6f6f6</color>
@@ -19,6 +19,7 @@
     <color name="date_picker_text_two">#333333</color>
 
     <color name="text_black33">#333333</color>
+    <color name="text_black28">#282828</color>
     <color name="text_black96">#969696</color>
     <color name="text_black99">#999999</color>
     <color name="text_black66">#666666</color>

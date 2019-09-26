@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.jjz.energy.R;
 import com.jjz.energy.base.BaseActivity;
 import com.jjz.energy.base.BasePresenter;
-import com.jjz.energy.util.PopWindowUtil;
+import com.jjz.energy.util.system.PopWindowUtil;
 
 import butterknife.BindView;
 import butterknife.OnClick;

@@ -3,7 +3,7 @@ package com.jjz.energy.util.networkUtil;
 import android.content.Context;
 
 import com.jjz.energy.entry.LoginBean;
-import com.jjz.energy.util.SpUtil;
+import com.jjz.energy.util.system.SpUtil;
 
 import java.lang.ref.WeakReference;
 

@@ -16,9 +16,10 @@ import com.jjz.energy.R;
 import com.jjz.energy.base.BaseActivity;
 import com.jjz.energy.base.Constant;
 import com.jjz.energy.entry.LoginBean;
-import com.jjz.energy.entry.SexEnum;
+import com.jjz.energy.entry.enums.SexEnum;
 import com.jjz.energy.presenter.mine.MineInformationPresenter;
-import com.jjz.energy.util.PopWindowUtil;
+import com.jjz.energy.ui.mine.shipping_address.AddressManagerActivity;
+import com.jjz.energy.util.system.PopWindowUtil;
 import com.jjz.energy.util.StringUtil;
 import com.jjz.energy.util.Utils;
 import com.jjz.energy.util.file.FileUtil;
@@ -310,7 +311,7 @@ public class MineInfomationActivity extends BaseActivity<MineInformationPresente
                 break;
             //收货地址
             case R.id.ll_receipt_address:
-                startActivity(new Intent(mContext, MineShippingAddressActivity.class));
+                startActivity(new Intent(mContext, AddressManagerActivity.class));
                 break;
         }
     }

@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.jjz.energy.util.LoadingDialogUtil;
+import com.jjz.energy.util.system.LoadingDialogUtil;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import butterknife.ButterKnife;

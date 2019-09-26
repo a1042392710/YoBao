@@ -10,7 +10,7 @@ import com.jjz.energy.base.BaseActivity;
 import com.jjz.energy.base.LoginEventBean;
 import com.jjz.energy.entry.BindBean;
 import com.jjz.energy.presenter.mine.BindALiAndWechatPresenter;
-import com.jjz.energy.util.SpUtil;
+import com.jjz.energy.util.system.SpUtil;
 import com.jjz.energy.util.StringUtil;
 import com.jjz.energy.util.Utils;
 import com.jjz.energy.util.networkUtil.PacketUtil;

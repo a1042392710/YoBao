@@ -77,6 +77,7 @@ public class MineSettingActivity extends BaseActivity {
 
             case R.id.ll_toolbar_left:
                 finish();
+                break;
             //个人资料
             case R.id.ll_information:
                 startActivity(new Intent(mContext, MineInfomationActivity.class));

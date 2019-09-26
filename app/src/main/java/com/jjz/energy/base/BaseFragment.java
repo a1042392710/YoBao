@@ -10,13 +10,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.jjz.energy.util.LoadingDialogUtil;
+import com.jjz.energy.util.system.LoadingDialogUtil;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-import static com.jjz.energy.util.click.ISafeClick.MIN_CLICK_DELAY_TIME;
 
 /**
  * Fragment基础类
@@ -43,20 +42,7 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment imp
      * 注解
      */
     private Unbinder unbinder;
-
-    private static long lastClickTime = 0;
-
-    public boolean isFastClick() {
-        boolean flag = false;
-        long curClickTime = System.currentTimeMillis();
-        if ((curClickTime - lastClickTime) >= MIN_CLICK_DELAY_TIME) {
-            flag = true;
-        }
-        lastClickTime = curClickTime;
-        return flag;
-    }
-
-
+    
     //********************************************* 生命周期
 
     @Override

@@ -12,7 +12,7 @@ import com.jjz.energy.entry.BindOwnerInfoBean;
 import com.jjz.energy.entry.LoginBean;
 import com.jjz.energy.presenter.mine.BindOwnerInfoPresenter;
 import com.jjz.energy.util.IDCardValidate;
-import com.jjz.energy.util.KeyboardUtil;
+import com.jjz.energy.util.system.KeyboardUtil;
 import com.jjz.energy.util.StringUtil;
 import com.jjz.energy.util.networkUtil.PacketUtil;
 import com.jjz.energy.util.networkUtil.UserLoginBiz;
