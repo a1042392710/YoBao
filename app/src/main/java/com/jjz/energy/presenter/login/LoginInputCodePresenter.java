@@ -1,12 +1,12 @@
-package com.jjz.energy.presenter;
+package com.jjz.energy.presenter.login;
 
 import android.annotation.SuppressLint;
 
 import com.jjz.energy.base.BasePresenter;
 import com.jjz.energy.entry.LoginBean;
-import com.jjz.energy.model.LoginInputCodeModel;
+import com.jjz.energy.model.login.LoginInputCodeModel;
 import com.jjz.energy.util.networkUtil.CommonSubscriber;
-import com.jjz.energy.view.ILoginInputCodeView;
+import com.jjz.energy.view.login.ILoginInputCodeView;
 
 /**
  * @ author CH
@@ -26,7 +26,7 @@ public class LoginInputCodePresenter extends BasePresenter<LoginInputCodeModel, 
     public void getVCode(String data) {
 
         addSubscribe(mModel.requestAuthCode(data)
-                .subscribeWith(new CommonSubscriber<LoginBean>() {
+                .subscribeWith(new CommonSubscriber<String>() {
 
                     @Override
                     protected void startLoading() {
@@ -34,7 +34,7 @@ public class LoginInputCodePresenter extends BasePresenter<LoginInputCodeModel, 
                     }
 
                     @Override
-                    protected void onSuccess(LoginBean loginBean) {
+                    protected void onSuccess(String loginBean) {
                         mView.stopLoading();
                         mView.getAuthCodeSuc(loginBean);
                     }

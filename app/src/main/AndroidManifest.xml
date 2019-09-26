@@ -12,7 +12,7 @@
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <!--这个权限用于访问GPS定位-->
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android .permission.ACCESS_FINE_LOCATION" />
 
     <!--允许sd卡写权限，需写入地图数据，禁用后无法显示地图-->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -40,22 +40,6 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
 
-<!--    极光推送-->
-<!--    &lt;!&ndash; Required &ndash;&gt;-->
-<!--    <permission-->
-<!--        android:name="com.jjz.energy.permission.JPUSH_MESSAGE"-->
-<!--        android:protectionLevel="signature" />-->
-
-<!--    &lt;!&ndash; Required  一些系统要求的权限，如访问网络等&ndash;&gt;-->
-<!--    <uses-permission android:name="com.jjz.energy.permission.JPUSH_MESSAGE" />-->
-<!--    <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />-->
-<!--    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"-->
-<!--        tools:ignore="ProtectedPermissions" />-->
-
-<!--    &lt;!&ndash; Optional for location &ndash;&gt;-->
-<!--    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" /> &lt;!&ndash; 用于开启 debug 版本的应用在6.0 系统上 层叠窗口权限 &ndash;&gt;-->
-<!--    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />-->
-<!--    <uses-permission android:name="android.permission.GET_TASKS" />-->
 
     <!--打电话-->
     <application

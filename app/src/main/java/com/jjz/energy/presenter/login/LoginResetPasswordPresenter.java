@@ -1,12 +1,12 @@
-package com.jjz.energy.presenter;
+package com.jjz.energy.presenter.login;
 
 import android.annotation.SuppressLint;
 
 import com.jjz.energy.base.BasePresenter;
 import com.jjz.energy.entry.LoginBean;
-import com.jjz.energy.model.LoginResetPasswordModel;
+import com.jjz.energy.model.login.LoginResetPasswordModel;
 import com.jjz.energy.util.networkUtil.CommonSubscriber;
-import com.jjz.energy.view.ILoginResetPasswordView;
+import com.jjz.energy.view.login.ILoginResetPasswordView;
 
 /**
  * @author CH

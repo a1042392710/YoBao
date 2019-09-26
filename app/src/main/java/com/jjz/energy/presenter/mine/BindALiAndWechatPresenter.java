@@ -1,12 +1,12 @@
-package com.jjz.energy.presenter;
+package com.jjz.energy.presenter.mine;
 
 import android.annotation.SuppressLint;
 
 import com.jjz.energy.base.BasePresenter;
 import com.jjz.energy.entry.BindBean;
-import com.jjz.energy.model.BindALiAndWechatModel;
+import com.jjz.energy.model.mine.BindALiAndWechatModel;
 import com.jjz.energy.util.networkUtil.CommonSubscriber;
-import com.jjz.energy.view.IBindALiAndWechatView;
+import com.jjz.energy.view.mine.IBindALiAndWechatView;
 
 /**
  * create by: ch 绑定微信或支付宝信息

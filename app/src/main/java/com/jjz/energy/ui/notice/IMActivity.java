@@ -82,6 +82,9 @@ public class IMActivity extends BaseActivity {
         initData();
     }
 
+    /**
+     * 将输入框顶至软键盘之上
+     */
     private void initEt() {
 
     }
@@ -95,7 +98,7 @@ public class IMActivity extends BaseActivity {
         //创建会话，如果存在则返回会话实例
         conversation = Conversation.createSingleConversation(userName, null);
         //进入会话状态,不接收通知栏
-//        JMessageClient.enterSingleConversation(this.userName);
+        JMessageClient.enterSingleConversation(this.userName);
     }
 
     /**

@@ -1,7 +1,6 @@
 package com.jjz.energy.ui.mine;
 
 import android.content.Intent;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -9,13 +8,20 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.chad.library.adapter.base.BaseViewHolder;
 import com.jjz.energy.R;
-import com.jjz.energy.base.BaseFragment;
-import com.jjz.energy.base.BasePresenter;
-import com.jjz.energy.base.BaseRecycleNewAdapter;
+import com.jjz.energy.adapter.MineAdapter;
+import com.jjz.energy.base.BaseLazyFragment;
+import com.jjz.energy.entry.LoginBean;
+import com.jjz.energy.entry.MineBean;
+import com.jjz.energy.presenter.mine.MinePresenter;
 import com.jjz.energy.ui.mine.information.MineInfomationActivity;
+import com.jjz.energy.util.PopWindowUtil;
+import com.jjz.energy.util.SpUtil;
+import com.jjz.energy.util.StringUtil;
 import com.jjz.energy.util.glide.GlideUtils;
+import com.jjz.energy.util.networkUtil.PacketUtil;
+import com.jjz.energy.util.networkUtil.UserLoginBiz;
+import com.jjz.energy.view.mine.IPersonalInformationView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +33,7 @@ import butterknife.OnClick;
  * @Features: 个人中心
  * @author: create by chenhao on 2019/7/15
  */
-public class MineFragment extends BaseFragment {
+public class MineFragment  extends BaseLazyFragment<MinePresenter> implements IPersonalInformationView {
     @BindView(R.id.view_title)
     View viewTitle;
     @BindView(R.id.img_head)
@@ -54,21 +60,60 @@ public class MineFragment extends BaseFragment {
     TextView tvFansSum;
     @BindView(R.id.tv_like_sum)
     TextView tvLikeSum;
+    /**
+     * 我的菜单列表数据
+     */
     private List<MineBean> mList;
-    @Override
-    protected BasePresenter getPresenter() {
-        return null;
-    }
+    /**
+     * 用户信息数据
+     */
+    private LoginBean mLoginBean = new LoginBean();
 
     @Override
     protected void initView() {
         initRv();
-        GlideUtils.loadCircleImage(mContext,"http://b-ssl.duitang.com/uploads/item/201407/22/20140722182918_tV8aa.jpeg",imgHead);
-
     }
 
     /**
-     * 初始化网格数据
+     * 获取用户数据成功
+     */
+    @Override
+    public void isSuccess(LoginBean loginBean) {
+
+        //推送公告
+        String push_message = loginBean.getPush_message();
+        //显示文本
+        if (!StringUtil.isEmpty(push_message) && !push_message.equals(SpUtil.init(mContext).readString("push_message"))){
+            PopWindowUtil.getInstance().showPopupWindow(mContext, push_message, () -> {});
+            SpUtil.init(mContext).commit("push_message",push_message);
+        }
+        //数据存储
+        mLoginBean = UserLoginBiz.getInstance(mContext).readUserInfo();
+        loginBean.setTime(mLoginBean.getTime());
+        mLoginBean = loginBean;
+        //将数据存到本地
+        UserLoginBiz.getInstance(mContext).saveUserInfo(mLoginBean);
+        //写入数据
+        setUserInfo();
+    }
+
+    /**
+     * 设置用户信息
+     */
+    private void setUserInfo() {
+        if (mLoginBean != null) {
+            //头像
+            GlideUtils.loadCircleImage(mContext, mLoginBean.getHead_pic(), imgHead);
+            //昵称
+            tvNickName.setText(mLoginBean.getNickname());
+            //关注数量和粉丝数量
+            tvFansSum.setText("100万");
+            tvLikeSum.setText("50");
+        }
+    }
+
+    /**
+     * 初始化我的菜单网格数据
      */
     private void initRv() {
         rvMine.setLayoutManager(new GridLayoutManager(mContext, 4));
@@ -114,22 +159,6 @@ public class MineFragment extends BaseFragment {
         });
 
     }
-
-    @Override
-    protected int layoutId() {
-        return R.layout.fragment_mine;
-    }
-
-    @Override
-    public void showLoading() {
-    }
-
-    @Override
-    public void stopLoading() {
-        stopProgressDialog();
-    }
-
-
 
     @OnClick({R.id.img_setting, R.id.ll_mine_release, R.id.ll_mine_seller, R.id.ll_mine_buyer,
             R.id.ll_mine_like, R.id.tv_feedback, R.id.tv_about_us ,R.id.img_head  ,R.id.tv_like_sum ,R.id.tv_fans_sum  })
@@ -177,47 +206,41 @@ public class MineFragment extends BaseFragment {
                 break;
         }
     }
+    //=========================================================================== 方法重写和生命周期
 
-    class MineBean {
-        private String title;
-        private int img;
-
-        public MineBean(String title, int img) {
-            this.title = title;
-            this.img = img;
-        }
-
-        public String getTitle() {
-            return title == null ? "" : title;
-        }
-
-        public void setTitle(String title) {
-            this.title = title;
-        }
-
-        public int getImg() {
-            return img;
-        }
-
-        public void setImg(int img) {
-            this.img = img;
-        }
+    @Override
+    public void isFail(String msg) {
+        showToast(msg);
     }
 
-    class MineAdapter extends BaseRecycleNewAdapter<MineBean>{
-
-        public MineAdapter(int layoutResId, @Nullable List<MineBean> data) {
-            super(layoutResId, data);
+    @Override
+    public void onResume() {
+        super.onResume();
+        //刷新数据
+        if (mPresenter == null) {
+            mPresenter = new MinePresenter(this);
         }
+        //刷新当前页面数据
+        mPresenter.getUserInfo(PacketUtil.getRequestPacket(null));
+    }
 
-        @Override
-        protected void convert(BaseViewHolder helper, MineBean item) {
-         ImageView img = helper.getView(R.id.item_img_photo);
-         TextView tv = helper.getView(R.id.item_tv_title);
-         img.setImageResource(item.getImg());
-            tv.setText(item.getTitle());
+    @Override
+    protected MinePresenter getPresenter() {
+        return new MinePresenter(this);
+    }
 
-        }
+
+    @Override
+    protected int layoutId() {
+        return R.layout.fragment_mine;
+    }
+
+    @Override
+    public void showLoading() {}
+
+    @Override
+    public void stopLoading() {
+        stopProgressDialog();
     }
 
 }

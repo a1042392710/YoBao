@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:background="#f7f7f7"
-              android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="#f7f7f7"
+    android:orientation="vertical">
 
     <include layout="@layout/view_tool_bar"/>
 
@@ -39,7 +40,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:includeFontPadding="false"
-                    android:text="80"
+                    android:text="0"
                     android:textColor="@color/red_fe8977"
                     android:textSize="30sp"/>
 
@@ -63,7 +64,7 @@
                 android:layout_marginTop="14dp"
                 android:layout_marginRight="45dp"
                 android:layout_marginBottom="25dp"
-                android:progress="80"
+                android:progress="0"
                 android:progressDrawable="@drawable/progress_bar_layer_list"/>
 
             <View
@@ -90,10 +91,10 @@
 
                 <ImageView
                     android:id="@+id/img_head"
-                    android:layout_width="34dp"
-                    android:layout_height="34dp"
+                    android:layout_width="38dp"
+                    android:layout_height="38dp"
                     android:layout_gravity="center_vertical"
-                    android:src="@color/red_fe8977"/>
+                    android:src="@color/gray_f6"/>
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -126,7 +127,7 @@
                 <TextView
                     android:id="@+id/tv_nick_name"
                     android:layout_width="wrap_content"
-                    android:text="南昌彭于晏"
+                    android:text="未设置昵称"
                     android:paddingLeft="10dp"
                     android:paddingRight="5dp"
                     android:gravity="center_vertical"
@@ -163,7 +164,7 @@
                 <TextView
                     android:id="@+id/tv_desc"
                     android:layout_width="wrap_content"
-                    android:text="我是这条街上最靓的仔"
+                    android:text="未设置简介"
                     android:paddingLeft="10dp"
                     android:paddingRight="5dp"
                     android:maxLines="1"
@@ -203,7 +204,7 @@
                 <TextView
                     android:id="@+id/tv_sex"
                     android:layout_width="wrap_content"
-                    android:text="男"
+                    android:text="请选择"
                     android:paddingLeft="20dp"
                     android:paddingRight="5dp"
                     android:gravity="center_vertical"
@@ -239,7 +240,7 @@
                 <TextView
                     android:id="@+id/tv_brithday"
                     android:layout_width="wrap_content"
-                    android:text="2019-07-10"
+                    android:text="请选择"
                     android:paddingLeft="20dp"
                     android:paddingRight="5dp"
                     android:gravity="center_vertical"

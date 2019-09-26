@@ -1,4 +1,4 @@
-package com.jjz.energy.view;
+package com.jjz.energy.view.login;
 
 import com.jjz.energy.base.IBaseView;
 import com.jjz.energy.entry.LoginBean;

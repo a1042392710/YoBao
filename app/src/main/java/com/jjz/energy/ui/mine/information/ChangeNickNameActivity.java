@@ -1,5 +1,6 @@
 package com.jjz.energy.ui.mine.information;
 
+import android.content.Intent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -7,7 +8,12 @@ import android.widget.TextView;
 
 import com.jjz.energy.R;
 import com.jjz.energy.base.BaseActivity;
-import com.jjz.energy.base.BasePresenter;
+import com.jjz.energy.entry.LoginBean;
+import com.jjz.energy.presenter.mine.MineInformationPresenter;
+import com.jjz.energy.util.Utils;
+import com.jjz.energy.util.networkUtil.PacketUtil;
+import com.jjz.energy.util.networkUtil.UserLoginBiz;
+import com.jjz.energy.view.mine.IPersonalInformationView;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -16,7 +22,7 @@ import butterknife.OnClick;
  * @Features: 修改昵称
  * @author: create by chenhao on 2019/4/1
  */
-public class ChangeNickNameActivity extends BaseActivity {
+public class ChangeNickNameActivity extends BaseActivity <MineInformationPresenter> implements IPersonalInformationView {
 
     @BindView(R.id.ll_toolbar_left)
     LinearLayout llToolbarLeft;
@@ -28,8 +34,8 @@ public class ChangeNickNameActivity extends BaseActivity {
     EditText etNickName;
 
     @Override
-    protected BasePresenter getPresenter() {
-        return null;
+    protected MineInformationPresenter getPresenter() {
+        return new MineInformationPresenter(this);
     }
 
     @Override
@@ -56,24 +62,24 @@ public class ChangeNickNameActivity extends BaseActivity {
                 break;
                 //保存
             case R.id.tv_toolbar_right:
-//                mPresenter.putMineInfo(PacketUtil.getRequestPacket(Utils.stringToMap("nickname",etNickName.getText().toString().trim())),"");
+                mPresenter.putMineInfo(PacketUtil.getRequestPacket(Utils.stringToMap("nickname",etNickName.getText().toString().trim())),"");
                 break;
         }
     }
 
-//    @Override
-//    public void isSuccess(LoginBean data) {
-//        LoginBean bean  = UserLoginBiz.getInstance(mContext).readUserInfo();
-//        bean.setNickname(data.getNickname());
-//        UserLoginBiz.getInstance(mContext).saveUserInfo(bean);
-//        setResult(10,new Intent().putExtra("nick_name",etNickName.getText().toString().trim()));
-//        finish();
-//    }
+    @Override
+    public void isSuccess(LoginBean data) {
+        LoginBean bean  = UserLoginBiz.getInstance(mContext).readUserInfo();
+        bean.setNickname(data.getNickname());
+        UserLoginBiz.getInstance(mContext).saveUserInfo(bean);
+        setResult(10,new Intent().putExtra("nick_name",etNickName.getText().toString().trim()));
+        finish();
+    }
 
-//    @Override
-//    public void isFail(String msg) {
-//        showToast(msg);
-//    }
+    @Override
+    public void isFail(String msg) {
+        showToast(msg);
+    }
 
     @Override
     public void showLoading() {

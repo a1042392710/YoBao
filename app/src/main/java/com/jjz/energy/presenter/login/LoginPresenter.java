@@ -1,18 +1,18 @@
-package com.jjz.energy.presenter;
+package com.jjz.energy.presenter.login;
 
 import android.annotation.SuppressLint;
 
 import com.jjz.energy.base.BasePresenter;
 import com.jjz.energy.entry.LoginBean;
 import com.jjz.energy.entry.ModifyLoginPassWordBean;
-import com.jjz.energy.model.LoginModel;
+import com.jjz.energy.model.login.LoginModel;
 import com.jjz.energy.util.networkUtil.CommonSubscriber;
-import com.jjz.energy.view.ILoginView;
+import com.jjz.energy.view.login.ILoginView;
 
 /**
- * @ author FX
- * @ date  2018/12/7  15:59
- * @ fuction
+ * @ author Ch
+ * @ date  2019/9/7  15:59
+ * @ fuction 登录注册
  */
 public class LoginPresenter extends BasePresenter<LoginModel, ILoginView> {
 
@@ -57,7 +57,7 @@ public class LoginPresenter extends BasePresenter<LoginModel, ILoginView> {
     public void getAuthCodeDate(String data) {
 
         addSubscribe(mModel.requestAuthCode(data)
-                .subscribeWith(new CommonSubscriber<LoginBean>() {
+                .subscribeWith(new CommonSubscriber<String>() {
 
                     @Override
                     protected void startLoading() {
@@ -65,7 +65,7 @@ public class LoginPresenter extends BasePresenter<LoginModel, ILoginView> {
                     }
 
                     @Override
-                    protected void onSuccess(LoginBean loginBean) {
+                    protected void onSuccess(String loginBean) {
                         mView.stopLoading();
                         mView.getAuthCodeSuc(loginBean);
                     }

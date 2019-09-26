@@ -1,4 +1,4 @@
-package com.jjz.energy.model;
+package com.jjz.energy.model.login;
 
 import com.jjz.energy.base.Api;
 import com.jjz.energy.base.BaseModel;
@@ -10,8 +10,8 @@ import com.jjz.energy.util.networkUtil.RxSchedulerHepler;
 import io.reactivex.Flowable;
 
 /**
- * @ author FX
- * @ date  2018/12/7  16:00
+ * @ author CH
+ * @ date  2019/8/7  16:00
  * @ fuction
  */
 public class LoginModel extends BaseModel {
@@ -27,7 +27,7 @@ public class LoginModel extends BaseModel {
     /**
      * 获取验证码
      */
-    public Flowable<LoginBean> requestAuthCode(String requestData) {
+    public Flowable<String> requestAuthCode(String requestData) {
         return RetrofitFactory.getRetrofit().create(Api.class).getAuthCode(requestData).compose(RxSchedulerHepler.handleMyResult());
     }
     /**

@@ -9,12 +9,12 @@ import com.jjz.energy.R;
 import com.jjz.energy.base.BaseActivity;
 import com.jjz.energy.base.LoginEventBean;
 import com.jjz.energy.entry.BindBean;
-import com.jjz.energy.presenter.BindALiAndWechatPresenter;
+import com.jjz.energy.presenter.mine.BindALiAndWechatPresenter;
 import com.jjz.energy.util.SpUtil;
 import com.jjz.energy.util.StringUtil;
 import com.jjz.energy.util.Utils;
 import com.jjz.energy.util.networkUtil.PacketUtil;
-import com.jjz.energy.view.IBindALiAndWechatView;
+import com.jjz.energy.view.mine.IBindALiAndWechatView;
 
 import org.greenrobot.eventbus.EventBus;
 

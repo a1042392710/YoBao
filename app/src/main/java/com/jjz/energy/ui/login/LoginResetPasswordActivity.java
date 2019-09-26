@@ -10,10 +10,10 @@ import com.blankj.utilcode.util.StringUtils;
 import com.jjz.energy.R;
 import com.jjz.energy.base.BaseActivity;
 import com.jjz.energy.entry.LoginBean;
-import com.jjz.energy.presenter.LoginResetPasswordPresenter;
+import com.jjz.energy.presenter.login.LoginResetPasswordPresenter;
 import com.jjz.energy.util.AesUtils;
 import com.jjz.energy.util.networkUtil.PacketUtil;
-import com.jjz.energy.view.ILoginResetPasswordView;
+import com.jjz.energy.view.login.ILoginResetPasswordView;
 
 import java.util.HashMap;
 import java.util.Map;

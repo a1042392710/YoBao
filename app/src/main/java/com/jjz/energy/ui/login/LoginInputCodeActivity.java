@@ -12,12 +12,13 @@ import com.jjz.energy.base.BaseActivity;
 import com.jjz.energy.base.BaseApplication;
 import com.jjz.energy.base.Constant;
 import com.jjz.energy.entry.LoginBean;
-import com.jjz.energy.presenter.LoginInputCodePresenter;
+import com.jjz.energy.presenter.login.LoginInputCodePresenter;
+import com.jjz.energy.ui.MainActivity;
 import com.jjz.energy.util.AesUtils;
 import com.jjz.energy.util.SpUtil;
 import com.jjz.energy.util.networkUtil.PacketUtil;
 import com.jjz.energy.util.networkUtil.UserLoginBiz;
-import com.jjz.energy.view.ILoginInputCodeView;
+import com.jjz.energy.view.login.ILoginInputCodeView;
 import com.jjz.energy.widgets.SeparatedEditText;
 
 import java.util.HashMap;
@@ -31,8 +32,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 
 /**
- * @ author FX
- * @ date  2018/12/14  14:29
+ * @ author CH
+ * @ date  2019/9/14  14:29
  * @ fuction  输入验证码
  */
 public class LoginInputCodeActivity extends BaseActivity<LoginInputCodePresenter>implements ILoginInputCodeView {
@@ -115,15 +116,9 @@ public class LoginInputCodeActivity extends BaseActivity<LoginInputCodePresenter
                     //登录验证
                     if (scene == 1) {
                         loginVCode();
-                        //TODO
-                        //跳转首页
-                        ActivityUtils.finishActivity(LoginActivity.class);
-                        finish();
                     } else {
                         //忘记密码的验证
                         forgotPassword();
-                        //TODO
-                        startActivity(new Intent(mContext,LoginResetPasswordActivity.class).putExtra("code", mCode).putExtra("mobile",mMobile ));
                     }
 
                 } else {
@@ -185,9 +180,9 @@ public class LoginInputCodeActivity extends BaseActivity<LoginInputCodePresenter
         SpUtil.init(BaseApplication.getAppContext()).commit(Constant.LOGIN_ID, decode_token);
         //存储用户信息
         UserLoginBiz.getInstance(BaseApplication.getAppContext()).loginSuccess(loginBean);
-        //跳转首页
-        ActivityUtils.finishActivity(LoginActivity.class);
-        finish();
+        //关闭所有的页面后，跳转首页
+        ActivityUtils.finishAllActivities();
+        ActivityUtils.startActivity(MainActivity.class);
     }
 
     /**
@@ -226,7 +221,7 @@ public class LoginInputCodeActivity extends BaseActivity<LoginInputCodePresenter
      * 获取验证码成功
      */
     @Override
-    public void getAuthCodeSuc(LoginBean loginBean) {
+    public void getAuthCodeSuc(String loginBean) {
         //请求成功 开始倒计时
         mDisposable = Observable.interval(0L, 1L, TimeUnit.SECONDS, AndroidSchedulers.mainThread()).subscribe(aLong -> {
             //剩余秒数

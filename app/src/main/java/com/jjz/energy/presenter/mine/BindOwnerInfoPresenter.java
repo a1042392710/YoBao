@@ -1,12 +1,12 @@
-package com.jjz.energy.presenter;
+package com.jjz.energy.presenter.mine;
 
 import android.annotation.SuppressLint;
 
 import com.jjz.energy.base.BasePresenter;
 import com.jjz.energy.entry.BindOwnerInfoBean;
-import com.jjz.energy.model.BindOwnerInfoModel;
+import com.jjz.energy.model.mine.BindOwnerInfoModel;
 import com.jjz.energy.util.networkUtil.CommonSubscriber;
-import com.jjz.energy.view.IBindOwnerInfoView;
+import com.jjz.energy.view.mine.IBindOwnerInfoView;
 
 /**
  * create by: ch 车主信息

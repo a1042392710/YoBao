@@ -10,13 +10,13 @@ import com.jjz.energy.R;
 import com.jjz.energy.base.BaseActivity;
 import com.jjz.energy.entry.BindOwnerInfoBean;
 import com.jjz.energy.entry.LoginBean;
-import com.jjz.energy.presenter.BindOwnerInfoPresenter;
+import com.jjz.energy.presenter.mine.BindOwnerInfoPresenter;
 import com.jjz.energy.util.IDCardValidate;
 import com.jjz.energy.util.KeyboardUtil;
 import com.jjz.energy.util.StringUtil;
 import com.jjz.energy.util.networkUtil.PacketUtil;
 import com.jjz.energy.util.networkUtil.UserLoginBiz;
-import com.jjz.energy.view.IBindOwnerInfoView;
+import com.jjz.energy.view.mine.IBindOwnerInfoView;
 
 import java.util.HashMap;
 

@@ -13,11 +13,11 @@ import com.blankj.utilcode.util.StringUtils;
 import com.jjz.energy.R;
 import com.jjz.energy.base.BaseActivity;
 import com.jjz.energy.entry.LoginBean;
-import com.jjz.energy.presenter.LoginPresenter;
+import com.jjz.energy.presenter.login.LoginPresenter;
 import com.jjz.energy.util.StringUtil;
 import com.jjz.energy.util.Utils;
 import com.jjz.energy.util.networkUtil.PacketUtil;
-import com.jjz.energy.view.ILoginView;
+import com.jjz.energy.view.login.ILoginView;
 import com.jude.swipbackhelper.SwipeBackHelper;
 
 import java.util.HashMap;
@@ -58,7 +58,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements ILogi
     //QQ登录
     @BindView(R.id.img_login_way_qq)
     ImageView imgLoginWayQq;
-    //华源隐私政策
+    //隐私政策
     @BindView(R.id.tv_login_policy)
     TextView tvLoginPolicy;
     //登录提示
@@ -181,7 +181,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements ILogi
                 //切换登录状态
                 changeLoginType("密码");
                 break;
-            //Yo宝隐私政策
+            //久速隐私政策
             case R.id.tv_login_policy:
                 break;
                 //登录

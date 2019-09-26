@@ -58,7 +58,7 @@
                     android:layout_below="@id/img_head"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="13dp"
-                    android:text="南昌彭于晏"
+                    android:text="未设置昵称"
                     android:textColor="@color/white"
                     android:textSize="17sp"
                     android:textStyle="bold"/>
@@ -77,7 +77,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="5dp"
-                        android:text="关注 100"
+                        android:text="关注 0"
                         android:textColor="@color/white"
                         android:textSize="12sp"/>
 
@@ -94,7 +94,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="5dp"
-                        android:text="粉丝 10w"
+                        android:text="粉丝 0"
                         android:textColor="@color/white"
                         android:textSize="12sp"/>
                 </LinearLayout>

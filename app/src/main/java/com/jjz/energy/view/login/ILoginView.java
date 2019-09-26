@@ -1,4 +1,4 @@
-package com.jjz.energy.view;
+package com.jjz.energy.view.login;
 
 import com.jjz.energy.base.IBaseView;
 import com.jjz.energy.entry.LoginBean;
@@ -18,7 +18,7 @@ public interface ILoginView extends IBaseView {
     default  void getLoginFail(String msg){};
 
     //获取验证码成功
-    default  void getAuthCodeSuc(LoginBean loginBean){};
+    default  void getAuthCodeSuc(String loginBean){};
 
     //获取验证码失败
     default  void getAuthCodeFail(String msg){};

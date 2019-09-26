@@ -14,13 +14,18 @@ import android.widget.TextView;
 
 import com.jjz.energy.R;
 import com.jjz.energy.base.BaseActivity;
-import com.jjz.energy.base.BasePresenter;
 import com.jjz.energy.base.Constant;
+import com.jjz.energy.entry.LoginBean;
 import com.jjz.energy.entry.SexEnum;
+import com.jjz.energy.presenter.mine.MineInformationPresenter;
 import com.jjz.energy.util.PopWindowUtil;
 import com.jjz.energy.util.StringUtil;
+import com.jjz.energy.util.Utils;
+import com.jjz.energy.util.file.FileUtil;
 import com.jjz.energy.util.glide.GlideUtils;
 import com.jjz.energy.util.glide.MyGlideEngine;
+import com.jjz.energy.util.networkUtil.PacketUtil;
+import com.jjz.energy.view.mine.IPersonalInformationView;
 import com.jjz.energy.widgets.datepicker.CustomDatePicker;
 import com.jjz.energy.widgets.singlepicker.SinglePicker;
 import com.zhihu.matisse.Matisse;
@@ -40,7 +45,8 @@ import permissions.dispatcher.RuntimePermissions;
  * @author: create by chenhao on 2019/7/16
  */
 @RuntimePermissions
-public class MineInfomationActivity extends BaseActivity {
+public class MineInfomationActivity extends BaseActivity<MineInformationPresenter> implements IPersonalInformationView {
+
     @BindView(R.id.ll_toolbar_left)
     LinearLayout llToolbarLeft;
     @BindView(R.id.tv_toolbar_title)
@@ -61,6 +67,8 @@ public class MineInfomationActivity extends BaseActivity {
     TextView tvDesc;
     @BindView(R.id.tv_brithday)
     TextView tvBirthday;
+    @BindView(R.id.tv_phone_number)
+    TextView tvPhoneNumber;
     @BindView(R.id.ll_receipt_address)
     LinearLayout llReceiptAddress;
 
@@ -77,10 +85,37 @@ public class MineInfomationActivity extends BaseActivity {
     @Override
     protected void initView() {
         tvToolbarTitle.setText("个人资料");
-        GlideUtils.loadCircleImage(mContext, "http://b-ssl.duitang" +
-                ".com/uploads/item/201407/22/20140722182918_tV8aa.jpeg", imgHead);
+        mPresenter.getUserInfo(PacketUtil.getRequestPacket(null));
         initDatePicker();
         initSingerPicker();
+    }
+
+    /**
+     * 写入用户个人信息
+     */
+    private void initInfo(LoginBean loginBean) {
+        //头像
+        GlideUtils.loadCircleImage(mContext, loginBean.getHead_pic(), imgHead);
+        //账号
+        tvPhoneNumber.setText(loginBean.getMobile());
+        //昵称
+        tvNickName.setText(loginBean.getNickname());
+        //TODO 简介
+        tvDesc.setText(loginBean.getNickname());
+        //TODO 设置资料完善度百分比
+        progress.setProgress(90);
+        tvProgress.setText("90");
+        //性别
+        if (loginBean.getSex() == 1) {
+            tvSex.setText("男");
+        } else if (loginBean.getSex() == 2) {
+            tvSex.setText("女");
+        }
+        //生日
+        if (!StringUtil.isEmpty(loginBean.getBirthday())) {
+            tvBirthday.setText(StringUtil.stampToDate(loginBean.getBirthday()));
+        }
+
     }
 
     /**
@@ -137,47 +172,25 @@ public class MineInfomationActivity extends BaseActivity {
      * 提交数据
      */
     private void changeData(String key, String value, String file) {
-//        mPresenter.putMineInfo(PacketUtil.getRequestPacket(Utils.stringToMap(key, value)), file);
+        mPresenter.putMineInfo(PacketUtil.getRequestPacket(Utils.stringToMap(key, value)), file);
     }
 
-    @OnClick({R.id.ll_toolbar_left, R.id.img_head, R.id.tv_nick_name, R.id.tv_sex,
-            R.id.tv_brithday, R.id.ll_receipt_address, R.id.tv_desc})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.ll_toolbar_left:
-                finish();
-                break;
-            //头像
-            case R.id.img_head:
-                MineInfomationActivityPermissionsDispatcher.takePhotoWithCheck(this);
-                break;
-            //昵称
-            case R.id.tv_nick_name:
-                startActivityForResult(new Intent(mContext, ChangeNickNameActivity.class).putExtra("nick_name", tvNickName.getText().toString()), 10);
-                break;
-            //简介
-            case R.id.tv_desc:
-                startActivityForResult(new Intent(mContext, ChangeDescActivity.class).putExtra("desc", tvDesc.getText().toString()), 20);
-                break;
-            //性别
-            case R.id.tv_sex:
-                pickerSex.show();
-                break;
-            //生日
-            case R.id.tv_brithday:
-                if (StringUtil.isEmpty(tvBirthday.getText().toString())) {
-                    mCustomDatePicker.showNow();
-                } else {
-                    mCustomDatePicker.show(tvBirthday.getText().toString());
-                }
-                break;
-            //收货地址
-            case R.id.ll_receipt_address:
-                startActivity(new Intent(mContext, MineShippingAddressActivity.class));
-                break;
-        }
+    /**
+     * 上传头像
+     * @param uri
+     */
+    private void updateImg(Uri uri) {
+        mPresenter.putMineInfo(PacketUtil.getRequestPacket(null), FileUtil.getRealFilePath(mContext,uri));
     }
+
+    @Override
+    public void isGetInfoSuccess(LoginBean data) {
+        initInfo(data);
+    }
+
     // =================================================== 拍照 或选择照片
+
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -188,7 +201,7 @@ public class MineInfomationActivity extends BaseActivity {
             //加载图片
             GlideUtils.loadHead(mContext, mSelected.get(0).toString(), imgHead);
             //开始上传头像
-//            updateImg(mSelected.get(0));
+            updateImg(mSelected.get(0));
         }
         //修改昵称
         if (requestCode == 10 && resultCode == 10) {
@@ -198,14 +211,6 @@ public class MineInfomationActivity extends BaseActivity {
         if (requestCode == 20 && resultCode == 10) {
             tvDesc.setText(data.getStringExtra("nick_desc"));
         }
-    }
-
-    /**
-     * 上传头像
-     * @param uri
-     */
-    private void updateImg(Uri uri) {
-//        mPresenter.putMineInfo(PacketUtil.getRequestPacket(null), FileUtil.getRealFilePath(mContext,uri));
     }
 
     @NeedsPermission({Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE})
@@ -242,9 +247,13 @@ public class MineInfomationActivity extends BaseActivity {
                 grantResults);
     }
 
+    //================================================ 方法重写和生命周期
+
+
+
     @Override
-    protected BasePresenter getPresenter() {
-        return null;
+    protected MineInformationPresenter getPresenter() {
+        return new MineInformationPresenter(this);
     }
 
     @Override
@@ -254,9 +263,55 @@ public class MineInfomationActivity extends BaseActivity {
 
     @Override
     public void showLoading() {
+        startProgressDialog();
     }
 
     @Override
     public void stopLoading() {
+        stopProgressDialog();
+    }
+
+    @Override
+    public void isFail(String msg) {
+        showToast(msg);
+    }
+
+    @OnClick({R.id.ll_toolbar_left, R.id.img_head, R.id.tv_nick_name, R.id.tv_sex,
+            R.id.tv_brithday, R.id.ll_receipt_address, R.id.tv_desc})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.ll_toolbar_left:
+                finish();
+                break;
+            //头像
+            case R.id.img_head:
+                MineInfomationActivityPermissionsDispatcher.takePhotoWithCheck(this);
+                break;
+            //昵称
+            case R.id.tv_nick_name:
+                startActivityForResult(new Intent(mContext, ChangeNickNameActivity.class).putExtra("nick_name", tvNickName.getText().toString()), 10);
+                break;
+            //简介
+            case R.id.tv_desc:
+                startActivityForResult(new Intent(mContext, ChangeDescActivity.class).putExtra("desc", tvDesc.getText().toString()), 20);
+                break;
+            //性别
+            case R.id.tv_sex:
+                pickerSex.show();
+                break;
+            //生日
+            case R.id.tv_brithday:
+                String birthdayStr = tvBirthday.getText().toString();
+                if (StringUtil.isEmpty(birthdayStr)||"请选择".equals(birthdayStr)) {
+                    mCustomDatePicker.showNow();
+                } else {
+                    mCustomDatePicker.show(tvBirthday.getText().toString());
+                }
+                break;
+            //收货地址
+            case R.id.ll_receipt_address:
+                startActivity(new Intent(mContext, MineShippingAddressActivity.class));
+                break;
+        }
     }
 }

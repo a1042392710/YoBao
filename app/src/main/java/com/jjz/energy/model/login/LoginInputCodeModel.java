@@ -1,4 +1,4 @@
-package com.jjz.energy.model;
+package com.jjz.energy.model.login;
 
 import com.jjz.energy.base.Api;
 import com.jjz.energy.base.BaseModel;
@@ -18,7 +18,7 @@ public class LoginInputCodeModel extends BaseModel {
     /**
      * 获取验证码
      */
-    public Flowable<LoginBean> requestAuthCode(String requestData) {
+    public Flowable<String> requestAuthCode(String requestData) {
         return RetrofitFactory.getRetrofit().create(Api.class).getAuthCode(requestData).compose(RxSchedulerHepler.handleMyResult());
     }
     /**
@@ -27,6 +27,7 @@ public class LoginInputCodeModel extends BaseModel {
     public Flowable<LoginBean> loginVCode(String requestData) {
         return RetrofitFactory.getRetrofit().create(Api.class).loginVCode(requestData).compose(RxSchedulerHepler.handleMyResult());
     }
+
     /**
      * 忘记密码  提交验证码
      */

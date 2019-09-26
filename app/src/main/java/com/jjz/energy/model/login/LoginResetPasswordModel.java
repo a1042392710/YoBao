@@ -1,4 +1,4 @@
-package com.jjz.energy.model;
+package com.jjz.energy.model.login;
 
 import com.jjz.energy.base.Api;
 import com.jjz.energy.base.BaseModel;
