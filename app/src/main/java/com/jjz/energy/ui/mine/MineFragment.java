@@ -11,17 +11,17 @@ import android.widget.TextView;
 import com.jjz.energy.R;
 import com.jjz.energy.adapter.MineAdapter;
 import com.jjz.energy.base.BaseLazyFragment;
-import com.jjz.energy.entry.LoginBean;
 import com.jjz.energy.entry.MineBean;
+import com.jjz.energy.entry.MineInfoBean;
 import com.jjz.energy.presenter.mine.MinePresenter;
 import com.jjz.energy.ui.mine.information.MineInfomationActivity;
-import com.jjz.energy.util.system.PopWindowUtil;
-import com.jjz.energy.util.system.SpUtil;
 import com.jjz.energy.util.StringUtil;
 import com.jjz.energy.util.glide.GlideUtils;
 import com.jjz.energy.util.networkUtil.PacketUtil;
 import com.jjz.energy.util.networkUtil.UserLoginBiz;
-import com.jjz.energy.view.mine.IPersonalInformationView;
+import com.jjz.energy.util.system.PopWindowUtil;
+import com.jjz.energy.util.system.SpUtil;
+import com.jjz.energy.view.mine.IMineView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +33,8 @@ import butterknife.OnClick;
  * @Features: 个人中心
  * @author: create by chenhao on 2019/7/15
  */
-public class MineFragment  extends BaseLazyFragment<MinePresenter> implements IPersonalInformationView {
+public class MineFragment  extends BaseLazyFragment<MinePresenter> implements IMineView {
+
     @BindView(R.id.view_title)
     View viewTitle;
     @BindView(R.id.img_head)
@@ -64,10 +65,7 @@ public class MineFragment  extends BaseLazyFragment<MinePresenter> implements IP
      * 我的菜单列表数据
      */
     private List<MineBean> mList;
-    /**
-     * 用户信息数据
-     */
-    private LoginBean mLoginBean = new LoginBean();
+
 
     @Override
     protected void initView() {
@@ -78,7 +76,7 @@ public class MineFragment  extends BaseLazyFragment<MinePresenter> implements IP
      * 获取用户数据成功
      */
     @Override
-    public void isSuccess(LoginBean loginBean) {
+    public void isGetInfoSuccess(MineInfoBean loginBean) {
 
         //推送公告
         String push_message = loginBean.getPush_message();
@@ -87,30 +85,17 @@ public class MineFragment  extends BaseLazyFragment<MinePresenter> implements IP
             PopWindowUtil.getInstance().showPopupWindow(mContext, push_message, () -> {});
             SpUtil.init(mContext).commit("push_message",push_message);
         }
-        //数据存储
-        mLoginBean = UserLoginBiz.getInstance(mContext).readUserInfo();
-        loginBean.setTime(mLoginBean.getTime());
-        mLoginBean = loginBean;
-        //将数据存到本地
-        UserLoginBiz.getInstance(mContext).saveUserInfo(mLoginBean);
-        //写入数据
-        setUserInfo();
+
+        //头像
+        GlideUtils.loadCircleImage(mContext, loginBean.getHead_pic(), imgHead);
+        //昵称
+        tvNickName.setText(loginBean.getNickname());
+        //关注数量和粉丝数量
+        tvFansSum.setText("粉丝:100万");
+        tvLikeSum.setText("关注:50");
     }
 
-    /**
-     * 设置用户信息
-     */
-    private void setUserInfo() {
-        if (mLoginBean != null) {
-            //头像
-            GlideUtils.loadCircleImage(mContext, mLoginBean.getHead_pic(), imgHead);
-            //昵称
-            tvNickName.setText(mLoginBean.getNickname());
-            //关注数量和粉丝数量
-            tvFansSum.setText("粉丝:100万");
-            tvLikeSum.setText("关注:50");
-        }
-    }
+
 
     /**
      * 初始化我的菜单网格数据
@@ -209,7 +194,7 @@ public class MineFragment  extends BaseLazyFragment<MinePresenter> implements IP
     //=========================================================================== 方法重写和生命周期
 
     @Override
-    public void isFail(String msg) {
+    public void isFail(String msg ,boolean isNetAndServiceError) {
         showToast(msg);
     }
 
@@ -220,8 +205,11 @@ public class MineFragment  extends BaseLazyFragment<MinePresenter> implements IP
         if (mPresenter == null) {
             mPresenter = new MinePresenter(this);
         }
-        //刷新当前页面数据
-        mPresenter.getUserInfo(PacketUtil.getRequestPacket(null));
+        if (UserLoginBiz.getInstance(mContext).detectUserLoginStatus()){
+            //刷新当前页面数据
+            mPresenter.getUserInfo(PacketUtil.getRequestPacket(null));
+        }
+
     }
 
     @Override

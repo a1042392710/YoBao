@@ -19,7 +19,6 @@ import cn.jpush.im.android.api.JMessageClient;
 
 public class BaseApplication extends Application {
     public static Context AppContext;
-    private final static String TAG = "BaseApplication";
 
 
     @Override
@@ -32,17 +31,26 @@ public class BaseApplication extends Application {
         //包括BD09LL和GCJ02两种坐标，默认是BD09LL坐标。
         SDKInitializer.setCoordType(CoordType.BD09LL);
         //bugly 参数3  调试开关 /测试时true 发布时false
-        Bugly.init(getApplicationContext(), "549524cc16", true);
+        Bugly.init(getApplicationContext(), Constant.BUGLY_ID, true);
         //极光推送
         JPushInterface.setDebugMode(true);// true则会打印debug级别的日志，false则只会打印warning级别以上的日志
         JPushInterface.init(this);
         //极光IM  指定是否开启消息漫游 默认不开启
-        JMessageClient.init(this,false);
-        //内存泄漏工具
-        if (!LeakCanary.isInAnalyzerProcess(this)) {
-            LeakCanary.install(this);
-        }
+        JMessageClient.init(this, false);
+        setupLeakCanary();
     }
+
+    /**
+     * 内存泄漏检测工具
+     */
+    protected void setupLeakCanary() {
+        if (LeakCanary.isInAnalyzerProcess(this)) {
+            return;
+        }
+        LeakCanary.install(this);
+    }
+
+
     //static 代码段可以防止内存泄露
     static {
         //SmartRefreshLayout 刷新教程

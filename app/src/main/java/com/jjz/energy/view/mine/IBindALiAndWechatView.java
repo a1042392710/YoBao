@@ -13,7 +13,7 @@ public interface IBindALiAndWechatView extends IBaseView {
     //获取数据成功
     void isGetSuccess(BindBean data);
 
-    void isFail(String msg);
+    void isFail(String msg,boolean isNetAndServiceError);
 
 
 }

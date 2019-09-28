@@ -7,16 +7,12 @@ import android.widget.TextView;
 
 import com.jjz.energy.R;
 import com.jjz.energy.base.BaseActivity;
-import com.jjz.energy.base.LoginEventBean;
 import com.jjz.energy.entry.BindBean;
 import com.jjz.energy.presenter.mine.BindALiAndWechatPresenter;
-import com.jjz.energy.util.system.SpUtil;
 import com.jjz.energy.util.StringUtil;
 import com.jjz.energy.util.Utils;
 import com.jjz.energy.util.networkUtil.PacketUtil;
 import com.jjz.energy.view.mine.IBindALiAndWechatView;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.util.HashMap;
 
@@ -114,10 +110,8 @@ public class BindAliPayActivity extends BaseActivity<BindALiAndWechatPresenter> 
 
     @Override
     public void isPutSuccess(String data) {
-        SpUtil.init(mContext).commit("is_bind_alipay","1");
         showToast("操作成功");
-        EventBus.getDefault().post(new LoginEventBean(LoginEventBean.ALIPAY_BIND_SUC));
-        tvBind.setText("安全修改");
+      finish();
     }
 
     @Override
@@ -128,7 +122,7 @@ public class BindAliPayActivity extends BaseActivity<BindALiAndWechatPresenter> 
     }
 
     @Override
-    public void isFail(String msg) {
+    public void isFail(String msg ,boolean isNetAndServiceError) {
         showToast(msg);
     }
 }

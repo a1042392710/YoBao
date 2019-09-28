@@ -26,15 +26,15 @@
         android:layout_height="55dp">
 
         <ImageView
-            android:layout_width="34dp"
+            android:layout_width="38dp"
             android:src="@mipmap/ic_alipay"
-            android:layout_height="34dp"/>
+            android:layout_height="38dp"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:text="添加支付宝账户"
             android:textSize="14sp"
-            android:textColor="#b8b8b8"
+            android:textColor="@color/text_black28"
             android:layout_marginLeft="22dp"
             android:layout_height="wrap_content"/>
     </LinearLayout>
@@ -49,15 +49,15 @@
         android:layout_height="55dp">
 
         <ImageView
-            android:layout_width="34dp"
+            android:layout_width="38dp"
             android:src="@mipmap/ic_wechat"
-            android:layout_height="34dp"/>
+            android:layout_height="38dp"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:text="添加微信账户"
             android:textSize="14sp"
-            android:textColor="#b8b8b8"
+            android:textColor="@color/text_black28"
             android:layout_marginLeft="22dp"
             android:layout_height="wrap_content"/>
     </LinearLayout>

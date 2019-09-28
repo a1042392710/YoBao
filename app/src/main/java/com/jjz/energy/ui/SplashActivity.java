@@ -115,7 +115,7 @@ public class SplashActivity extends BaseActivity {
     @OnNeverAskAgain({Manifest.permission.WRITE_EXTERNAL_STORAGE,
             Manifest.permission.READ_PHONE_STATE, Manifest.permission.ACCESS_FINE_LOCATION})
     public void multiNeverAsk() {
-        ToastUtils.showLong("电话权限、存储权限、定位权限为必选项，全部开通才可以正常使用APP,请到设置中开启\\n\\n设置路径——>久速——>权限");
+        ToastUtils.showLong("电话权限、存储权限、定位权限为必选项，全部开通才可以正常使用APP,请到设置中开启\\n\\n设置路径——>久速商城——>权限");
     }
 
     // 必须要复写的回调

@@ -123,7 +123,7 @@
             android:id="@+id/tv_login_toast"
             android:layout_marginStart="44dp"
             android:layout_width="match_parent"
-            android:text="未注册的手机号验证后自动创建久速账户"
+            android:text="未注册的手机号验证后自动创建久速商城账户"
             android:layout_marginTop="8dp"
             android:visibility="visible"
             android:textSize="10sp"
@@ -286,7 +286,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="《久速隐私政策》"
+            android:text="《久速商城隐私政策》"
             android:textColor="#5b92e1"
             android:textSize="12sp" />
 

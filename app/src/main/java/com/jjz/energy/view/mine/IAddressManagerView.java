@@ -11,7 +11,7 @@ import com.jjz.energy.entry.AddressBean;
 public interface IAddressManagerView extends IBaseView {
     //获取地址列表
     void isSuccess(AddressBean data);
-    void isFail(String msg);
+    void isFail(String msg,boolean isNetAndServiceError);
 
     //删除地址
     void isDeleteSuccess(AddressBean data);

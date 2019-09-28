@@ -37,8 +37,8 @@ public class AddressManagerPresenter extends BasePresenter<AddressManagerModel, 
                     }
 
                     @Override
-                    protected void onFail(String errorMsg) {
-                        mView.isFail(errorMsg);
+                    protected void onFail(String errorMsg ,boolean isNetAndSeriveError) {
+                        mView.isFail(errorMsg,isNetAndSeriveError);
                         mView.stopLoading();
                     }
                 }));
@@ -65,8 +65,8 @@ public class AddressManagerPresenter extends BasePresenter<AddressManagerModel, 
                     }
 
                     @Override
-                    protected void onFail(String errorMsg) {
-                        mView.isFail(errorMsg);
+                   protected void onFail(String errorMsg ,boolean isNetAndSeriveError) {
+                        mView.isFail(errorMsg,isNetAndSeriveError);
                         mView.stopLoading();
                     }
                 }));
@@ -93,8 +93,8 @@ public class AddressManagerPresenter extends BasePresenter<AddressManagerModel, 
                     }
 
                     @Override
-                    protected void onFail(String errorMsg) {
-                        mView.isFail(errorMsg);
+                   protected void onFail(String errorMsg ,boolean isNetAndSeriveError) {
+                        mView.isFail(errorMsg,isNetAndSeriveError);
                         mView.stopLoading();
                     }
                 }));

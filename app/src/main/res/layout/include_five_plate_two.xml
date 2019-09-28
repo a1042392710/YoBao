@@ -20,7 +20,7 @@
         <ImageView
             android:layout_width="45dp"
             android:layout_height="45dp"
-            android:src="@mipmap/ic_menu_logistics" />
+            android:src="@mipmap/ic_menu_jiusu" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -42,7 +42,7 @@
         <ImageView
             android:layout_width="45dp"
             android:layout_height="45dp"
-            android:src="@mipmap/ic_menu_insurance" />
+            android:src="@mipmap/ic_menu_same_city" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -64,7 +64,7 @@
         <ImageView
             android:layout_width="45dp"
             android:layout_height="45dp"
-            android:src="@mipmap/ic_menu_old" />
+            android:src="@mipmap/ic_menu_one_by_one" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -86,13 +86,13 @@
         <ImageView
             android:layout_width="45dp"
             android:layout_height="45dp"
-            android:src="@mipmap/ic_menu_charitable" />
+            android:src="@mipmap/ic_menu_jiusu_shop" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
-            android:text="商家折扣"
+            android:text="久速商家"
             android:textColor="@color/text_black33"
             android:textSize="11sp" />
     </LinearLayout>

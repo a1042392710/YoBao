@@ -69,11 +69,11 @@ public class BindWechatActivity extends BaseActivity<BindALiAndWechatPresenter> 
         tvToolbarTitle.setText("管理微信钱包");
         EventBus.getDefault().register(this);
         isBindWechat = getIntent().getIntExtra("is_bind_wechat",0);
-        String is_wechat_login = getIntent().getStringExtra("is_wechat_login");
+        String wechat_nickname = getIntent().getStringExtra("wechat_nickname");
         //是否授权
-        if (!StringUtil.isEmpty(is_wechat_login)){
+        if (!StringUtil.isEmpty(wechat_nickname)){
             tvIsBindWechat.setText("已授权");
-            tvWechatNickname.setText(SpUtil.init(mContext).readString("wechat_nickname"));
+            tvWechatNickname.setText(wechat_nickname);
             tvBindToast.setVisibility(View.GONE);
         }
         //已经绑定微信
@@ -121,8 +121,7 @@ public class BindWechatActivity extends BaseActivity<BindALiAndWechatPresenter> 
     @Override
     public void isPutSuccess(String data) {
         showToast("操作成功");
-        EventBus.getDefault().post(new LoginEventBean(LoginEventBean.WECHAT_BIND_SUC));
-        tvBind.setText("安全修改");
+        finish();
     }
 
     @Override
@@ -130,7 +129,9 @@ public class BindWechatActivity extends BaseActivity<BindALiAndWechatPresenter> 
         //写入微信数据
         etName.setText(data.getWechat_name());
         etPhone.setText(data.getWechat_account());
+        //写入微信昵称
         tvWechatNickname.setText(data.getNickname());
+        tvIsBindWechat.setText("已授权");
     }
 
     @OnClick({R.id.ll_toolbar_left, R.id.tv_is_bind_wechat, R.id.tv_bind})
@@ -149,11 +150,11 @@ public class BindWechatActivity extends BaseActivity<BindALiAndWechatPresenter> 
                     showToast("请输入真实姓名");
                     return;
                 }
-                if (StringUtil.isEmpty(etPhone.getText().toString())){
+                if (!StringUtil.isMobile(etPhone.getText().toString())){
                     showToast("请输入手机号码");
                     return;
                 }
-                if ("未授权".equals(tvIsBindWechat.getText().toString())){
+                if (StringUtil.isEmpty(tvIsBindWechat.getText().toString())){
                     showToast("请微信授权");
                     return;
                 }
@@ -195,7 +196,7 @@ public class BindWechatActivity extends BaseActivity<BindALiAndWechatPresenter> 
     }
 
     @Override
-    public void isFail(String msg) {
+    public void isFail(String msg ,boolean isNetAndServiceError) {
         showToast(msg);
     }
 }

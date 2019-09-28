@@ -5,7 +5,7 @@ import com.jjz.energy.entry.LoginBean;
 import com.jjz.energy.entry.OrderDetailBean;
 
 /**
- * create 个人信息
+ * create Yo宝 个人信息
  * Date: 2018/9/17 下午4:22
  */
 public interface IPersonalInformationView extends IBaseView {
@@ -13,6 +13,7 @@ public interface IPersonalInformationView extends IBaseView {
     default  void isSuccess(LoginBean data){
 
     };
+
     //获取个人信息
     default  void isGetInfoSuccess(LoginBean data){
 
@@ -30,7 +31,7 @@ public interface IPersonalInformationView extends IBaseView {
 
     };
 
-    void isFail(String msg);
+    void isFail(String msg,boolean isNetAndServiceError);
 
 
 }

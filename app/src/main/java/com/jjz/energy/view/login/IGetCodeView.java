@@ -21,7 +21,7 @@ public interface IGetCodeView extends IBaseView {
 
     };
 
-    void isFail(String msg);
+    void isFail(String msg,boolean isNetAndServiceError);
 
 
 }

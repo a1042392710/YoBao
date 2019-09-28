@@ -8,6 +8,8 @@ import com.jjz.energy.entry.HotBean;
 import com.jjz.energy.entry.HotDetailBean;
 import com.jjz.energy.entry.LoginBean;
 import com.jjz.energy.entry.MapMarkerBean;
+import com.jjz.energy.entry.MineAccountBean;
+import com.jjz.energy.entry.MineInfoBean;
 import com.jjz.energy.entry.MineWalletBean;
 import com.jjz.energy.entry.MineWalletListBean;
 import com.jjz.energy.entry.ModifyLoginPassWordBean;
@@ -15,6 +17,7 @@ import com.jjz.energy.entry.OrderBean;
 import com.jjz.energy.entry.OrderDetailBean;
 import com.jjz.energy.entry.ShareInfoBean;
 import com.jjz.energy.entry.ShopMarkerBean;
+import com.jjz.energy.entry.UserInfo;
 import com.jjz.energy.entry.VipListInfo;
 import com.jjz.energy.entry.WithdrawListBean;
 import com.jjz.energy.util.networkUtil.ResponseData;
@@ -39,8 +42,8 @@ import retrofit2.http.Url;
  * Date: 2018/10/25 上午8:45
  */
 public interface Api {
-//     String BASE_URL = "http://172.16.32.5/app/";
-        String BASE_URL = "http://api.jjznewenergy.com/app/";
+     String BASE_URL = "http://172.16.32.5/shop/";
+//        String BASE_URL = "http://apit.jjznewenergy.com/app/";
      String PACK_NO = "params";
 
 
@@ -86,6 +89,22 @@ public interface Api {
             @Field(PACK_NO) String data
     );
 
+    //获取我的页面数据
+    @FormUrlEncoded
+    @POST("user/getUserinfo")
+    Flowable<ResponseData<MineInfoBean>> getMineInfo(@Field(PACK_NO) String pack_no);
+
+    /**
+     * 修改个人信息
+     */
+    @POST("user/setUserinfo")
+    Flowable<ResponseData<UserInfo>> putUserInfo(@Body MultipartBody mMultipartBody);
+
+    //获取个人信息
+    @FormUrlEncoded
+    @POST("user/getUserinfo")
+    Flowable<ResponseData<UserInfo>> getUserInfo(@Field(PACK_NO) String pack_no);
+
     //提交车主信息
     @FormUrlEncoded
     @POST("user/setUserinfo")
@@ -95,6 +114,11 @@ public interface Api {
     @FormUrlEncoded
     @POST("user/getUserinfo")
     Flowable<ResponseData<BindOwnerInfoBean>> getBindOwnernfo(@Field(PACK_NO) String pack_no);
+
+    //获取我的收款账户信息
+    @FormUrlEncoded
+    @POST("user/getUserPayee")
+    Flowable<ResponseData<MineAccountBean>> getMineAccounts(@Field(PACK_NO) String pack_no);
 
     //提交微信和支付宝信息
     @FormUrlEncoded
@@ -106,8 +130,12 @@ public interface Api {
     @POST("user/getUserBindInfo")
     Flowable<ResponseData<BindBean>> getBindInfo(@Field(PACK_NO) String pack_no);
 
-
     //=================================================== 收货地址
+
+    //获取久速商城基本信息
+    @FormUrlEncoded
+    @POST("user/getUserinfo")
+    Flowable<ResponseData<LoginBean>> getJiuSuInfo(@Field(PACK_NO) String pack_no);
 
     /**
      * 我的 == 添加收货地址
@@ -139,17 +167,9 @@ public interface Api {
 
 
 
-    //======================================================== 全部复制
-    /**
-     * 修改个人信息
-     */
-    @POST("user/setUserinfo")
-    Flowable<ResponseData<LoginBean>> putMineInfo(@Body MultipartBody mMultipartBody);
+    //======================================================== 久速商城接口
 
-    //提交或修改个人信息
-    @FormUrlEncoded
-    @POST("user/getUserinfo")
-    Flowable<ResponseData<LoginBean>> getUser(@Field(PACK_NO) String pack_no);
+
 
     //查询下级代理
     @FormUrlEncoded

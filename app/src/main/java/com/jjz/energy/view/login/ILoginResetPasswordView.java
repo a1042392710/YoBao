@@ -14,6 +14,6 @@ public interface ILoginResetPasswordView extends IBaseView {
     void isSuccess(LoginBean loginBean);
 
     //验证失败
-    void isFail(String msg);
+    void isFail(String msg,boolean isNetAndServiceError);
 
 }

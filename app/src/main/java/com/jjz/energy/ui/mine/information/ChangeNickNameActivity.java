@@ -9,11 +9,12 @@ import android.widget.TextView;
 import com.jjz.energy.R;
 import com.jjz.energy.base.BaseActivity;
 import com.jjz.energy.entry.LoginBean;
+import com.jjz.energy.entry.UserInfo;
 import com.jjz.energy.presenter.mine.MineInformationPresenter;
 import com.jjz.energy.util.Utils;
 import com.jjz.energy.util.networkUtil.PacketUtil;
 import com.jjz.energy.util.networkUtil.UserLoginBiz;
-import com.jjz.energy.view.mine.IPersonalInformationView;
+import com.jjz.energy.view.mine.IMineInfomationView;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -22,7 +23,7 @@ import butterknife.OnClick;
  * @Features: 修改昵称
  * @author: create by chenhao on 2019/4/1
  */
-public class ChangeNickNameActivity extends BaseActivity <MineInformationPresenter> implements IPersonalInformationView {
+public class ChangeNickNameActivity extends BaseActivity <MineInformationPresenter> implements IMineInfomationView {
 
     @BindView(R.id.ll_toolbar_left)
     LinearLayout llToolbarLeft;
@@ -62,13 +63,13 @@ public class ChangeNickNameActivity extends BaseActivity <MineInformationPresent
                 break;
                 //保存
             case R.id.tv_toolbar_right:
-                mPresenter.putMineInfo(PacketUtil.getRequestPacket(Utils.stringToMap("nickname",etNickName.getText().toString().trim())),"");
+                mPresenter.putUserInfo(PacketUtil.getRequestPacket(Utils.stringToMap("nickname",etNickName.getText().toString().trim())),"");
                 break;
         }
     }
 
     @Override
-    public void isSuccess(LoginBean data) {
+    public void isSuccess(UserInfo data) {
         LoginBean bean  = UserLoginBiz.getInstance(mContext).readUserInfo();
         bean.setNickname(data.getNickname());
         UserLoginBiz.getInstance(mContext).saveUserInfo(bean);
@@ -77,7 +78,7 @@ public class ChangeNickNameActivity extends BaseActivity <MineInformationPresent
     }
 
     @Override
-    public void isFail(String msg) {
+    public void isFail(String msg ,boolean isNetAndServiceError) {
         showToast(msg);
     }
 

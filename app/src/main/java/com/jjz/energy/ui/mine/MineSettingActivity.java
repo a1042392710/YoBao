@@ -9,13 +9,17 @@ import android.widget.TextView;
 import com.jjz.energy.R;
 import com.jjz.energy.base.BaseActivity;
 import com.jjz.energy.base.BasePresenter;
+import com.jjz.energy.base.BaseWebActivity;
+import com.jjz.energy.base.Constant;
 import com.jjz.energy.ui.mine.information.MineAccountsActivity;
 import com.jjz.energy.ui.mine.information.MineInfomationActivity;
 import com.jjz.energy.ui.mine.information.MineSettingPasswordActivity;
 import com.jjz.energy.ui.mine.information.OwnerInfoActivity;
+import com.jjz.energy.util.system.SpUtil;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import cn.jpush.android.api.JPushInterface;
 
 /**
  * @Features: 个人设置
@@ -56,7 +60,20 @@ public class MineSettingActivity extends BaseActivity {
     @Override
     protected void initView() {
         tvToolbarTitle.setText("个人设置");
-
+        //是否开启消息通知
+        if ("2".equals(SpUtil.init(mContext).readString("is_notice"))){
+            switchNotice.setChecked(false);
+        }
+        switchNotice.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            //选中
+            if (isChecked){
+                JPushInterface.resumePush(getApplicationContext());
+                SpUtil.init(mContext).commit("is_notice","1");
+            }else{
+                JPushInterface.stopPush(getApplicationContext());
+                SpUtil.init(mContext).commit("is_notice","2");
+            }
+        });
     }
 
     @Override
@@ -99,6 +116,7 @@ public class MineSettingActivity extends BaseActivity {
 
             //隐私政策
             case R.id.ll_privacy:
+                startActivity(new Intent(mContext, BaseWebActivity.class).putExtra("title","隐私政策").putExtra("url", Constant.PRIVACY_POLICY_URL));
                 break;
 
             //退出登录

@@ -3,19 +3,19 @@ package com.jjz.energy.presenter.mine;
 import android.annotation.SuppressLint;
 
 import com.jjz.energy.base.BasePresenter;
-import com.jjz.energy.entry.LoginBean;
+import com.jjz.energy.entry.UserInfo;
 import com.jjz.energy.model.mine.MineInformationModel;
 import com.jjz.energy.util.networkUtil.CommonSubscriber;
-import com.jjz.energy.view.mine.IPersonalInformationView;
+import com.jjz.energy.view.mine.IMineInfomationView;
 
 /**
  * create by: 修改个人信息
  * Date: 2018/9/17 下午4:22
  */
-public class MineInformationPresenter extends BasePresenter<MineInformationModel, IPersonalInformationView> {
+public class MineInformationPresenter extends BasePresenter<MineInformationModel, IMineInfomationView> {
 
 
-    public MineInformationPresenter(IPersonalInformationView view) {
+    public MineInformationPresenter(IMineInfomationView view) {
         initPresenter(view);
     }
 
@@ -27,7 +27,7 @@ public class MineInformationPresenter extends BasePresenter<MineInformationModel
     public void getUserInfo(String map) {
 
         addSubscribe(mModel.getUserInfo(map)
-                .subscribeWith(new CommonSubscriber<LoginBean>() {
+                .subscribeWith(new CommonSubscriber<UserInfo>() {
 
                     @Override
                     protected void startLoading() {
@@ -35,15 +35,15 @@ public class MineInformationPresenter extends BasePresenter<MineInformationModel
                     }
 
                     @Override
-                    protected void onSuccess(LoginBean response) {
+                    protected void onSuccess(UserInfo response) {
                         mView.stopLoading();
                         mView.isGetInfoSuccess(response);
                     }
 
                     @Override
-                    protected void onFail(String errorMsg) {
+                   protected void onFail(String errorMsg ,boolean isNetAndSeriveError) {
                         mView.stopLoading();
-                        mView.isFail(errorMsg);
+                        mView.isFail(errorMsg,isNetAndSeriveError);
                     }
                 }));
 
@@ -54,10 +54,10 @@ public class MineInformationPresenter extends BasePresenter<MineInformationModel
      * @param map
      */
     @SuppressLint("CheckResult")
-    public void putMineInfo(String map, String file) {
+    public void putUserInfo(String map, String file) {
 
-        addSubscribe(mModel.putMineInfo(map,file)
-                .subscribeWith(new CommonSubscriber<LoginBean>() {
+        addSubscribe(mModel.putUserInfo(map,file)
+                .subscribeWith(new CommonSubscriber<UserInfo>() {
 
                     @Override
                     protected void startLoading() {
@@ -65,14 +65,14 @@ public class MineInformationPresenter extends BasePresenter<MineInformationModel
                     }
 
                     @Override
-                    protected void onSuccess(LoginBean response) {
+                    protected void onSuccess(UserInfo response) {
                         mView.stopLoading();
                         mView.isSuccess(response);
                     }
 
                     @Override
-                    protected void onFail(String errorMsg) {
-                        mView.isFail(errorMsg);
+                   protected void onFail(String errorMsg ,boolean isNetAndSeriveError) {
+                        mView.isFail(errorMsg,isNetAndSeriveError);
                         mView.stopLoading();
                     }
                 }));
@@ -101,8 +101,8 @@ public class MineInformationPresenter extends BasePresenter<MineInformationModel
                     }
 
                     @Override
-                    protected void onFail(String errorMsg) {
-                        mView.isFail(errorMsg);
+                   protected void onFail(String errorMsg ,boolean isNetAndSeriveError) {
+                        mView.isFail(errorMsg,isNetAndSeriveError);
                         mView.stopLoading();
                     }
                 }));

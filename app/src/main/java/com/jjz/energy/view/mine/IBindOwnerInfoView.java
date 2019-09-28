@@ -13,7 +13,7 @@ public interface IBindOwnerInfoView extends IBaseView {
     //获取数据成功
     void isGetSuccess(BindOwnerInfoBean data);
 
-    void isFail(String msg);
+    void isFail(String msg,boolean isNetAndServiceError);
 
 
 }

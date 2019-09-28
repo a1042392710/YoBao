@@ -181,7 +181,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements ILogi
                 //切换登录状态
                 changeLoginType("密码");
                 break;
-            //久速隐私政策
+            //久速商城隐私政策
             case R.id.tv_login_policy:
                 break;
                 //登录

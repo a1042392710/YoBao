@@ -16,10 +16,10 @@ import com.jjz.energy.base.BaseRecycleNewAdapter;
 import com.jjz.energy.base.Constant;
 import com.jjz.energy.entry.AddressBean;
 import com.jjz.energy.presenter.mine.AddressManagerPresenter;
-import com.jjz.energy.util.system.PopWindowUtil;
 import com.jjz.energy.util.StringUtil;
 import com.jjz.energy.util.Utils;
 import com.jjz.energy.util.networkUtil.PacketUtil;
+import com.jjz.energy.util.system.PopWindowUtil;
 import com.jjz.energy.view.mine.IAddressManagerView;
 
 import java.util.ArrayList;
@@ -70,6 +70,7 @@ public class AddressManagerActivity extends BaseActivity<AddressManagerPresenter
      */
     private int selectPosition ;
 
+
     @Override
     protected AddressManagerPresenter getPresenter() {
         return new AddressManagerPresenter(this);
@@ -111,7 +112,6 @@ public class AddressManagerActivity extends BaseActivity<AddressManagerPresenter
                             selectPosition = position;
                             //删除地址接口
                             deleteAddress();
-
                         }
 
                         @Override
@@ -156,8 +156,6 @@ public class AddressManagerActivity extends BaseActivity<AddressManagerPresenter
         public AddressManagerAdapter(int layoutResId, @Nullable List<AddressBean.ListBean> data) {
             super(layoutResId, data);
         }
-
-
         @Override
         protected void convert(BaseViewHolder helper, AddressBean.ListBean item) {
             String addressStr = item.getArea()+item.getAddress();
@@ -187,10 +185,10 @@ public class AddressManagerActivity extends BaseActivity<AddressManagerPresenter
         mList = data.getList();
         //无数据页面
         if (StringUtil.isListEmpty(mList)) {
-            //TODO 空数据
-//            showNoDataView(rvAddressManager,R.mipmap.ic_none_address , "您还没有添加任何地址信息～");
+            mAddressManagerAdapter.setEmptyView(getLoadSirView(R.mipmap.ic_none_data, "暂无数据", v -> {
+                getData();
+            }));
         } else {
-//            hideDynamicBox();
             mAddressManagerAdapter.notifyChangeData(mList);
         }
     }
@@ -200,9 +198,10 @@ public class AddressManagerActivity extends BaseActivity<AddressManagerPresenter
     @Override
     public void isDeleteSuccess(AddressBean data) {
         mAddressManagerAdapter.remove(selectPosition);
-        //TODO 空数据
         if (StringUtil.isListEmpty(mAddressManagerAdapter.getData())){
-//            showNoDataView(rvAddressManager,R.mipmap.ic_none_address , "您还没有添加任何地址信息～");
+            mAddressManagerAdapter.setEmptyView(getLoadSirView(R.mipmap.ic_none_data, "暂无数据", v -> {
+                getData();
+            }));
         }
     }
 
@@ -233,10 +232,22 @@ public class AddressManagerActivity extends BaseActivity<AddressManagerPresenter
     public void stopLoading() {
         stopProgressDialog();
     }
+
     @Override
-    public void isFail(String msg) {
-        showToast(msg);
+    public void isFail(String msg, boolean isNetAndServiceError) {
+        if (isNetAndServiceError) {
+            //网络错误页面
+            mAddressManagerAdapter.setEmptyView(getLoadSirView(R.mipmap.ic_loadsir_timeout, msg, v -> {
+                getData();
+            }));
+        } else {
+            showToast(msg);
+        }
     }
+
+
+
+
 
     /**
      * 获取地址列表

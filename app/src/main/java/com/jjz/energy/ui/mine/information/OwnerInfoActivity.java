@@ -24,7 +24,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
- * @Features: 车主信息
+ * @Features: 车辆认证
  * @author: create by chenhao on 2019/4/11
  */
 public class OwnerInfoActivity extends BaseActivity<BindOwnerInfoPresenter> implements IBindOwnerInfoView {
@@ -62,9 +62,10 @@ public class OwnerInfoActivity extends BaseActivity<BindOwnerInfoPresenter> impl
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void initView() {
-        tvToolbarTitle.setText("车主信息");
-        //键盘触摸事件
+        tvToolbarTitle.setText("车辆认证");
+        //输入框触摸事件
         etLicensePlate.setOnTouchListener((view, event) -> {
+            disMissSoftKeyboard();
             if (keyboardUtil == null) {
                 keyboardUtil = new KeyboardUtil(this, etLicensePlate);
                 keyboardUtil.hideSoftInputMethod();
@@ -140,7 +141,7 @@ public class OwnerInfoActivity extends BaseActivity<BindOwnerInfoPresenter> impl
     }
 
     @Override
-    public void isFail(String msg) {
+    public void isFail(String msg ,boolean isNetAndServiceError) {
         showToast(msg);
     }
 

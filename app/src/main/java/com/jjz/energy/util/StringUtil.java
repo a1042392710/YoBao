@@ -44,23 +44,6 @@ public class StringUtil {
         return true;
     }
 
-
-    /**
-     * 判断手机号
-     *
-     * @param mobiles
-     * @return
-     */
-    public static boolean isMobileNO(String mobiles) {
-        if (mobiles.length() == 11 && mobiles.matches("[0-9]{1,}")){
-            return true;
-        }
-//        mobiles.matches("(13\\d|14[579]|15[^4\\D]|17[^49\\D]|18\\d)\\d{8}");
-//        Pattern p = Pattern.compile("(13\\d|14[579]|15[^4\\D]|17[^49\\D]|18\\d)\\d{8}");
-//        Matcher m = p.matcher("");
-        return false;
-    }
-
     /**
      * 判断邮箱是否合法
      * @param email

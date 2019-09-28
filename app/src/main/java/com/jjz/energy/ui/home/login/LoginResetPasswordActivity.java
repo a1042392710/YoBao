@@ -119,7 +119,7 @@ public class LoginResetPasswordActivity extends BaseActivity<LoginResetPasswordP
     }
 
     @Override
-    public void isFail(String msg) {
+    public void isFail(String msg ,boolean isNetAndServiceError) {
         showToast(msg);
     }
 

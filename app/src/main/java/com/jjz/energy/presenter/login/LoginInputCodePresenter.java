@@ -40,7 +40,7 @@ public class LoginInputCodePresenter extends BasePresenter<LoginInputCodeModel, 
                     }
 
                     @Override
-                    protected void onFail(String errorMsg) {
+                   protected void onFail(String errorMsg ,boolean isNetAndSeriveError) {
                         mView.getAuthCodeFail(errorMsg);
                         mView.stopLoading();
                     }
@@ -69,7 +69,7 @@ public class LoginInputCodePresenter extends BasePresenter<LoginInputCodeModel, 
                     }
 
                     @Override
-                    protected void onFail(String errorMsg) {
+                   protected void onFail(String errorMsg ,boolean isNetAndSeriveError) {
                         mView.loginVCodeFail(errorMsg);
                         mView.stopLoading();
                     }
@@ -98,7 +98,7 @@ public class LoginInputCodePresenter extends BasePresenter<LoginInputCodeModel, 
                     }
 
                     @Override
-                    protected void onFail(String errorMsg) {
+                   protected void onFail(String errorMsg ,boolean isNetAndSeriveError) {
                         mView.forgotPasswordFail(errorMsg);
                         mView.stopLoading();
                     }

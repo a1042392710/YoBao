@@ -428,7 +428,7 @@
                     android:layout_marginLeft="47dp"
                     android:ellipsize="end"
                     android:maxLines="2"
-                    android:text="联系我时，说你是久速软件上的司机，看到的，谢谢"
+                    android:text="联系我时，说你是久速商城软件上的司机，看到的，谢谢"
                     android:textColor="@color/text_a4"
                     android:textSize="13sp"/>
             </LinearLayout>

@@ -11,9 +11,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.blankj.utilcode.util.ActivityUtils;
@@ -21,10 +22,11 @@ import com.jjz.energy.R;
 import com.jjz.energy.entry.LoginBean;
 import com.jjz.energy.ui.home.login.LoginActivity;
 import com.jjz.energy.util.networkUtil.AesUtils;
+import com.jjz.energy.util.networkUtil.UserLoginBiz;
 import com.jjz.energy.util.system.LoadingDialogUtil;
 import com.jjz.energy.util.system.SpUtil;
 import com.jjz.energy.util.system.StatusBarUtils;
-import com.jjz.energy.util.networkUtil.UserLoginBiz;
+import com.jjz.energy.view.OnLoadSirCallback;
 import com.jude.swipbackhelper.SwipeBackHelper;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
@@ -38,7 +40,6 @@ import butterknife.ButterKnife;
 
 public abstract class BaseActivity<P extends BasePresenter> extends AppCompatActivity implements
         IBaseView {
-    private static final String TAG = "BaseActivity";
 
     /**
      * 通用加载dialog
@@ -48,10 +49,6 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
      * Presenter
      */
     protected P mPresenter;
-    /**
-     * 退出app的时间
-     */
-    private long mExitTime;
     /**
      * 上下文对象
      */
@@ -148,7 +145,6 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
         UserLoginBiz.getInstance(BaseApplication.getAppContext()).loginSuccess(data);
         //刷新我的
         EventBus.getDefault().post(new LoginEventBean(LoginEventBean.LOG_IN));
-
         //跳转首页
 //        Intent intent = new Intent(mContext,MainActivity.class);
 //        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -162,17 +158,6 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
     protected  void  disMissSoftKeyboard(){
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(), 0);
-    }
-    /**
-     * 弹起软键盘
-     */
-    public void showSoftInputFromWindow(EditText editText){
-        editText.setFocusable(true);
-        editText.setFocusableInTouchMode(true);
-        editText.requestFocus();
-        InputMethodManager inputManager =
-                (InputMethodManager) editText.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-        inputManager.showSoftInput(editText, 0);
     }
 
     /**
@@ -189,17 +174,6 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
         mTasot.show();
     }
 
-    //退出app
-    protected void exit() {
-        if ((System.currentTimeMillis() - mExitTime) > 2000) {
-            showToast(getString(R.string.exit_str));
-            mExitTime = System.currentTimeMillis();
-        } else {
-            //用户退出处理
-            finish();
-            System.exit(0);
-        }
-    }
 
     /**
      * 开启加载进度条
@@ -214,7 +188,6 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
     public void stopProgressDialog() {
         mLoadingDialogUtil.cancelDialogForLoading();
     }
-
 
     /**
      * 半透明窗体，给Dialog实现背景变暗效果
@@ -255,6 +228,23 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
         view.finishLoadMore(300);
     }
 
+    /**
+     * 加载页面
+     * @param drawable 指定图片
+     * @param msg    指定文字
+     * @param callback  点击回调
+     * @return
+     */
+    protected View getLoadSirView(int drawable ,String  msg , OnLoadSirCallback callback){
+        View defaultView = View.inflate(mContext,R.layout.loadsir_default_view,null);
+        ((ImageView)defaultView.findViewById(R.id.img_loadsir)).setImageResource(drawable);
+        ((TextView) defaultView.findViewById(R.id.tv_loadsir_msg)).setText(msg);
+        if (callback != null) {
+            defaultView.setOnClickListener(v -> callback.onClick(v));
+        }
+        return defaultView;
+    }
+
 
     // ====================================== 生命周期和子类实现
 
@@ -262,7 +252,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
     @Override
     protected void onResume() {
         /**
-         * 设置为横屏
+         * 强制竖屏
          */
         if (Build.VERSION.SDK_INT != 26) {
             // 设置横竖屏
@@ -276,7 +266,9 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
         super.onDestroy();
         ButterKnife.bind(this).unbind();
         SwipeBackHelper.onDestroy(this);
+        //关闭软键盘
         disMissSoftKeyboard();
+        //修复键盘内存泄漏  暂时未出现
 //        FixInputMethodMemory.fixFocusedViewLeak(this, null);
         //取消 view 的绑定
         if (mPresenter != null) {
@@ -286,22 +278,29 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
         mLoadingDialogUtil.cancelDialogForLoading();
     }
 
+    /**
+     * 退出app的时间
+     */
+    private long mExitTime;
+    //退出app
+    protected void exit() {
+        if ((System.currentTimeMillis() - mExitTime) > 2000) {
+            showToast(getString(R.string.exit_str));
+            mExitTime = System.currentTimeMillis();
+        } else {
+            //用户退出处理
+            finish();
+            System.exit(0);
+        }
+    }
+
+
     //获得presenter
     protected abstract P getPresenter();
 
     protected abstract int layoutId();
 
     protected abstract void initView();
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-    }
-
-    @Override
-    protected void onNewIntent(Intent intent) {
-        super.onNewIntent(intent);
-    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

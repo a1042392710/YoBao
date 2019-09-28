@@ -38,8 +38,8 @@ public class AddAddressPresenter extends BasePresenter<AddAddressModel, IAddAddr
                     }
 
                     @Override
-                    protected void onFail(String errorMsg) {
-                        mView.isFail(errorMsg);
+                   protected void onFail(String errorMsg ,boolean isNetAndSeriveError) {
+                        mView.isFail(errorMsg,isNetAndSeriveError);
                         mView.stopLoading();
                     }
                 }));
@@ -66,8 +66,8 @@ public class AddAddressPresenter extends BasePresenter<AddAddressModel, IAddAddr
                     }
 
                     @Override
-                    protected void onFail(String errorMsg) {
-                        mView.isFail(errorMsg);
+                   protected void onFail(String errorMsg ,boolean isNetAndSeriveError) {
+                        mView.isFail(errorMsg,isNetAndSeriveError);
                         mView.stopLoading();
                     }
                 }));

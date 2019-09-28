@@ -15,18 +15,18 @@ import android.widget.TextView;
 import com.jjz.energy.R;
 import com.jjz.energy.base.BaseActivity;
 import com.jjz.energy.base.Constant;
-import com.jjz.energy.entry.LoginBean;
+import com.jjz.energy.entry.UserInfo;
 import com.jjz.energy.entry.enums.SexEnum;
 import com.jjz.energy.presenter.mine.MineInformationPresenter;
 import com.jjz.energy.ui.mine.shipping_address.AddressManagerActivity;
-import com.jjz.energy.util.system.PopWindowUtil;
 import com.jjz.energy.util.StringUtil;
 import com.jjz.energy.util.Utils;
 import com.jjz.energy.util.file.FileUtil;
 import com.jjz.energy.util.glide.GlideUtils;
 import com.jjz.energy.util.glide.MyGlideEngine;
 import com.jjz.energy.util.networkUtil.PacketUtil;
-import com.jjz.energy.view.mine.IPersonalInformationView;
+import com.jjz.energy.util.system.PopWindowUtil;
+import com.jjz.energy.view.mine.IMineInfomationView;
 import com.jjz.energy.widgets.datepicker.CustomDatePicker;
 import com.jjz.energy.widgets.singlepicker.SinglePicker;
 import com.zhihu.matisse.Matisse;
@@ -46,7 +46,7 @@ import permissions.dispatcher.RuntimePermissions;
  * @author: create by chenhao on 2019/7/16
  */
 @RuntimePermissions
-public class MineInfomationActivity extends BaseActivity<MineInformationPresenter> implements IPersonalInformationView {
+public class MineInfomationActivity extends BaseActivity<MineInformationPresenter> implements IMineInfomationView {
 
     @BindView(R.id.ll_toolbar_left)
     LinearLayout llToolbarLeft;
@@ -94,27 +94,26 @@ public class MineInfomationActivity extends BaseActivity<MineInformationPresente
     /**
      * 写入用户个人信息
      */
-    private void initInfo(LoginBean loginBean) {
+    private void initInfo(UserInfo userInfo) {
         //头像
-        GlideUtils.loadCircleImage(mContext, loginBean.getHead_pic(), imgHead);
+        GlideUtils.loadCircleImage(mContext, userInfo.getHead_pic(), imgHead);
         //账号
-        tvPhoneNumber.setText(loginBean.getMobile());
+        tvPhoneNumber.setText(userInfo.getMobile());
         //昵称
-        tvNickName.setText(loginBean.getNickname());
-        //TODO 简介
-        tvDesc.setText(loginBean.getNickname());
-        //TODO 设置资料完善度百分比
-        progress.setProgress(90);
-        tvProgress.setText("90");
+        tvNickName.setText(userInfo.getNickname());
+        tvDesc.setText("".equals(userInfo.getDesc())?"未设置简介":userInfo.getDesc());
+        //资料完整度
+        progress.setProgress(userInfo.getCompletion());
+        tvProgress.setText(userInfo.getCompletion()+"");
         //性别
-        if (loginBean.getSex() == 1) {
+        if (userInfo.getSex() == 1) {
             tvSex.setText("男");
-        } else if (loginBean.getSex() == 2) {
+        } else if (userInfo.getSex() == 2) {
             tvSex.setText("女");
         }
         //生日
-        if (!StringUtil.isEmpty(loginBean.getBirthday())) {
-            tvBirthday.setText(StringUtil.stampToDate(loginBean.getBirthday()));
+        if (!StringUtil.isEmpty(userInfo.getBirthday())) {
+            tvBirthday.setText(StringUtil.stampToDate(userInfo.getBirthday()));
         }
 
     }
@@ -173,7 +172,7 @@ public class MineInfomationActivity extends BaseActivity<MineInformationPresente
      * 提交数据
      */
     private void changeData(String key, String value, String file) {
-        mPresenter.putMineInfo(PacketUtil.getRequestPacket(Utils.stringToMap(key, value)), file);
+        mPresenter.putUserInfo(PacketUtil.getRequestPacket(Utils.stringToMap(key, value)), file);
     }
 
     /**
@@ -181,11 +180,11 @@ public class MineInfomationActivity extends BaseActivity<MineInformationPresente
      * @param uri
      */
     private void updateImg(Uri uri) {
-        mPresenter.putMineInfo(PacketUtil.getRequestPacket(null), FileUtil.getRealFilePath(mContext,uri));
+        mPresenter.putUserInfo(PacketUtil.getRequestPacket(null), FileUtil.getRealFilePath(mContext,uri));
     }
 
     @Override
-    public void isGetInfoSuccess(LoginBean data) {
+    public void isGetInfoSuccess(UserInfo data) {
         initInfo(data);
     }
 
@@ -210,7 +209,7 @@ public class MineInfomationActivity extends BaseActivity<MineInformationPresente
         }
         //修改简介
         if (requestCode == 20 && resultCode == 10) {
-            tvDesc.setText(data.getStringExtra("nick_desc"));
+            tvDesc.setText(data.getStringExtra("desc"));
         }
     }
 
@@ -273,7 +272,7 @@ public class MineInfomationActivity extends BaseActivity<MineInformationPresente
     }
 
     @Override
-    public void isFail(String msg) {
+    public void isFail(String msg ,boolean isNetAndServiceError) {
         showToast(msg);
     }
 
@@ -294,7 +293,8 @@ public class MineInfomationActivity extends BaseActivity<MineInformationPresente
                 break;
             //简介
             case R.id.tv_desc:
-                startActivityForResult(new Intent(mContext, ChangeDescActivity.class).putExtra("desc", tvDesc.getText().toString()), 20);
+                String desc = tvDesc.getText().toString();
+                startActivityForResult(new Intent(mContext, ChangeDescActivity.class).putExtra("desc", desc.equals("未设置简介")?"":desc), 20);
                 break;
             //性别
             case R.id.tv_sex:

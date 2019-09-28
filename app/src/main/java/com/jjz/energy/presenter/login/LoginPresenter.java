@@ -43,7 +43,7 @@ public class LoginPresenter extends BasePresenter<LoginModel, ILoginView> {
                     }
 
                     @Override
-                    protected void onFail(String errorMsg) {
+                   protected void onFail(String errorMsg ,boolean isNetAndSeriveError) {
                         mView.getLoginFail(errorMsg);
                         mView.stopLoading();
                     }
@@ -71,7 +71,7 @@ public class LoginPresenter extends BasePresenter<LoginModel, ILoginView> {
                     }
 
                     @Override
-                    protected void onFail(String errorMsg) {
+                   protected void onFail(String errorMsg ,boolean isNetAndSeriveError) {
                         mView.getAuthCodeFail(errorMsg);
                         mView.stopLoading();
                     }
@@ -99,7 +99,7 @@ public class LoginPresenter extends BasePresenter<LoginModel, ILoginView> {
                     }
 
                     @Override
-                    protected void onFail(String errorMsg) {
+                   protected void onFail(String errorMsg ,boolean isNetAndSeriveError) {
                         mView.getModifyLoginPassWordFail(errorMsg);
                         mView.stopLoading();
                     }
@@ -127,7 +127,7 @@ public class LoginPresenter extends BasePresenter<LoginModel, ILoginView> {
 //                    }
 //
 //                    @Override
-//                    protected void onFail(String errorMsg) {
+//                   protected void onFail(String errorMsg ,boolean isNetAndSeriveError) {
 //                        mView.getLoginFail(errorMsg);
 //                        mView.stopLoading();
 //                    }

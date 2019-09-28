@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.baidu.ocr.sdk.utils.LogUtil;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jjz.energy.R;
 import com.jjz.energy.base.BaseFragment;
@@ -89,7 +90,7 @@ public class NoticeFragment extends BaseFragment {
             @Override
             public void gotResult(int i, String s) {
                 if (i==0){
-                    showToast("登录成功");
+                    LogUtil.e("'推送","登录成功");
                 }
 
             }

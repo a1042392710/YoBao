@@ -8,8 +8,14 @@ import android.os.Bundle;
 import com.alibaba.fastjson.JSON;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.StringUtils;
+import com.blankj.utilcode.util.ToastUtils;
+import com.jjz.energy.base.Api;
 import com.jjz.energy.base.Constant;
 import com.jjz.energy.base.LoginEventBean;
+import com.jjz.energy.util.networkUtil.CommonSubscriber;
+import com.jjz.energy.util.networkUtil.PacketUtil;
+import com.jjz.energy.util.networkUtil.RetrofitFactory;
+import com.jjz.energy.util.networkUtil.RxSchedulerHepler;
 import com.tencent.mm.opensdk.constants.ConstantsAPI;
 import com.tencent.mm.opensdk.modelbase.BaseReq;
 import com.tencent.mm.opensdk.modelbase.BaseResp;
@@ -208,22 +214,22 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
         map.put("unionid", userInfoBean.getUnionid());
         map.put("sex", userInfoBean.getSex()+"");
         map.put("type", "wechat");
-//        //微信授权提交
-//        RetrofitFactory.getRetrofit().create(Api.class).putBindInfo(PacketUtil.getRequestPacket(map)).compose(RxSchedulerHepler.handleMyResult()).subscribeWith(new CommonSubscriber<String>() {
-//            @Override
-//            protected void onFail(String errorMsg) {
-//                ToastUtils.showShort(errorMsg);
-//            }
-//
-//            @Override
-//            protected void onSuccess(String response) {
-//                LoginEventBean loginEventBean = new LoginEventBean(LoginEventBean.WECHAT_LOG_IN);
-//                loginEventBean.setValue(userInfoBean.getNickname());
-//                EventBus.getDefault().post(loginEventBean);
-//            }
-//            @Override
-//            protected void startLoading() {}
-//        });
+        //微信授权提交
+        RetrofitFactory.getRetrofit().create(Api.class).putBindInfo(PacketUtil.getRequestPacket(map)).compose(RxSchedulerHepler.handleMyResult()).subscribeWith(new CommonSubscriber<String>() {
+            @Override
+            protected void onFail(String errorMsg,boolean isNetError) {
+                ToastUtils.showShort(errorMsg);
+            }
+
+            @Override
+            protected void onSuccess(String response) {
+                LoginEventBean loginEventBean = new LoginEventBean(LoginEventBean.WECHAT_LOG_IN);
+                loginEventBean.setValue(userInfoBean.getNickname());
+                EventBus.getDefault().post(loginEventBean);
+            }
+            @Override
+            protected void startLoading() {}
+        });
     }
 
 

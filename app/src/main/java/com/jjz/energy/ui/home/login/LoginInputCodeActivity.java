@@ -171,7 +171,6 @@ public class LoginInputCodeActivity extends BaseActivity<LoginInputCodePresenter
      */
     @Override
     public void loginVCodeSuc(LoginBean loginBean) {
-        showToast("登录成功");
         //解密token
         String decode_token = AesUtils.decrypt(loginBean.getToken(), AesUtils.KEY, AesUtils.IV);
         //去除时间戳
