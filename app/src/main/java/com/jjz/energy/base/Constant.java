@@ -42,7 +42,7 @@ public class Constant {
     //微信相关数据
     public static final String WX_APP_ID = "wx1a49cbcab5a4c41c";
     public static final String WX_APP_SECRET = "ab718b505aca9871335d4a32c1a67dac";
-    //金玖洲隐私政策
+    //金玖洲隐私协议
     public static final String PRIVACY_POLICY_URL = "http://api.jjznewenergy.com/index/user/userDeal";
     public static final String BUGLY_ID = "549524cc16";
 

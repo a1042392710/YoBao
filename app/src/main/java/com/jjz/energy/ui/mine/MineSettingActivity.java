@@ -112,9 +112,9 @@ public class MineSettingActivity extends BaseActivity {
                 break;
 
 
-            //隐私政策
+            //隐私协议
             case R.id.ll_privacy:
-                startActivity(new Intent(mContext, BaseWebActivity.class).putExtra("title","隐私政策").putExtra("url", Constant.PRIVACY_POLICY_URL));
+                startActivity(new Intent(mContext, BaseWebActivity.class).putExtra("title","隐私协议").putExtra("url", Constant.PRIVACY_POLICY_URL));
                 break;
 
             //退出登录

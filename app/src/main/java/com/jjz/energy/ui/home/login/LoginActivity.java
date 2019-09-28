@@ -13,6 +13,7 @@ import com.baidu.ocr.sdk.utils.LogUtil;
 import com.blankj.utilcode.util.StringUtils;
 import com.jjz.energy.R;
 import com.jjz.energy.base.BaseActivity;
+import com.jjz.energy.base.BaseWebActivity;
 import com.jjz.energy.base.Constant;
 import com.jjz.energy.entry.UserInfo;
 import com.jjz.energy.presenter.login.LoginPresenter;
@@ -60,7 +61,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements ILogi
     //QQ登录
     @BindView(R.id.img_login_way_qq)
     ImageView imgLoginWayQq;
-    //隐私政策
+    //隐私协议
     @BindView(R.id.tv_login_policy)
     TextView tvLoginPolicy;
     //登录提示
@@ -183,8 +184,9 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements ILogi
                 //切换登录状态
                 changeLoginType("密码");
                 break;
-            //久速商城隐私政策
+            //久速商城隐私协议
             case R.id.tv_login_policy:
+                startActivity(new Intent(mContext, BaseWebActivity.class).putExtra("title","隐私协议").putExtra("url", Constant.PRIVACY_POLICY_URL));
                 break;
                 //登录
             case R.id.tv_home_login_login:

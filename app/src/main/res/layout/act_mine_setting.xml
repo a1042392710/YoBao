@@ -144,7 +144,7 @@
                     android:textColor="@color/text_black33"
                     android:textSize="13sp"
                     android:gravity="center_vertical"
-                    android:text="隐私政策"
+                    android:text="隐私协议"
                     android:layout_height="match_parent"/>
 
                 <ImageView
