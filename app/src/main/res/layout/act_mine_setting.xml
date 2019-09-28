@@ -128,41 +128,6 @@
                     android:layout_height="wrap_content"/>
             </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/ll_set_password"
-                android:layout_marginTop="1dp"
-                android:background="@color/white"
-                android:layout_width="match_parent"
-                android:paddingLeft="19dp"
-                android:paddingRight="19dp"
-                android:layout_height="51dp"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:textColor="@color/text_black33"
-                    android:textSize="13sp"
-                    android:gravity="center_vertical"
-                    android:text="登录密码"
-                    android:layout_height="match_parent"/>
-
-                <TextView
-                    android:id="@+id/tv_password_state"
-                    android:layout_width="wrap_content"
-                    android:text="未设置"
-                    android:textSize="12sp"
-                    android:textColor="@color/text_black99"
-                    android:layout_height="wrap_content"/>
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:src="@mipmap/ic_right_arrow"
-                    android:layout_gravity="center_vertical"
-                    android:layout_height="wrap_content"/>
-            </LinearLayout>
-
-
-
 
             <LinearLayout
                 android:id="@+id/ll_privacy"

@@ -62,7 +62,7 @@ public class LoginVerifyMobileNumberActivity extends BaseActivity {
             case R.id.img_close:
                 finish();
                 break;
-            //确定提交
+            //找回密码
             case R.id.tv_verify_mobile_number_sure:
                 Intent intent = new Intent(mContext, LoginInputCodeActivity.class);
                 intent.putExtra("mobile", etVerifyMobile.getText().toString().trim());

@@ -12,10 +12,10 @@ import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.jjz.energy.base.BaseApplication;
 import com.jjz.energy.base.Constant;
-import com.jjz.energy.entry.LoginBean;
-import com.jjz.energy.util.system.SpUtil;
+import com.jjz.energy.entry.UserInfo;
 import com.jjz.energy.util.StringUtil;
 import com.jjz.energy.util.Utils;
+import com.jjz.energy.util.system.SpUtil;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -71,7 +71,7 @@ public class PacketUtil {
 
             // 用户ID
             if (UserLoginBiz.getInstance(BaseApplication.getAppContext()).detectUserLoginStatus()) {//获取用户登录信息
-                LoginBean loginBean = UserLoginBiz.getInstance(BaseApplication.getAppContext()).readUserInfo();
+                UserInfo loginBean = UserLoginBiz.getInstance(BaseApplication.getAppContext()).readUserInfo();
                 if (loginBean != null) {
                     if (!StringUtils.isEmpty(loginBean.getMobile())) {
                         username = loginBean.getMobile();

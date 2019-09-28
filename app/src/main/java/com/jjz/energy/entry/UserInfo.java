@@ -39,9 +39,10 @@ public class UserInfo implements Serializable {
      */
     private int sex;
     /**
-     * 是否设置支付密码 0 未设置 1 已设置
+     * 是否设置了登录密码  1有  0 无
      */
-    private int issetpaypwd;
+    private int haspassword;
+
     /**
      * 时间戳
      */
@@ -64,6 +65,15 @@ public class UserInfo implements Serializable {
      */
     private String wxapp_openid;
 
+    private String token;
+
+    public String getToken() {
+        return token == null ? "" : token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
 
     public String getDesc() {
         return desc == null ? "" : desc;
@@ -113,13 +123,14 @@ public class UserInfo implements Serializable {
         this.sex = sex;
     }
 
-    public int getIssetpaypwd() {
-        return issetpaypwd;
+    public int getHaspassword() {
+        return haspassword;
     }
 
-    public void setIssetpaypwd(int issetpaypwd) {
-        this.issetpaypwd = issetpaypwd;
+    public void setHaspassword(int haspassword) {
+        this.haspassword = haspassword;
     }
+
 
     public String getTime() {
         return time == null ? "" : time;

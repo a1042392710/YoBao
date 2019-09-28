@@ -1,7 +1,7 @@
 package com.jjz.energy.util.networkUtil;
 
 
-import com.jjz.energy.entry.LoginBean;
+import com.jjz.energy.entry.UserInfo;
 
 public interface UserLoginBizInterface {
 
@@ -13,13 +13,13 @@ public interface UserLoginBizInterface {
     /**
      * 登录成功
      */
-    void loginSuccess(LoginBean data);
+    void loginSuccess(UserInfo data);
 
 
     /**
      * 登录成功
      */
-    void updataSuccess(LoginBean data);
+    void updataSuccess(UserInfo data);
 
     /**
      * 登录失败
@@ -33,13 +33,13 @@ public interface UserLoginBizInterface {
      *
      * @return
      */
-    LoginBean readUserInfo();
+    UserInfo readUserInfo();
 
     /**
      * 保存用户信息
      *
      * @param info
      */
-    void saveUserInfo(LoginBean info);
+    void saveUserInfo(UserInfo info);
 
 }

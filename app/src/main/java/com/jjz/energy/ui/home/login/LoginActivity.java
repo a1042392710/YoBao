@@ -9,10 +9,12 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.baidu.ocr.sdk.utils.LogUtil;
 import com.blankj.utilcode.util.StringUtils;
 import com.jjz.energy.R;
 import com.jjz.energy.base.BaseActivity;
-import com.jjz.energy.entry.LoginBean;
+import com.jjz.energy.base.Constant;
+import com.jjz.energy.entry.UserInfo;
 import com.jjz.energy.presenter.login.LoginPresenter;
 import com.jjz.energy.util.StringUtil;
 import com.jjz.energy.util.Utils;
@@ -192,8 +194,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements ILogi
                             etHomeLoginMobile.getText().toString().trim()).putExtra("scene", "1"));
                 }else{
                     //密码登录 直接验证账号密码
-//                    initLoginInterFace(etHomeLoginMobile.getText().toString().trim(), etHomeLoginPassword.getText().toString().trim());
-                    finish();
+                    initLoginInterFace(etHomeLoginMobile.getText().toString().trim(), etHomeLoginPassword.getText().toString().trim());
                 }
                 break;
 //                //微信登录
@@ -222,13 +223,15 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements ILogi
      */
     private void initLoginInterFace(String username, String password) {
         long time = System.currentTimeMillis(); //当前时间
-        String passwordValue = Utils.MD5Encode(Utils.MD5Encode(Utils.MD5Encode(password) + time) + username);//MD5加密后的密码
+        //加密密码
+        String passwordValue = Utils.MD5Encode(Constant.APP_KEY + password);
+        LogUtil.e("加密密码",passwordValue);
+
         AtomicReference<Map<String, String>> hashMap = new AtomicReference<>(new HashMap<>());
         hashMap.get().put("username", username);
         hashMap.get().put("password", passwordValue);
         hashMap.get().put("timestamp", time+"");
-        mPresenter.getLoginDate(PacketUtil.getRequestPacket(hashMap));
-
+        mPresenter.passWordLogin(PacketUtil.getRequestPacket(hashMap));
     }
 
     /**
@@ -292,7 +295,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements ILogi
 
     //登录
     @Override
-    public void getLoginSuc(LoginBean data) {
+    public void getLoginSuc(UserInfo data) {
         saveLoginData(data);
     }
 
@@ -300,7 +303,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements ILogi
      * 保存登录信息
      * @param data
      */
-    private void saveLoginData(LoginBean data){
+    private void saveLoginData(UserInfo data){
         //登录成功，保存用户信息
         showToast("登录成功");
         loginSuc(data);

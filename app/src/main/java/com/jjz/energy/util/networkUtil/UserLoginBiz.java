@@ -2,7 +2,7 @@ package com.jjz.energy.util.networkUtil;
 
 import android.content.Context;
 
-import com.jjz.energy.entry.LoginBean;
+import com.jjz.energy.entry.UserInfo;
 import com.jjz.energy.util.system.SpUtil;
 
 import java.lang.ref.WeakReference;
@@ -62,7 +62,7 @@ public class UserLoginBiz implements UserLoginBizInterface {
     }
 
     @Override
-    public void loginSuccess(LoginBean data) {
+    public void loginSuccess(UserInfo data) {
         // 保存用户信息
         saveUserInfo(data);
         // 保存登录状态
@@ -78,27 +78,28 @@ public class UserLoginBiz implements UserLoginBizInterface {
         SpUtil.init(mContext).commit("com.jjz.energy.eventbean.UserModel.LOGIN_STATUS", isLogin);
     }
 
-    @Override
-    public void loginFailed(String error) {
 
+    @Override
+    public UserInfo readUserInfo() {
+        return SpSaveClass.getInstance(mContext).readClass(UserInfo.class)==null?new UserInfo():SpSaveClass.getInstance(mContext).readClass(UserInfo.class);
     }
 
     @Override
-    public LoginBean readUserInfo() {
-        return SpSaveClass.getInstance(mContext).readClass(LoginBean.class)==null?new LoginBean():SpSaveClass.getInstance(mContext).readClass(LoginBean.class);
-    }
-
-    @Override
-    public void saveUserInfo(LoginBean info) {
+    public void saveUserInfo(UserInfo info) {
         SpSaveClass.getInstance(mContext).saveClass(info);
     }
 
     @Override
-    public void updataSuccess(LoginBean data) {
+    public void updataSuccess(UserInfo data) {
         // 保存用户信息
         saveUserInfo(data);
         // 保存登录状态
         saveLoginStatus(true);
+    }
+
+    @Override
+    public void loginFailed(String error) {
+
     }
 
 }

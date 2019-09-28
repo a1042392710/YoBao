@@ -3,7 +3,7 @@ package com.jjz.energy.presenter.login;
 import android.annotation.SuppressLint;
 
 import com.jjz.energy.base.BasePresenter;
-import com.jjz.energy.entry.LoginBean;
+import com.jjz.energy.entry.UserInfo;
 import com.jjz.energy.model.login.LoginInputCodeModel;
 import com.jjz.energy.util.networkUtil.CommonSubscriber;
 import com.jjz.energy.view.login.ILoginInputCodeView;
@@ -55,7 +55,7 @@ public class LoginInputCodePresenter extends BasePresenter<LoginInputCodeModel, 
     public void loginVCode(String data) {
 
         addSubscribe(mModel.loginVCode(data)
-                .subscribeWith(new CommonSubscriber<LoginBean>() {
+                .subscribeWith(new CommonSubscriber<UserInfo>() {
 
                     @Override
                     protected void startLoading() {
@@ -63,7 +63,7 @@ public class LoginInputCodePresenter extends BasePresenter<LoginInputCodeModel, 
                     }
 
                     @Override
-                    protected void onSuccess(LoginBean loginBean) {
+                    protected void onSuccess(UserInfo loginBean) {
                         mView.stopLoading();
                         mView.loginVCodeSuc(loginBean);
                     }
@@ -84,7 +84,7 @@ public class LoginInputCodePresenter extends BasePresenter<LoginInputCodeModel, 
     public void forgotPasswordPutVCode(String data) {
 
         addSubscribe(mModel.forgotPasswordPutVCode(data)
-                .subscribeWith(new CommonSubscriber<LoginBean>() {
+                .subscribeWith(new CommonSubscriber<UserInfo>() {
 
                     @Override
                     protected void startLoading() {
@@ -92,14 +92,14 @@ public class LoginInputCodePresenter extends BasePresenter<LoginInputCodeModel, 
                     }
 
                     @Override
-                    protected void onSuccess(LoginBean loginBean) {
+                    protected void onSuccess(UserInfo loginBean) {
                         mView.stopLoading();
                         mView.forgotPasswordSuc(loginBean);
                     }
 
                     @Override
                    protected void onFail(String errorMsg ,boolean isNetAndSeriveError) {
-                        mView.forgotPasswordFail(errorMsg);
+                        mView.loginVCodeFail(errorMsg);
                         mView.stopLoading();
                     }
                 }));

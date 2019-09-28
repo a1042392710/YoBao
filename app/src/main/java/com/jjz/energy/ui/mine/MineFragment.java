@@ -77,7 +77,6 @@ public class MineFragment  extends BaseLazyFragment<MinePresenter> implements IM
      */
     @Override
     public void isGetInfoSuccess(MineInfoBean loginBean) {
-
         //推送公告
         String push_message = loginBean.getPush_message();
         //显示文本

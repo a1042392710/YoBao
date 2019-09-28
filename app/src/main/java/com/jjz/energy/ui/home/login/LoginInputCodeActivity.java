@@ -11,13 +11,13 @@ import com.jjz.energy.R;
 import com.jjz.energy.base.BaseActivity;
 import com.jjz.energy.base.BaseApplication;
 import com.jjz.energy.base.Constant;
-import com.jjz.energy.entry.LoginBean;
+import com.jjz.energy.entry.UserInfo;
 import com.jjz.energy.presenter.login.LoginInputCodePresenter;
 import com.jjz.energy.ui.MainActivity;
 import com.jjz.energy.util.networkUtil.AesUtils;
-import com.jjz.energy.util.system.SpUtil;
 import com.jjz.energy.util.networkUtil.PacketUtil;
 import com.jjz.energy.util.networkUtil.UserLoginBiz;
+import com.jjz.energy.util.system.SpUtil;
 import com.jjz.energy.view.login.ILoginInputCodeView;
 import com.jjz.energy.widgets.SeparatedEditText;
 
@@ -170,7 +170,7 @@ public class LoginInputCodeActivity extends BaseActivity<LoginInputCodePresenter
      * 验证码登录成功
      */
     @Override
-    public void loginVCodeSuc(LoginBean loginBean) {
+    public void loginVCodeSuc(UserInfo loginBean) {
         //解密token
         String decode_token = AesUtils.decrypt(loginBean.getToken(), AesUtils.KEY, AesUtils.IV);
         //去除时间戳
@@ -205,7 +205,8 @@ public class LoginInputCodeActivity extends BaseActivity<LoginInputCodePresenter
      * 忘记密码 提交验证码 成功
      */
     @Override
-    public void forgotPasswordSuc(LoginBean loginBean) {
+    public void forgotPasswordSuc(UserInfo loginBean) {
+        showToast("验证成功，请重置密码");
         startActivity(new Intent(mContext,LoginResetPasswordActivity.class).putExtra("code", mCode).putExtra("mobile",mMobile ));
     }
     /**

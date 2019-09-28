@@ -72,6 +72,10 @@ public class MineInfomationActivity extends BaseActivity<MineInformationPresente
     TextView tvPhoneNumber;
     @BindView(R.id.ll_receipt_address)
     LinearLayout llReceiptAddress;
+    @BindView(R.id.tv_password_state)
+    TextView tvPasswordState;
+    @BindView(R.id.ll_set_password)
+    LinearLayout llSetPassword;
 
     /**
      * 时间选择器
@@ -81,15 +85,19 @@ public class MineInfomationActivity extends BaseActivity<MineInformationPresente
     //单项选择器 (选择男女）
     private SinglePicker<String> pickerSex;
     private String[] mSexs = {"男", "女"};
+    /**
+     * 是否修改密码  false 设置新密码   true修改
+     */
+    private boolean isModify = false;
 
 
     @Override
     protected void initView() {
         tvToolbarTitle.setText("个人资料");
-        mPresenter.getUserInfo(PacketUtil.getRequestPacket(null));
         initDatePicker();
         initSingerPicker();
     }
+
 
     /**
      * 写入用户个人信息
@@ -101,10 +109,10 @@ public class MineInfomationActivity extends BaseActivity<MineInformationPresente
         tvPhoneNumber.setText(userInfo.getMobile());
         //昵称
         tvNickName.setText(userInfo.getNickname());
-        tvDesc.setText("".equals(userInfo.getDesc())?"未设置简介":userInfo.getDesc());
+        tvDesc.setText("".equals(userInfo.getDesc()) ? "未设置简介" : userInfo.getDesc());
         //资料完整度
         progress.setProgress(userInfo.getCompletion());
-        tvProgress.setText(userInfo.getCompletion()+"");
+        tvProgress.setText(userInfo.getCompletion() + "");
         //性别
         if (userInfo.getSex() == 1) {
             tvSex.setText("男");
@@ -114,6 +122,16 @@ public class MineInfomationActivity extends BaseActivity<MineInformationPresente
         //生日
         if (!StringUtil.isEmpty(userInfo.getBirthday())) {
             tvBirthday.setText(StringUtil.stampToDate(userInfo.getBirthday()));
+        }
+        /**
+         * 是否设置了登录密码
+         */
+        if (userInfo.getHaspassword()==1){
+            isModify = true;
+            tvPasswordState.setText("去修改");
+        }else{
+            isModify = false;
+            tvPasswordState.setText("去设置");
         }
 
     }
@@ -177,10 +195,12 @@ public class MineInfomationActivity extends BaseActivity<MineInformationPresente
 
     /**
      * 上传头像
+     *
      * @param uri
      */
     private void updateImg(Uri uri) {
-        mPresenter.putUserInfo(PacketUtil.getRequestPacket(null), FileUtil.getRealFilePath(mContext,uri));
+        mPresenter.putUserInfo(PacketUtil.getRequestPacket(null),
+                FileUtil.getRealFilePath(mContext, uri));
     }
 
     @Override
@@ -188,7 +208,7 @@ public class MineInfomationActivity extends BaseActivity<MineInformationPresente
         initInfo(data);
     }
 
-    // =================================================== 拍照 或选择照片
+// =================================================== 拍照 或选择照片
 
 
     @Override
@@ -249,7 +269,11 @@ public class MineInfomationActivity extends BaseActivity<MineInformationPresente
 
     //================================================ 方法重写和生命周期
 
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mPresenter.getUserInfo(PacketUtil.getRequestPacket(null));
+    }
 
     @Override
     protected MineInformationPresenter getPresenter() {
@@ -272,12 +296,12 @@ public class MineInfomationActivity extends BaseActivity<MineInformationPresente
     }
 
     @Override
-    public void isFail(String msg ,boolean isNetAndServiceError) {
+    public void isFail(String msg, boolean isNetAndServiceError) {
         showToast(msg);
     }
 
     @OnClick({R.id.ll_toolbar_left, R.id.img_head, R.id.tv_nick_name, R.id.tv_sex,
-            R.id.tv_brithday, R.id.ll_receipt_address, R.id.tv_desc})
+            R.id.tv_brithday, R.id.ll_receipt_address, R.id.tv_desc ,R.id.tv_password_state})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ll_toolbar_left:
@@ -294,7 +318,8 @@ public class MineInfomationActivity extends BaseActivity<MineInformationPresente
             //简介
             case R.id.tv_desc:
                 String desc = tvDesc.getText().toString();
-                startActivityForResult(new Intent(mContext, ChangeDescActivity.class).putExtra("desc", desc.equals("未设置简介")?"":desc), 20);
+                startActivityForResult(new Intent(mContext, ChangeDescActivity.class).putExtra(
+                        "desc", desc.equals("未设置简介") ? "" : desc), 20);
                 break;
             //性别
             case R.id.tv_sex:
@@ -303,7 +328,7 @@ public class MineInfomationActivity extends BaseActivity<MineInformationPresente
             //生日
             case R.id.tv_brithday:
                 String birthdayStr = tvBirthday.getText().toString();
-                if (StringUtil.isEmpty(birthdayStr)||"请选择".equals(birthdayStr)) {
+                if (StringUtil.isEmpty(birthdayStr) || "请选择".equals(birthdayStr)) {
                     mCustomDatePicker.showNow();
                 } else {
                     mCustomDatePicker.show(tvBirthday.getText().toString());
@@ -313,6 +338,12 @@ public class MineInfomationActivity extends BaseActivity<MineInformationPresente
             case R.id.ll_receipt_address:
                 startActivity(new Intent(mContext, AddressManagerActivity.class));
                 break;
+
+            //设置密码
+            case R.id.tv_password_state:
+                startActivity(new Intent(mContext, MineSettingPasswordActivity.class).putExtra("isMotify",isModify));
+                break;
         }
     }
+
 }

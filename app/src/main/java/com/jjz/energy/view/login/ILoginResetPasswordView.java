@@ -1,7 +1,7 @@
 package com.jjz.energy.view.login;
 
 import com.jjz.energy.base.IBaseView;
-import com.jjz.energy.entry.LoginBean;
+import com.jjz.energy.entry.UserInfo;
 
 /**
  * @author Ch
@@ -11,7 +11,14 @@ public interface ILoginResetPasswordView extends IBaseView {
 
 
     //验证成功
-    void isSuccess(LoginBean loginBean);
+    default void isSuccess(UserInfo loginBean){
+
+    };
+
+    //验证成功
+    default  void  isSettingPwSuccess(String str){
+
+    }
 
     //验证失败
     void isFail(String msg,boolean isNetAndServiceError);

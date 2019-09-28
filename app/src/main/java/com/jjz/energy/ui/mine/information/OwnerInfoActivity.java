@@ -9,13 +9,13 @@ import android.widget.TextView;
 import com.jjz.energy.R;
 import com.jjz.energy.base.BaseActivity;
 import com.jjz.energy.entry.BindOwnerInfoBean;
-import com.jjz.energy.entry.LoginBean;
+import com.jjz.energy.entry.UserInfo;
 import com.jjz.energy.presenter.mine.BindOwnerInfoPresenter;
 import com.jjz.energy.util.IDCardValidate;
-import com.jjz.energy.util.system.KeyboardUtil;
 import com.jjz.energy.util.StringUtil;
 import com.jjz.energy.util.networkUtil.PacketUtil;
 import com.jjz.energy.util.networkUtil.UserLoginBiz;
+import com.jjz.energy.util.system.KeyboardUtil;
 import com.jjz.energy.view.mine.IBindOwnerInfoView;
 
 import java.util.HashMap;
@@ -125,7 +125,7 @@ public class OwnerInfoActivity extends BaseActivity<BindOwnerInfoPresenter> impl
 
     @Override
     public void isPutSuccess(String data) {
-        LoginBean loginBean = UserLoginBiz.getInstance(mContext).readUserInfo();
+        UserInfo loginBean = UserLoginBiz.getInstance(mContext).readUserInfo();
         loginBean.setLicense_plate(etLicensePlate.getText().toString().trim());
         UserLoginBiz.getInstance(mContext).saveUserInfo(loginBean);
         showToast("提交成功");

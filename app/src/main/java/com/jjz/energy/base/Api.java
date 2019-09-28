@@ -12,7 +12,6 @@ import com.jjz.energy.entry.MineAccountBean;
 import com.jjz.energy.entry.MineInfoBean;
 import com.jjz.energy.entry.MineWalletBean;
 import com.jjz.energy.entry.MineWalletListBean;
-import com.jjz.energy.entry.ModifyLoginPassWordBean;
 import com.jjz.energy.entry.OrderBean;
 import com.jjz.energy.entry.OrderDetailBean;
 import com.jjz.energy.entry.ShareInfoBean;
@@ -52,7 +51,7 @@ public interface Api {
     //登录
     @FormUrlEncoded
     @POST("user/login")
-    Flowable<ResponseData<LoginBean>> getLogin(
+    Flowable<ResponseData<UserInfo>> passWordLogin(
             @Field(PACK_NO) String data
     );
 
@@ -66,26 +65,26 @@ public interface Api {
     //验证码登录
     @FormUrlEncoded
     @POST("user/smsLogin")
-    Flowable<ResponseData<LoginBean>> loginVCode(
+    Flowable<ResponseData<UserInfo>> loginVCode(
             @Field(PACK_NO) String data
     );
 
     //修改登录密码
     @FormUrlEncoded
     @POST("user/editPassword")
-    Flowable<ResponseData<ModifyLoginPassWordBean>> getModifyLoginPassWord(@Field(PACK_NO) String data);
+    Flowable<ResponseData<String>> getModifyLoginPassWord(@Field(PACK_NO) String data);
 
     //忘记密码 = 提交验证码
     @FormUrlEncoded
     @POST("user/forgetPassword")
-    Flowable<ResponseData<LoginBean>> forgotPasswordPutVCode(
+    Flowable<ResponseData<UserInfo>> forgotPasswordPutVCode(
             @Field(PACK_NO) String data
     );
 
     //忘记密码 = 重置密码
     @FormUrlEncoded
     @POST("user/setNewpassword")
-    Flowable<ResponseData<LoginBean>> resetPassword(
+    Flowable<ResponseData<UserInfo>> resetPassword(
             @Field(PACK_NO) String data
     );
 

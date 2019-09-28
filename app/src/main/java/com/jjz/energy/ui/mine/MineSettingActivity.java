@@ -11,10 +11,12 @@ import com.jjz.energy.base.BaseActivity;
 import com.jjz.energy.base.BasePresenter;
 import com.jjz.energy.base.BaseWebActivity;
 import com.jjz.energy.base.Constant;
+import com.jjz.energy.ui.MainActivity;
 import com.jjz.energy.ui.mine.information.MineAccountsActivity;
 import com.jjz.energy.ui.mine.information.MineInfomationActivity;
-import com.jjz.energy.ui.mine.information.MineSettingPasswordActivity;
 import com.jjz.energy.ui.mine.information.OwnerInfoActivity;
+import com.jjz.energy.util.networkUtil.UserLoginBiz;
+import com.jjz.energy.util.system.PopWindowUtil;
 import com.jjz.energy.util.system.SpUtil;
 
 import butterknife.BindView;
@@ -44,8 +46,6 @@ public class MineSettingActivity extends BaseActivity {
     TextView tvBindWechat;
     @BindView(R.id.ll_privacy)
     LinearLayout llPrivacy;
-    @BindView(R.id.tv_password_state)
-    TextView tvPasswordState;
 
     @Override
     protected BasePresenter getPresenter() {
@@ -60,6 +60,7 @@ public class MineSettingActivity extends BaseActivity {
     @Override
     protected void initView() {
         tvToolbarTitle.setText("个人设置");
+
         //是否开启消息通知
         if ("2".equals(SpUtil.init(mContext).readString("is_notice"))){
             switchNotice.setChecked(false);
@@ -87,7 +88,7 @@ public class MineSettingActivity extends BaseActivity {
     }
 
     @OnClick({R.id.ll_toolbar_left, R.id.ll_information, R.id.ll_bind_car, R.id.ll_acount,
-            R.id.tv_login_out,R.id.ll_set_password,
+            R.id.tv_login_out,
             R.id.ll_privacy})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -109,10 +110,7 @@ public class MineSettingActivity extends BaseActivity {
             case R.id.ll_acount:
                 startActivity(new Intent(mContext, MineAccountsActivity.class));
                 break;
-            //设置密码
-            case R.id.ll_set_password:
-                startActivity(new Intent(mContext, MineSettingPasswordActivity.class).putExtra("isMotify",true));
-                break;
+
 
             //隐私政策
             case R.id.ll_privacy:
@@ -121,7 +119,11 @@ public class MineSettingActivity extends BaseActivity {
 
             //退出登录
             case R.id.tv_login_out:
-
+                PopWindowUtil.getInstance().showPopupWindow(mContext, "您确定退出登录吗？", () -> {
+                    UserLoginBiz.getInstance(mContext).logout();
+                    startActivity(new Intent(mContext, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                    finish();
+                });
                 break;
         }
     }

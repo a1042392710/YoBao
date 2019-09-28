@@ -9,9 +9,10 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.StringUtils;
 import com.jjz.energy.R;
 import com.jjz.energy.base.BaseActivity;
-import com.jjz.energy.entry.LoginBean;
+import com.jjz.energy.base.Constant;
+import com.jjz.energy.entry.UserInfo;
 import com.jjz.energy.presenter.login.LoginResetPasswordPresenter;
-import com.jjz.energy.util.networkUtil.AesUtils;
+import com.jjz.energy.util.Utils;
 import com.jjz.energy.util.networkUtil.PacketUtil;
 import com.jjz.energy.view.login.ILoginResetPasswordView;
 
@@ -77,8 +78,8 @@ public class LoginResetPasswordActivity extends BaseActivity<LoginResetPasswordP
                     showToast("请输入密码");
                     return;
                 }
-                if (password.length() < 8 || password.length() > 16) {
-                    showToast("密码为8–16位，数字或密码组成");
+                if (password.length() < 6 || password.length() > 16) {
+                    showToast("密码为6–16位，数字或密码组成");
                     return;
                 }
                 if (!password.equals(new_password)) {
@@ -86,9 +87,6 @@ public class LoginResetPasswordActivity extends BaseActivity<LoginResetPasswordP
                     return;
                 }
                 submit();
-                //todo
-                //清空栈 再跳转首页
-                startActivity(new Intent(mContext, LoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
                 break;
         }
     }
@@ -101,7 +99,7 @@ public class LoginResetPasswordActivity extends BaseActivity<LoginResetPasswordP
         Map<String,String> map = new HashMap<>();
         //新密码
         String newPassword = etResetPasswordInputNewPw.getText().toString().trim();
-        map.put("new_password", AesUtils.encrypt(newPassword+time, AesUtils.KEY,AesUtils.IV ));
+        map.put("new_password", Utils.MD5Encode(Constant.APP_KEY+newPassword));
         //验证码
         map.put("code", mCode);
         //手机号
@@ -112,7 +110,7 @@ public class LoginResetPasswordActivity extends BaseActivity<LoginResetPasswordP
     }
 
     @Override
-    public void isSuccess(LoginBean loginBean) {
+    public void isSuccess(UserInfo loginBean) {
         showToast("成功重置密码");
         //清空栈 再跳转首页
         startActivity(new Intent(mContext, LoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));

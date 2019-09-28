@@ -19,7 +19,8 @@ import android.widget.Toast;
 
 import com.blankj.utilcode.util.ActivityUtils;
 import com.jjz.energy.R;
-import com.jjz.energy.entry.LoginBean;
+import com.jjz.energy.entry.UserInfo;
+import com.jjz.energy.ui.MainActivity;
 import com.jjz.energy.ui.home.login.LoginActivity;
 import com.jjz.energy.util.networkUtil.AesUtils;
 import com.jjz.energy.util.networkUtil.UserLoginBiz;
@@ -29,8 +30,6 @@ import com.jjz.energy.util.system.StatusBarUtils;
 import com.jjz.energy.view.OnLoadSirCallback;
 import com.jude.swipbackhelper.SwipeBackHelper;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
-
-import org.greenrobot.eventbus.EventBus;
 
 import butterknife.ButterKnife;
 
@@ -134,7 +133,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
     /**
      * 登录成功，保存用户信息
      */
-    protected void loginSuc(LoginBean data){
+    protected void loginSuc(UserInfo data){
         //解密token
         String decode_token = AesUtils.decrypt(data.getToken(), AesUtils.KEY, AesUtils.IV);
         //去除时间戳
@@ -144,12 +143,12 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
         //存储用户信息
         UserLoginBiz.getInstance(BaseApplication.getAppContext()).loginSuccess(data);
         //刷新我的
-        EventBus.getDefault().post(new LoginEventBean(LoginEventBean.LOG_IN));
+//        EventBus.getDefault().post(new LoginEventBean(LoginEventBean.LOG_IN));
         //跳转首页
-//        Intent intent = new Intent(mContext,MainActivity.class);
-//        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//        startActivity(intent);
-        ActivityUtils.finishActivity(LoginActivity.class);
+        Intent intent = new Intent(mContext, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+//        ActivityUtils.finishActivity(LoginActivity.class);
     }
 
     /**

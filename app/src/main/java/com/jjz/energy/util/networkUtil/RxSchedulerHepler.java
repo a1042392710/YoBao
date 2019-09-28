@@ -39,10 +39,17 @@ public class RxSchedulerHepler {
      */
     public static <T> FlowableTransformer<ResponseData<T>, T> handleMyResult() {   //compose判断结果
         return httpResponseFlowable -> httpResponseFlowable.flatMap((Function<ResponseData<T>, Flowable<T>>) response -> {
+            //访问成功
             if (Constant.NETWORK_YES.equals(response.getCode())) {
-                return createData(response.getData());
+                if (null!=response.getData()){
+                    return createData(response.getData());
+                }else{
+                    return Flowable.error(new Exception(
+                            response.getMessage()
+                    ));
+                }
             }else if ("-1".equals(response.getCode())) {
-                    //判断用户是否已登录
+                //访问失败 判断用户是否已登录
                 if (UserLoginBiz.getInstance(BaseApplication.getAppContext()).detectUserLoginStatus()){
                     //被挤下线后发送广播
                     UserLoginBiz.getInstance(BaseApplication.getAppContext()).logout();
