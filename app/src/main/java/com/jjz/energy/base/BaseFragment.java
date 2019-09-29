@@ -8,9 +8,13 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.jjz.energy.R;
 import com.jjz.energy.util.system.LoadingDialogUtil;
+import com.jjz.energy.view.OnLoadSirCallback;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import butterknife.ButterKnife;
@@ -42,7 +46,9 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment imp
      * 注解
      */
     private Unbinder unbinder;
-    
+
+
+
     //********************************************* 生命周期
 
     @Override
@@ -106,6 +112,26 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment imp
     //********************************************* 实用方法
 
     /**
+     * 加载页面
+     * @param drawable 指定图片
+     * @param msg    指定文字
+     * @param callback  点击回调
+     * @return
+     */
+    protected View getLoadSirView(int drawable ,String  msg ,boolean isAgan, OnLoadSirCallback callback){
+        View defaultView = View.inflate(mContext, R.layout.loadsir_default_view,null);
+        ((ImageView)defaultView.findViewById(R.id.img_loadsir)).setImageResource(drawable);
+        ((TextView) defaultView.findViewById(R.id.tv_loadsir_msg)).setText(msg);
+        //是否可重新获取数据
+        defaultView.findViewById(R.id.tv_loadsir_agan).setVisibility(isAgan ? View.VISIBLE :
+                View.GONE);
+        if (callback != null) {
+            defaultView.setOnClickListener(v -> callback.onClick(v));
+        }
+        return defaultView;
+    }
+
+    /**
      * 短吐司
      */
     public void showToast(String msg) {
@@ -114,18 +140,6 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment imp
         }
         mToast.setText(msg);
         mToast.setDuration(Toast.LENGTH_SHORT);
-        mToast.show();
-    }
-
-    /**
-     * 长吐司
-     */
-    public void showToastLong(String msg) {
-        if (mToast == null) {
-            mToast = Toast.makeText(mContext, msg, Toast.LENGTH_LONG);
-        }
-        mToast.setText(msg);
-        mToast.setDuration(Toast.LENGTH_LONG);
         mToast.show();
     }
 

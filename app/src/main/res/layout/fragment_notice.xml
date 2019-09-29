@@ -1,61 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:background="@color/color_bg_f7"
-              android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
 
-    <include layout="@layout/view_tool_bar"/>
+    <include layout="@layout/view_tool_bar" />
 
-    <android.support.v4.widget.NestedScrollView
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_notice"
         android:layout_width="match_parent"
-        android:scrollbars="none"
-        android:layout_height="match_parent">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_marginTop="10dp"
-                android:layout_width="match_parent"
-                android:text="最新消息"
-                android:background="@color/white"
-                android:textSize="14sp"
-                android:textColor="#acacac"
-                android:paddingTop="10dp"
-                android:paddingLeft="18dp"
-                android:paddingBottom="5dp"
-                android:layout_height="wrap_content"/>
-
-            <android.support.v7.widget.RecyclerView
-                android:layout_width="match_parent"
-                android:background="@color/white"
-                android:id="@+id/rv_new_notice"
-                android:layout_height="wrap_content"
-                android:scrollbars="none"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_marginTop="10dp"
-                android:text="往期消息"
-                android:background="@color/white"
-                android:textSize="14sp"
-                android:textColor="#acacac"
-                android:paddingTop="10dp"
-                android:paddingLeft="18dp"
-                android:paddingBottom="5dp"
-                android:layout_height="wrap_content"/>
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv_old_notice"
-                android:layout_width="match_parent"
-                android:background="@color/white"
-                android:layout_height="wrap_content"
-                android:scrollbars="none"/>
-
-        </LinearLayout>
-    </android.support.v4.widget.NestedScrollView>
-
-
-
+        android:layout_height="match_parent" />
 
 </LinearLayout>

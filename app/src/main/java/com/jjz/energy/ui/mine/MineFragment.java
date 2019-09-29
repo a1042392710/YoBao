@@ -194,7 +194,6 @@ public class MineFragment  extends BaseLazyFragment<MinePresenter> implements IM
 
     @Override
     public void isFail(String msg ,boolean isNetAndServiceError) {
-        showToast(msg);
     }
 
     @Override

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/ll_timeout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -11,17 +12,19 @@
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_marginBottom="4dp"
-        android:background="@mipmap/ic_loadsir_timeout" />
+        tools:background="@mipmap/ic_loadsir_timeout" />
 
     <TextView
         android:id="@+id/tv_loadsir_msg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="网络连接超时"
-        android:textColor="#333333"
-        android:textSize="18sp" />
+        android:layout_marginTop="3dp"
+        android:textColor="@color/text_black28"
+        android:textSize="17sp" />
 
     <TextView
+        android:id="@+id/tv_loadsir_agan"
         android:layout_marginTop="5dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

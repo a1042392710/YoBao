@@ -201,6 +201,7 @@ public class MineInfomationActivity extends BaseActivity<MineInformationPresente
     private void updateImg(Uri uri) {
         mPresenter.putUserInfo(PacketUtil.getRequestPacket(null),
                 FileUtil.getRealFilePath(mContext, uri));
+
     }
 
     @Override

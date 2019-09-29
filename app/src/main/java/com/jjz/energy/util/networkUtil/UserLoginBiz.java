@@ -48,7 +48,6 @@ public class UserLoginBiz implements UserLoginBizInterface {
     public boolean detectUserLoginStatus() {
         return SpUtil.init(mContext).readBoolean("com.jjz.energy.eventbean.UserModel.LOGIN_STATUS", false);
     }
-//    UserModel.LOGIN_STATUS
     /**
      * 登出
      */

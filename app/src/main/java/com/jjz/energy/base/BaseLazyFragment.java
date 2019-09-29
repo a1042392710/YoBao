@@ -7,9 +7,13 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.jjz.energy.R;
 import com.jjz.energy.util.system.LoadingDialogUtil;
+import com.jjz.energy.view.OnLoadSirCallback;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import butterknife.ButterKnife;
@@ -140,6 +144,25 @@ public abstract class BaseLazyFragment<P extends BasePresenter> extends Fragment
 
     //********************************************* 实用方法
 
+    /**
+     * 加载页面
+     * @param drawable 指定图片
+     * @param msg    指定文字
+     * @param callback  点击回调
+     * @return
+     */
+    protected View getLoadSirView(int drawable ,String  msg ,boolean isAgan, OnLoadSirCallback callback){
+        View defaultView = View.inflate(mContext, R.layout.loadsir_default_view,null);
+        ((ImageView)defaultView.findViewById(R.id.img_loadsir)).setImageResource(drawable);
+        ((TextView) defaultView.findViewById(R.id.tv_loadsir_msg)).setText(msg);
+        //是否可重新获取数据
+        defaultView.findViewById(R.id.tv_loadsir_agan).setVisibility(isAgan ? View.VISIBLE :
+                View.GONE);
+        if (callback != null) {
+            defaultView.setOnClickListener(v -> callback.onClick(v));
+        }
+        return defaultView;
+    }
 
     public void showToast(String msg) {
         if (mToast == null) {

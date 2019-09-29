@@ -138,6 +138,17 @@ public class StringUtil {
     }
 
     /**
+     * long转日期
+     */
+    public static String longToDate(long time, String format) {
+        if (format == null || format.isEmpty()) {
+            format = "yyyy-MM-dd HH:mm:ss";
+        }
+        SimpleDateFormat sdf = new SimpleDateFormat(format);
+        return sdf.format(new Date(time));
+    }
+
+    /**
      * 转换字符编码的工具类
      *
      * 将字符编码转换成UTF-8

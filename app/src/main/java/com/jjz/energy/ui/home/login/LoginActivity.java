@@ -307,7 +307,6 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements ILogi
      */
     private void saveLoginData(UserInfo data){
         //登录成功，保存用户信息
-        showToast("登录成功");
         loginSuc(data);
     }
 

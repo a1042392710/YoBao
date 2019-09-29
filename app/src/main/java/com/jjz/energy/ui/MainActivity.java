@@ -30,9 +30,9 @@ import com.jjz.energy.ui.community.PutCommunityActivity;
 import com.jjz.energy.ui.home.PutCommodityActivity;
 import com.jjz.energy.ui.home.login.LoginActivity;
 import com.jjz.energy.ui.home.logistics.ReleaseLogisticsActivity;
-import com.jjz.energy.widgets.NoScrollViewPager;
-import com.jjz.energy.util.system.PopWindowUtil;
 import com.jjz.energy.util.networkUtil.UserLoginBiz;
+import com.jjz.energy.util.system.PopWindowUtil;
+import com.jjz.energy.widgets.NoScrollViewPager;
 import com.jude.swipbackhelper.SwipeBackHelper;
 
 import org.greenrobot.eventbus.EventBus;
@@ -41,6 +41,8 @@ import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import cn.jpush.im.android.api.JMessageClient;
+import cn.jpush.im.android.api.event.NotificationClickEvent;
 import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.OnNeverAskAgain;
 import permissions.dispatcher.RuntimePermissions;
@@ -98,6 +100,16 @@ public class MainActivity extends BaseActivity {
         initLocation();
         vpMain.setAdapter(new ViewPagerAdapter(getSupportFragmentManager()));
         vpMain.setOffscreenPageLimit(3);
+        //开启消息监听事件
+        JMessageClient.registerEventReceiver(this);
+    }
+
+    /**
+     *  消息点击事件
+     **/
+    public void onEventMainThread(NotificationClickEvent event) {
+        //进入消息列表
+        rbNotice.setChecked(true);
     }
 
     /**
@@ -169,6 +181,8 @@ public class MainActivity extends BaseActivity {
             startActivity(new Intent(mContext, PutCommunityActivity.class));
         });
     }
+
+
 
     //=============================================================== 定位
     /**

@@ -26,10 +26,15 @@ import cn.jpush.im.android.api.model.Message;
 public class ImAdapter  extends BaseRecycleNewAdapter<Message> {
 
     private ImageView mHead;
+    private String userName;
 
 
     public ImAdapter(int layoutResId, @Nullable List<Message> data) {
         super(layoutResId, data);
+    }
+
+    public  void  setUserName (String userName){
+        this.userName = userName;
     }
 
 
@@ -51,7 +56,7 @@ public class ImAdapter  extends BaseRecycleNewAdapter<Message> {
         TextView tvMyTime = helper.getView(R.id.item_im_details_time);
         if (item.getFromUser() != null) {
             //我是方小杰
-            if (item.getFromUser().getUserName().equals("cds123")) {
+            if (item.getFromUser().getUserName().equals(userName)) {
                 //自己的头像
                 mHead = helper.getView(R.id.item_im_details_head1);
                 //显示自己头像

@@ -51,6 +51,7 @@ public class BaseApplication extends Application {
     }
 
 
+
     //static 代码段可以防止内存泄露
     static {
         //SmartRefreshLayout 刷新教程

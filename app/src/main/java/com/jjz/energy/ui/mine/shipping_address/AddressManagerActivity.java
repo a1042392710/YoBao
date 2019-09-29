@@ -185,7 +185,7 @@ public class AddressManagerActivity extends BaseActivity<AddressManagerPresenter
         mList = data.getList();
         //无数据页面
         if (StringUtil.isListEmpty(mList)) {
-            mAddressManagerAdapter.setEmptyView(getLoadSirView(R.mipmap.ic_none_data, "暂无数据", v -> {
+            mAddressManagerAdapter.setEmptyView(getLoadSirView(R.mipmap.ic_none_data, "暂无数据",true, v -> {
                 getData();
             }));
         } else {
@@ -199,7 +199,7 @@ public class AddressManagerActivity extends BaseActivity<AddressManagerPresenter
     public void isDeleteSuccess(AddressBean data) {
         mAddressManagerAdapter.remove(selectPosition);
         if (StringUtil.isListEmpty(mAddressManagerAdapter.getData())){
-            mAddressManagerAdapter.setEmptyView(getLoadSirView(R.mipmap.ic_none_data, "暂无数据", v -> {
+            mAddressManagerAdapter.setEmptyView(getLoadSirView(R.mipmap.ic_none_data, "暂无数据",true, v -> {
                 getData();
             }));
         }
@@ -237,7 +237,7 @@ public class AddressManagerActivity extends BaseActivity<AddressManagerPresenter
     public void isFail(String msg, boolean isNetAndServiceError) {
         if (isNetAndServiceError) {
             //网络错误页面
-            mAddressManagerAdapter.setEmptyView(getLoadSirView(R.mipmap.ic_loadsir_timeout, msg, v -> {
+            mAddressManagerAdapter.setEmptyView(getLoadSirView(R.mipmap.ic_loadsir_timeout, msg,true,  v -> {
                 getData();
             }));
         } else {

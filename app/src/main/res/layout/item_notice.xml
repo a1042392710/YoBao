@@ -20,7 +20,8 @@
         android:layout_width="41dp"
         android:layout_centerVertical="true"
         android:layout_marginLeft="18dp"
-        android:src="@color/color_primary_f92"
+        android:layout_marginRight="5dp"
+        android:src="@mipmap/ic_default_head"
         android:layout_height="41dp"/>
 
     <TextView

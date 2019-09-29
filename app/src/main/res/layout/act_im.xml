@@ -46,12 +46,15 @@
         android:layout_weight="1" />
 
     <LinearLayout
+        android:id="@+id/ll_edit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:elevation="3dp"
         android:orientation="horizontal"
         android:paddingLeft="15dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
         android:paddingRight="15dp">
 
 
@@ -59,20 +62,16 @@
             android:id="@+id/et_im"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
             android:layout_weight="1"
             android:background="@drawable/bg_gray_broke"
             android:gravity="center_vertical"
             android:hint="聊点什么吧"
-            android:imeOptions="actionSend"
             android:paddingLeft="10dp"
             android:paddingTop="7dp"
             android:paddingRight="10dp"
             android:paddingBottom="7dp"
             android:singleLine="true"
             android:textColor="@color/text_blackA6"
-            android:textCursorDrawable="@null"
             android:textSize="14sp" />
 
         <TextView
@@ -88,4 +87,12 @@
             android:layout_marginLeft="10dp" />
 
     </LinearLayout>
+
+    <View
+        android:id="@+id/view_keybord"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+
+    </View>
+
 </LinearLayout>

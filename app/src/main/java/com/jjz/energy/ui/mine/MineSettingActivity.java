@@ -22,6 +22,7 @@ import com.jjz.energy.util.system.SpUtil;
 import butterknife.BindView;
 import butterknife.OnClick;
 import cn.jpush.android.api.JPushInterface;
+import cn.jpush.im.android.api.JMessageClient;
 
 /**
  * @Features: 个人设置
@@ -120,7 +121,10 @@ public class MineSettingActivity extends BaseActivity {
             //退出登录
             case R.id.tv_login_out:
                 PopWindowUtil.getInstance().showPopupWindow(mContext, "您确定退出登录吗？", () -> {
+                    //注销极光IM 和极光推送
                     UserLoginBiz.getInstance(mContext).logout();
+                    JPushInterface.stopPush(mContext);
+                    JMessageClient.logout();
                     startActivity(new Intent(mContext, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
                     finish();
                 });

@@ -17,6 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.baidu.ocr.sdk.utils.LogUtil;
 import com.blankj.utilcode.util.ActivityUtils;
 import com.jjz.energy.R;
 import com.jjz.energy.entry.UserInfo;
@@ -32,6 +33,9 @@ import com.jude.swipbackhelper.SwipeBackHelper;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import butterknife.ButterKnife;
+import cn.jpush.android.api.JPushInterface;
+import cn.jpush.im.android.api.JMessageClient;
+import cn.jpush.im.api.BasicCallback;
 
 /**
  * Created by chenhao on 2018/8/28.
@@ -97,6 +101,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
 
 
     //======================================== 实用方法
+
     /**
      * 没登录就前往登录页面
      *
@@ -134,6 +139,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
      * 登录成功，保存用户信息
      */
     protected void loginSuc(UserInfo data){
+        showToast("登录成功");
         //解密token
         String decode_token = AesUtils.decrypt(data.getToken(), AesUtils.KEY, AesUtils.IV);
         //去除时间戳
@@ -142,13 +148,22 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
         SpUtil.init(BaseApplication.getAppContext()).commit(Constant.LOGIN_ID, decode_token);
         //存储用户信息
         UserLoginBiz.getInstance(BaseApplication.getAppContext()).loginSuccess(data);
-        //刷新我的
-//        EventBus.getDefault().post(new LoginEventBean(LoginEventBean.LOG_IN));
+        //恢复极光推送功能
+        JPushInterface.resumePush(mContext);
+        //登录极光IM
+        JMessageClient.login(data.getMobile(), data.getJmessage_password(),new BasicCallback(){
+            @Override
+            public void gotResult(int i, String s) {
+                String msg =  i ==0?"登录成功":"登录失败:"+s;
+                LogUtil.e("久速","极光推送:"+msg);
+            }
+        });
         //跳转首页
         Intent intent = new Intent(mContext, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
-//        ActivityUtils.finishActivity(LoginActivity.class);
+
+
     }
 
     /**
@@ -234,10 +249,16 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
      * @param callback  点击回调
      * @return
      */
-    protected View getLoadSirView(int drawable ,String  msg , OnLoadSirCallback callback){
-        View defaultView = View.inflate(mContext,R.layout.loadsir_default_view,null);
-        ((ImageView)defaultView.findViewById(R.id.img_loadsir)).setImageResource(drawable);
+    protected View getLoadSirView(int drawable, String msg, boolean isAgan,
+                                  OnLoadSirCallback callback) {
+        View defaultView = View.inflate(mContext, R.layout.loadsir_default_view, null);
+        //加载图片
+        ((ImageView) defaultView.findViewById(R.id.img_loadsir)).setImageResource(drawable);
+        //加载内容
         ((TextView) defaultView.findViewById(R.id.tv_loadsir_msg)).setText(msg);
+        //是否可重新获取数据
+        defaultView.findViewById(R.id.tv_loadsir_agan).setVisibility(isAgan ? View.VISIBLE :
+                View.GONE);
         if (callback != null) {
             defaultView.setOnClickListener(v -> callback.onClick(v));
         }

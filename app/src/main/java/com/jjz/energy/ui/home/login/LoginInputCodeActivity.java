@@ -5,19 +5,12 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.jjz.energy.R;
 import com.jjz.energy.base.BaseActivity;
-import com.jjz.energy.base.BaseApplication;
-import com.jjz.energy.base.Constant;
 import com.jjz.energy.entry.UserInfo;
 import com.jjz.energy.presenter.login.LoginInputCodePresenter;
-import com.jjz.energy.ui.MainActivity;
-import com.jjz.energy.util.networkUtil.AesUtils;
 import com.jjz.energy.util.networkUtil.PacketUtil;
-import com.jjz.energy.util.networkUtil.UserLoginBiz;
-import com.jjz.energy.util.system.SpUtil;
 import com.jjz.energy.view.login.ILoginInputCodeView;
 import com.jjz.energy.widgets.SeparatedEditText;
 
@@ -170,18 +163,8 @@ public class LoginInputCodeActivity extends BaseActivity<LoginInputCodePresenter
      * 验证码登录成功
      */
     @Override
-    public void loginVCodeSuc(UserInfo loginBean) {
-        //解密token
-        String decode_token = AesUtils.decrypt(loginBean.getToken(), AesUtils.KEY, AesUtils.IV);
-        //去除时间戳
-        decode_token= decode_token.substring(0,decode_token.length()-loginBean.getTime().length());
-        //存储用户Toke
-        SpUtil.init(BaseApplication.getAppContext()).commit(Constant.LOGIN_ID, decode_token);
-        //存储用户信息
-        UserLoginBiz.getInstance(BaseApplication.getAppContext()).loginSuccess(loginBean);
-        //关闭所有的页面后，跳转首页
-        ActivityUtils.finishAllActivities();
-        ActivityUtils.startActivity(MainActivity.class);
+    public void loginVCodeSuc(UserInfo userInfo) {
+        loginSuc(userInfo);
     }
 
     /**

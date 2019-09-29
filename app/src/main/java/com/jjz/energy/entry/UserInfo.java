@@ -65,7 +65,24 @@ public class UserInfo implements Serializable {
      */
     private String wxapp_openid;
 
+    /**
+     * 用户IM
+     */
     private String token;
+
+    /**
+     * 极光IM 用户密码
+     */
+    private String jmessage_password ;
+
+
+    public String getJmessage_password() {
+        return jmessage_password == null ? "" : jmessage_password;
+    }
+
+    public void setJmessage_password(String jmessage_password) {
+        this.jmessage_password = jmessage_password;
+    }
 
     public String getToken() {
         return token == null ? "" : token;

@@ -3,8 +3,10 @@ package com.jjz.energy.ui.notice;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.baidu.ocr.sdk.utils.LogUtil;
@@ -12,6 +14,9 @@ import com.jjz.energy.R;
 import com.jjz.energy.alipay.ImAdapter;
 import com.jjz.energy.base.BaseActivity;
 import com.jjz.energy.base.BasePresenter;
+import com.jjz.energy.util.StringUtil;
+import com.jjz.energy.util.networkUtil.UserLoginBiz;
+import com.jjz.energy.util.system.SoftKeyBoardListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +47,8 @@ public class IMActivity extends BaseActivity {
     EditText etIm;
     @BindView(R.id.tv_send)
     TextView tvSend;
+    @BindView(R.id.view_keybord)
+    View view_keybord;
 
     /**
      * 聊天的适配器
@@ -57,11 +64,13 @@ public class IMActivity extends BaseActivity {
     /**
      * 要和谁聊天
      */
-    private String userName = "fxj123";
+    private String userName ;
     /**
      * 是否第一次刷新数据
      */
     private boolean one = true;
+
+    private com.jjz.energy.entry.UserInfo mUserInfo;
 
     @Override
     protected BasePresenter getPresenter() {
@@ -75,30 +84,52 @@ public class IMActivity extends BaseActivity {
 
     @Override
     protected void initView() {
+        //设置Activity的SoftInputMode属性值为adjustResize
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+        //用户消息
+        mUserInfo = UserLoginBiz.getInstance(mContext).readUserInfo();
+        //获取列表中的指定数据，然后展开会话
         position = getIntent().getIntExtra("position", 0);
-        initEt();
         initImRv();
         initJpush();
         initData();
+        initEditHight();
     }
 
     /**
-     * 将输入框顶至软键盘之上
+     * 使键盘能够弹起
      */
-    private void initEt() {
+    private void initEditHight() {
+        //监听软键盘弹出，并获取软键盘高度
+        SoftKeyBoardListener.setListener(this, new SoftKeyBoardListener.OnSoftKeyBoardChangeListener() {
+            @Override
+            public void keyBoardShow(int height) {
+                LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) view_keybord.getLayoutParams();
+                layoutParams.height = height;
+                view_keybord.setLayoutParams(layoutParams);
+            }
+
+            @Override
+            public void keyBoardHide(int height) {
+                LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) view_keybord.getLayoutParams();
+                layoutParams.height = 0;
+                view_keybord.setLayoutParams(layoutParams);
+            }
+        });
+
+
 
     }
+
 
     /**
      * 初始化聊天
      */
     private void initJpush() {
-        //注册聊天事件监听
+        //开启全局监听事件
         JMessageClient.registerEventReceiver(this);
-        //创建会话，如果存在则返回会话实例
-        conversation = Conversation.createSingleConversation(userName, null);
         //进入会话状态,不接收通知栏
-        JMessageClient.enterSingleConversation(this.userName);
+        JMessageClient.enterSingleConversation(mUserInfo.getMobile());
     }
 
     /**
@@ -108,6 +139,7 @@ public class IMActivity extends BaseActivity {
         rvIm.setLayoutManager(new LinearLayoutManager(this));
         //绑定聊天数据
         mImAdapter = new ImAdapter(R.layout.item_im,new ArrayList<>());
+        mImAdapter.setUserName(mUserInfo.getMobile());
         rvIm.setAdapter(mImAdapter);
     }
 
@@ -115,23 +147,22 @@ public class IMActivity extends BaseActivity {
     //初始化数据
     public void initData() {
         //获取列表中的会话  position 为列表页面传来的
-//        List<Conversation> msgList = JMessageClient.getConversationList();
-//        if (msgList != null) {
-//            if (msgList.size() > 0) {
-//                if (msgList.get(position) != null) {
-//                    conversation = msgList.get(position);
-//                    //重置会话未读消息数
-//                    conversation.resetUnreadCount();
-//
-//                }
-//            }
-//        }
+        List<Conversation> msgList = JMessageClient.getConversationList();
+        if (msgList != null) {
+            if (msgList.size() > 0) {
+                if (msgList.get(position) != null) {
+                    conversation = msgList.get(position);
+                    //重置会话未读消息数
+                    conversation.resetUnreadCount();
+                }
+            }
+        }
         //如果会话存在，则显示聊天内容
         if (conversation != null) {
             tvImTitle.setText(conversation.getTitle() == null ? "" : conversation.getTitle());
             UserInfo info = (UserInfo) conversation.getTargetInfo();
+            //聊天对象
             userName = info.getUserName();
-            //userName = "f8443445-a7ef-47d8-8005-b0d57851b396";  //todo 可自定义
 
             //使列表滚动到底部
             if (conversation.getAllMessage() != null) {
@@ -209,6 +240,10 @@ public class IMActivity extends BaseActivity {
                 break;
                 //发送信息
             case R.id.tv_send:
+                //空文字不发送
+                if (StringUtil.isEmpty(etIm.getText().toString())) {
+                    return;
+                }
                 Message message =JMessageClient.createSingleTextMessage(userName,null,etIm.getText().toString());
                 //发送消息
                 JMessageClient.sendMessage(message);
