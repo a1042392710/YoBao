@@ -36,7 +36,7 @@ public class BaseApplication extends Application {
         JPushInterface.setDebugMode(true);// true则会打印debug级别的日志，false则只会打印warning级别以上的日志
         JPushInterface.init(this);
         //极光IM  指定是否开启消息漫游 默认不开启
-        JMessageClient.init(this, false);
+        JMessageClient.init(this, true);
         setupLeakCanary();
     }
 

@@ -10,13 +10,13 @@ import com.baidu.ocr.sdk.utils.LogUtil;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jjz.energy.R;
 import com.jjz.energy.base.BaseRecycleNewAdapter;
+import com.jjz.energy.util.DateUtil;
 import com.jjz.energy.util.glide.GlideUtils;
 
 import java.util.List;
 
 import cn.jpush.im.android.api.callback.GetAvatarBitmapCallback;
 import cn.jpush.im.android.api.content.ImageContent;
-import cn.jpush.im.android.api.content.PromptContent;
 import cn.jpush.im.android.api.content.TextContent;
 import cn.jpush.im.android.api.model.Message;
 
@@ -82,6 +82,20 @@ public class ImAdapter  extends BaseRecycleNewAdapter<Message> {
                 tvTc.setVisibility(View.GONE);
                 tvTc1.setVisibility(View.VISIBLE);
             }
+
+            //与上一条消息做比较，五分钟以内的消息都合并到一起，隐藏时间
+            if (helper.getLayoutPosition()!=0) {
+                long s = (item.getCreateTime() - mData.get(helper.getLayoutPosition() - 1).getCreateTime()) / (1000 * 60);
+                if (s<5){
+                    tvMyTime.setVisibility(View.GONE);
+                }else{
+                    tvMyTime.setVisibility(View.VISIBLE);
+                }
+            }
+
+            //聊天时间
+            tvMyTime.setText(DateUtil.stampToDateMinite(item.getCreateTime(),"yyyy年MM月dd日 HH:mm"));
+
             //展示头像
             item.getFromUser().getAvatarBitmap(new GetAvatarBitmapCallback() {
                 @Override
@@ -97,7 +111,7 @@ public class ImAdapter  extends BaseRecycleNewAdapter<Message> {
             switch (item.getContentType()) {
                 case text:
                     tvMyContent.setVisibility(View.VISIBLE);
-                    tvMyTime.setVisibility(View.GONE);
+//                    tvMyTime.setVisibility(View.GONE);
                     imgMyPhoto.setVisibility(View.GONE);
                     //内容
                     TextContent textContent = (TextContent) item.getContent();
@@ -107,7 +121,7 @@ public class ImAdapter  extends BaseRecycleNewAdapter<Message> {
                     //图片
                 case image:
                     tvMyContent.setVisibility(View.GONE);
-                    tvMyTime.setVisibility(View.GONE);
+//                    tvMyTime.setVisibility(View.GONE);
                     imgMyPhoto.setVisibility(View.VISIBLE);
                     ImageContent imageContent = (ImageContent) item.getContent();
                     //加载圆角图片
@@ -115,15 +129,15 @@ public class ImAdapter  extends BaseRecycleNewAdapter<Message> {
                         GlideUtils.loadRoundCircleImage(mContext,imageContent.getLocalThumbnailPath(),imgMyPhoto);
                     }
                     break;
-                case prompt: //提示
-                    tvMyContent.setVisibility(View.GONE);
-                    tvMyTime.setVisibility(View.VISIBLE);
-                    imgMyPhoto.setVisibility(View.GONE);
-                    //内容
-                    PromptContent promptContent = (PromptContent) item.getContent();
-                    String promptText = promptContent.getPromptText();
-                    tvMyTime.setText(promptText);
-                    break;
+//                case prompt: //提示
+//                    tvMyContent.setVisibility(View.GONE);
+//                    tvMyTime.setVisibility(View.GONE);
+//                    imgMyPhoto.setVisibility(View.GONE);
+//                    //内容
+//                    PromptContent promptContent = (PromptContent) item.getContent();
+//                    String promptText = promptContent.getPromptText();
+//                    tvMyTime.setText(promptText);
+//                    break;
 
             }
         }

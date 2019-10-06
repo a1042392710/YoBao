@@ -19,6 +19,7 @@ import com.jjz.energy.entry.UserInfo;
 import com.jjz.energy.entry.enums.SexEnum;
 import com.jjz.energy.presenter.mine.MineInformationPresenter;
 import com.jjz.energy.ui.mine.shipping_address.AddressManagerActivity;
+import com.jjz.energy.util.DateUtil;
 import com.jjz.energy.util.StringUtil;
 import com.jjz.energy.util.Utils;
 import com.jjz.energy.util.file.FileUtil;
@@ -121,7 +122,7 @@ public class MineInfomationActivity extends BaseActivity<MineInformationPresente
         }
         //生日
         if (!StringUtil.isEmpty(userInfo.getBirthday())) {
-            tvBirthday.setText(StringUtil.stampToDate(userInfo.getBirthday()));
+            tvBirthday.setText(DateUtil.stampToDate(userInfo.getBirthday()));
         }
         /**
          * 是否设置了登录密码
@@ -170,7 +171,7 @@ public class MineInfomationActivity extends BaseActivity<MineInformationPresente
             String birthDayDate = time.split(" ")[0];
             tvBirthday.setText(birthDayDate);
             //提交修改
-            changeData("birthday", StringUtil.dateToStampStr(birthDayDate) + "", "");
+            changeData("birthday", DateUtil.dateToStampStr(birthDayDate) + "", "");
         }); // 初始化日期格式请用：yyyy-MM-dd HH:mm，否则不能正常运行
         mCustomDatePicker.showSpecificTime(false); // 不显示时和分
         mCustomDatePicker.setIsLoop(false); // 不允许循环滚动

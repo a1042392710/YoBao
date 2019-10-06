@@ -7,7 +7,7 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jjz.energy.R;
 import com.jjz.energy.base.BaseRecycleNewAdapter;
-import com.jjz.energy.util.StringUtil;
+import com.jjz.energy.util.DateUtil;
 import com.jjz.energy.util.glide.GlideUtils;
 
 import java.util.Date;
@@ -39,7 +39,7 @@ public class NoticeAdapter extends BaseRecycleNewAdapter<Conversation> {
             TextView imTime = helper.getView(R.id.item_tv_notice_time);
             //聊天未读数量
             TextView imNoticeSum = helper.getView(R.id.item_tv_notice_sum);
-            imTime.setText(StringUtil.getTimeFormatText(new Date(item.getLastMsgDate())));
+            imTime.setText(DateUtil.getTimeFormatText(new Date(item.getLastMsgDate())));
             //有头像就加载头像
             if (null!=item.getAvatarFile()){
                 GlideUtils.loadCircleImage(mContext, item.getAvatarFile().getAbsolutePath(),

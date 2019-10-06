@@ -109,7 +109,6 @@ public class NoticeFragment extends BaseLazyFragment {
     }
 
 
-
     // 接收消息 (主线程)(刷新UI)
     public void onEventMainThread(MessageEvent event){
       initConversationList();

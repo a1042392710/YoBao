@@ -1,18 +1,8 @@
 package com.jjz.energy.util;
 
-import android.content.Context;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.view.Display;
-import android.view.WindowManager;
-
 import com.blankj.utilcode.util.ToastUtils;
 
 import java.io.UnsupportedEncodingException;
-import java.math.BigInteger;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -95,99 +85,6 @@ public class StringUtil {
         return true;
     }
 
-
-    /**
-     * 将时间转换为时间戳
-     */
-    public static String dateToStampStr(String s) {
-        String res;
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Date date = null;
-        try {
-            date = simpleDateFormat.parse(s);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        res = String.valueOf(date.getTime());
-//        res = res.substring(0, 10);
-        long ts = new BigInteger(res).longValue()/1000;
-        return ts+"";
-    }
-
-    /**
-     * 将时间戳转换为时间
-     */
-    public static String stampToDate(String s) {
-        SimpleDateFormat sdr = new SimpleDateFormat("yyyy-MM-dd");
-        long lcc = Long.valueOf(s);
-        int i = Integer.parseInt(s);
-        String times = sdr.format(new Date(i * 1000L));
-        return times;
-    }
-
-
-    /**
-     * 将时间戳转换为时间
-     */
-    public static String stampToDateMinite(String s) {
-        SimpleDateFormat sdr = new SimpleDateFormat("yyyy-MM-dd  HH:mm");
-        long lcc = Long.valueOf(s);
-        int i = Integer.parseInt(s);
-        String times = sdr.format(new Date(i * 1000L));
-        return times;
-    }
-
-    /**
-     * long转日期
-     */
-    public static String longToDate(long time, String format) {
-        if (format == null || format.isEmpty()) {
-            format = "yyyy-MM-dd HH:mm:ss";
-        }
-        SimpleDateFormat sdf = new SimpleDateFormat(format);
-        return sdf.format(new Date(time));
-    }
-
-    private final static long minute = 60 * 1000;// 1分钟
-    private final static long hour = 60 * minute;// 1小时
-    private final static long day = 24 * hour;// 1天
-    private final static long month = 31 * day;// 月
-    private final static long year = 12 * month;// 年
-    /**
-     * 返回文字描述的日期
-     *
-     * @param date
-     * @return
-     */
-    public static String getTimeFormatText(Date date) {
-        if (date == null) {
-            return null;
-        }
-        long diff = new Date().getTime() - date.getTime();
-        long r = 0;
-        if (diff > year) {
-            r = (diff / year);
-            return r + "年前";
-        }
-        if (diff > month) {
-            r = (diff / month);
-            return r + "个月前";
-        }
-        if (diff > day) {
-            r = (diff / day);
-            return r + "天前";
-        }
-        if (diff > hour) {
-            r = (diff / hour);
-            return r + "个小时前";
-        }
-        if (diff > minute) {
-            r = (diff / minute);
-            return r + "分钟前";
-        }
-        return "刚刚";
-    }
-
     /**
      * 转换字符编码的工具类
      *
@@ -210,68 +107,6 @@ public class StringUtil {
             return new String(bs, newCharset);// 用新的字符编码生成字符串
         }
         return "";
-    }
-
-    /**
-     * 获取屏幕的宽度
-     *
-     * @param context
-     * @return
-     */
-    public static int getScreenWidth(Context context) {
-        WindowManager manager = (WindowManager) context
-                .getSystemService(Context.WINDOW_SERVICE);
-        Display display = manager.getDefaultDisplay();
-
-        return display.getWidth();
-    }
-
-    /**
-     * 将px值转换为dip或dp值，保证尺寸大小不变
-     *
-     * @param pxValue
-     * @param （DisplayMetrics类中属性density）
-     * @return
-     */
-    public static int px2dip(Context context, float pxValue) {
-        final float scale = context.getResources().getDisplayMetrics().density;
-        return (int) (pxValue / scale + 0.5f);
-    }
-
-    /**
-     * 将dip或dp值转换为px值，保证尺寸大小不变
-     *
-     * @param dipValue
-     * @param （DisplayMetrics类中属性density）
-     * @return
-     */
-    public static int dip2px(Context context, float dipValue) {
-        final float scale = context.getResources().getDisplayMetrics().density;
-        return (int) (dipValue * scale + 0.5f);
-    }
-
-    /**
-     * 将px值转换为sp值，保证文字大小不变
-     *
-     * @param pxValue
-     * @param （DisplayMetrics类中属性scaledDensity）
-     * @return
-     */
-    public static int px2sp(Context context, float pxValue) {
-        final float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
-        return (int) (pxValue / fontScale + 0.5f);
-    }
-
-    /**
-     * 将sp值转换为px值，保证文字大小不变
-     *
-     * @param spValue
-     * @param （DisplayMetrics类中属性scaledDensity）
-     * @return
-     */
-    public static int sp2px(Context context, float spValue) {
-        final float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
-        return (int) (spValue * fontScale + 0.5f);
     }
 
     /**
@@ -298,25 +133,4 @@ public class StringUtil {
         }
         return false;
     }
-
-
-    /**
-     * 判断 用户是否安装QQ客户端
-     */
-    public static boolean isQQClientAvailable(Context context) {
-        final PackageManager packageManager = context.getPackageManager();
-        List<PackageInfo> pinfo = packageManager.getInstalledPackages(0);
-        if (pinfo != null) {
-            for (int i = 0; i < pinfo.size(); i++) {
-                String pn = pinfo.get(i).packageName;
-
-                if (pn.equalsIgnoreCase("com.tencent.qqlite") || pn.equalsIgnoreCase("com.tencent.mobileqq")) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-
 }
