@@ -1,60 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="62dp">
+    android:layout_width="match_parent"
+    android:layout_height="62dp">
 
 
-    <TextView
-        android:id="@+id/item_tv_notice_time"
+    <LinearLayout
         android:layout_width="wrap_content"
-        android:text="06:19"
         android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
+        android:gravity="center"
         android:layout_marginRight="18dp"
-        android:textSize="@dimen/sp_12"
-        android:textColor="#bcbcbc"
-        android:layout_height="wrap_content"/>
-    
+        android:orientation="vertical"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/item_tv_notice_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="06:19"
+            android:textColor="#bcbcbc"
+            android:textSize="@dimen/sp_12" />
+
+        <TextView
+            android:id="@+id/item_tv_notice_sum"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="3dp"
+            android:visibility="gone"
+            android:background="@drawable/bg_cricle_solid_orange"
+            android:gravity="center"
+            android:padding="2dp"
+            android:text=""
+            android:maxLength="2"
+            android:textColor="@color/white"
+            android:textSize="10sp" />
+
+    </LinearLayout>
+
+
     <ImageView
         android:id="@+id/item_img_head"
         android:layout_width="41dp"
+        android:layout_height="41dp"
         android:layout_centerVertical="true"
         android:layout_marginLeft="18dp"
         android:layout_marginRight="5dp"
-        android:src="@mipmap/ic_default_head"
-        android:layout_height="41dp"/>
+        android:src="@mipmap/ic_default_head" />
 
     <TextView
         android:id="@+id/item_tv_notice_title"
         android:layout_width="wrap_content"
-        android:text="南昌彭于晏"
-        android:textColor="@color/text_black33"
-        android:textSize="13sp"
-        android:layout_toRightOf="@id/item_img_head"
+        android:layout_height="wrap_content"
         android:layout_alignTop="@id/item_img_head"
         android:layout_marginLeft="9dp"
-        android:layout_height="wrap_content"/>
+        android:layout_toRightOf="@id/item_img_head"
+        android:text="南昌彭于晏"
+        android:textColor="@color/text_black33"
+        android:textSize="13sp" />
 
 
     <TextView
         android:id="@+id/item_tv_notice_content"
         android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/item_tv_notice_title"
+        android:layout_marginLeft="9dp"
+        android:layout_marginTop="4dp"
+        android:layout_toRightOf="@id/item_img_head"
         android:text="客气了亲"
         android:textColor="#bcbcbc"
-        android:layout_marginTop="4dp"
-        android:textSize="12sp"
-        android:layout_below="@id/item_tv_notice_title"
-        android:layout_toRightOf="@id/item_img_head"
-        android:layout_marginLeft="9dp"
-        android:layout_height="wrap_content"/>
+        android:textSize="12sp" />
 
 
     <View
         android:layout_width="match_parent"
-        android:layout_alignParentBottom="true"
         android:layout_height="0.7dp"
-        android:background="@color/color_bg_f7"/>
+        android:layout_alignParentBottom="true"
+        android:background="@color/color_bg_f7" />
 
 
-    
 </RelativeLayout>

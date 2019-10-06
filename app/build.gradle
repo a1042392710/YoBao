@@ -171,6 +171,7 @@ dependencies {
     //拼音分类
     implementation 'com.belerweb:pinyin4j:2.5.0'
 
-
+    //小红点
+    implementation 'q.rorbin:badgeview:1.1.3'
 
 }

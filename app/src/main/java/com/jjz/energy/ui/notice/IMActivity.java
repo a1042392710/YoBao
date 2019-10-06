@@ -14,9 +14,12 @@ import com.jjz.energy.R;
 import com.jjz.energy.alipay.ImAdapter;
 import com.jjz.energy.base.BaseActivity;
 import com.jjz.energy.base.BasePresenter;
+import com.jjz.energy.base.LoginEventBean;
 import com.jjz.energy.util.StringUtil;
 import com.jjz.energy.util.networkUtil.UserLoginBiz;
 import com.jjz.energy.util.system.SoftKeyBoardListener;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -236,6 +239,7 @@ public class IMActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.img_im_back:
+                EventBus.getDefault().post(new LoginEventBean(LoginEventBean.REFRESH_NOTICE));
                 finish();
                 break;
                 //发送信息
@@ -264,5 +268,13 @@ public class IMActivity extends BaseActivity {
 
                 break;
         }
+    }
+
+    //监听返回键
+    @Override
+    public void onBackPressed() {
+         super.onBackPressed();//注释掉这行,back键不退出activity
+        //提示消息刷新
+        EventBus.getDefault().post(new LoginEventBean(LoginEventBean.REFRESH_NOTICE));
     }
 }

@@ -1,33 +1,31 @@
 package com.jjz.energy.ui.notice;
 
 import android.content.Intent;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.chad.library.adapter.base.BaseViewHolder;
 import com.jjz.energy.R;
+import com.jjz.energy.adapter.NoticeAdapter;
 import com.jjz.energy.base.BaseLazyFragment;
 import com.jjz.energy.base.BasePresenter;
-import com.jjz.energy.base.BaseRecycleNewAdapter;
+import com.jjz.energy.base.LoginEventBean;
 import com.jjz.energy.entry.UserInfo;
 import com.jjz.energy.util.StringUtil;
-import com.jjz.energy.util.glide.GlideUtils;
 import com.jjz.energy.util.networkUtil.UserLoginBiz;
 import com.jjz.energy.util.system.PopWindowUtil;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import cn.jpush.im.android.api.JMessageClient;
-import cn.jpush.im.android.api.content.ImageContent;
-import cn.jpush.im.android.api.content.PromptContent;
-import cn.jpush.im.android.api.content.TextContent;
 import cn.jpush.im.android.api.event.MessageEvent;
 import cn.jpush.im.android.api.model.Conversation;
 
@@ -54,6 +52,7 @@ public class NoticeFragment extends BaseLazyFragment {
     protected void initView() {
         tvToolbarTitle.setText("消息");
         llToolbarLeft.setVisibility(View.INVISIBLE);
+        EventBus.getDefault().register(this);
         initRv();
         //注册聊天事件监听
         initJMessage();
@@ -67,7 +66,7 @@ public class NoticeFragment extends BaseLazyFragment {
         UserInfo mUserInfo = UserLoginBiz.getInstance(mContext).readUserInfo();
         //开启全局监听事件
         JMessageClient.registerEventReceiver(this);
-        //进入会话状态,不接收通知栏
+        //进入单聊会话，不接受指定用户的通知
         JMessageClient.enterSingleConversation(mUserInfo.getMobile());
     }
 
@@ -109,12 +108,7 @@ public class NoticeFragment extends BaseLazyFragment {
         }
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        //重新获取消息列表
-//        initConversationList();
-    }
+
 
     // 接收消息 (主线程)(刷新UI)
     public void onEventMainThread(MessageEvent event){
@@ -122,51 +116,12 @@ public class NoticeFragment extends BaseLazyFragment {
     }
 
     /**
-     * 消息
+     * 刷新通知
      */
-    class NoticeAdapter extends BaseRecycleNewAdapter<Conversation>{
-
-        public NoticeAdapter(int layoutResId, @Nullable List<Conversation> data) {
-            super(layoutResId, data);
-        }
-
-        @Override
-        protected void convert(BaseViewHolder helper, Conversation item) {
-            //头像
-            ImageView imgHead = helper.getView(R.id.item_img_head);
-            //昵称
-            TextView nickName = helper.getView(R.id.item_tv_notice_title);
-            //聊天内容
-            TextView imContent = helper.getView(R.id.item_tv_notice_content);
-            //聊天时间
-            TextView imTime = helper.getView(R.id.item_tv_notice_time);
-            imTime.setText(StringUtil.longToDate(item.getLastMsgDate(),"MM月dd日 HH:mm"));
-            //有头像就加载头像
-            if (null!=item.getAvatarFile()){
-                GlideUtils.loadCircleImage(mContext,item.getAvatarFile().getAbsolutePath(),imgHead);
-            }
-            nickName.setText(item.getTitle());
-
-            switch (item.getLatestMessage().getContentType()) {
-                case text:
-                    //内容
-                    TextContent textContent = (TextContent) item.getLatestMessage().getContent();
-                    String text = textContent.getText();
-                    imContent.setText(text);
-                    break;
-                //图片
-                case image:
-                    ImageContent imageContent = (ImageContent) item.getLatestMessage().getContent();
-                    imContent.setText("发来了一张照片");
-                    break;
-                case prompt: //提示
-                    //内容
-                    PromptContent promptContent = (PromptContent) item.getLatestMessage().getContent();
-                    String promptText = promptContent.getPromptText();
-                    imContent.setText(promptText);
-                    break;
-
-            }
+    @Subscribe(threadMode =  ThreadMode.MAIN)
+    public void refreshNotice(LoginEventBean loginEventBean){
+        if (loginEventBean.getLoginStatus()==LoginEventBean.REFRESH_NOTICE){
+            initConversationList();
         }
     }
 
@@ -176,10 +131,10 @@ public class NoticeFragment extends BaseLazyFragment {
         JMessageClient.exitConversation();
         //解绑聊天事件
         JMessageClient.unRegisterEventReceiver(this);
+        //解绑
+        EventBus.getDefault().unregister(this);
         super.onDestroy();
     }
-
-
 
     @Override
     protected BasePresenter getPresenter() {

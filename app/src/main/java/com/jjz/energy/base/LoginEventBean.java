@@ -54,6 +54,10 @@ public class LoginEventBean {
      * 支付宝绑定成功
      */
     public static final byte ALIPAY_BIND_SUC = 41;
+    /**
+     * 刷新消息
+     */
+    public static final byte REFRESH_NOTICE = 50;
 
 
 
