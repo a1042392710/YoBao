@@ -86,6 +86,11 @@ public class NoticeFragment extends BaseLazyFragment {
             PopWindowUtil.getInstance().showPopupWindow(mContext, "是否删除这条聊天记录", () -> {
                 cn.jpush.im.android.api.model.UserInfo info = (cn.jpush.im.android.api.model.UserInfo) mNoticeAdapter.getData().get(position).getTargetInfo();
                 JMessageClient.deleteSingleConversation(info.getUserName(), null);
+                //删除该条聊天
+                mNoticeAdapter.remove(position);
+                if (mNoticeAdapter.getData().size()==0){
+                    mNoticeAdapter.setEmptyView(getLoadSirView(R.mipmap.ic_none_notice,"您还没有消息",false,null));
+                }
             });
             return false;
         });
