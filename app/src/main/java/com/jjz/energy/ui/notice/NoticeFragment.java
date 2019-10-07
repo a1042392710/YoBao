@@ -104,12 +104,12 @@ public class NoticeFragment extends BaseLazyFragment {
         //获取消息列表
         List<Conversation> mNoticeList = JMessageClient.getConversationList();
         if (mNoticeAdapter!=null) {
-            stopLoading();
             if (!StringUtil.isListEmpty(mNoticeList)){
-                mNoticeAdapter.setNewData(mNoticeList);
+                mNoticeAdapter.notifyChangeData(mNoticeList);
             }else{
                 mNoticeAdapter.setEmptyView(getLoadSirView(R.mipmap.ic_none_notice,"您还没有消息",false,null));
             }
+            stopLoading();
         }
     }
 

@@ -1,10 +1,11 @@
 package com.jjz.energy.ui.notice;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SimpleItemAnimator;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -12,7 +13,7 @@ import android.widget.TextView;
 
 import com.baidu.ocr.sdk.utils.LogUtil;
 import com.jjz.energy.R;
-import com.jjz.energy.alipay.ImAdapter;
+import com.jjz.energy.adapter.ImAdapter;
 import com.jjz.energy.base.BaseActivity;
 import com.jjz.energy.base.BasePresenter;
 import com.jjz.energy.base.LoginEventBean;
@@ -32,7 +33,6 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import cn.jpush.im.android.api.JMessageClient;
 import cn.jpush.im.android.api.event.MessageEvent;
-import cn.jpush.im.android.api.event.OfflineMessageEvent;
 import cn.jpush.im.android.api.model.Conversation;
 import cn.jpush.im.android.api.model.Message;
 import cn.jpush.im.android.api.model.UserInfo;
@@ -83,10 +83,6 @@ public class IMActivity extends BaseActivity {
      * 要和谁聊天
      */
     private String userName;
-    /**
-     * 是否第一次刷新数据
-     */
-    private boolean one = true;
 
     private com.jjz.energy.entry.UserInfo mUserInfo;
 
@@ -102,8 +98,6 @@ public class IMActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        //设置Activity的SoftInputMode属性值为adjustResize
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         //用户消息
         mUserInfo = UserLoginBiz.getInstance(mContext).readUserInfo();
         //获取列表中的指定数据，然后展开会话
@@ -111,19 +105,27 @@ public class IMActivity extends BaseActivity {
         //展示商品图片
         GlideUtils.loadImage(mContext,"http://img004.hc360.cn/k2/M0F/4D/EE/wKhQxFmx8rCEEGuwAAAAAIeZn9k905.jpg",imgCommodity);
         initImRv();
-        initImData();
         initEditHight();
+        initImData();
     }
 
     /**
-     * 初始化列表和Im
+     * 初始化列表和Im聊天
      */
+    @SuppressLint("ClickableViewAccessibility")
     private void initImRv() {
-        rvIm.setLayoutManager(new LinearLayoutManager(this));
+        //让列表从底部开始加载
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        rvIm.setLayoutManager(linearLayoutManager);
         //绑定聊天数据
         mImAdapter = new ImAdapter(R.layout.item_im, new ArrayList<>());
         mImAdapter.setUserName(mUserInfo.getMobile());
         rvIm.setAdapter(mImAdapter);
+        rvIm.setOnTouchListener((v, event) -> {
+            //触摸列表的时候，缩回软键盘
+            disMissSoftKeyboard();
+            return false;
+        });
         //开启全局监听事件
         JMessageClient.registerEventReceiver(this);
         //进入会话状态,不接收通知栏
@@ -135,14 +137,11 @@ public class IMActivity extends BaseActivity {
     public void initImData() {
         //获取列表中的会话  position 为列表页面传来的
         List<Conversation> msgList = JMessageClient.getConversationList();
-        if (msgList != null) {
-            if (msgList.size() > 0) {
-                if (msgList.get(position) != null) {
-                    conversation = msgList.get(position);
-                    //重置会话未读消息数
-                    conversation.resetUnreadCount();
-                }
-            }
+        //指定position的会话不为空
+        if (!StringUtil.isListEmpty(msgList)&&msgList.get(position) != null){
+                conversation = msgList.get(position);
+                //重置会话未读消息数
+                conversation.resetUnreadCount();
         }
         //如果会话存在，则显示聊天内容
         if (conversation != null) {
@@ -150,30 +149,27 @@ public class IMActivity extends BaseActivity {
             UserInfo info = (UserInfo) conversation.getTargetInfo();
             //聊天对象
             userName = info.getUserName();
-
-            //使列表滚动到底部
+            //刷新聊天数据并且滚动到底部
             if (conversation.getAllMessage() != null) {
-                if (conversation.getAllMessage().size() > 0) {
-                    //设置数据
-                    mImAdapter.setNewData(conversation.getAllMessage());
-//                    //设置刷新不闪屏
-//                    ((SimpleItemAnimator) rvIm.getItemAnimator()).setSupportsChangeAnimations
-//                    (false);
-//                    if (one) {
-//                        mImAdapter.notifyDataSetChanged();
-//                    } else {
-//                        mImAdapter.notifyItemInserted(conversation.getAllMessage().size() - 1);
-//
-//                    }
-                    rvIm.scrollToPosition(conversation.getAllMessage().size() - 1);
-                }
+                notifyImList(conversation);
             }
             //如果是图片，可以查看大图
             mImAdapter.setOnItemClickListener((adapter, view, position) -> {
 
             });
         }
-        one = false; // 代表不是第一次initImData
+    }
+
+    /**
+     * 刷新聊天数据
+     */
+    private void notifyImList(Conversation conversation){
+        if (conversation.getAllMessage().size() > 0) {
+            //设置刷新不闪屏
+            ((SimpleItemAnimator) rvIm.getItemAnimator()).setSupportsChangeAnimations(false);
+            mImAdapter.notifyChangeData(conversation.getAllMessage());
+            rvIm.scrollToPosition(conversation.getAllMessage().size() - 1);
+        }
     }
 
     /**
@@ -185,19 +181,6 @@ public class IMActivity extends BaseActivity {
         LogUtil.e("在线", String.format(Locale.SIMPLIFIED_CHINESE, "收到一条来自%s的在线消息。\n",
                 conversation.getTargetId()));
         initImData();
-    }
-
-    /**
-     * 接收离线消息。
-     * 类似MessageEvent事件的接收，上层在需要的地方增加OfflineMessageEvent事件的接收
-     * 即可实现离线消息的接收。
-     **/
-    public void onEvent(OfflineMessageEvent event) {
-        //获取事件发生的会话对象
-        Conversation conversation = event.getConversation();
-        List<Message> newMessageList = event.getOfflineMessageList();//获取此次离线期间会话收到的新消息列表
-        System.out.println(String.format(Locale.SIMPLIFIED_CHINESE, "收到%d条来自%s的离线消息。\n",
-                newMessageList.size(), conversation.getTargetId()));
     }
 
     /**
@@ -238,25 +221,26 @@ public class IMActivity extends BaseActivity {
                 if (StringUtil.isEmpty(etIm.getText().toString())) {
                     return;
                 }
+                showLoading();
                 Message message = JMessageClient.createSingleTextMessage(userName, null,
                         etIm.getText().toString());
                 //发送消息
                 JMessageClient.sendMessage(message);
-                showLoading();
                 message.setOnSendCompleteCallback(new BasicCallback() {
                     @Override
                     public void gotResult(int i, String s) {
                         stopLoading();
                         if (i == 0) {
-                            //刷新数据
-                            initImData();
+                            //刷新数据并获取焦点，使得软键盘不缩回
                             etIm.setText("");
-                        } else {
+                            etIm.setFocusable(true);
+                            etIm.setFocusableInTouchMode(true);
+                            notifyImList(JMessageClient.getSingleConversation(userName, null));
+                        }else{
                             showToast(s);
                         }
                     }
                 });
-
                 break;
                 //查看物流/立即购买等
             case R.id.tv_commodity_state:

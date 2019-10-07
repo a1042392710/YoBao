@@ -40,11 +40,11 @@ public class NoticeAdapter extends BaseRecycleNewAdapter<Conversation> {
             //聊天未读数量
             TextView imNoticeSum = helper.getView(R.id.item_tv_notice_sum);
             imTime.setText(DateUtil.getTimeFormatText(new Date(item.getLastMsgDate())));
-            //有头像就加载头像
-            if (null!=item.getAvatarFile()){
-                GlideUtils.loadCircleImage(mContext, item.getAvatarFile().getAbsolutePath(),
-                        imgHead);
-            }
+            //加载头像
+            GlideUtils.loadCircleImage(mContext, null != item.getAvatarFile() ?
+                            item.getAvatarFile().getAbsolutePath() : "",
+                    imgHead);
+
             nickName.setText(item.getTitle());
             //聊天未读 大与0才显示
             imNoticeSum.setVisibility(item.getUnReadMsgCnt() > 0 ? View.VISIBLE : View.GONE);

@@ -84,7 +84,6 @@ public class MineFragment  extends BaseLazyFragment<MinePresenter> implements IM
             PopWindowUtil.getInstance().showPopupWindow(mContext, push_message, () -> {});
             SpUtil.init(mContext).commit("push_message",push_message);
         }
-
         //头像
         GlideUtils.loadCircleImage(mContext, loginBean.getHead_pic(), imgHead);
         //昵称
