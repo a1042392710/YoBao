@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -12,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.baidu.ocr.sdk.utils.LogUtil;
 import com.jjz.energy.R;
 import com.jjz.energy.base.BaseActivity;
 import com.jjz.energy.base.Constant;
@@ -34,6 +36,7 @@ import com.zhihu.matisse.Matisse;
 import com.zhihu.matisse.MimeType;
 import com.zhihu.matisse.internal.entity.CaptureStrategy;
 
+import java.io.File;
 import java.util.List;
 
 import butterknife.BindView;
@@ -41,6 +44,8 @@ import butterknife.OnClick;
 import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.OnNeverAskAgain;
 import permissions.dispatcher.RuntimePermissions;
+import top.zibin.luban.Luban;
+import top.zibin.luban.OnCompressListener;
 
 /**
  * @Features: 个人信息
@@ -97,6 +102,7 @@ public class MineInfomationActivity extends BaseActivity<MineInformationPresente
         tvToolbarTitle.setText("个人资料");
         initDatePicker();
         initSingerPicker();
+        mPresenter.getUserInfo(PacketUtil.getRequestPacket(null));
     }
 
 
@@ -200,8 +206,35 @@ public class MineInfomationActivity extends BaseActivity<MineInformationPresente
      * @param uri
      */
     private void updateImg(Uri uri) {
-        mPresenter.putUserInfo(PacketUtil.getRequestPacket(null),
-                FileUtil.getRealFilePath(mContext, uri));
+        //压缩图片
+        Luban.with(this)
+                .load( FileUtil.getRealFilePath(mContext,uri ))
+                .ignoreBy(100)
+                .filter(path -> !(TextUtils.isEmpty(path) || path.toLowerCase().endsWith(".gif")))
+                .setCompressListener(new OnCompressListener() {
+                    @Override
+                    public void onStart() {
+                        Log.e("久速","开始压缩头像");
+                        showLoading();
+                    }
+
+                    @Override
+                    public void onSuccess(File file) {
+                        Log.e("久速","压缩成功，开始上传");
+                        stopLoading();
+                        //开始上传头像
+                        mPresenter.putUserInfo(PacketUtil.getRequestPacket(null),
+                                file.getPath());
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        LogUtil.e("图片压缩失败", e.getMessage());
+                        showToast("图片压缩失败，请重试");
+                        stopLoading();
+                    }
+                }).launch();
 
     }
 
@@ -210,7 +243,12 @@ public class MineInfomationActivity extends BaseActivity<MineInformationPresente
         initInfo(data);
     }
 
-// =================================================== 拍照 或选择照片
+    @Override
+    public void isSuccess(UserInfo data) {
+        initInfo(data);
+    }
+
+    // =================================================== 拍照 或选择照片
 
 
     @Override
@@ -271,11 +309,7 @@ public class MineInfomationActivity extends BaseActivity<MineInformationPresente
 
     //================================================ 方法重写和生命周期
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        mPresenter.getUserInfo(PacketUtil.getRequestPacket(null));
-    }
+
 
     @Override
     protected MineInformationPresenter getPresenter() {

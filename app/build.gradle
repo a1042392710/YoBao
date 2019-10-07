@@ -171,4 +171,7 @@ dependencies {
     //拼音分类
     implementation 'com.belerweb:pinyin4j:2.5.0'
 
+    //图片压缩，仿微信朋友圈
+    implementation 'top.zibin:Luban:1.1.8'
+
 }
