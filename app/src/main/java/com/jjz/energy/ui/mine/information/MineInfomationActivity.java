@@ -336,33 +336,33 @@ public class MineInfomationActivity extends BaseActivity<MineInformationPresente
         showToast(msg);
     }
 
-    @OnClick({R.id.ll_toolbar_left, R.id.img_head, R.id.tv_nick_name, R.id.tv_sex,
-            R.id.tv_brithday, R.id.ll_receipt_address, R.id.tv_desc ,R.id.tv_password_state})
+    @OnClick({R.id.ll_toolbar_left, R.id.ll_head, R.id.ll_nick_name, R.id.ll_sex,
+            R.id.ll_brithday, R.id.ll_receipt_address, R.id.ll_desc ,R.id.ll_set_password})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ll_toolbar_left:
                 finish();
                 break;
             //头像
-            case R.id.img_head:
+            case R.id.ll_head:
                 MineInfomationActivityPermissionsDispatcher.takePhotoWithCheck(this);
                 break;
             //昵称
-            case R.id.tv_nick_name:
+            case R.id.ll_nick_name:
                 startActivityForResult(new Intent(mContext, ChangeNickNameActivity.class).putExtra("nick_name", tvNickName.getText().toString()), 10);
                 break;
             //简介
-            case R.id.tv_desc:
+            case R.id.ll_desc:
                 String desc = tvDesc.getText().toString();
                 startActivityForResult(new Intent(mContext, ChangeDescActivity.class).putExtra(
                         "desc", desc.equals("未设置简介") ? "" : desc), 20);
                 break;
             //性别
-            case R.id.tv_sex:
+            case R.id.ll_sex:
                 pickerSex.show();
                 break;
             //生日
-            case R.id.tv_brithday:
+            case R.id.ll_brithday:
                 String birthdayStr = tvBirthday.getText().toString();
                 if (StringUtil.isEmpty(birthdayStr) || "请选择".equals(birthdayStr)) {
                     mCustomDatePicker.showNow();
@@ -376,7 +376,7 @@ public class MineInfomationActivity extends BaseActivity<MineInformationPresente
                 break;
 
             //设置密码
-            case R.id.tv_password_state:
+            case R.id.ll_set_password:
                 startActivity(new Intent(mContext, MineSettingPasswordActivity.class).putExtra("isMotify",isModify));
                 break;
         }
