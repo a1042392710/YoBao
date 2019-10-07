@@ -245,10 +245,6 @@ public class AddressManagerActivity extends BaseActivity<AddressManagerPresenter
         }
     }
 
-
-
-
-
     /**
      * 获取地址列表
      */

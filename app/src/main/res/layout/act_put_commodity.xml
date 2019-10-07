@@ -115,8 +115,7 @@
                 android:background="@color/white"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:paddingLeft="18dp"
-                android:paddingRight="18dp">
+                android:paddingLeft="18dp">
 
                 <TextView
                     android:layout_width="0dp"
@@ -131,19 +130,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:paddingLeft="5dp"
-                    android:paddingRight="5dp"
+                    android:drawablePadding="8dp"
+                    android:drawableRight="@mipmap/ic_gray_right_more"
+                    android:paddingLeft="50dp"
+                    android:paddingRight="23dp"
                     android:text="选择分类"
                     android:textColor="#969696"
                     android:textSize="13sp"/>
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/ic_gray_right_more"/>
-
             </LinearLayout>
-
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -152,8 +147,7 @@
                 android:background="@color/white"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:paddingLeft="18dp"
-                android:paddingRight="18dp">
+                android:paddingLeft="18dp">
 
                 <TextView
                     android:layout_width="0dp"
@@ -168,16 +162,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:paddingLeft="5dp"
-                    android:paddingRight="5dp"
+                    android:paddingLeft="50dp"
+                    android:paddingRight="23dp"
                     android:text="开个价"
+                    android:drawablePadding="8dp"
+                    android:drawableRight="@mipmap/ic_gray_right_more"
                     android:textColor="#969696"
                     android:textSize="13sp"/>
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/ic_gray_right_more"/>
 
             </LinearLayout>
 

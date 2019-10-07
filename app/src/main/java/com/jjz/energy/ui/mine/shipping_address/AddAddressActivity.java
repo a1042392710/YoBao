@@ -245,7 +245,7 @@ public class AddAddressActivity extends BaseActivity<AddAddressPresenter> implem
 
     @Override
     public void isAddSuccess(AddressBean data) {
-        showToast("添加成功");
+        showToast("操作成功");
         setResult(20);
         finish();
     }

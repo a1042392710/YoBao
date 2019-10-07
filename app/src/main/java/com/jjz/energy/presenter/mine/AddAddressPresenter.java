@@ -62,7 +62,7 @@ public class AddAddressPresenter extends BasePresenter<AddAddressModel, IAddAddr
                     @Override
                     protected void onSuccess(AddressBean response) {
                         mView.stopLoading();
-                        mView.isAddSuccess(response);
+                        mView.isDeleteSuccess(response);
                     }
 
                     @Override

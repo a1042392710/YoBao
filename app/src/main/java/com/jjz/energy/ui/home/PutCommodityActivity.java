@@ -22,6 +22,7 @@ import com.jjz.energy.adapter.CommonSelectPhotoAdapter;
 import com.jjz.energy.base.BaseActivity;
 import com.jjz.energy.base.BasePresenter;
 import com.jjz.energy.base.Constant;
+import com.jjz.energy.ui.mine.ClassificationActivity;
 import com.jjz.energy.util.system.PopWindowUtil;
 import com.jjz.energy.util.StringUtil;
 import com.jjz.energy.util.glide.MyGlideEngine;
@@ -71,6 +72,11 @@ public class PutCommodityActivity extends BaseActivity {
     TextView tvCommodityMoney;
 
     /**
+     * 选择分类的跳转CODE
+     */
+    public static  final int CLASSIFICATION_INTENT_CODE = 20;
+
+    /**
      * 选择图片 recyclerView的适配器
      */
     private CommonSelectPhotoAdapter mSelectPhotoAdapter;
@@ -96,6 +102,7 @@ public class PutCommodityActivity extends BaseActivity {
         EventBus.getDefault().register(this);
         initRv();
     }
+
     //初始化列表
     private void initRv() {
         //初始化数据
@@ -114,6 +121,8 @@ public class PutCommodityActivity extends BaseActivity {
     }
 
 
+
+
     // =================================== 生命周期和方法重写
 
     @Override
@@ -129,7 +138,13 @@ public class PutCommodityActivity extends BaseActivity {
                 }
                 //刷新数据
                 mSelectPhotoAdapter.notifyDataSetChanged();
+            } else if (requestCode == CLASSIFICATION_INTENT_CODE ) {
+                //获取分类数据
+                String classification_title = data.getStringExtra("classification_title");
+                tvCommodityType.setText(classification_title);
             }
+
+
         }
     }
 
@@ -165,6 +180,7 @@ public class PutCommodityActivity extends BaseActivity {
                 break;
                 //选择分类
             case R.id.tv_commodity_type:
+                startActivityForResult(new Intent(mContext, ClassificationActivity.class),CLASSIFICATION_INTENT_CODE);
                 break;
                 //写入金额 是否包邮等
             case R.id.tv_commodity_money:
@@ -172,6 +188,9 @@ public class PutCommodityActivity extends BaseActivity {
               break;
         }
     }
+
+    // ===================================================== 价格和运费弹窗
+
     //存储金额信息
     private MoneyInfo mMoneyInfo;
     /**

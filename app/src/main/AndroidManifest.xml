@@ -89,6 +89,11 @@
             android:name=".ui.mine.shipping_address.AddressManagerActivity"
             android:configChanges="orientation|screenSize"/>
 
+        <!--商品分类-->
+        <activity
+            android:name=".ui.mine.ClassificationActivity"
+            android:configChanges="orientation|screenSize"/>
+
         <!--添加地址-->
         <activity
             android:name=".ui.mine.shipping_address.AddAddressActivity"

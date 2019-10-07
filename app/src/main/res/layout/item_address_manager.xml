@@ -21,8 +21,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:includeFontPadding="false"
+            android:textStyle="bold"
             android:textColor="@color/text_black28"
-            android:textSize="13sp"
+            android:textSize="15sp"
             tools:text="彭于晏" />
 
         <TextView
@@ -33,7 +34,8 @@
             android:layout_toRightOf="@id/item_tv_consignee_name"
             android:includeFontPadding="false"
             android:textColor="@color/text_black28"
-            android:textSize="13sp"
+            android:textStyle="bold"
+            android:textSize="14sp"
             tools:text="13811542231" />
 
 
@@ -82,7 +84,7 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="10dp"
+        android:layout_height="3dp"
         android:layout_below="@id/item_rl_address"
         android:background="@color/baseBackGround" />
 </RelativeLayout>
