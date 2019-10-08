@@ -11,12 +11,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.baidu.ocr.sdk.utils.LogUtil;
 import com.jjz.energy.R;
 import com.jjz.energy.adapter.ImAdapter;
 import com.jjz.energy.base.BaseActivity;
 import com.jjz.energy.base.BasePresenter;
 import com.jjz.energy.base.LoginEventBean;
+import com.jjz.energy.entry.ImMessageBean;
 import com.jjz.energy.ui.mine.shop_order.SureBuyActivity;
 import com.jjz.energy.util.StringUtil;
 import com.jjz.energy.util.glide.GlideUtils;
@@ -27,7 +27,6 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -72,12 +71,18 @@ public class IMActivity extends BaseActivity {
      * 聊天的适配器
      */
     private ImAdapter mImAdapter;
-
+    /**
+     * 聊天消息数据
+     */
+    private List<ImMessageBean> mMessageList;
     /**
      * 会话对象
      */
     private Conversation conversation;
 
+    /**
+     * 指定下标
+     */
     private int position;
     /**
      * 要和谁聊天
@@ -114,11 +119,14 @@ public class IMActivity extends BaseActivity {
      */
     @SuppressLint("ClickableViewAccessibility")
     private void initImRv() {
+
+        mMessageList = new ArrayList<>();
+
         //让列表从底部开始加载
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         rvIm.setLayoutManager(linearLayoutManager);
         //绑定聊天数据
-        mImAdapter = new ImAdapter(R.layout.item_im, new ArrayList<>());
+        mImAdapter = new ImAdapter(R.layout.item_im, mMessageList,this);
         mImAdapter.setUserName(mUserInfo.getMobile());
         rvIm.setAdapter(mImAdapter);
         rvIm.setOnTouchListener((v, event) -> {
@@ -160,15 +168,22 @@ public class IMActivity extends BaseActivity {
         }
     }
 
+
+
     /**
      * 刷新聊天数据
      */
     private void notifyImList(Conversation conversation){
         if (conversation.getAllMessage().size() > 0) {
-            //设置刷新不闪屏
+            //设置刷新不闪屏`
             ((SimpleItemAnimator) rvIm.getItemAnimator()).setSupportsChangeAnimations(false);
-            mImAdapter.notifyChangeData(conversation.getAllMessage());
-            rvIm.scrollToPosition(conversation.getAllMessage().size() - 1);
+            //处理会话数据
+            for (Message message : conversation.getAllMessage()) {
+                //添加聊天数据 默认都为发送成功
+                mMessageList.add(new ImMessageBean(ImMessageBean.SEND_MESSAGE_SUC,message));
+            }
+            mImAdapter.notifyDataSetChanged();
+            rvIm.scrollToPosition(mMessageList.size() - 1);
         }
     }
 
@@ -176,11 +191,16 @@ public class IMActivity extends BaseActivity {
      * 接收在线消息
      **/
     public void onEventMainThread(MessageEvent event) {
+        //重置已读状态
+        conversation.resetUnreadCount();
         //获取事件发生的会话对象
         Message newMessage = event.getMessage();
-        LogUtil.e("在线", String.format(Locale.SIMPLIFIED_CHINESE, "收到一条来自%s的在线消息。\n",
-                conversation.getTargetId()));
-        initImData();
+        //刷新消息列表
+        mMessageList.add(new ImMessageBean(ImMessageBean.SEND_MESSAGE_SUC, newMessage));
+        //刷新数据
+        mImAdapter.notifyDataSetChanged();
+        //滚动到最后
+        rvIm.scrollToPosition(mMessageList.size() - 1);
     }
 
     /**
@@ -221,32 +241,82 @@ public class IMActivity extends BaseActivity {
                 if (StringUtil.isEmpty(etIm.getText().toString())) {
                     return;
                 }
-                showLoading();
-                Message message = JMessageClient.createSingleTextMessage(userName, null,
-                        etIm.getText().toString());
-                //发送消息
-                JMessageClient.sendMessage(message);
-                message.setOnSendCompleteCallback(new BasicCallback() {
-                    @Override
-                    public void gotResult(int i, String s) {
-                        stopLoading();
-                        if (i == 0) {
-                            //刷新数据并获取焦点，使得软键盘不缩回
-                            etIm.setText("");
-                            etIm.setFocusable(true);
-                            etIm.setFocusableInTouchMode(true);
-                            notifyImList(JMessageClient.getSingleConversation(userName, null));
-                        }else{
-                            showToast(s);
-                        }
-                    }
-                });
+                sendMsg(etIm.getText().toString());
                 break;
                 //查看物流/立即购买等
             case R.id.tv_commodity_state:
                 startActivity(new Intent(mContext, SureBuyActivity.class));
                 break;
         }
+    }
+
+    /**
+     * 重新发送消息
+     */
+    public void  sendMsgAgan (String msg ,int position){
+        Message message = JMessageClient.createSingleTextMessage(userName, null,
+                msg);
+        //开始发送消息 显示进度
+        mMessageList.get(position).setMessageStatus(ImMessageBean.SEND_MESSAGE_START);
+        mImAdapter.notifyDataSetChanged();
+        //发送消息
+        JMessageClient.sendMessage(message);
+        message.setOnSendCompleteCallback(new BasicCallback() {
+            @Override
+            public void gotResult(int i, String s) {
+                //发送失败
+                if (i > 0) {
+                    mMessageList.get(position).setMessageStatus(ImMessageBean.SEND_MESSAGE_FAIL);
+                    mImAdapter.notifyDataSetChanged();
+                    return;
+                }
+                //发送成功
+                mMessageList.get(position).setMessageStatus(ImMessageBean.SEND_MESSAGE_SUC);
+                mImAdapter.notifyDataSetChanged();
+            }
+        });
+    }
+
+    /**
+     * 发送消息
+     *
+     * @param msg
+     */
+    private void sendMsg(String msg) {
+        //创建消息
+        Message message = JMessageClient.createSingleTextMessage(userName, null,
+                msg);
+        //消息开始发送
+        mMessageList.add(new ImMessageBean(ImMessageBean.SEND_MESSAGE_START,message));
+        mImAdapter.notifyDataSetChanged();
+        //滚动到最后
+        rvIm.scrollToPosition(mMessageList.size() - 1);
+
+        //刷新数据并获取焦点，使得软键盘不缩回
+        etIm.setFocusable(true);
+        etIm.setFocusableInTouchMode(true);
+        etIm.setText("");
+        //当前消息的下标
+        int noticePosition = mMessageList.size()-1;
+        //发送消息
+        JMessageClient.sendMessage(message);
+        message.setOnSendCompleteCallback(new BasicCallback() {
+            @Override
+            public void gotResult(int i, String s) {
+                //发送失败
+                if (i > 0) {
+                    mMessageList.get(noticePosition).setMessageStatus(ImMessageBean.SEND_MESSAGE_FAIL);
+                    mImAdapter.notifyDataSetChanged();
+                    return;
+                }
+//                notifyImList(JMessageClient.getSingleConversation(userName, null));
+                //刷新进度的状态
+                mMessageList.get(noticePosition).setMessageStatus(ImMessageBean.SEND_MESSAGE_SUC);
+                mImAdapter.notifyDataSetChanged();
+            }
+
+
+        });
     }
 
     @Override

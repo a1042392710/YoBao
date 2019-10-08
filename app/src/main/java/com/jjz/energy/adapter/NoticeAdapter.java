@@ -44,7 +44,6 @@ public class NoticeAdapter extends BaseRecycleNewAdapter<Conversation> {
             GlideUtils.loadCircleImage(mContext, null != item.getAvatarFile() ?
                             item.getAvatarFile().getAbsolutePath() : "",
                     imgHead);
-
             nickName.setText(item.getTitle());
             //聊天未读 大与0才显示
             imNoticeSum.setVisibility(item.getUnReadMsgCnt() > 0 ? View.VISIBLE : View.GONE);
