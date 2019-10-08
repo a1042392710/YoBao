@@ -7,32 +7,32 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.baidu.ocr.sdk.utils.LogUtil;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jjz.energy.R;
 import com.jjz.energy.base.BaseRecycleNewAdapter;
-import com.jjz.energy.entry.ImMessageBean;
 import com.jjz.energy.ui.home.HomePageActivity;
 import com.jjz.energy.ui.notice.IMActivity;
 import com.jjz.energy.util.DateUtil;
+import com.jjz.energy.util.SafeClickListener;
 import com.jjz.energy.util.glide.GlideUtils;
 
 import java.util.List;
 
 import cn.jpush.im.android.api.content.ImageContent;
 import cn.jpush.im.android.api.content.TextContent;
+import cn.jpush.im.android.api.model.Message;
 
 /**
  * 用途: 极光聊天页面Adapter
  */
-public class ImAdapter extends BaseRecycleNewAdapter<ImMessageBean> {
+public class ImAdapter extends BaseRecycleNewAdapter<Message> {
 
     private String userName;
     private IMActivity mIMActivity;
 
 
 
-    public ImAdapter(int layoutResId, @Nullable List<ImMessageBean> data,IMActivity context) {
+    public ImAdapter(int layoutResId, @Nullable List<Message> data,IMActivity context) {
         super(layoutResId, data);
         this.mIMActivity = context;
     }
@@ -43,7 +43,7 @@ public class ImAdapter extends BaseRecycleNewAdapter<ImMessageBean> {
 
 
     @Override
-    protected void convert(BaseViewHolder helper, ImMessageBean item) {
+    protected void convert(BaseViewHolder helper, Message item) {
         //自己的聊天内容
         TextView tvMyContent = helper.getView(R.id.item_im_details_content);
         //自己的权重挤压
@@ -62,22 +62,9 @@ public class ImAdapter extends BaseRecycleNewAdapter<ImMessageBean> {
         ImageView imgFail = helper.getView(R.id.item_img_fail);
         //进度条
         ProgressBar progressBar = helper.getView(R.id.item_progress);
-        //根据消息的状态来控制显示隐藏
-        switch (item.getMessageStatus()){
-            case ImMessageBean.SEND_MESSAGE_START:
-                progressBar.setVisibility(View.VISIBLE);
-                break;
-            case ImMessageBean.SEND_MESSAGE_SUC:
-                progressBar.setVisibility(View.GONE);
-                break;
-            case ImMessageBean.SEND_MESSAGE_FAIL:
-                progressBar.setVisibility(View.GONE);
-                imgFail.setVisibility(View.VISIBLE);
-                break;
-        }
 
         //展示聊天信息  自己的聊天信息
-        if (item.getMessage().getFromUser() != null && item.getMessage().getFromUser().getUserName().equals(userName)) {
+        if (item.getFromUser() != null && item.getFromUser().getUserName().equals(userName)) {
             //显示自己头像
             imgMyHead.setVisibility(View.VISIBLE);
             //隐藏对方头像
@@ -88,7 +75,29 @@ public class ImAdapter extends BaseRecycleNewAdapter<ImMessageBean> {
             tvTc.setVisibility(View.VISIBLE);//权重挤压
             tvTc1.setVisibility(View.GONE);
 
+            //自己的消息 发送成功或者失败
+            switch (item.getStatus()) {
+                //发送中  显示进度
+                case send_going:
+                    progressBar.setVisibility(View.VISIBLE);
+                    imgFail.setVisibility(View.GONE);
+                    break;
+                //发送成功 关闭进度
+                case send_success:
+                    progressBar.setVisibility(View.GONE);
+                    imgFail.setVisibility(View.GONE);
+                    break;
+                //发送失败  显示失败图片
+                case send_fail:
+                    progressBar.setVisibility(View.GONE);
+                    imgFail.setVisibility(View.VISIBLE);
+                    break;
+            }
+
         } else {
+            //对方的聊天内容，隐藏进度和失败图标
+            progressBar.setVisibility(View.GONE);
+            imgFail.setVisibility(View.GONE);
             //显示对方的头像
             imgHerHead.setVisibility(View.VISIBLE);
             //隐藏自己的头像
@@ -101,18 +110,18 @@ public class ImAdapter extends BaseRecycleNewAdapter<ImMessageBean> {
         }
 
         //加载对方头像
-        GlideUtils.loadCircleImage(mContext, null != item.getMessage().getFromUser().getAvatarFile() ?
-                        item.getMessage().getFromUser().getAvatarFile().getAbsolutePath() : "",
+        GlideUtils.loadCircleImage(mContext, null != item.getFromUser().getAvatarFile() ?
+                        item.getFromUser().getAvatarFile().getAbsolutePath() : "",
                 imgHerHead);
         //加载我的头像
-        GlideUtils.loadCircleImage(mContext, null != item.getMessage().getFromUser().getAvatarFile() ?
-                        item.getMessage().getFromUser().getAvatarFile().getAbsolutePath() : "",
+        GlideUtils.loadCircleImage(mContext, null != item.getFromUser().getAvatarFile() ?
+                        item.getFromUser().getAvatarFile().getAbsolutePath() : "",
                 imgMyHead);
 
         //与上一条消息做比较，五分钟以内的消息都合并到一起，隐藏时间
         if (helper.getLayoutPosition() != 0) {
             long s =
-                    (item.getMessage().getCreateTime() - mData.get(helper.getLayoutPosition() - 1).getMessage().getCreateTime()) / (1000 * 60);
+                    (item.getCreateTime() - mData.get(helper.getLayoutPosition() - 1).getCreateTime()) / (1000 * 60);
             if (s < 5) {
                 tvMyTime.setVisibility(View.GONE);
             } else {
@@ -120,15 +129,15 @@ public class ImAdapter extends BaseRecycleNewAdapter<ImMessageBean> {
             }
         }
         //聊天时间
-        tvMyTime.setText(DateUtil.stampToDateMinite(item.getMessage().getCreateTime(), "yyyy年MM月dd日 HH:mm"));
+        tvMyTime.setText(DateUtil.stampToDateMinite(item.getCreateTime(), "yyyy年MM月dd日 HH:mm"));
 
-        switch (item.getMessage().getContentType()) {
+        switch (item.getContentType()) {
             case text:
                 tvMyContent.setVisibility(View.VISIBLE);
 //                    tvMyTime.setVisibility(View.GONE);
                 imgMyPhoto.setVisibility(View.GONE);
                 //内容
-                TextContent textContent = (TextContent) item.getMessage().getContent();
+                TextContent textContent = (TextContent) item.getContent();
                 String text = textContent.getText();
                 tvMyContent.setText(text);
                 break;
@@ -137,7 +146,7 @@ public class ImAdapter extends BaseRecycleNewAdapter<ImMessageBean> {
                 tvMyContent.setVisibility(View.GONE);
 //                    tvMyTime.setVisibility(View.GONE);
                 imgMyPhoto.setVisibility(View.VISIBLE);
-                ImageContent imageContent = (ImageContent) item.getMessage().getContent();
+                ImageContent imageContent = (ImageContent) item.getContent();
                 //加载圆角图片
                 if (imageContent.getLocalThumbnailPath() != null) {
                     GlideUtils.loadRoundCircleImage(mContext,
@@ -163,10 +172,14 @@ public class ImAdapter extends BaseRecycleNewAdapter<ImMessageBean> {
                 HomePageActivity.class)));
 
         //重新发送消息  TODO 后面考虑发送图片的重试机制
-        imgFail.setOnClickListener(v -> {
-            mIMActivity.sendMsgAgan(((TextContent) item.getMessage().getContent()).getText(),helper.getLayoutPosition());
+        imgFail.setOnClickListener(new SafeClickListener() {
+            @Override
+            protected void onSingleClick(View v) {
+                mIMActivity.sendMsgAgan(helper.getLayoutPosition());
+            }
         });
-        LogUtil.e("久速","消息发送状态"+item.getMessage().getStatus());
+
+
     }
 
 
