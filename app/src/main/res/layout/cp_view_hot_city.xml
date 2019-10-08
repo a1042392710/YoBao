@@ -10,9 +10,11 @@
 
     <TextView
         style="@style/LetterIndexTextViewStyle"
+        android:layout_marginTop="3dp"
         android:text="热门城市" />
 
     <com.jjz.energy.util.city.widget.WrapHeightGridView
+        android:layout_marginTop="3dp"
         android:id="@+id/gridview_hot_city"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

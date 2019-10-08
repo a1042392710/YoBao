@@ -79,6 +79,11 @@
 
             android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
 
+        <!--久速商家-->
+        <activity
+            android:name="com.jjz.energy.ui.home.jiusu_shop.JiuSuShopActivity"
+            android:configChanges="orientation|screenSize"/>
+
         <!--聊天页面-->
         <activity
             android:name="com.jjz.energy.ui.notice.IMActivity"

@@ -17,11 +17,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="15dp"
-        android:background="@drawable/shape_city_normal_bg"
+        android:background="@color/white"
         android:layout_marginBottom="1dp"
         android:clickable="true"
         android:gravity="center_vertical"
-        android:textSize="16sp"
+        android:textSize="15sp"
         android:textColor="#5c5c5c"/>
 
 </LinearLayout>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:layout_marginBottom="16dp"
+    android:layout_marginTop="9dp"
+    android:orientation="vertical">
+
+
+    <ImageView
+        android:id="@+id/item_img_shop_type"
+        android:layout_width="42dp"
+        android:src="@mipmap/ic_test_car_two"
+        android:layout_height="42dp"/>
+
+    <TextView
+        android:layout_marginTop="7dp"
+        android:id="@+id/item_tv_shop_type_name"
+        android:layout_width="wrap_content"
+        android:text="汽车配件"
+        android:textColor="@color/text_black33"
+        android:textSize="@dimen/font_12sp"
+        android:layout_height="wrap_content"/>
+</LinearLayout>

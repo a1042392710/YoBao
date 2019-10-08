@@ -136,19 +136,16 @@ public class CityListAdapter extends BaseAdapter {
                         state.setText("定位");
                         break;
                 }
-                container.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (locateState == LocateState.FAILED) {
-                            //重新定位
-                            if (onCityClickListener != null) {
-                                onCityClickListener.onLocateClick();
-                            }
-                        } else if (locateState == LocateState.SUCCESS) {
-                            //返回定位城市
-                            if (onCityClickListener != null) {
-                                onCityClickListener.onCityClick(locatedCity);
-                            }
+                container.setOnClickListener(v -> {
+                    if (locateState == LocateState.FAILED) {
+                        //重新定位
+                        if (onCityClickListener != null) {
+                            onCityClickListener.onLocateClick();
+                        }
+                    } else if (locateState == LocateState.SUCCESS) {
+                        //返回定位城市
+                        if (onCityClickListener != null) {
+                            onCityClickListener.onCityClick(locatedCity);
                         }
                     }
                 });
@@ -186,12 +183,9 @@ public class CityListAdapter extends BaseAdapter {
                     } else {
                         holder.letter.setVisibility(View.GONE);
                     }
-                    holder.name.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            if (onCityClickListener != null) {
-                                onCityClickListener.onCityClick(city);
-                            }
+                    holder.name.setOnClickListener(v -> {
+                        if (onCityClickListener != null) {
+                            onCityClickListener.onCityClick(city);
                         }
                     });
                 }

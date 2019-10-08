@@ -65,8 +65,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#F0F2F5">
+        android:layout_height="match_parent">
 
         <ListView
             android:id="@+id/listview_all_city"
@@ -77,6 +76,8 @@
             android:dividerHeight="0dp"
             android:listSelector="@android:color/transparent" />
 
+
+        <!-- 中间的字母提示-->
         <TextView
             android:id="@+id/tv_letter_overlay"
             android:layout_width="120dp"
@@ -89,6 +90,8 @@
             android:textStyle="bold"
             android:visibility="gone" />
 
+
+        <!-- 字母检索-->
         <com.jjz.energy.util.city.widget.SideLetterBar
             android:id="@+id/side_letter_bar"
             android:layout_width="36dp"

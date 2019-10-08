@@ -20,6 +20,7 @@ import com.jjz.energy.ui.home.charitable.CharitableActivity;
 import com.jjz.energy.ui.city.CityPickerActivity;
 import com.jjz.energy.ui.home.education.EducationActivity;
 import com.jjz.energy.ui.home.insurance.InsuranceActivity;
+import com.jjz.energy.ui.home.jiusu_shop.JiuSuShopActivity;
 import com.jjz.energy.ui.home.logistics.LogisticsActivity;
 import com.jjz.energy.ui.home.pension.PensionActivity;
 import com.jjz.energy.util.StringUtil;
@@ -144,9 +145,8 @@ public class HomeFragment extends BaseFragment {
     }
 
 
-    @OnClick({R.id.tv_city, R.id.card_search, R.id.img_notice, R.id.ll_logistics,
-            R.id.ll_insurance, R.id.ll_old, R.id.ll_charitable,
-            R.id.ll_education})
+    @OnClick({R.id.tv_city, R.id.card_search, R.id.img_notice, R.id.ll_logistics,R.id.ll_shop_discount,
+            R.id.ll_insurance, R.id.ll_old, R.id.ll_charitable,R.id.ll_jiusu,R.id.ll_education})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             //切换城市
@@ -179,6 +179,19 @@ public class HomeFragment extends BaseFragment {
             //教育
             case R.id.ll_education:
                 startActivity(new Intent(mContext, EducationActivity.class));
+                break;
+            //久速专区
+            case R.id.ll_jiusu:
+                break;
+            //久速商家
+            case R.id.ll_shop_discount:
+                startActivity(new Intent(mContext, JiuSuShopActivity.class));
+                break;
+            //以物易物
+            case R.id.ll_barter:
+                break;
+            //同城
+            case R.id.ll_same_city:
                 break;
         }
     }
