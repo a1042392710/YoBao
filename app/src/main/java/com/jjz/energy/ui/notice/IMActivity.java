@@ -14,8 +14,10 @@ import android.widget.TextView;
 import com.jjz.energy.R;
 import com.jjz.energy.adapter.ImAdapter;
 import com.jjz.energy.base.BaseActivity;
+import com.jjz.energy.base.BaseApplication;
 import com.jjz.energy.base.BasePresenter;
 import com.jjz.energy.base.LoginEventBean;
+import com.jjz.energy.ui.ImagePagerActivity;
 import com.jjz.energy.ui.mine.shop_order.SureBuyActivity;
 import com.jjz.energy.util.StringUtil;
 import com.jjz.energy.util.glide.GlideUtils;
@@ -30,6 +32,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 import cn.jpush.im.android.api.JMessageClient;
+import cn.jpush.im.android.api.content.ImageContent;
 import cn.jpush.im.android.api.event.MessageEvent;
 import cn.jpush.im.android.api.model.Conversation;
 import cn.jpush.im.android.api.model.Message;
@@ -159,8 +162,16 @@ public class IMActivity extends BaseActivity {
             notifyImList();
         }
         //如果是图片，可以查看大图
-        mImAdapter.setOnItemClickListener((adapter, view, position) -> {
-
+        mImAdapter.setOnItemClickListener((adapter, v, position) -> {
+            //添加图片
+            List<String> photo = new ArrayList<>();
+            photo.add(((ImageContent)mImAdapter.getData().get(position).getContent()).getLocalThumbnailPath());
+            //查看大图
+            ImagePagerActivity.ImageSize imageSize =
+                    new ImagePagerActivity.ImageSize(v.getMeasuredWidth(),
+                    v.getMeasuredHeight());
+            ImagePagerActivity.startImagePagerActivity(BaseApplication.AppContext, photo,
+                    0, imageSize);
         });
 
     }

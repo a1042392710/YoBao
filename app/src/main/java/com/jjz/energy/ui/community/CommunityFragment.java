@@ -107,6 +107,14 @@ public class CommunityFragment extends BaseFragment {
             RecyclerView rv_photo = helper.getView(R.id.item_rv_photo);
             rv_photo.setLayoutManager(new GridLayoutManager(mContext,2));
             rv_photo.setAdapter(new PhotoAdapter(R.layout.item_photo,list));
+            imgHead.setOnClickListener(v -> {
+                //查看大图
+//                    ImagePagerActivity.ImageSize imageSize =
+//                            new ImagePagerActivity.ImageSize(v.getMeasuredWidth(),
+//                                    v.getMeasuredHeight());
+//                    ImagePagerActivity.startImagePagerActivity(BaseApplication.AppContext, mData,0
+//                            , imageSize);
+            });
         }
     }
 
