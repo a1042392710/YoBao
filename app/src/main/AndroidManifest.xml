@@ -234,7 +234,7 @@
 
         <!--发布宝贝-->
         <activity android:name="com.jjz.energy.ui.home.PutCommodityActivity"
-                  android:configChanges="orientation|screenSize"/>
+            android:configChanges="orientation|screenSize"/>
 
         <!--查看大图-->
         <activity android:name="com.jjz.energy.ui.ImagePagerActivity"

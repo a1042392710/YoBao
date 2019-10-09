@@ -1,6 +1,7 @@
 package com.jjz.energy.ui.home;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.provider.Settings;
@@ -12,6 +13,8 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -156,8 +159,8 @@ public class PutCommodityActivity extends BaseActivity <PutCommodityPresenter>im
     }
 
 
-    @OnClick({R.id.ll_toolbar_left, R.id.tv_toolbar_right, R.id.tv_commodity_type,R.id.tv_point_discount,
-            R.id.tv_commodity_money})
+    @OnClick({R.id.ll_toolbar_left, R.id.tv_toolbar_right, R.id.ll_commodity_type,R.id.ll_point_discount,
+            R.id.ll_commodity_money})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ll_toolbar_left:
@@ -170,16 +173,16 @@ public class PutCommodityActivity extends BaseActivity <PutCommodityPresenter>im
                 }
                 break;
             //选择分类
-            case R.id.tv_commodity_type:
+            case R.id.ll_commodity_type:
                 startActivityForResult(new Intent(mContext, ClassificationActivity.class),
                         CLASSIFICATION_INTENT_CODE);
                 break;
             //写入金额 是否包邮等
-            case R.id.tv_commodity_money:
+            case R.id.ll_commodity_money:
                 showMoneyPopView();
                 break;
             //积分折扣
-            case R.id.tv_point_discount:
+            case R.id.ll_point_discount:
                 pickerPoint.show();
                 break;
         }
@@ -430,9 +433,14 @@ public class PutCommodityActivity extends BaseActivity <PutCommodityPresenter>im
                     item_et_old_moeny.getText().toString(), item_et_freight.getText().toString(),
                     item_cb_shipping.isChecked(),Integer.valueOf(item_et_num.getText().toString()));
             tvCommodityMoney.setText(mMoneyInfo.newMoney+"元");
+            //弹窗消失时，隐藏软键盘
+            InputMethodManager imm = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
+            if (imm != null) {
+                imm.hideSoftInputFromWindow(item_et_freight.getWindowToken(), 2);
+            }
+            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
            popupWindow.dismiss();
-           tvLocationAddress.requestFocus();
-           disMissSoftKeyboard();
+
         });
 
     }
