@@ -176,9 +176,9 @@ public interface Api {
 
     //发布宝贝
     @Multipart
-    @POST("user/putCommdity")
+    @POST("goods/create")
     Flowable<ResponseData<String>> putCommodity(
-            @Part MultipartBody.Part params, @Part("img") String imgName, @PartMap Map<String, RequestBody> imgFiles
+            @Part MultipartBody.Part params,  @PartMap Map<String, RequestBody> imgFiles
     );
 
 

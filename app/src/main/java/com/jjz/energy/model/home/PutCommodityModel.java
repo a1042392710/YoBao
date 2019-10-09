@@ -26,14 +26,15 @@ public class PutCommodityModel extends BaseModel {
      * 发布商品
      */
     public Flowable<String> putCommodity(String requestData,  List<File> urls ) {
+
         MultipartBody.Part mBuilder = MultipartBody.Part.createFormData(Api.PACK_NO, requestData);
         Map<String, RequestBody> photos = new HashMap<>();
         if (urls.size() > 0) {
             for (int i = 0; i < urls.size(); i++) {
-                photos.put("file" + i + "\"; filename=\"" + urls.get(i).getName(), RequestBody.create(MediaType.parse("image/png"), urls.get(i)));
+                photos.put("goods_images[]\"; filename=\"" + urls.get(i).getName(), RequestBody.create(MediaType.parse("image/png"), urls.get(i)));
             }
         }
-        return RetrofitFactory.getRetrofit().create(Api.class).putCommodity(mBuilder,"img", photos).compose(RxSchedulerHepler.handleMyResult());
+        return RetrofitFactory.getRetrofit().create(Api.class).putCommodity(mBuilder, photos).compose(RxSchedulerHepler.handleMyResult());
     }
 
 

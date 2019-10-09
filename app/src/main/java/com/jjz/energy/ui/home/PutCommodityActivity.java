@@ -28,6 +28,7 @@ import com.jjz.energy.util.file.FileUtil;
 import com.jjz.energy.util.glide.MyGlideEngine;
 import com.jjz.energy.util.networkUtil.PacketUtil;
 import com.jjz.energy.util.system.PopWindowUtil;
+import com.jjz.energy.util.system.SpUtil;
 import com.jjz.energy.view.home.IPutCommodityView;
 import com.jjz.energy.widgets.singlepicker.SinglePicker;
 import com.zhihu.matisse.Matisse;
@@ -40,6 +41,7 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -103,12 +105,19 @@ public class PutCommodityActivity extends BaseActivity <PutCommodityPresenter>im
     //单项选择器 (选择折扣）
     private SinglePicker<String> pickerPoint;
     private String[] mPointDiscounts = {"不打折", "九折", "八折", "七折", "六折", "五折", "四折", "三折", "二折", "一折"};
+    /**
+     * 地区
+     */
+    private String address;
 
     @Override
     protected void initView() {
         tvToolbarTitle.setText("发布宝贝");
         tvToolbarRight.setText("发布");
         EventBus.getDefault().register(this);
+        //地区
+        address = SpUtil.init(mContext).readString("locationAddress");
+        tvLocationAddress.setText(address.replace("/"," "));
         initSingerPicker();
         initRv();
     }
@@ -156,9 +165,9 @@ public class PutCommodityActivity extends BaseActivity <PutCommodityPresenter>im
                 break;
             //发布
             case R.id.tv_toolbar_right:
-                    if (isSubmitCheck()){
-                        compressPhotos();
-                    }
+                if (isSubmitCheck()) {
+                    compressPhotos();
+                }
                 break;
             //选择分类
             case R.id.tv_commodity_type:
@@ -185,18 +194,23 @@ public class PutCommodityActivity extends BaseActivity <PutCommodityPresenter>im
     private boolean isSubmitCheck() {
         String title = etCommodityTitle.getText().toString();
         String content = etCommodityContent.getText().toString();
-        if (StringUtil.isEmpty(title) || title.length() < 10) {
-            showToast("标题至少10个字哦");
+        if (StringUtil.isEmpty(title) || title.length() < 5) {
+            showToast("标题至少5个字哦");
             return false;
         }
-        if (StringUtil.isEmpty(title) || title.length() < 20) {
-            showToast("内容至少20个字哦");
+        if (StringUtil.isEmpty(content) || content.length() < 10) {
+            showToast("内容至少10个字哦");
             return false;
         }
-//        if (StringUtil.isListEmpty(mFileList) ) {
-//            showToast("您还没有上传宝贝图片");
-//            return false;
-//        }
+        if (StringUtil.isListEmpty(mSelectPhotos) ) {
+            showToast("您还没有选择宝贝图片");
+            return false;
+        }
+
+        if (StringUtil.isEmpty(tvCommodityType.getText().toString()) ) {
+            showToast("您还没有给宝贝选择类别");
+            return false;
+        }
 
         if (mMoneyInfo==null){
             showToast("请给宝贝开个价哦");
@@ -260,11 +274,34 @@ public class PutCommodityActivity extends BaseActivity <PutCommodityPresenter>im
      */
     private void submit() {
         HashMap<String, String> hashMap = new HashMap<>();
-        hashMap.put("","");
-        hashMap.put("","");
-        hashMap.put("","");
-        hashMap.put("","");
-        hashMap.put("","");
+        //标题
+        hashMap.put("goods_name",etCommodityTitle.getText().toString().trim());
+        //内容
+        hashMap.put("mobile_content",etCommodityContent.getText().toString());
+        //分类id todo 暂定
+        hashMap.put("cat_id","1");
+        //市场价
+        hashMap.put("market_price",mMoneyInfo.oldMoney);
+        //本店价
+        hashMap.put("shop_price",mMoneyInfo.newMoney);
+        //是否全新  1 全新 0 二手
+        hashMap.put("is_mnh",cbIsNewCommodity.isChecked()?"1":"0");
+        //是否包邮  1 包邮 0不包邮
+        hashMap.put("is_free_shipping",mMoneyInfo.isFreight?"1":"0");
+        //邮费
+        hashMap.put("shipping_price",mMoneyInfo.freight);
+        //商家有 积分抵扣 todo 暂定
+        hashMap.put("exchange_integral","6");
+        //商品数量
+        hashMap.put("store_count",mMoneyInfo.num+"");
+        //根据逗号分隔到List数组中
+        List<String> list= Arrays.asList(address.split("/"));
+        if (list.size()>2){
+            //地区
+            hashMap.put("province",list.get(0));
+            hashMap.put("city",list.get(1));
+            hashMap.put("district",list.get(2));
+        }
         mPresenter.putCommodity(PacketUtil.getRequestPacket(hashMap),mFileList);
     }
 
@@ -282,6 +319,9 @@ public class PutCommodityActivity extends BaseActivity <PutCommodityPresenter>im
         //出手价
         EditText item_et_new_moeny = popView.findViewById(R.id.item_et_new_money);
         TextView item_tv_new_moeny = popView.findViewById(R.id.item_tv_new_money);
+        //商品数量
+        TextView item_et_num = popView.findViewById(R.id.item_et_num);
+
         item_et_new_moeny.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -326,7 +366,8 @@ public class PutCommodityActivity extends BaseActivity <PutCommodityPresenter>im
                 judgeNumber(s, item_et_new_moeny);
             }
         });
-
+        //是否包邮
+        CheckBox item_cb_shipping = popView.findViewById(R.id.item_cb_shipping);
         //运费
         EditText item_et_freight = popView.findViewById(R.id.item_et_freight);
         TextView item_tv_freight = popView.findViewById(R.id.item_tv_freight);
@@ -339,8 +380,10 @@ public class PutCommodityActivity extends BaseActivity <PutCommodityPresenter>im
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (!StringUtil.isEmpty(s.toString())) {
+                    item_cb_shipping.setChecked(false);
                     item_tv_freight.setTextColor(getResources().getColor(R.color.text_black33));
                 } else {
+                    item_cb_shipping.setChecked(true);
                     item_tv_freight.setTextColor(getResources().getColor(R.color.text_black96));
                 }
             }
@@ -350,8 +393,7 @@ public class PutCommodityActivity extends BaseActivity <PutCommodityPresenter>im
 
             }
         });
-        //是否包邮
-        CheckBox item_cb_shipping = popView.findViewById(R.id.item_cb_shipping);
+
         //包邮则清除运费内容
         item_cb_shipping.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
@@ -379,13 +421,20 @@ public class PutCommodityActivity extends BaseActivity <PutCommodityPresenter>im
                 showToast("请输入原价");
                 return;
             }
+            if (StringUtil.isEmpty(item_et_num.getText().toString())) {
+                showToast("请输入数量");
+                return;
+            }
+            //金钱信息
             mMoneyInfo = new MoneyInfo(item_et_new_moeny.getText().toString(),
                     item_et_old_moeny.getText().toString(), item_et_freight.getText().toString(),
-                    item_cb_shipping.isChecked());
+                    item_cb_shipping.isChecked(),Integer.valueOf(item_et_num.getText().toString()));
             tvCommodityMoney.setText(mMoneyInfo.newMoney+"元");
-            popupWindow.dismiss();
-            disMissSoftKeyboard();
+           popupWindow.dismiss();
+           tvLocationAddress.requestFocus();
+           disMissSoftKeyboard();
         });
+
     }
 
     /**
@@ -425,7 +474,7 @@ public class PutCommodityActivity extends BaseActivity <PutCommodityPresenter>im
     public void isPutCommditySuccess(String data) {
         showToast("发布成功");
         //跳转发布详情
-        startActivity(new Intent(mContext,CommodityDetailActivity.class));
+        startActivity(new Intent(mContext, CommodityDetailActivity.class));
         finish();
     }
 
@@ -440,12 +489,14 @@ public class PutCommodityActivity extends BaseActivity <PutCommodityPresenter>im
         private String newMoney;
         private boolean isFreight;
         private String freight;
+        private int num;
 
-        public MoneyInfo(String newMoney, String oldMoney, String freight, boolean isFreight) {
+        public MoneyInfo(String newMoney, String oldMoney, String freight, boolean isFreight,int num) {
             this.oldMoney = oldMoney;
             this.newMoney = newMoney;
             this.isFreight = isFreight;
             this.freight = freight;
+            this.num = num;
         }
     }
 

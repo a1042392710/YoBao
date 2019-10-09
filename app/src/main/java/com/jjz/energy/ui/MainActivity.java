@@ -32,6 +32,7 @@ import com.jjz.energy.ui.home.login.LoginActivity;
 import com.jjz.energy.ui.home.logistics.ReleaseLogisticsActivity;
 import com.jjz.energy.util.networkUtil.UserLoginBiz;
 import com.jjz.energy.util.system.PopWindowUtil;
+import com.jjz.energy.util.system.SpUtil;
 import com.jjz.energy.widgets.NoScrollViewPager;
 import com.jude.swipbackhelper.SwipeBackHelper;
 
@@ -137,6 +138,10 @@ public class MainActivity extends BaseActivity {
 
     @OnClick(R.id.img_home_go)
     public void onViewClicked() {
+        if (!UserLoginBiz.getInstance(mContext).detectUserLoginStatus()) {
+            startActivityForResult(new Intent(mContext, LoginActivity.class), 0);
+            return;
+        }
         View view = View.inflate(mContext,R.layout.item_put_commodity,null);
         ImageView item_img_close = view.findViewById(R.id.item_img_close);
         //取消弹窗
@@ -237,6 +242,9 @@ public class MainActivity extends BaseActivity {
             if (null != location && location.getLocType() != BDLocation.TypeServerError) {
                 //此处的BDLocation为定位结果信息类，通过它的各种get方法可获取定位相关的全部结果
                 String locationDescribe = location.getLocationDescribe();
+                //将省市区存入本地
+                String locationAddress = location.getProvince()+"/"+location.getCity()+"/"+location.getDistrict();
+                SpUtil.init(mContext).commit("locationAddress",locationAddress);
                 //发送一个包含市区信息的消息
                 EventBus.getDefault().post(new LocationEvent(location.getCity()));
                 //获取到地址后取消定位
