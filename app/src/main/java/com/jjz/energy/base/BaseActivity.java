@@ -65,6 +65,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
         //右滑返回
         swipeBackInit();
         mContext = this;
+        initEnterTransition();
         //布局绑定
         setContentView(layoutId());
         //注解绑定
@@ -76,6 +77,10 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
         //初始化数据
         initView();
     }
+
+    protected  void initEnterTransition(){
+
+    };
 
     /**
      * 初始化右滑手势返回
@@ -162,7 +167,6 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
         Intent intent = new Intent(mContext, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
-
 
     }
 
@@ -267,13 +271,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
 
 
 
-    /**
-     *  消息点击事件
-     **/
-//    public void onEvent(NotificationClickEvent event) {
-//        String userName = event.getMessage().getFromUser().getUserName();
-//        startActivity(new Intent(this, IMActivity.class).putExtra("userName",userName));
-//    }
+
 
     // ====================================== 生命周期和子类实现
 

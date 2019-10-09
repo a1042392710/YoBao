@@ -96,7 +96,7 @@
 
         <!--商品分类-->
         <activity
-            android:name=".ui.mine.ClassificationActivity"
+            android:name=".ui.home.ClassificationActivity"
             android:configChanges="orientation|screenSize"/>
 
         <!--添加地址-->
@@ -231,7 +231,7 @@
                   android:configChanges="orientation|screenSize"/>
 
         <!--个人主页-->
-        <activity android:name="com.jjz.energy.ui.home.HomePageActivity"
+        <activity android:name="com.jjz.energy.ui.mine.information.HomePageActivity"
         android:configChanges="orientation|screenSize"/>
 
         <!--我的喜欢和我的关注-->
@@ -268,11 +268,6 @@
         <!--修改昵称-->
         <activity android:name="com.jjz.energy.ui.mine.information.ChangeNickNameActivity"
                   android:configChanges="orientation|screenSize"/>
-
-        <!--添加/修改收货-->
-        <activity android:name="com.jjz.energy.ui.mine.information.UpdateAddressActivity"
-                  android:configChanges="orientation|screenSize"/>
-
 
         <!--修改简介-->
         <activity android:name="com.jjz.energy.ui.mine.information.ChangeDescActivity"

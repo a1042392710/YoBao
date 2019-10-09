@@ -15,7 +15,7 @@ import java.util.List;
 import butterknife.BindView;
 
 /**
- * @Features: 宝贝列表
+ * @Features: 商品列表
  * @author: create by chenhao on 2019/8/6
  */
 public class CommodityFragment extends BaseFragment {

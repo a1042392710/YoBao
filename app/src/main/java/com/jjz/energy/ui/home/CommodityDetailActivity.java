@@ -21,6 +21,7 @@ import com.jjz.energy.base.BasePresenter;
 import com.jjz.energy.base.BaseRecycleNewAdapter;
 import com.jjz.energy.ui.ImagePagerActivity;
 import com.jjz.energy.ui.mine.MineLikeCommodityActivity;
+import com.jjz.energy.ui.mine.information.HomePageActivity;
 import com.jjz.energy.ui.mine.shop_order.SureBuyActivity;
 import com.jjz.energy.util.glide.GlideUtils;
 
@@ -169,7 +170,7 @@ public class CommodityDetailActivity extends BaseActivity {
                 break;
                 //卖家头像
             case R.id.img_seller_head:
-                startActivity(new Intent(mContext,HomePageActivity.class));
+                startActivity(new Intent(mContext, HomePageActivity.class));
                 break;
                 //发表评论
             case R.id.tv_comment_send:

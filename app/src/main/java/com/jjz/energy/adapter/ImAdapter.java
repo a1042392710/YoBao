@@ -10,7 +10,7 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jjz.energy.R;
 import com.jjz.energy.base.BaseRecycleNewAdapter;
-import com.jjz.energy.ui.home.HomePageActivity;
+import com.jjz.energy.ui.mine.information.HomePageActivity;
 import com.jjz.energy.ui.notice.IMActivity;
 import com.jjz.energy.util.DateUtil;
 import com.jjz.energy.util.SafeClickListener;

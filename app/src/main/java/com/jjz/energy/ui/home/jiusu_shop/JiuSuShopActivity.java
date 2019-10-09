@@ -1,9 +1,15 @@
 package com.jjz.energy.ui.home.jiusu_shop;
 
+import android.app.ActivityOptions;
+import android.content.Intent;
+import android.os.Build;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.LinearLayout;
 
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -12,6 +18,7 @@ import com.jjz.energy.adapter.JiuSuShopListAdapter;
 import com.jjz.energy.base.BaseActivity;
 import com.jjz.energy.base.BasePresenter;
 import com.jjz.energy.base.BaseRecycleNewAdapter;
+import com.jjz.energy.ui.home.SearchActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +38,8 @@ public class JiuSuShopActivity extends BaseActivity {
     RecyclerView rvShopType;
     @BindView(R.id.rv_shop_list)
     RecyclerView rvShopList;
+    @BindView(R.id.card_search)
+    CardView cardSearch;
     /**
      * 商户类型
      */
@@ -88,10 +97,21 @@ public class JiuSuShopActivity extends BaseActivity {
     @Override
     protected int layoutId() { return R.layout.act_jiusu_shop; }
 
-    @OnClick(R.id.ll_toolbar_left)
-    public void onViewClicked() {
-        finish();
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    @OnClick({R.id.ll_toolbar_left, R.id.card_search})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.ll_toolbar_left:
+                finish();
+                break;
+                //搜索 进入搜索页面
+            case R.id.card_search:
+                startActivity(new Intent(mContext, SearchActivity.class).putExtra(SearchActivity.SEARCH_TYPE,SearchActivity.SEARCH_SHOP)
+                        , ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+                break;
+        }
     }
+
 
     /**
      * 商户类型
@@ -104,7 +124,7 @@ public class JiuSuShopActivity extends BaseActivity {
 
         @Override
         protected void convert(BaseViewHolder helper, String item) {
-
+            helper.setText(R.id.item_tv_shop_type_name, item);
         }
     }
 }

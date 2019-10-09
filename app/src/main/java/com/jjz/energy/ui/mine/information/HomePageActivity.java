@@ -1,4 +1,4 @@
-package com.jjz.energy.ui.home;
+package com.jjz.energy.ui.mine.information;
 
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -14,6 +14,9 @@ import android.widget.TextView;
 import com.jjz.energy.R;
 import com.jjz.energy.base.BaseActivity;
 import com.jjz.energy.base.BasePresenter;
+import com.jjz.energy.ui.community.PostFragment;
+import com.jjz.energy.ui.home.CommentFragment;
+import com.jjz.energy.ui.home.CommodityFragment;
 import com.jjz.energy.util.glide.GlideUtils;
 
 import butterknife.BindView;

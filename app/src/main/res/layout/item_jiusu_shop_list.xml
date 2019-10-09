@@ -63,7 +63,6 @@
             android:layout_marginStart="7dp"
             android:layout_width="wrap_content"
             android:text="30/人"
-            android:textStyle="bold"
             android:textSize="13sp"
             android:textColor="@color/text_blackA6"
             android:layout_height="wrap_content"/>
@@ -90,7 +89,6 @@
             android:layout_width="wrap_content"
             android:textSize="12sp"
             android:textColor="@color/text_blackA6"
-            android:textStyle="bold"
             android:text="蒸湘区丨量版式KTV"
             android:layout_height="wrap_content"/>
 

@@ -43,7 +43,7 @@
                 android:layout_marginTop="10dp"
                 android:background="@color/white"
                 android:ellipsize="end"
-                android:hint="宝贝标题 品牌型号卖家喜欢搜索的"
+                android:hint="宝贝标题 品牌型号 买家喜欢搜索的"
                 android:maxLines="2"
                 android:paddingLeft="18dp"
                 android:paddingTop="16dp"

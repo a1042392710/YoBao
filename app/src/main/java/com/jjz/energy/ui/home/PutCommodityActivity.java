@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.CheckBox;
@@ -20,12 +21,14 @@ import android.widget.TextView;
 import com.jjz.energy.R;
 import com.jjz.energy.adapter.CommonSelectPhotoAdapter;
 import com.jjz.energy.base.BaseActivity;
-import com.jjz.energy.base.BasePresenter;
 import com.jjz.energy.base.Constant;
-import com.jjz.energy.ui.mine.ClassificationActivity;
+import com.jjz.energy.presenter.home.PutCommodityPresenter;
 import com.jjz.energy.util.StringUtil;
+import com.jjz.energy.util.file.FileUtil;
 import com.jjz.energy.util.glide.MyGlideEngine;
+import com.jjz.energy.util.networkUtil.PacketUtil;
 import com.jjz.energy.util.system.PopWindowUtil;
+import com.jjz.energy.view.home.IPutCommodityView;
 import com.jjz.energy.widgets.singlepicker.SinglePicker;
 import com.zhihu.matisse.Matisse;
 import com.zhihu.matisse.MimeType;
@@ -35,6 +38,9 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -43,13 +49,15 @@ import butterknife.OnClick;
 import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.OnNeverAskAgain;
 import permissions.dispatcher.RuntimePermissions;
+import top.zibin.luban.Luban;
+import top.zibin.luban.OnCompressListener;
 
 /**
  * @Features: 发布宝贝
  * @author: create by chenhao on 2019/8/1
  */
 @RuntimePermissions
-public class PutCommodityActivity extends BaseActivity {
+public class PutCommodityActivity extends BaseActivity <PutCommodityPresenter>implements IPutCommodityView {
 
     /**
      * 选择分类的跳转CODE
@@ -139,60 +147,6 @@ public class PutCommodityActivity extends BaseActivity {
     }
 
 
-    // =================================== 生命周期和方法重写
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK) {
-            if (requestCode == Constant.REQUEST_CODE_CHOOSE) {
-                //获取选择的图片数据
-                List<Uri> mSelectPhotoTemps = Matisse.obtainResult(data);
-                //将选中的所有图片都放入图片数据源
-                for (Uri selectPhotoTemp : mSelectPhotoTemps) {
-                    mSelectPhotos.addFirst(selectPhotoTemp);
-                }
-                //刷新数据
-                mSelectPhotoAdapter.notifyDataSetChanged();
-            } else if (requestCode == CLASSIFICATION_INTENT_CODE) {
-                //获取分类数据
-                String classification_title = data.getStringExtra("classification_title");
-                tvCommodityType.setText(classification_title);
-            }
-
-
-        }
-    }
-    // 方法重写
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        //注销EventBus
-        EventBus.getDefault().unregister(this);
-    }
-
-    @Override
-    protected BasePresenter getPresenter() {
-        return null;
-    }
-
-    @Override
-    protected int layoutId() {
-        return R.layout.act_put_commodity;
-    }
-
-    @Override
-    public void showLoading() {
-        startProgressDialog();
-    }
-
-    @Override
-    public void stopLoading() {
-        stopProgressDialog();
-    }
-
-
-
     @OnClick({R.id.ll_toolbar_left, R.id.tv_toolbar_right, R.id.tv_commodity_type,R.id.tv_point_discount,
             R.id.tv_commodity_money})
     public void onViewClicked(View view) {
@@ -202,6 +156,9 @@ public class PutCommodityActivity extends BaseActivity {
                 break;
             //发布
             case R.id.tv_toolbar_right:
+                    if (isSubmitCheck()){
+                        compressPhotos();
+                    }
                 break;
             //选择分类
             case R.id.tv_commodity_type:
@@ -219,7 +176,100 @@ public class PutCommodityActivity extends BaseActivity {
         }
     }
 
-    // ===================================================== 价格和运费弹窗
+    //================================  数据提交
+
+    /**
+     * 提交前的检查
+     * @return
+     */
+    private boolean isSubmitCheck() {
+        String title = etCommodityTitle.getText().toString();
+        String content = etCommodityContent.getText().toString();
+        if (StringUtil.isEmpty(title) || title.length() < 10) {
+            showToast("标题至少10个字哦");
+            return false;
+        }
+        if (StringUtil.isEmpty(title) || title.length() < 20) {
+            showToast("内容至少20个字哦");
+            return false;
+        }
+//        if (StringUtil.isListEmpty(mFileList) ) {
+//            showToast("您还没有上传宝贝图片");
+//            return false;
+//        }
+
+        if (mMoneyInfo==null){
+            showToast("请给宝贝开个价哦");
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * 待上传的所有图片
+     */
+    private List<File> mFileList;
+
+    /**
+     * 压缩图片
+     */
+    private void compressPhotos() {
+        mFileList = new ArrayList<>();
+
+        //无图片直接提交
+        if (mSelectPhotos.size() - 1 > 0) {
+            //有图片则压缩
+            for (int i = 0; i < mSelectPhotos.size() - 1; i++) {
+                int finalI = 1 + i;
+                Luban.with(this)
+                        .load(FileUtil.getRealFilePath(mContext, mSelectPhotos.get(i)))
+                        .ignoreBy(100)
+                        .filter(path -> !(TextUtils.isEmpty(path) || path.toLowerCase().endsWith(".gif")))
+                        .setCompressListener(new OnCompressListener() {
+                            @Override
+                            public void onStart() {
+                                showLoading();
+                            }
+
+                            @Override
+                            public void onSuccess(File file) {
+                                //压缩完图片后提交数据
+                                mFileList.add(file);
+                                if (finalI == mSelectPhotos.size() - 1) {
+                                    stopLoading();
+                                    submit();
+                                }
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                showToast("图片压缩失败，请重试");
+                                stopLoading();
+                            }
+                        }).launch();
+            }
+        } else {
+            submit();
+
+        }
+    }
+
+
+    /**
+     * 提交数据
+     */
+    private void submit() {
+        HashMap<String, String> hashMap = new HashMap<>();
+        hashMap.put("","");
+        hashMap.put("","");
+        hashMap.put("","");
+        hashMap.put("","");
+        hashMap.put("","");
+        mPresenter.putCommodity(PacketUtil.getRequestPacket(hashMap),mFileList);
+    }
+
+
+        // ===================================================== 价格和运费弹窗
 
     //存储金额信息
     private MoneyInfo mMoneyInfo;
@@ -332,8 +382,9 @@ public class PutCommodityActivity extends BaseActivity {
             mMoneyInfo = new MoneyInfo(item_et_new_moeny.getText().toString(),
                     item_et_old_moeny.getText().toString(), item_et_freight.getText().toString(),
                     item_cb_shipping.isChecked());
-            tvCommodityMoney.setText(mMoneyInfo.newMoney);
+            tvCommodityMoney.setText(mMoneyInfo.newMoney+"元");
             popupWindow.dismiss();
+            disMissSoftKeyboard();
         });
     }
 
@@ -370,6 +421,18 @@ public class PutCommodityActivity extends BaseActivity {
         }
     }
 
+    @Override
+    public void isPutCommditySuccess(String data) {
+        showToast("发布成功");
+        //跳转发布详情
+        startActivity(new Intent(mContext,CommodityDetailActivity.class));
+        finish();
+    }
+
+    @Override
+    public void isFail(String msg, boolean isNetAndServiceError) {
+        showToast(msg);
+    }
 
 
     class MoneyInfo {
@@ -441,4 +504,58 @@ public class PutCommodityActivity extends BaseActivity {
         PutCommodityActivityPermissionsDispatcher.onRequestPermissionsResult(this, requestCode,
                 grantResults);
     }
+
+
+    // =================================== 生命周期和方法重写
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            if (requestCode == Constant.REQUEST_CODE_CHOOSE) {
+                //获取选择的图片数据
+                List<Uri> mSelectPhotoTemps = Matisse.obtainResult(data);
+                //将选中的所有图片都放入图片数据源
+                for (Uri selectPhotoTemp : mSelectPhotoTemps) {
+                    mSelectPhotos.addFirst(selectPhotoTemp);
+                }
+                //刷新数据
+                mSelectPhotoAdapter.notifyDataSetChanged();
+            } else if (requestCode == CLASSIFICATION_INTENT_CODE) {
+                //获取分类数据
+                String classification_title = data.getStringExtra("classification_title");
+                tvCommodityType.setText(classification_title);
+            }
+
+
+        }
+    }
+    // 方法重写
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        //注销EventBus
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Override
+    protected PutCommodityPresenter getPresenter() {
+        return new PutCommodityPresenter(this);
+    }
+
+    @Override
+    protected int layoutId() {
+        return R.layout.act_put_commodity;
+    }
+
+    @Override
+    public void showLoading() {
+        startProgressDialog();
+    }
+
+    @Override
+    public void stopLoading() {
+        stopProgressDialog();
+    }
+
 }

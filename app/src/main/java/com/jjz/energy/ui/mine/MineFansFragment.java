@@ -8,7 +8,7 @@ import com.jjz.energy.R;
 import com.jjz.energy.adapter.MineFansAndLikeAdapter;
 import com.jjz.energy.base.BaseFragment;
 import com.jjz.energy.base.BasePresenter;
-import com.jjz.energy.ui.home.HomePageActivity;
+import com.jjz.energy.ui.mine.information.HomePageActivity;
 
 import java.util.ArrayList;
 import java.util.List;

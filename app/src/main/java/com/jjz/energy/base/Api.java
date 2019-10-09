@@ -23,16 +23,21 @@ import com.jjz.energy.util.networkUtil.ResponseData;
 import com.jjz.energy.wxapi.OrderPayTypeBean;
 
 import java.util.List;
+import java.util.Map;
 
 import io.reactivex.Flowable;
 import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
+import retrofit2.http.PartMap;
 import retrofit2.http.Streaming;
 import retrofit2.http.Url;
 
@@ -129,6 +134,7 @@ public interface Api {
     @POST("user/getUserBindInfo")
     Flowable<ResponseData<BindBean>> getBindInfo(@Field(PACK_NO) String pack_no);
 
+
     //=================================================== 收货地址
 
     //获取久速商城基本信息
@@ -165,9 +171,18 @@ public interface Api {
     Flowable<ResponseData<AddressBean>> getAddressList(@Field(PACK_NO) String pack_no);
 
 
+    //======================================================== 发布 帖子 / 物流 / 宝贝
+
+
+    //发布宝贝
+    @Multipart
+    @POST("user/putCommdity")
+    Flowable<ResponseData<String>> putCommodity(
+            @Part MultipartBody.Part params, @Part("img") String imgName, @PartMap Map<String, RequestBody> imgFiles
+    );
+
 
     //======================================================== 久速商城接口
-
 
 
     //查询下级代理

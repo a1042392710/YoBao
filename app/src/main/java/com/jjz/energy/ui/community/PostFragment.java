@@ -1,4 +1,4 @@
-package com.jjz.energy.ui.home;
+package com.jjz.energy.ui.community;
 
 import android.content.Intent;
 import android.support.v7.widget.GridLayoutManager;
@@ -8,6 +8,7 @@ import com.jjz.energy.R;
 import com.jjz.energy.adapter.HomeCommodityTypeAdapter;
 import com.jjz.energy.base.BaseFragment;
 import com.jjz.energy.base.BasePresenter;
+import com.jjz.energy.ui.home.CommodityDetailActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +44,7 @@ public class PostFragment extends BaseFragment {
                 new HomeCommodityTypeAdapter(R.layout.item_commodity_grid, list);
         rvList.setAdapter(commodityTypeAdapter);
 
-        commodityTypeAdapter.setOnItemClickListener((adapter, view, position) -> startActivity(new Intent(mContext,CommodityDetailActivity.class)));
+        commodityTypeAdapter.setOnItemClickListener((adapter, view, position) -> startActivity(new Intent(mContext, CommodityDetailActivity.class)));
     }
 
     @Override

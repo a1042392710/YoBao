@@ -1,6 +1,9 @@
 package com.jjz.energy.ui.home;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v7.widget.CardView;
@@ -16,8 +19,8 @@ import com.jjz.energy.adapter.HomeCommodityTypeAdapter;
 import com.jjz.energy.base.BaseFragment;
 import com.jjz.energy.base.BasePresenter;
 import com.jjz.energy.entry.event.LocationEvent;
-import com.jjz.energy.ui.home.charitable.CharitableActivity;
 import com.jjz.energy.ui.city.CityPickerActivity;
+import com.jjz.energy.ui.home.charitable.CharitableActivity;
 import com.jjz.energy.ui.home.education.EducationActivity;
 import com.jjz.energy.ui.home.insurance.InsuranceActivity;
 import com.jjz.energy.ui.home.jiusu_shop.JiuSuShopActivity;
@@ -43,7 +46,6 @@ import butterknife.OnClick;
  * @author: create by chenhao on 2019/5/31
  */
 public class HomeFragment extends BaseFragment {
-
 
     @BindView(R.id.tv_city)
     TextView tvCity;
@@ -145,6 +147,7 @@ public class HomeFragment extends BaseFragment {
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @OnClick({R.id.tv_city, R.id.card_search, R.id.img_notice, R.id.ll_logistics,R.id.ll_shop_discount,
             R.id.ll_insurance, R.id.ll_old, R.id.ll_charitable,R.id.ll_jiusu,R.id.ll_education})
     public void onViewClicked(View view) {
@@ -155,7 +158,8 @@ public class HomeFragment extends BaseFragment {
                 break;
             //搜索
             case R.id.card_search:
-                startActivity(new Intent(mContext, SearchActivity.class));
+                startActivity(new Intent(mContext, SearchActivity.class).putExtra(SearchActivity.SEARCH_TYPE,SearchActivity.SEARCH_COMMODITY)
+                        , ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
                 break;
             //通知
             case R.id.img_notice:

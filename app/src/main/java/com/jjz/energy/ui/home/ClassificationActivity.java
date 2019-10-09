@@ -1,4 +1,4 @@
-package com.jjz.energy.ui.mine;
+package com.jjz.energy.ui.home;
 
 import android.content.Intent;
 import android.support.annotation.Nullable;

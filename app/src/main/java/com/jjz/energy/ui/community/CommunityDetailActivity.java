@@ -16,7 +16,7 @@ import com.jjz.energy.adapter.PhotoAdapter;
 import com.jjz.energy.base.BaseActivity;
 import com.jjz.energy.base.BasePresenter;
 import com.jjz.energy.base.BaseRecycleNewAdapter;
-import com.jjz.energy.ui.home.HomePageActivity;
+import com.jjz.energy.ui.mine.information.HomePageActivity;
 import com.jjz.energy.util.glide.GlideUtils;
 
 import java.util.ArrayList;
