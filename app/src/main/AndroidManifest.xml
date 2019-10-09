@@ -66,10 +66,24 @@
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="IBcaSkcRLxGyVs6pqqLscuciCOpVFI1E" />
+
         <!--定位组件-->
         <service android:name="com.baidu.location.f"
                  android:enabled="true"
                  android:process=":remote"/>
+
+
+        <!-- matisse 图片选择器文件过滤 -->
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.jjz.energy.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/filepaths" />
+        </provider>
+
         <!--********************* Activ-ity *********************-->
 
         <!--主页-->
@@ -318,7 +332,7 @@
 
         <!--bugly的provider-->
         <provider
-            android:name="com.jjz.energy.provider.BuglyFileProvider"
+            android:name=".provider.BuglyFileProvider"
             android:authorities="com.jjz.energy.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true"
@@ -328,17 +342,6 @@
                 android:resource="@xml/provider_paths"
                 tools:replace="name,resource" />
         </provider>
-        <!-- matisse 图片选择器文件过滤 -->
-        <provider
-            android:name="android.support.v4.content.FileProvider"
-            android:authorities="com.jjz.energy.fileprovider"
-            android:exported="false"
-            android:grantUriPermissions="true">
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/filepaths" />
-        </provider>
-
 
         <!--************************************** 极光推送-->
         <!-- Since JCore2.0.0 Required SDK核心功能-->
