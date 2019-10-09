@@ -27,20 +27,19 @@ import cn.jpush.im.android.api.model.Message;
  */
 public class ImAdapter extends BaseRecycleNewAdapter<Message> {
 
+    /**
+     * 聊天对象的UserName
+     */
     private String userName;
     private IMActivity mIMActivity;
 
 
 
-    public ImAdapter(int layoutResId, @Nullable List<Message> data,IMActivity context) {
+    public ImAdapter(int layoutResId, @Nullable List<Message> data,IMActivity context,String userName) {
         super(layoutResId, data);
         this.mIMActivity = context;
-    }
-
-    public void setUserName(String userName) {
         this.userName = userName;
     }
-
 
     @Override
     protected void convert(BaseViewHolder helper, Message item) {
@@ -63,9 +62,22 @@ public class ImAdapter extends BaseRecycleNewAdapter<Message> {
         //进度条
         ProgressBar progressBar = helper.getView(R.id.item_progress);
 
-        //展示聊天信息  自己的聊天信息
+        //展示聊天信息    对方的
         if (item.getFromUser() != null && item.getFromUser().getUserName().equals(userName)) {
-            //显示自己头像
+            //对方的聊天内容，隐藏进度和失败图标
+            progressBar.setVisibility(View.GONE);
+            imgFail.setVisibility(View.GONE);
+            //显示对方的头像
+            imgHerHead.setVisibility(View.VISIBLE);
+            //隐藏自己的头像
+            imgMyHead.setVisibility(View.GONE);
+            //对方的内容背景
+            tvMyContent.setBackground(mContext.getResources().getDrawable(R.drawable.bg_white_radius));
+            tvMyContent.setTextColor(mContext.getResources().getColor(R.color.text_black66));
+            tvTc.setVisibility(View.GONE);
+            tvTc1.setVisibility(View.VISIBLE);
+        } else {
+            //显示自己头像   自己的
             imgMyHead.setVisibility(View.VISIBLE);
             //隐藏对方头像
             imgHerHead.setVisibility(View.GONE);
@@ -94,19 +106,6 @@ public class ImAdapter extends BaseRecycleNewAdapter<Message> {
                     break;
             }
 
-        } else {
-            //对方的聊天内容，隐藏进度和失败图标
-            progressBar.setVisibility(View.GONE);
-            imgFail.setVisibility(View.GONE);
-            //显示对方的头像
-            imgHerHead.setVisibility(View.VISIBLE);
-            //隐藏自己的头像
-            imgMyHead.setVisibility(View.GONE);
-            //对方的内容背景
-            tvMyContent.setBackground(mContext.getResources().getDrawable(R.drawable.bg_white_radius));
-            tvMyContent.setTextColor(mContext.getResources().getColor(R.color.text_black66));
-            tvTc.setVisibility(View.GONE);
-            tvTc1.setVisibility(View.VISIBLE);
         }
 
         //加载对方头像

@@ -64,8 +64,6 @@ public class NoticeFragment extends BaseLazyFragment {
      */
     private void initJMessage() {
         UserInfo mUserInfo = UserLoginBiz.getInstance(mContext).readUserInfo();
-        //开启全局监听事件
-        JMessageClient.registerEventReceiver(this);
         //进入单聊会话，不接受指定用户的通知
         JMessageClient.enterSingleConversation(mUserInfo.getMobile());
     }
@@ -79,7 +77,8 @@ public class NoticeFragment extends BaseLazyFragment {
         rvNotice.setAdapter(mNoticeAdapter);
         //消息点击进聊天
         mNoticeAdapter.setOnItemClickListener((adapter, view, position) -> {
-            startActivity(new Intent(mContext,IMActivity.class).putExtra("position",position));
+            startActivity(new Intent(mContext,IMActivity.class)
+                    .putExtra("userName",((cn.jpush.im.android.api.model.UserInfo)mNoticeAdapter.getData().get(position).getTargetInfo()).getUserName()));
         });
         //长按子项删除指定聊天记录
         mNoticeAdapter.setOnItemLongClickListener((adapter, view, position) -> {
@@ -133,8 +132,7 @@ public class NoticeFragment extends BaseLazyFragment {
     public void onDestroy() {
         //退出会话界面 (开始接收通知栏)
         JMessageClient.exitConversation();
-        //解绑聊天事件
-        JMessageClient.unRegisterEventReceiver(this);
+
         //解绑
         EventBus.getDefault().unregister(this);
         super.onDestroy();

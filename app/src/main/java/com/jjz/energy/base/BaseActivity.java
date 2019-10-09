@@ -266,6 +266,15 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
     }
 
 
+
+    /**
+     *  消息点击事件
+     **/
+//    public void onEvent(NotificationClickEvent event) {
+//        String userName = event.getMessage().getFromUser().getUserName();
+//        startActivity(new Intent(this, IMActivity.class).putExtra("userName",userName));
+//    }
+
     // ====================================== 生命周期和子类实现
 
 

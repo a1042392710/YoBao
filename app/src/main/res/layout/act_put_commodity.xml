@@ -75,6 +75,7 @@
                 android:background="@color/white"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
+                android:layout_marginBottom="10dp"
                 android:paddingLeft="18dp"
                 android:paddingRight="18dp">
 
@@ -107,11 +108,52 @@
 
             </LinearLayout>
 
+            <TextView
+                android:id="@+id/tv_point_discount_text"
+                android:layout_width="wrap_content"
+                android:layout_marginTop="5dp"
+                android:textSize="@dimen/font_12sp"
+                android:textColor="@color/red_fe8977"
+                android:paddingLeft="8dp"
+                android:layout_marginBottom="3dp"
+                android:text="设置折扣后，买家可使用积分来抵扣折扣金额"
+                android:layout_height="wrap_content"/>
+            <LinearLayout
+                android:id="@+id/ll_point_discount"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@color/white"
+                android:layout_marginBottom="1dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="18dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="积分折扣价"
+                    android:textColor="@color/text_black33"
+                    android:textSize="13sp"/>
+
+                <TextView
+                    android:id="@+id/tv_point_discount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:drawablePadding="8dp"
+                    android:drawableRight="@mipmap/ic_gray_right_more"
+                    android:paddingLeft="50dp"
+                    android:paddingRight="23dp"
+                    android:text="不打折"
+                    android:textColor="#969696"
+                    android:textSize="13sp"/>
+
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
-                android:layout_marginTop="8dp"
                 android:background="@color/white"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"

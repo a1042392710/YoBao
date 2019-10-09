@@ -21,7 +21,6 @@ import com.jjz.energy.ui.ImagePagerActivity;
 import com.jjz.energy.ui.mine.shop_order.SureBuyActivity;
 import com.jjz.energy.util.StringUtil;
 import com.jjz.energy.util.glide.GlideUtils;
-import com.jjz.energy.util.networkUtil.UserLoginBiz;
 import com.jjz.energy.util.system.SoftKeyBoardListener;
 
 import org.greenrobot.eventbus.EventBus;
@@ -78,17 +77,10 @@ public class IMActivity extends BaseActivity {
      * 会话对象
      */
     private Conversation conversation;
-
     /**
-     * 指定下标
-     */
-    private int position;
-    /**
-     * 要和谁聊天
+     * 会话对象的UserName
      */
     private String userName;
-
-    private com.jjz.energy.entry.UserInfo mUserInfo;
 
     @Override
     protected BasePresenter getPresenter() {
@@ -102,10 +94,8 @@ public class IMActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        //用户消息
-        mUserInfo = UserLoginBiz.getInstance(mContext).readUserInfo();
-        //获取列表中的指定数据，然后展开会话
-        position = getIntent().getIntExtra("position", 0);
+        //聊天对象的UserName 必传
+        userName = getIntent().getStringExtra("userName");
         //展示商品图片
         GlideUtils.loadImage(mContext,"http://img004.hc360.cn/k2/M0F/4D/EE/wKhQxFmx8rCEEGuwAAAAAIeZn9k905.jpg",imgCommodity);
         initImRv();
@@ -122,34 +112,22 @@ public class IMActivity extends BaseActivity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         rvIm.setLayoutManager(linearLayoutManager);
         //绑定聊天数据
-        mImAdapter = new ImAdapter(R.layout.item_im, new ArrayList<>(),this);
-        mImAdapter.setUserName(mUserInfo.getMobile());
+        mImAdapter = new ImAdapter(R.layout.item_im, new ArrayList<>(),this,userName);
         rvIm.setAdapter(mImAdapter);
         rvIm.setOnTouchListener((v, event) -> {
             //触摸列表的时候，缩回软键盘
             disMissSoftKeyboard();
             return false;
         });
-        //开启全局监听事件
-        JMessageClient.registerEventReceiver(this);
         //进入会话状态,不接收通知栏
-        JMessageClient.enterSingleConversation(mUserInfo.getMobile());
+        JMessageClient.enterSingleConversation(userName);
     }
 
 
     //初始化聊天数据
     public void initImData() {
-        //如果会话存在，则更新本地会话
-        if (conversation != null) {
-            conversation = JMessageClient.getSingleConversation(userName);
-        } else {
-            //会话不存在，则获取会话列表中的指定会话
-            List<Conversation> msgList = JMessageClient.getConversationList();
-            //指定position的会话不为空
-            if (!StringUtil.isListEmpty(msgList) && msgList.get(position) != null) {
-                conversation = msgList.get(position);
-            }
-        }
+        //获取会话
+        conversation = JMessageClient.getSingleConversation(userName);
         //重置会话聊天未读
         conversation.resetUnreadCount();
         //标题
@@ -263,8 +241,7 @@ public class IMActivity extends BaseActivity {
     protected void onDestroy() {
         //退出会话界面 (开始接收通知栏)
         JMessageClient.exitConversation();
-        //解绑聊天事件
-        JMessageClient.unRegisterEventReceiver(this);
+
         super.onDestroy();
     }
 

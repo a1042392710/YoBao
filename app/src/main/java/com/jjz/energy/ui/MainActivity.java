@@ -41,8 +41,6 @@ import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import cn.jpush.im.android.api.JMessageClient;
-import cn.jpush.im.android.api.event.NotificationClickEvent;
 import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.OnNeverAskAgain;
 import permissions.dispatcher.RuntimePermissions;
@@ -100,17 +98,8 @@ public class MainActivity extends BaseActivity {
         initLocation();
         vpMain.setAdapter(new ViewPagerAdapter(getSupportFragmentManager()));
         vpMain.setOffscreenPageLimit(3);
-        //开启消息监听事件
-        JMessageClient.registerEventReceiver(this);
     }
 
-    /**
-     *  消息点击事件
-     **/
-    public void onEventMainThread(NotificationClickEvent event) {
-        //进入消息列表
-        rbNotice.setChecked(true);
-    }
 
     /**
      * 初始化监听
@@ -229,7 +218,6 @@ public class MainActivity extends BaseActivity {
             intent.setData(uri1);
             startActivityForResult(intent, 20);
         });
-
     }
 
     @Override

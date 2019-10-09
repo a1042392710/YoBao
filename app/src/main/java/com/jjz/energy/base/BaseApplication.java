@@ -2,11 +2,13 @@ package com.jjz.energy.base;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.Intent;
 import android.support.multidex.MultiDex;
 
 import com.baidu.mapapi.CoordType;
 import com.baidu.mapapi.SDKInitializer;
 import com.jjz.energy.R;
+import com.jjz.energy.ui.notice.IMActivity;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
@@ -15,6 +17,7 @@ import com.tencent.bugly.Bugly;
 
 import cn.jpush.android.api.JPushInterface;
 import cn.jpush.im.android.api.JMessageClient;
+import cn.jpush.im.android.api.event.NotificationClickEvent;
 
 
 public class BaseApplication extends Application {
@@ -37,6 +40,8 @@ public class BaseApplication extends Application {
         JPushInterface.init(this);
         //极光IM  指定是否开启消息漫游 默认不开启
         JMessageClient.init(this, true);
+        //开启全局监听事件
+        JMessageClient.registerEventReceiver(this);
         setupLeakCanary();
     }
 
@@ -50,6 +55,18 @@ public class BaseApplication extends Application {
         LeakCanary.install(this);
     }
 
+
+    /**
+     *  消息点击事件
+     **/
+    public void onEvent(NotificationClickEvent event) {
+        String userName = event.getMessage().getFromUser().getUserName();
+        //点击后直接跳转聊天页面
+        Intent intent = new Intent(this,IMActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra("userName",userName);
+        startActivity(intent);
+    }
 
 
     //static 代码段可以防止内存泄露
