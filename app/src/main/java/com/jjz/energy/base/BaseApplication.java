@@ -55,7 +55,6 @@ public class BaseApplication extends Application {
         LeakCanary.install(this);
     }
 
-
     /**
      *  消息点击事件
      **/

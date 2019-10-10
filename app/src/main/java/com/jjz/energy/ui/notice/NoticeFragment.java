@@ -12,7 +12,6 @@ import com.jjz.energy.adapter.NoticeAdapter;
 import com.jjz.energy.base.BaseLazyFragment;
 import com.jjz.energy.base.BasePresenter;
 import com.jjz.energy.base.LoginEventBean;
-import com.jjz.energy.entry.UserInfo;
 import com.jjz.energy.util.StringUtil;
 import com.jjz.energy.util.networkUtil.UserLoginBiz;
 import com.jjz.energy.util.system.PopWindowUtil;
@@ -52,7 +51,6 @@ public class NoticeFragment extends BaseLazyFragment {
     protected void initView() {
         tvToolbarTitle.setText("消息");
         llToolbarLeft.setVisibility(View.INVISIBLE);
-        EventBus.getDefault().register(this);
         initRv();
         //注册聊天事件监听
         initJMessage();
@@ -63,9 +61,11 @@ public class NoticeFragment extends BaseLazyFragment {
      * 初始化极光IM
      */
     private void initJMessage() {
-        UserInfo mUserInfo = UserLoginBiz.getInstance(mContext).readUserInfo();
+        EventBus.getDefault().register(this);
+        JMessageClient.registerEventReceiver(this);
         //进入单聊会话，不接受指定用户的通知
-        JMessageClient.enterSingleConversation(mUserInfo.getMobile());
+        JMessageClient.enterSingleConversation(UserLoginBiz.getInstance(mContext).readUserInfo().getMobile());
+
     }
 
     /**
@@ -111,29 +111,26 @@ public class NoticeFragment extends BaseLazyFragment {
             stopLoading();
         }
     }
-
-
     // 接收消息 (主线程)(刷新UI)
     public void onEventMainThread(MessageEvent event){
-      initConversationList();
+        initConversationList();
     }
-
     /**
      * 刷新通知
      */
     @Subscribe(threadMode =  ThreadMode.MAIN)
-    public void refreshNotice(LoginEventBean loginEventBean){
-        if (loginEventBean.getLoginStatus()==LoginEventBean.REFRESH_NOTICE){
+    public void refreshNotice(LoginEventBean event){
+        if (event.getLoginStatus()==LoginEventBean.REFRESH_NOTICE){
             initConversationList();
         }
     }
 
     @Override
     public void onDestroy() {
+        //解绑
+        JMessageClient.unRegisterEventReceiver(this);
         //退出会话界面 (开始接收通知栏)
         JMessageClient.exitConversation();
-
-        //解绑
         EventBus.getDefault().unregister(this);
         super.onDestroy();
     }

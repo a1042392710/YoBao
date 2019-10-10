@@ -25,6 +25,7 @@ import com.jjz.energy.R;
 import com.jjz.energy.adapter.CommonSelectPhotoAdapter;
 import com.jjz.energy.base.BaseActivity;
 import com.jjz.energy.base.Constant;
+import com.jjz.energy.entry.GoodsClassificationBean;
 import com.jjz.energy.presenter.home.PutCommodityPresenter;
 import com.jjz.energy.util.StringUtil;
 import com.jjz.energy.util.file.FileUtil;
@@ -210,7 +211,7 @@ public class PutCommodityActivity extends BaseActivity <PutCommodityPresenter>im
             return false;
         }
 
-        if (StringUtil.isEmpty(tvCommodityType.getText().toString()) ) {
+        if (mClassificationBean==null){
             showToast("您还没有给宝贝选择类别");
             return false;
         }
@@ -486,6 +487,8 @@ public class PutCommodityActivity extends BaseActivity <PutCommodityPresenter>im
         finish();
     }
 
+
+
     @Override
     public void isFail(String msg, boolean isNetAndServiceError) {
         showToast(msg);
@@ -566,7 +569,10 @@ public class PutCommodityActivity extends BaseActivity <PutCommodityPresenter>im
 
 
     // =================================== 生命周期和方法重写
-
+    /**
+     * 记录选中的分类
+     */
+    private GoodsClassificationBean mClassificationBean;
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -582,8 +588,8 @@ public class PutCommodityActivity extends BaseActivity <PutCommodityPresenter>im
                 mSelectPhotoAdapter.notifyDataSetChanged();
             } else if (requestCode == CLASSIFICATION_INTENT_CODE) {
                 //获取分类数据
-                String classification_title = data.getStringExtra("classification_title");
-                tvCommodityType.setText(classification_title);
+                mClassificationBean = (GoodsClassificationBean) data.getSerializableExtra(Constant.INTENT_KEY_OBJECT);
+                tvCommodityType.setText(mClassificationBean.getGoods_type_name());
             }
 
 

@@ -220,7 +220,7 @@ public class AddressManagerActivity extends BaseActivity<AddressManagerPresenter
             }
             list.add(bean);
         }
-        mAddressManagerAdapter.notifyChangeData(list);
+        mAddressManagerAdapter.setNewData(list);
     }
 
     @Override

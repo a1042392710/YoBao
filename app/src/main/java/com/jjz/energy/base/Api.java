@@ -4,6 +4,7 @@ import com.jjz.energy.entry.AddressBean;
 import com.jjz.energy.entry.AgencyBean;
 import com.jjz.energy.entry.BindBean;
 import com.jjz.energy.entry.BindOwnerInfoBean;
+import com.jjz.energy.entry.GoodsClassificationBean;
 import com.jjz.energy.entry.HotBean;
 import com.jjz.energy.entry.HotDetailBean;
 import com.jjz.energy.entry.LoginBean;
@@ -181,6 +182,11 @@ public interface Api {
             @Part MultipartBody.Part params,  @PartMap Map<String, RequestBody> imgFiles
     );
 
+
+    //查询宝贝分类列表
+    @FormUrlEncoded
+    @POST("user/agentsMembers")
+    Flowable<ResponseData<List<GoodsClassificationBean>>> getClassification(@Field(PACK_NO) String pack_no);
 
     //======================================================== 久速商城接口
 

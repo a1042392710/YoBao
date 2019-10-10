@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  * @author chenhao 2018/12/12
- * @function 新增部分方法
+ *  避免每次都 设置BaseViewHolder
  */
 public abstract class BaseRecycleNewAdapter<T> extends BaseQuickAdapter<T, BaseViewHolder> {
 
@@ -18,7 +18,6 @@ public abstract class BaseRecycleNewAdapter<T> extends BaseQuickAdapter<T, BaseV
     public BaseRecycleNewAdapter(int layoutResId, @Nullable List<T> data) {
         super(layoutResId, data);
     }
-
     /**
      * 刷新数据
      *
@@ -34,20 +33,4 @@ public abstract class BaseRecycleNewAdapter<T> extends BaseQuickAdapter<T, BaseV
         mData.addAll(data);
         notifyDataSetChanged();
     }
-
-    /**
-     * 加载更多 有数据返回true 无数据返回 false
-     * @param data
-     */
-    public boolean addChangeData(List<T> data) {
-        if (!StringUtil.isListEmpty(data)&&mData != null) {
-            //只刷新新数据
-            int oldSum = data.size();
-            mData.addAll(data);
-            notifyItemChanged(oldSum, mData.size());
-            return true;
-        }
-        return false;
-    }
-
 }

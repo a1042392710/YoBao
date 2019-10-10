@@ -2,6 +2,7 @@ package com.jjz.energy.model.home;
 
 import com.jjz.energy.base.Api;
 import com.jjz.energy.base.BaseModel;
+import com.jjz.energy.entry.GoodsClassificationBean;
 import com.jjz.energy.util.networkUtil.RetrofitFactory;
 import com.jjz.energy.util.networkUtil.RxSchedulerHepler;
 
@@ -37,5 +38,10 @@ public class PutCommodityModel extends BaseModel {
         return RetrofitFactory.getRetrofit().create(Api.class).putCommodity(mBuilder, photos).compose(RxSchedulerHepler.handleMyResult());
     }
 
+
+    //分类列表
+    public Flowable<List<GoodsClassificationBean>> getClassification(String requestData) {
+        return RetrofitFactory.getRetrofit().create(Api.class).getClassification(requestData).compose(RxSchedulerHepler.handleMyResult());
+    }
 
 }
