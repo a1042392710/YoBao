@@ -35,4 +35,6 @@
         <attr name="cursorColor" format="color|reference" />
         <attr name="borderWidth" format="dimension" />
     </declare-styleable>
+
+
 </resources>

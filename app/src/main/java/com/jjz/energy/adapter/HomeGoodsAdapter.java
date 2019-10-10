@@ -8,27 +8,31 @@ import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jjz.energy.R;
 import com.jjz.energy.base.BaseRecycleNewAdapter;
+import com.jjz.energy.entry.GoodsBean;
 import com.jjz.energy.util.glide.GlideUtils;
 import com.jjz.energy.util.glide.RoundedCornersTransform;
 
 import java.util.List;
 
 /**
- * @Features: 首页 > 商品分类网格布局
+ * @Features: 首页 > 商品网格布局
  * @author: create by chenhao on 2019/6/18
  */
-public class HomeCommodityTypeAdapter extends BaseRecycleNewAdapter<String> {
-    public HomeCommodityTypeAdapter(int layoutResId, @Nullable List<String> data) {
+public class HomeGoodsAdapter extends BaseRecycleNewAdapter<GoodsBean> {
+
+
+    public HomeGoodsAdapter(int layoutResId, @Nullable List<GoodsBean> data) {
         super(layoutResId, data);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, String item) {
+    protected void convert(BaseViewHolder helper, GoodsBean item) {
         ImageView imgPhoto = helper.getView(R.id.img_commodity);
         ImageView imgHead = helper.getView(R.id.img_head);
         //指定上方圆角
         RoundedCornersTransform transform = new RoundedCornersTransform(mContext,8f);
         transform.setNeedCorner(true, true, false, false);
+
         Glide.with(mContext).asBitmap().load("http://img4.imgtn.bdimg.com/it/u=3200546096,2564818638&fm=26&gp=0.jpg")
                 .apply(new RequestOptions().placeholder(R.color.color_primary_f5).transform(transform)).into(imgPhoto);
         //头像

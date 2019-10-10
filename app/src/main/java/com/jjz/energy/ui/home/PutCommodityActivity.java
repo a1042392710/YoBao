@@ -282,8 +282,8 @@ public class PutCommodityActivity extends BaseActivity <PutCommodityPresenter>im
         hashMap.put("goods_name",etCommodityTitle.getText().toString().trim());
         //内容
         hashMap.put("mobile_content",etCommodityContent.getText().toString());
-        //分类id todo 暂定
-        hashMap.put("cat_id","1");
+        //分类id
+        hashMap.put("cat_id",mClassificationBean.getId()+"");
         //市场价
         hashMap.put("market_price",mMoneyInfo.oldMoney);
         //本店价
@@ -589,7 +589,7 @@ public class PutCommodityActivity extends BaseActivity <PutCommodityPresenter>im
             } else if (requestCode == CLASSIFICATION_INTENT_CODE) {
                 //获取分类数据
                 mClassificationBean = (GoodsClassificationBean) data.getSerializableExtra(Constant.INTENT_KEY_OBJECT);
-                tvCommodityType.setText(mClassificationBean.getGoods_type_name());
+                tvCommodityType.setText(mClassificationBean.getMobile_name());
             }
 
 

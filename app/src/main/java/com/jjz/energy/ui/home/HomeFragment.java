@@ -3,6 +3,7 @@ package com.jjz.energy.ui.home;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Build;
+import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.TabLayout;
@@ -15,10 +16,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.jjz.energy.R;
-import com.jjz.energy.adapter.HomeCommodityTypeAdapter;
+import com.jjz.energy.adapter.HomeGoodsAdapter;
 import com.jjz.energy.base.BaseFragment;
-import com.jjz.energy.base.BasePresenter;
+import com.jjz.energy.entry.GoodsBean;
+import com.jjz.energy.entry.GoodsClassificationBean;
+import com.jjz.energy.entry.HomeDetailBean;
 import com.jjz.energy.entry.event.LocationEvent;
+import com.jjz.energy.presenter.home.HomePresenter;
 import com.jjz.energy.ui.city.CityPickerActivity;
 import com.jjz.energy.ui.home.charitable.CharitableActivity;
 import com.jjz.energy.ui.home.education.EducationActivity;
@@ -27,7 +31,13 @@ import com.jjz.energy.ui.home.jiusu_shop.JiuSuShopActivity;
 import com.jjz.energy.ui.home.logistics.LogisticsActivity;
 import com.jjz.energy.ui.home.pension.PensionActivity;
 import com.jjz.energy.util.StringUtil;
+import com.jjz.energy.util.Utils;
 import com.jjz.energy.util.glide.GlideImageLoader;
+import com.jjz.energy.util.networkUtil.PacketUtil;
+import com.jjz.energy.view.home.IHomeView;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 
@@ -45,7 +55,7 @@ import butterknife.OnClick;
  * @Features: 首页
  * @author: create by chenhao on 2019/5/31
  */
-public class HomeFragment extends BaseFragment {
+public class HomeFragment extends BaseFragment<HomePresenter> implements IHomeView {
 
     @BindView(R.id.tv_city)
     TextView tvCity;
@@ -79,30 +89,53 @@ public class HomeFragment extends BaseFragment {
     TabLayout tablayout;
     @BindView(R.id.rvType)
     RecyclerView rvType;
+    @BindView(R.id.smart_refresh)
+    SmartRefreshLayout smartRefresh;
+    /**
+     * 页码
+     */
+    private int mPage = 1;
+    /**
+     * 是否为加载更多
+     */
+    private boolean isLoadMore = false;
+    /**
+     * 商品分类列表
+     */
+    private HomeDetailBean mHomeDetail;
+    /**
+     * 商品分类Id
+     */
+    private int mGoodsTypeId = 0;
+
+    private HomeGoodsAdapter mGoodsAdapter;
 
     @Override
     protected void initView() {
         EventBus.getDefault().register(this);
-        //初始化banner
-        List<String> beans = new ArrayList<>();
-        beans.add("http://pic1.win4000.com/wallpaper/0/559b8b91b3afa.jpg");
-        beans.add("http://img.daimg.com/uploads/allimg/130707/3-130FH30508.jpg");
-        beans.add("http://img.daimg.com/uploads/allimg/120716/3-120G6150G2.jpg");
-        initBanner(beans);
-        //初始化Yo专区
-        initYoBao();
-        //初始化Tablayou和商品分类列表
-        initRv();
+        initRvAndRefresh();
+        initListener();
+        //获取商品分类
+        mPresenter.getSortAndBanner(PacketUtil.getRequestPacket(null));
+        //加载数据
+        getData(false);
     }
+
+
 
     /**
      * 初始化banner
      */
-    private void initBanner(List<String> homeBeans) {
+    private void initBanner(List<com.jjz.energy.entry.Banner> homeBeans) {
+        //处理好数据放入banner中
+        List<String> list = new ArrayList<>();
+        for (com.jjz.energy.entry.Banner homeBean : homeBeans) {
+            list.add(homeBean.getImage());
+        }
         //设置图片加载器
         banner.setImageLoader(new GlideImageLoader());
         //设置图片集合
-        banner.setImages(homeBeans);
+        banner.setImages(list);
         //设置轮播时间
         banner.setDelayTime(3000);
         //设置指示器位置（当banner模式中有指示器时）
@@ -114,38 +147,119 @@ public class HomeFragment extends BaseFragment {
     }
 
     /**
-     * 初始化商品分类列表
+     * 初始化商品分类列表 和 下拉上拉
      */
-    private void initRv() {
-        //给Tablayout和rv赋值
-        tablayout.addTab(tablayout.newTab().setText("手机"));
-        tablayout.addTab(tablayout.newTab().setText("图书"));
-        tablayout.addTab(tablayout.newTab().setText("二手家电"));
-        tablayout.addTab(tablayout.newTab().setText("汽车用品"));
-        tablayout.addTab(tablayout.newTab().setText("服饰箱包"));
-        tablayout.addTab(tablayout.newTab().setText("数码3C"));
-
+    private void initRvAndRefresh(){
         rvType.setLayoutManager(new GridLayoutManager(mContext, 2));
-        List<String> list = new ArrayList<>();
-        list.add("");
-        list.add("");
-        list.add("");
-        list.add("");
-        list.add("");
-        list.add("");
-        HomeCommodityTypeAdapter commodityTypeAdapter =
-                new HomeCommodityTypeAdapter(R.layout.item_commodity_grid, list);
-        rvType.setAdapter(commodityTypeAdapter);
-        commodityTypeAdapter.setOnItemClickListener((adapter, view, position) -> startActivity(new Intent(mContext, CommodityDetailActivity.class)));
+        //商品适配器
+        mGoodsAdapter = new HomeGoodsAdapter(R.layout.item_commodity_grid, new ArrayList<>());
+        rvType.setAdapter(mGoodsAdapter);
+        mGoodsAdapter.setOnItemClickListener((adapter, view, position) ->
+                startActivity(new Intent(mContext, CommodityDetailActivity.class)));
+
+
+    }
+
+
+    /**
+     * 处理各种监听
+     */
+    private void initListener() {
+        smartRefresh.setEnableRefresh(true);
+        smartRefresh.setEnableLoadMore(true);
+        //上拉加载 下拉刷新
+        smartRefresh.setOnRefreshListener(new OnRefreshLoadMoreListener() {
+            @Override
+            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+                //获取指定类别的商品
+                getData(true);
+                mPage++;
+            }
+
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                //刷新列表数据
+                mPresenter.getSortAndBanner(PacketUtil.getRequestPacket(null));
+                //重置各种状态后 刷新商品信息
+                getData(false);
+                mGoodsTypeId=0;
+                mPage=0;
+            }
+        });
+
+
+        tablayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                //选中时 重置页码 刷新列表
+                mPage=0;
+                //记录选中的商品类型
+                mGoodsTypeId = mHomeDetail.getCateList().get(tab.getPosition()).getId();
+                //访问数据
+                getData(true);
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
     }
 
     /**
-     * 初始化Yo专区
+     * 获取数据
+     * @param isLoadMore
      */
-    private void initYoBao() {
+    private void getData (boolean isLoadMore){
+        this.isLoadMore = isLoadMore;
+        mPresenter.getGoodsList(PacketUtil.getRequestPacket(Utils.stringToMap("cat_id",mGoodsTypeId+"")),isLoadMore);
+    }
+
+    /**
+     * 当前城市
+     */
+    private String mCityName;
+
+    //接受定位消息，显示城市名称
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void setCity(LocationEvent locationEvent) {
+        mCityName = locationEvent.getEventMsg();
+        //显示当前城市
+        if (!StringUtil.isEmpty(mCityName)) {
+            tvCity.setText(mCityName);
+        }
+    }
+
+
+
+    @Override
+    public void isGetClassificationSuc(HomeDetailBean data) {
+
+        //将商品分类存下来
+        mHomeDetail = data;
+        //清空table
+        tablayout.removeAllTabs();
+        for (GoodsClassificationBean datum : data.getCateList()) {
+            //添加table
+            tablayout.addTab(tablayout.newTab().setText(datum.getMobile_name()));
+        }
+        //初始化banner
+        initBanner(data.getBannerList());
+
 
     }
 
+    @Override
+    public void isGetGoodsSuc(List<GoodsBean> data) {
+        //todo 刷新商品列表信息
+        closeRefresh(smartRefresh);
+
+    }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @OnClick({R.id.tv_city, R.id.card_search, R.id.img_notice, R.id.ll_logistics,R.id.ll_shop_discount,
@@ -200,24 +314,9 @@ public class HomeFragment extends BaseFragment {
         }
     }
 
-    /**
-     * 当前城市
-     */
-    private String mCityName;
-
-    //接受定位消息，显示城市名称
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void setCity(LocationEvent locationEvent) {
-        mCityName = locationEvent.getEventMsg();
-        //显示当前城市
-        if (!StringUtil.isEmpty(mCityName)) {
-            tvCity.setText(mCityName);
-        }
-    }
-
     @Override
-    protected BasePresenter getPresenter() {
-        return null;
+    protected HomePresenter getPresenter() {
+        return new HomePresenter(this);
     }
 
     @Override
@@ -240,5 +339,18 @@ public class HomeFragment extends BaseFragment {
     public void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
+    }
+
+    @Override
+    public void isFail(String msg, boolean isNetAndServiceError) {
+        showToast(msg);
+    }
+
+    @Override
+    public void isGetGoodsFail(String msg, boolean isNetAndServiceError) {
+        showToast(msg);
+        //请求失败时页码归位
+        mPage--;
+        closeRefresh(smartRefresh);
     }
 }

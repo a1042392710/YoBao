@@ -5,12 +5,11 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.jjz.energy.R;
-import com.jjz.energy.adapter.HomeCommodityTypeAdapter;
+import com.jjz.energy.adapter.HomeGoodsAdapter;
 import com.jjz.energy.base.BaseFragment;
 import com.jjz.energy.base.BasePresenter;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 
@@ -31,15 +30,9 @@ public class CommentFragment extends BaseFragment {
     @Override
     protected void initView() {
             rvList.setLayoutManager(new GridLayoutManager(mContext, 2));
-            List<String> list = new ArrayList<>();
-            list.add("");
-            list.add("");
-            list.add("");
-            list.add("");
-            list.add("");
-            list.add("");
-            HomeCommodityTypeAdapter commodityTypeAdapter =
-                    new HomeCommodityTypeAdapter(R.layout.item_commodity_grid, list);
+
+            HomeGoodsAdapter commodityTypeAdapter =
+                    new HomeGoodsAdapter(R.layout.item_commodity_grid, new ArrayList<>());
             rvList.setAdapter(commodityTypeAdapter);
 
             commodityTypeAdapter.setOnItemClickListener((adapter, view, position) -> startActivity(new Intent(mContext,CommodityDetailActivity.class)));

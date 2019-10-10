@@ -112,7 +112,8 @@ public class ClassificationActivity extends BaseActivity <PutCommodityPresenter>
 
         @Override
         protected void convert(BaseViewHolder helper, GoodsClassificationBean item) {
-            helper.setText(R.id.item_tv_classification_title, item.getGoods_type_name());
+            //分类名称
+            helper.setText(R.id.item_tv_classification_title, item.getMobile_name());
         }
     }
 }

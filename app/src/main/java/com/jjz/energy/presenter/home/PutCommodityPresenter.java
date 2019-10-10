@@ -66,6 +66,7 @@ public class PutCommodityPresenter extends BasePresenter<PutCommodityModel, IPut
 
                     @Override
                     protected void startLoading() {
+                        mView.showLoading();
                     }
 
                     @Override
