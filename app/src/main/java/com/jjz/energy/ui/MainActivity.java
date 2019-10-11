@@ -256,6 +256,15 @@ public class MainActivity extends BaseActivity {
         }
     }
 
+    /**
+     * 重新定位
+     */
+    public void  requestLocation(){
+        if (mLocationClient!=null) {
+            mLocationClient.requestLocation();
+        }
+    }
+
     //================================================================= 生命周期和其他
 
     @Override

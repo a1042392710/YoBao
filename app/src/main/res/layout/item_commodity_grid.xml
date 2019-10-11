@@ -26,14 +26,15 @@
         <TextView
             android:id="@+id/item_tv_commodity_title"
             android:layout_width="match_parent"
+            android:minHeight="35dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="6dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="6dp"
             android:layout_marginBottom="13dp"
-            android:maxLines="3"
+            android:maxLines="2"
             android:ellipsize="end"
-            tools:text="大众脚垫大包围专车定做专用于新途观L迈腾速腾帕萨特朗逸 双层黑色"
+            tools:text=" 双层黑色双层黑色双层黑色双层黑色双层黑色双层黑色双层黑色双层黑色双层黑色"
             android:textColor="@color/text_black33"
             android:textSize="13sp"/>
 

@@ -3,26 +3,24 @@ package com.jjz.energy.ui.home;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Build;
-import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.CardView;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.jjz.energy.R;
-import com.jjz.energy.adapter.HomeGoodsAdapter;
+import com.jjz.energy.adapter.HomeCommondityPagerAdapter;
 import com.jjz.energy.base.BaseFragment;
-import com.jjz.energy.entry.GoodsBean;
-import com.jjz.energy.entry.GoodsClassificationBean;
 import com.jjz.energy.entry.HomeDetailBean;
 import com.jjz.energy.entry.event.LocationEvent;
 import com.jjz.energy.presenter.home.HomePresenter;
+import com.jjz.energy.ui.MainActivity;
 import com.jjz.energy.ui.city.CityPickerActivity;
 import com.jjz.energy.ui.home.charitable.CharitableActivity;
 import com.jjz.energy.ui.home.education.EducationActivity;
@@ -31,13 +29,10 @@ import com.jjz.energy.ui.home.jiusu_shop.JiuSuShopActivity;
 import com.jjz.energy.ui.home.logistics.LogisticsActivity;
 import com.jjz.energy.ui.home.pension.PensionActivity;
 import com.jjz.energy.util.StringUtil;
-import com.jjz.energy.util.Utils;
 import com.jjz.energy.util.glide.GlideImageLoader;
 import com.jjz.energy.util.networkUtil.PacketUtil;
 import com.jjz.energy.view.home.IHomeView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
-import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 
@@ -87,43 +82,22 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements IHomeVi
     CollapsingToolbarLayout collapsingToolbar;
     @BindView(R.id.tablayout)
     TabLayout tablayout;
-    @BindView(R.id.rvType)
-    RecyclerView rvType;
+    @BindView(R.id.viewPager)
+    ViewPager viewPager;
     @BindView(R.id.smart_refresh)
     SmartRefreshLayout smartRefresh;
-    /**
-     * 页码
-     */
-    private int mPage = 1;
-    /**
-     * 是否为加载更多
-     */
-    private boolean isLoadMore = false;
     /**
      * 商品分类列表
      */
     private HomeDetailBean mHomeDetail;
-    /**
-     * 商品分类Id
-     */
-    private int mGoodsTypeId = 0;
-    /**
-     * 商品列表
-     */
-    private HomeGoodsAdapter mGoodsAdapter;
 
     @Override
     protected void initView() {
         EventBus.getDefault().register(this);
-        initRvAndRefresh();
         initListener();
         //获取商品分类
         mPresenter.getSortAndBanner(PacketUtil.getRequestPacket(null));
-        //加载数据
-        getData(false);
     }
-
-
 
     /**
      * 初始化banner
@@ -148,78 +122,19 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements IHomeVi
         banner.start();
     }
 
-    /**
-     * 初始化商品分类列表 和 下拉上拉
-     */
-    private void initRvAndRefresh(){
-        rvType.setLayoutManager(new GridLayoutManager(mContext, 2));
-        //商品适配器
-        mGoodsAdapter = new HomeGoodsAdapter(R.layout.item_commodity_grid, new ArrayList<>());
-        rvType.setAdapter(mGoodsAdapter);
-        mGoodsAdapter.setOnItemClickListener((adapter, view, position) ->
-                startActivity(new Intent(mContext, CommodityDetailActivity.class)));
-
-
-    }
-
 
     /**
      * 处理各种监听
      */
     private void initListener() {
-        smartRefresh.setEnableRefresh(true);
-        smartRefresh.setEnableLoadMore(true);
         //上拉加载 下拉刷新
-        smartRefresh.setOnRefreshListener(new OnRefreshLoadMoreListener() {
-            @Override
-            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
-                //获取指定类别的商品
-                getData(true);
-                mPage++;
-            }
-
-            @Override
-            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-                //刷新列表数据
-                mPresenter.getSortAndBanner(PacketUtil.getRequestPacket(null));
-                //重置各种状态后 刷新商品信息
-                getData(false);
-                mGoodsTypeId=0;
-                mPage=0;
-            }
+        smartRefresh.setOnRefreshListener(refreshLayout -> {
+            //刷新列表数据
+            mPresenter.getSortAndBanner(PacketUtil.getRequestPacket(null));
+            //重新定位
+            ((MainActivity)getActivity()).requestLocation();
         });
 
-
-        tablayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                //选中时 重置页码 刷新列表
-                mPage=0;
-                //记录选中的商品类型
-                mGoodsTypeId = mHomeDetail.getCateList().get(tab.getPosition()).getId();
-                //访问数据
-                getData(true);
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
-    }
-
-    /**
-     * 获取数据
-     * @param isLoadMore
-     */
-    private void getData (boolean isLoadMore){
-        this.isLoadMore = isLoadMore;
-        mPresenter.getGoodsList(PacketUtil.getRequestPacket(Utils.stringToMap("cat_id",mGoodsTypeId+"")),isLoadMore);
     }
 
     /**
@@ -238,39 +153,26 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements IHomeVi
     }
 
 
-
     @Override
     public void isGetClassificationSuc(HomeDetailBean data) {
-        //将商品分类存下来
-        mHomeDetail = data;
-        //清空table
-        tablayout.removeAllTabs();
-        for (GoodsClassificationBean datum : data.getCateList()) {
-            //添加table
-            tablayout.addTab(tablayout.newTab().setText(datum.getMobile_name()));
-        }
-        //初始化banner
-        initBanner(data.getBannerList());
-    }
-
-    @Override
-    public void isGetGoodsSuc(List<GoodsBean> data) {
-        //加载更多
-        if (isLoadMore) {
-            //没有更多数据
-            if (StringUtil.isListEmpty(data)) {
-                //关闭加载更多
-                smartRefresh.setEnableLoadMore(false);
-            }else {
-                mGoodsAdapter.addData(data);   //添加数据
-            }
-        } else {
-            //刷新数据 启用加载更多
-            smartRefresh.setEnableLoadMore(true);
-            mGoodsAdapter.notifyChangeData(data);
+        if (mHomeDetail == null) {
+            //将商品分类存下来
+            mHomeDetail = data;
+            //初始化Tablayout 和viewpager
+            viewPager.setAdapter(new HomeCommondityPagerAdapter(getFragmentManager(),data.getCateList()));
+            viewPager.setOffscreenPageLimit(3);
+            tablayout.setupWithViewPager(viewPager);
+            //初始化banner
+            initBanner(data.getBannerList());
+        }else{
+            //刷新当前页面的那个商品列表
+          FragmentStatePagerAdapter adapter = (FragmentStatePagerAdapter) viewPager.getAdapter();
+          HomeCommodityFragment fragment = (HomeCommodityFragment)adapter.instantiateItem(viewPager,tablayout.getSelectedTabPosition());
+          fragment.refresh();
         }
         closeRefresh(smartRefresh);
     }
+
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @OnClick({R.id.tv_city, R.id.card_search, R.id.img_notice, R.id.ll_logistics,R.id.ll_shop_discount,
@@ -355,13 +257,6 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements IHomeVi
     @Override
     public void isFail(String msg, boolean isNetAndServiceError) {
         showToast(msg);
-    }
-
-    @Override
-    public void isGetGoodsFail(String msg, boolean isNetAndServiceError) {
-        showToast(msg);
-        //请求失败时页码归位
-        mPage--;
         closeRefresh(smartRefresh);
     }
 }

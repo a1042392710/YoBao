@@ -199,8 +199,8 @@ public interface Api {
 
     //查询宝贝列表
     @FormUrlEncoded
-    @POST("user/agentsMembers")
-    Flowable<ResponseData<List<GoodsBean>>> getGoodsList(@Field(PACK_NO) String pack_no);
+    @POST("index/getGoodsList")
+    Flowable<ResponseData<GoodsBean>> getGoodsList(@Field(PACK_NO) String pack_no);
 
 
 

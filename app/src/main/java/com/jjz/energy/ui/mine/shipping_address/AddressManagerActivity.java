@@ -237,7 +237,7 @@ public class AddressManagerActivity extends BaseActivity<AddressManagerPresenter
     public void isFail(String msg, boolean isNetAndServiceError) {
         if (isNetAndServiceError) {
             //网络错误页面
-            mAddressManagerAdapter.setEmptyView(getLoadSirView(R.mipmap.ic_loadsir_timeout, msg,true,  v -> {
+            mAddressManagerAdapter.setEmptyView(getLoadSirView(R.mipmap.ic_none_timeout, msg,true, v -> {
                 getData();
             }));
         } else {

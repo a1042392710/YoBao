@@ -12,7 +12,6 @@ import com.jjz.energy.adapter.NoticeAdapter;
 import com.jjz.energy.base.BaseLazyFragment;
 import com.jjz.energy.base.BasePresenter;
 import com.jjz.energy.base.LoginEventBean;
-import com.jjz.energy.ui.order.OrderDetailsActivity;
 import com.jjz.energy.util.StringUtil;
 import com.jjz.energy.util.networkUtil.UserLoginBiz;
 import com.jjz.energy.util.system.PopWindowUtil;
@@ -78,9 +77,8 @@ public class NoticeFragment extends BaseLazyFragment {
         rvNotice.setAdapter(mNoticeAdapter);
         //消息点击进聊天
         mNoticeAdapter.setOnItemClickListener((adapter, view, position) -> {
-//            startActivity(new Intent(mContext,IMActivity.class)
-//                    .putExtra("userName",((cn.jpush.im.android.api.model.UserInfo)mNoticeAdapter.getData().get(position).getTargetInfo()).getUserName()));
-            startActivity(new Intent(mContext, OrderDetailsActivity.class));
+            startActivity(new Intent(mContext,IMActivity.class)
+                    .putExtra("userName",((cn.jpush.im.android.api.model.UserInfo)mNoticeAdapter.getData().get(position).getTargetInfo()).getUserName()));
         });
         //长按子项删除指定聊天记录
         mNoticeAdapter.setOnItemLongClickListener((adapter, view, position) -> {

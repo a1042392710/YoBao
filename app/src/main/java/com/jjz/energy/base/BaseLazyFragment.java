@@ -102,7 +102,6 @@ public abstract class BaseLazyFragment<P extends BasePresenter> extends Fragment
     private void load() {
         initView();
         isDataAdd = true;
-
     }
 
     /**

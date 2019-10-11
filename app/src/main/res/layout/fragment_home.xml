@@ -74,6 +74,8 @@
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@+id/smart_refresh"
         android:layout_width="match_parent"
+        app:srlEnableLoadMore="false"
+        app:srlEnableRefresh="true"
         android:layout_height="match_parent">
 
     <android.support.design.widget.CoordinatorLayout
@@ -158,14 +160,10 @@
                 app:tabTextColor="@color/text_black33"/>
 
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rvType"
-                android:layout_width="match_parent"
-                android:layout_marginTop="2dp"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="3dp"
-                android:layout_marginRight="15dp"
-                android:paddingTop="5dp"/>
+           <android.support.v4.view.ViewPager
+               android:id="@+id/viewPager"
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"/>
         </LinearLayout>
 
     </android.support.design.widget.CoordinatorLayout>

@@ -23,14 +23,26 @@ public abstract class BaseRecycleNewAdapter<T> extends BaseQuickAdapter<T, BaseV
      *
      * @param data
      */
-    public void notifyChangeData(List<T> data) {
+    public boolean notifyChangeData(List<T> data) {
         if (StringUtil.isListEmpty(data)) {
             mData.clear();
             notifyDataSetChanged();
-            return;
+            return false;
         }
         mData.clear();
         mData.addAll(data);
         notifyDataSetChanged();
+        return true;
+    }
+
+    /**
+     * 添加新数据
+     */
+    public boolean addNewData(List<T> data){
+        if (StringUtil.isListEmpty(data)){
+            return false;
+        }
+        super.addData(data);
+        return true;
     }
 }

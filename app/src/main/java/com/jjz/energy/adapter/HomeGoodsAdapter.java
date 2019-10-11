@@ -1,6 +1,7 @@
 package com.jjz.energy.adapter;
 
 import android.support.annotation.Nullable;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,15 +20,20 @@ import java.util.List;
  * @Features: 首页 > 商品网格布局
  * @author: create by chenhao on 2019/6/18
  */
-public class HomeGoodsAdapter extends BaseRecycleNewAdapter<GoodsBean> {
+public class HomeGoodsAdapter extends BaseRecycleNewAdapter<GoodsBean.GoodsList> {
 
 
-    public HomeGoodsAdapter(int layoutResId, @Nullable List<GoodsBean> data) {
+    public HomeGoodsAdapter(int layoutResId, @Nullable List<GoodsBean.GoodsList> data) {
         super(layoutResId, data);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, GoodsBean item) {
+    public long getItemId(int position) {
+        return position;
+    }
+
+    @Override
+    protected void convert(BaseViewHolder helper, GoodsBean.GoodsList item) {
         //商品图片
         ImageView imgGoods = helper.getView(R.id.item_img_commodity);
         //商品标题
@@ -44,16 +50,21 @@ public class HomeGoodsAdapter extends BaseRecycleNewAdapter<GoodsBean> {
         //指定上方圆角
         RoundedCornersTransform transform = new RoundedCornersTransform(mContext,8f);
         transform.setNeedCorner(true, true, false, false);
-        //加载商品图片
-        Glide.with(mContext).asBitmap().load("http://img4.imgtn.bdimg.com/it/u=3200546096,2564818638&fm=26&gp=0.jpg")
-                .apply(new RequestOptions().placeholder(R.color.color_primary_f5).transform(transform)).into(imgGoods);
+        //防止图片闪烁
+        if (!item.getGoods_images().equals(imgGoods.getTag(R.id.item_img_commodity))) {
+            //加载商品图片
+            Glide.with(mContext).asBitmap().load(item.getGoods_images())
+                    .apply(new RequestOptions().placeholder(R.color.color_primary_f5).transform(transform)).into(imgGoods);
+         imgGoods.setTag(R.id.item_img_commodity, item.getGoods_images());
+        }
         //加载用户头像
-        GlideUtils.loadCircleImage(mContext,"http://b-ssl.duitang.com/uploads/item/201502/10/20150210223250_5dJeC.jpeg",imgHead);
+        GlideUtils.loadCircleImage(mContext,item.getHead_pic(),imgHead);
+        tvGoodsTitle.setText(item.getGoods_name());
+        tvGoodsPrice.setText("￥"+item.getShop_price());
+        tvName.setText(item.getNickname());
+        tvWantNum.setVisibility(item.getCollect_sum()==0? View.GONE:View.VISIBLE);
+        tvWantNum.setText(item.getCollect_sum()+"人想要");
 
-        tvGoodsTitle.setText("商品标题");
-        tvGoodsPrice.setText("￥"+"商品价格");
-        tvName.setText("卖家名称");
-        tvWantNum.setText("多少人想要");
 
 
     }

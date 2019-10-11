@@ -110,7 +110,7 @@ dependencies {
     //微信支付
     implementation 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
 
-    //分包
+    //多dex配置 分包
     implementation 'com.android.support:multidex:1.0.3'
 
     //6.0动态权限获取
