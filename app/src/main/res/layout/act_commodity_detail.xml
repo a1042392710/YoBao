@@ -53,7 +53,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="7dp"
                     android:includeFontPadding="false"
-                    android:text="原价¥480"
+                    android:text="原价¥0"
                     android:textColor="#bcbcbc"
                     android:textSize="10sp"/>
 
@@ -64,7 +64,7 @@
                     android:layout_marginLeft="3dp"
                     android:layout_weight="1"
                     android:includeFontPadding="false"
-                    android:text="包邮"
+                    tools:text="包邮"
                     android:textColor="#bcbcbc"
                     android:textSize="10sp"/>
 
@@ -93,7 +93,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="3dp"
                     android:includeFontPadding="false"
-                    android:text="         奔驰进口带钢印大巴林之声拆车6.5寸中低音响汽车喇叭改装件"
+                    tools:text="奔驰进口带钢印大巴林之声拆车6.5寸中低音响汽车喇叭改装件"
                     android:textColor="@color/text_black33"
                     android:textSize="17sp"/>
 
@@ -105,6 +105,7 @@
                     android:layout_alignParentTop="true"
                     android:layout_marginLeft="4dp"
                     android:layout_marginTop="1dp"
+                    android:visibility="gone"
                     android:background="@drawable/bg_orange_solid"
                     android:paddingLeft="4dp"
                     android:paddingTop="1dp"
@@ -146,7 +147,7 @@
                 android:layout_marginTop="10dp"
                 android:paddingLeft="18dp"
                 android:paddingRight="18dp"
-                android:text="有八件套，4个重低音，2个高音头，2个分频器，一个54
+                tools:text="有八件套，4个重低音，2个高音头，2个分频器，一个54
 0元全国包邮，
 单独购买重低音一对200元包邮
 单独购买分频器一对100元包邮，
@@ -166,7 +167,7 @@
                 android:layout_marginBottom="10dp"
                 android:gravity="right"
                 android:paddingRight="18dp"
-                android:text="74人想要 | 8501次浏览"
+                android:text="0人想要 | 0次浏览"
                 android:textColor="#bcbcbc"
                 android:textSize="12sp"/>
 
@@ -198,7 +199,7 @@
                     android:layout_width="34dp"
                     android:layout_height="34dp"
                     android:layout_marginTop="2dp"
-                    android:src="@mipmap/ic_default_head"/>
+                    tools:src="@mipmap/ic_default_head"/>
 
                 <TextView
                     android:id="@+id/tv_seller_name"
@@ -207,7 +208,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginBottom="3dp"
                     android:layout_toRightOf="@id/img_seller_head"
-                    android:text="南昌彭于晏"
+                    tools:text="南昌彭于晏"
                     android:textColor="@color/text_black33"
                     android:textSize="13sp"/>
 
@@ -217,7 +218,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignLeft="@id/tv_seller_name"
                     android:layout_alignBottom="@id/img_seller_head"
-                    android:text="她2小时来过这"
+                    android:text="卖家刚刚来过"
                     android:textColor="#bcbcbc"
                     android:textSize="12sp"/>
 
@@ -245,7 +246,7 @@
                         android:id="@+id/tv_seller_commodity_sum"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="51"
+                        android:text="0"
                         android:textColor="@color/text_black33"
                         android:textSize="14sp"/>
 
@@ -271,7 +272,7 @@
                         android:id="@+id/tv_seller_order_sum"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="51"
+                        android:text="0"
                         android:textColor="@color/text_black33"
                         android:textSize="14sp"/>
 
@@ -286,6 +287,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/ll_seller_fans"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -293,10 +295,10 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/tv_seller_response_rate"
+                        android:id="@+id/tv_fans_sum"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="97%"
+                        android:text="0"
                         android:textColor="@color/text_black33"
                         android:textSize="14sp"/>
 
@@ -304,7 +306,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"
-                        android:text="回复率"
+                        android:text="粉丝"
                         android:textColor="#bcbcbc"
                         android:textSize="12sp"/>
 

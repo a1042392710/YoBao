@@ -7,7 +7,7 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jjz.energy.R;
 import com.jjz.energy.base.BaseRecycleNewAdapter;
-import com.jjz.energy.entry.MineBean;
+import com.jjz.energy.entry.jiusu.MineBean;
 
 import java.util.List;
 

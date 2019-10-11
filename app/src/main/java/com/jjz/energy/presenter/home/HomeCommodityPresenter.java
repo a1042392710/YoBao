@@ -3,7 +3,7 @@ package com.jjz.energy.presenter.home;
 import android.annotation.SuppressLint;
 
 import com.jjz.energy.base.BasePresenter;
-import com.jjz.energy.entry.GoodsBean;
+import com.jjz.energy.entry.GoodsListBean;
 import com.jjz.energy.model.home.HomeCommodityModel;
 import com.jjz.energy.util.networkUtil.CommonSubscriber;
 import com.jjz.energy.view.home.IHomeCommodityView;
@@ -28,7 +28,7 @@ public class HomeCommodityPresenter extends BasePresenter<HomeCommodityModel, IH
     public void getGoodsList(String map , boolean isLoadMore) {
 
         addSubscribe(mModel.getGoodsList(map)
-                .subscribeWith(new CommonSubscriber<GoodsBean>() {
+                .subscribeWith(new CommonSubscriber<GoodsListBean>() {
 
                     @Override
                     protected void startLoading() {
@@ -38,7 +38,7 @@ public class HomeCommodityPresenter extends BasePresenter<HomeCommodityModel, IH
                     }
 
                     @Override
-                    protected void onSuccess(GoodsBean response) {
+                    protected void onSuccess(GoodsListBean response) {
                         mView.stopLoading();
                         mView.isGetGoodsSuc(response);
                     }

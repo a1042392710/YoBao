@@ -1,4 +1,4 @@
-package com.jjz.energy.ui.home;
+package com.jjz.energy.ui.home.commodity;
 
 import android.Manifest;
 import android.content.Context;

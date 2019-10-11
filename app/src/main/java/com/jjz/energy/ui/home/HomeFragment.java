@@ -23,6 +23,7 @@ import com.jjz.energy.presenter.home.HomePresenter;
 import com.jjz.energy.ui.MainActivity;
 import com.jjz.energy.ui.city.CityPickerActivity;
 import com.jjz.energy.ui.home.charitable.CharitableActivity;
+import com.jjz.energy.ui.home.commodity.HomeCommodityFragment;
 import com.jjz.energy.ui.home.education.EducationActivity;
 import com.jjz.energy.ui.home.insurance.InsuranceActivity;
 import com.jjz.energy.ui.home.jiusu_shop.JiuSuShopActivity;

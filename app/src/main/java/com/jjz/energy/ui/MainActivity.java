@@ -27,7 +27,7 @@ import com.jjz.energy.base.BaseActivity;
 import com.jjz.energy.base.BasePresenter;
 import com.jjz.energy.entry.event.LocationEvent;
 import com.jjz.energy.ui.community.PutCommunityActivity;
-import com.jjz.energy.ui.home.PutCommodityActivity;
+import com.jjz.energy.ui.home.commodity.PutCommodityActivity;
 import com.jjz.energy.ui.home.login.LoginActivity;
 import com.jjz.energy.ui.home.logistics.ReleaseLogisticsActivity;
 import com.jjz.energy.util.networkUtil.UserLoginBiz;

@@ -1,7 +1,7 @@
 package com.jjz.energy.view.mine;
 
 import com.jjz.energy.base.IBaseView;
-import com.jjz.energy.entry.MineInfoBean;
+import com.jjz.energy.entry.jiusu.MineInfoBean;
 
 /**
  * create 我的页面

@@ -2,6 +2,7 @@ package com.jjz.energy.base;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -11,7 +12,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.blankj.utilcode.util.ActivityUtils;
 import com.jjz.energy.R;
+import com.jjz.energy.ui.home.login.LoginActivity;
+import com.jjz.energy.util.networkUtil.UserLoginBiz;
 import com.jjz.energy.util.system.LoadingDialogUtil;
 import com.jjz.energy.view.OnLoadSirCallback;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -142,6 +146,25 @@ public abstract class BaseLazyFragment<P extends BasePresenter> extends Fragment
 
 
     //********************************************* 实用方法
+
+    /**
+     * 没登录就前往登录页面
+     *
+     * @return
+     */
+    protected void loginStartActivity(Class<?> cls,Bundle bundle) {
+        //未登录
+        if (!UserLoginBiz.getInstance(mContext).detectUserLoginStatus()) {
+            ActivityUtils.startActivity(LoginActivity.class);
+        } else {
+            Intent intent = new Intent();
+            intent.setClass(mContext, cls);
+            if (bundle!=null){
+                intent.putExtras(bundle);
+            }
+            startActivity(intent);
+        }
+    }
 
     /**
      * 加载页面

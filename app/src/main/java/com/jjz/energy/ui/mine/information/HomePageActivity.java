@@ -15,8 +15,8 @@ import com.jjz.energy.R;
 import com.jjz.energy.base.BaseActivity;
 import com.jjz.energy.base.BasePresenter;
 import com.jjz.energy.ui.community.PostFragment;
-import com.jjz.energy.ui.home.CommentFragment;
-import com.jjz.energy.ui.home.CommodityFragment;
+import com.jjz.energy.ui.home.commodity.CommentFragment;
+import com.jjz.energy.ui.home.commodity.CommodityFragment;
 import com.jjz.energy.util.glide.GlideUtils;
 
 import butterknife.BindView;

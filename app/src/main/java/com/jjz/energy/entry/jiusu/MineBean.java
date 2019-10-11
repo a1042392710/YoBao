@@ -1,4 +1,4 @@
-package com.jjz.energy.entry;
+package com.jjz.energy.entry.jiusu;
 
 public class MineBean {
         private String title;

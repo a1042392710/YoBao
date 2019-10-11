@@ -1,4 +1,4 @@
-package com.jjz.energy.entry;
+package com.jjz.energy.entry.jiusu;
 
 /**
  * @Features: 我的收款账户

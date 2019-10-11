@@ -20,6 +20,7 @@ import com.jjz.energy.R;
 import com.jjz.energy.adapter.HomeGoodsAdapter;
 import com.jjz.energy.base.BaseActivity;
 import com.jjz.energy.base.BasePresenter;
+import com.jjz.energy.ui.home.commodity.CommodityDetailActivity;
 import com.jjz.energy.util.flowlayout.FlowLayout;
 import com.jjz.energy.util.flowlayout.TagAdapter;
 import com.jjz.energy.util.flowlayout.TagFlowLayout;

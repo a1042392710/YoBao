@@ -1,6 +1,5 @@
-package com.jjz.energy.ui.home;
+package com.jjz.energy.ui.home.commodity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
@@ -9,7 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import com.jjz.energy.R;
 import com.jjz.energy.adapter.HomeGoodsAdapter;
 import com.jjz.energy.base.BaseLazyFragment;
-import com.jjz.energy.entry.GoodsBean;
+import com.jjz.energy.entry.GoodsListBean;
 import com.jjz.energy.presenter.home.HomeCommodityPresenter;
 import com.jjz.energy.util.networkUtil.PacketUtil;
 import com.jjz.energy.view.home.IHomeCommodityView;
@@ -21,7 +20,7 @@ import java.util.HashMap;
 import butterknife.BindView;
 
 /**
- * @Features: 商品详情
+ * @Features: 商品列表
  * @author: create by chenhao on 2019/10/11
  */
 public class HomeCommodityFragment extends BaseLazyFragment<HomeCommodityPresenter> implements IHomeCommodityView {
@@ -65,12 +64,16 @@ public class HomeCommodityFragment extends BaseLazyFragment<HomeCommodityPresent
         //商品适配器
         mGoodsAdapter = new HomeGoodsAdapter(R.layout.item_commodity_grid, new ArrayList<>());
         //解决图片闪烁的问题
-        mGoodsAdapter.setHasStableIds (true);
+        mGoodsAdapter.setHasStableIds(true);
         ((DefaultItemAnimator) rvType.getItemAnimator()).setSupportsChangeAnimations(false);
         rvType.setAdapter(mGoodsAdapter);
         //子项点击事件
-        mGoodsAdapter.setOnItemClickListener((adapter, view, position) ->
-                startActivity(new Intent(mContext, CommodityDetailActivity.class)));
+        mGoodsAdapter.setOnItemClickListener((adapter, view, position) -> {
+            Bundle bundle = new Bundle();
+            bundle.putInt(CommodityDetailActivity.GOODS_ID,
+                    mGoodsAdapter.getData().get(position).getGoods_id());
+            loginStartActivity(CommodityDetailActivity.class, bundle);
+        });
     }
 
     /**
@@ -106,7 +109,7 @@ public class HomeCommodityFragment extends BaseLazyFragment<HomeCommodityPresent
     }
 
     @Override
-    public void isGetGoodsSuc(GoodsBean data) {
+    public void isGetGoodsSuc(GoodsListBean data) {
         //加载更多
         if (isLoadMore) {
             //没有更多数据的时候，关闭加载更多

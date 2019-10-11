@@ -1,27 +1,28 @@
 package com.jjz.energy.base;
 
 import com.jjz.energy.entry.AddressBean;
-import com.jjz.energy.entry.AgencyBean;
 import com.jjz.energy.entry.BindBean;
 import com.jjz.energy.entry.BindOwnerInfoBean;
-import com.jjz.energy.entry.GoodsBean;
 import com.jjz.energy.entry.GoodsClassificationBean;
+import com.jjz.energy.entry.GoodsDetailsBean;
+import com.jjz.energy.entry.GoodsListBean;
 import com.jjz.energy.entry.HomeDetailBean;
-import com.jjz.energy.entry.HotBean;
-import com.jjz.energy.entry.HotDetailBean;
-import com.jjz.energy.entry.LoginBean;
-import com.jjz.energy.entry.MapMarkerBean;
-import com.jjz.energy.entry.MineAccountBean;
-import com.jjz.energy.entry.MineInfoBean;
-import com.jjz.energy.entry.MineWalletBean;
-import com.jjz.energy.entry.MineWalletListBean;
-import com.jjz.energy.entry.OrderBean;
-import com.jjz.energy.entry.OrderDetailBean;
-import com.jjz.energy.entry.ShareInfoBean;
-import com.jjz.energy.entry.ShopMarkerBean;
 import com.jjz.energy.entry.UserInfo;
-import com.jjz.energy.entry.VipListInfo;
-import com.jjz.energy.entry.WithdrawListBean;
+import com.jjz.energy.entry.jiusu.AgencyBean;
+import com.jjz.energy.entry.jiusu.HotBean;
+import com.jjz.energy.entry.jiusu.HotDetailBean;
+import com.jjz.energy.entry.jiusu.LoginBean;
+import com.jjz.energy.entry.jiusu.MapMarkerBean;
+import com.jjz.energy.entry.jiusu.MineAccountBean;
+import com.jjz.energy.entry.jiusu.MineInfoBean;
+import com.jjz.energy.entry.jiusu.MineWalletBean;
+import com.jjz.energy.entry.jiusu.MineWalletListBean;
+import com.jjz.energy.entry.jiusu.OrderBean;
+import com.jjz.energy.entry.jiusu.OrderDetailBean;
+import com.jjz.energy.entry.jiusu.ShareInfoBean;
+import com.jjz.energy.entry.jiusu.ShopMarkerBean;
+import com.jjz.energy.entry.jiusu.VipListInfo;
+import com.jjz.energy.entry.jiusu.WithdrawListBean;
 import com.jjz.energy.util.networkUtil.ResponseData;
 import com.jjz.energy.wxapi.OrderPayTypeBean;
 
@@ -185,12 +186,12 @@ public interface Api {
     );
 
 
-    //查询宝贝分类列表
+    //查询宝贝分类
     @FormUrlEncoded
     @POST("goods/getCateList")
     Flowable<ResponseData<List<GoodsClassificationBean>>> getClassification(@Field(PACK_NO) String pack_no);
 
-    //首页 查询宝贝分类列表
+    //首页 查询宝贝分类
     @FormUrlEncoded
     @POST("index/index")
     Flowable<ResponseData<HomeDetailBean>> getHomeClassification(@Field(PACK_NO) String pack_no);
@@ -200,8 +201,13 @@ public interface Api {
     //查询宝贝列表
     @FormUrlEncoded
     @POST("index/getGoodsList")
-    Flowable<ResponseData<GoodsBean>> getGoodsList(@Field(PACK_NO) String pack_no);
+    Flowable<ResponseData<GoodsListBean>> getGoodsList(@Field(PACK_NO) String pack_no);
 
+
+    //首页 查询宝贝详情
+    @FormUrlEncoded
+    @POST("index/index")
+    Flowable<ResponseData<GoodsDetailsBean>> getGoodsDetails(@Field(PACK_NO) String pack_no);
 
 
     //======================================================== 久速商城接口

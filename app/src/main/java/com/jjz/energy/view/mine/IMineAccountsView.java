@@ -1,7 +1,7 @@
 package com.jjz.energy.view.mine;
 
 import com.jjz.energy.base.IBaseView;
-import com.jjz.energy.entry.MineAccountBean;
+import com.jjz.energy.entry.jiusu.MineAccountBean;
 
 /**
  * create 我的收款账户

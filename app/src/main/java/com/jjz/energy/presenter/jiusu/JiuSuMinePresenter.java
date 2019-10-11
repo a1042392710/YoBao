@@ -3,8 +3,8 @@ package com.jjz.energy.presenter.jiusu;
 import android.annotation.SuppressLint;
 
 import com.jjz.energy.base.BasePresenter;
-import com.jjz.energy.entry.LoginBean;
-import com.jjz.energy.entry.OrderDetailBean;
+import com.jjz.energy.entry.jiusu.LoginBean;
+import com.jjz.energy.entry.jiusu.OrderDetailBean;
 import com.jjz.energy.model.mine.JiuSuMineModel;
 import com.jjz.energy.util.networkUtil.CommonSubscriber;
 import com.jjz.energy.view.mine.IPersonalInformationView;

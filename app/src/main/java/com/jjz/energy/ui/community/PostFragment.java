@@ -8,7 +8,7 @@ import com.jjz.energy.R;
 import com.jjz.energy.adapter.HomeGoodsAdapter;
 import com.jjz.energy.base.BaseFragment;
 import com.jjz.energy.base.BasePresenter;
-import com.jjz.energy.ui.home.CommodityDetailActivity;
+import com.jjz.energy.ui.home.commodity.CommodityDetailActivity;
 
 import java.util.ArrayList;
 

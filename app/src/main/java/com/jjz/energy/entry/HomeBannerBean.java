@@ -3,7 +3,7 @@ package com.jjz.energy.entry;
 import java.io.Serializable;
 
 /**
- * @Features:
+ * @Features: 首页bannner
  * @author: create by chenhao on 2019/6/17
  */
 public class HomeBannerBean implements Serializable {

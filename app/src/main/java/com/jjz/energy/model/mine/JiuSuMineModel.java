@@ -2,8 +2,8 @@ package com.jjz.energy.model.mine;
 
 import com.jjz.energy.base.Api;
 import com.jjz.energy.base.BaseModel;
-import com.jjz.energy.entry.LoginBean;
-import com.jjz.energy.entry.OrderDetailBean;
+import com.jjz.energy.entry.jiusu.LoginBean;
+import com.jjz.energy.entry.jiusu.OrderDetailBean;
 import com.jjz.energy.util.networkUtil.RetrofitFactory;
 import com.jjz.energy.util.networkUtil.RxSchedulerHepler;
 

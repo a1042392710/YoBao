@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.baidu.ocr.sdk.utils.LogUtil;
 import com.jjz.energy.R;
 import com.jjz.energy.base.BaseActivity;
-import com.jjz.energy.entry.MineAccountBean;
+import com.jjz.energy.entry.jiusu.MineAccountBean;
 import com.jjz.energy.presenter.mine.MineAccountsPresenter;
 import com.jjz.energy.util.StringUtil;
 import com.jjz.energy.util.networkUtil.PacketUtil;

@@ -1,7 +1,7 @@
 package com.jjz.energy.view.login;
 
 import com.jjz.energy.base.IBaseView;
-import com.jjz.energy.entry.LoginBean;
+import com.jjz.energy.entry.jiusu.LoginBean;
 import com.jjz.energy.entry.UserInfo;
 
 /**

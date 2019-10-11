@@ -8,25 +8,25 @@ import java.util.List;
  * @Features: 商品信息
  * @author: create by chenhao on 2019/10/10
  */
-public class GoodsBean implements Serializable {
+public class GoodsListBean implements Serializable {
 
     /**
      * 商品列表
      */
-    private List<GoodsList> list;
+    private List<GoodsBean> list;
 
-    public List<GoodsList> getList() {
+    public List<GoodsBean> getList() {
         if (list == null) {
             return new ArrayList<>();
         }
         return list;
     }
 
-    public void setList(List<GoodsList> list) {
+    public void setList(List<GoodsBean> list) {
         this.list = list;
     }
 
-    public class GoodsList implements Serializable{
+    public class GoodsBean implements Serializable{
 
 
         /**

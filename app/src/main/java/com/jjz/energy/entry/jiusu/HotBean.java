@@ -1,4 +1,4 @@
-package com.jjz.energy.entry;
+package com.jjz.energy.entry.jiusu;
 
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 

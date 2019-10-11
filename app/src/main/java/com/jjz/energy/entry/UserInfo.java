@@ -9,10 +9,9 @@ import java.io.Serializable;
 public class UserInfo implements Serializable {
 
     /**
-     * 资料完整度
+     * 用户ID
      */
-    private int  completion;
-
+    private String user_id;
     /**
      * 头像
      */
@@ -64,17 +63,26 @@ public class UserInfo implements Serializable {
      * 微信的openId 有 就表示授权了
      */
     private String wxapp_openid;
-
     /**
      * 用户IM
      */
     private String token;
-
     /**
      * 极光IM 用户密码
      */
     private String jmessage_password ;
+    /**
+     * 资料完整度
+     */
+    private int  completion;
 
+    public String getUser_id() {
+        return user_id == null ? "" : user_id;
+    }
+
+    public void setUser_id(String user_id) {
+        this.user_id = user_id;
+    }
 
     public String getJmessage_password() {
         return jmessage_password == null ? "" : jmessage_password;
