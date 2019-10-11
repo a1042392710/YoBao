@@ -11,7 +11,7 @@ public class UserInfo implements Serializable {
     /**
      * 用户ID
      */
-    private String user_id;
+    private long user_id;
     /**
      * 头像
      */
@@ -76,11 +76,11 @@ public class UserInfo implements Serializable {
      */
     private int  completion;
 
-    public String getUser_id() {
-        return user_id == null ? "" : user_id;
+    public long getUser_id() {
+        return user_id;
     }
 
-    public void setUser_id(String user_id) {
+    public void setUser_id(long user_id) {
         this.user_id = user_id;
     }
 

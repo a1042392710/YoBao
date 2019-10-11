@@ -19,7 +19,6 @@ import com.jjz.energy.base.BaseActivity;
 import com.jjz.energy.base.BaseApplication;
 import com.jjz.energy.base.BaseRecycleNewAdapter;
 import com.jjz.energy.entry.GoodsDetailsBean;
-import com.jjz.energy.entry.UserInfo;
 import com.jjz.energy.presenter.home.CommodityDetailsPresenter;
 import com.jjz.energy.ui.ImagePagerActivity;
 import com.jjz.energy.ui.mine.MineLikeCommodityActivity;
@@ -32,6 +31,7 @@ import com.jjz.energy.util.networkUtil.PacketUtil;
 import com.jjz.energy.view.home.ICommodityView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
@@ -93,6 +93,8 @@ public class CommodityDetailActivity extends BaseActivity <CommodityDetailsPrese
     TextView tvFavorites;
     @BindView(R.id.tv_buy)
     TextView tvBuy;
+    @BindView(R.id.ll_buyer)
+    LinearLayout llBuyer;
 
     public static final String GOODS_ID = "goods_id";
     /**
@@ -107,7 +109,7 @@ public class CommodityDetailActivity extends BaseActivity <CommodityDetailsPrese
     /**
      * 卖家的用户信息
      */
-    private UserInfo mSellerUserInfo ;
+    private GoodsDetailsBean.SellerInfoBean mSellerUserInfo ;
 
     @Override
     protected void initView() {
@@ -154,31 +156,44 @@ public class CommodityDetailActivity extends BaseActivity <CommodityDetailsPrese
 
     @Override
     public void isGetGoodsDetailsSuc(GoodsDetailsBean data) {
+
+        //当卖家查看自己的详情时，隐藏掉聊一聊和我想要
+        if (data.getSeller_info().getUser_id()==data.getBuyer_info().getUser_id()){
+            llBuyer.setVisibility(View.GONE);
+            tvTalk.setVisibility(View.GONE);
+        }
+
         //获取商品详情 和卖家信息成功  写入数据
-//        mSellerUserInfo = data.getUserInfo();  todo
-        tvCommodityNewMoney.setText("");//现价
-        tvCommodityOldMoney.setText("");//原价
-        tvCommodityFreight.setText("");//是否包邮。不包邮就显示运费
-        tvCommodityIsNew.setVisibility("全新".equals("1") ? View.VISIBLE : View.GONE);
-        tvCommodityTitle.setText("");//标题  是否全新 如果是 标题前面要多加4个文字的距离
-        tvCommodityContent.setText("");//宝贝描述
-        tvCommodityPageviews.setText("");//多少人想要 + 浏览数量
-
-        tvSellerName.setText("");//卖家昵称
-        tvToolbarTitle.setText("");//卖家昵称
-        tvSellerCommoditySum.setText("");//卖家在售宝贝数量
-        tvSellerOrderSum.setText("");//卖家累积交易
-        tvFansSum.setText("");//卖家粉丝
-
-
+        mSellerUserInfo = data.getSeller_info();
+        //现价
+        tvCommodityNewMoney.setText("￥"+data.getGoods_info().getMarket_price());
+        //原价
+        tvCommodityOldMoney.setText("原价¥"+data.getGoods_info().getShop_price());
+        //是否包邮。不包邮就显示运费
+        tvCommodityFreight.setText(data.getGoods_info().getShopping_price()==0?"包邮":"运费"+data.getGoods_info().getShopping_price()+"元");
+        //是否全新
+        tvCommodityIsNew.setVisibility(data.getGoods_info().getIs_mnh()==1? View.VISIBLE : View.GONE);
+        //标题  是否全新 如果是 标题前面要多加4个文字的距离
+        tvCommodityTitle.setText("\u3000\u3000  "+data.getGoods_info().getGoods_name());
+        //宝贝描述
+        tvCommodityContent.setText(data.getGoods_info().getMobile_content());
+        //多少人想要 + 浏览数量
+        tvCommodityPageviews.setText(data.getGoods_info().getCollect_sum()+"人想要，"+data.getGoods_info().getClick_count()+"次浏览");
+        //卖家昵称
+        tvSellerName.setText(mSellerUserInfo.getNickname());
+        tvToolbarTitle.setText(mSellerUserInfo.getNickname());
+        //卖家在售宝贝数量
+        tvSellerCommoditySum.setText(String.valueOf(mSellerUserInfo.getGoods_count()));
+        //卖家累积交易
+        tvSellerOrderSum.setText(String.valueOf(mSellerUserInfo.getOrder_count()));
+        //卖家粉丝
+        tvFansSum.setText(String.valueOf(mSellerUserInfo.getFans_count()));
         //卖家头像
-        GlideUtils.loadCircleImage(mContext,"http://b-ssl.duitang.com/uploads/item/201410/20/20141020224133_Ur54c.jpeg",imgSellerHead);
+        GlideUtils.loadCircleImage(mContext, mSellerUserInfo.getHead_pic(), imgSellerHead);
         //买家头像
-        GlideUtils.loadCircleImage(mContext,"http://cdn.duitang.com/uploads/item/201410/26/20141026191422_yEKyd.thumb.700_0.jpeg",imgUserHead);
+        GlideUtils.loadCircleImage(mContext, data.getBuyer_info().getHead_pic(), imgUserHead);
         //刷新宝贝图片
-        //        mPhotoAdapter.setNewData(); todo
-
-
+        mPhotoAdapter.setNewData(Arrays.asList(data.getGoods_info().getGoods_images().split(",")));
     }
 
     @OnClick({R.id.ll_toolbar_left, R.id.tv_talk, R.id.ll_seller_commodity_sum, R.id.ll_seller_fans,

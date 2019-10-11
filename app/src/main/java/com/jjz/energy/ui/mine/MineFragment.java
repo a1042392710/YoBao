@@ -14,7 +14,7 @@ import com.jjz.energy.base.BaseLazyFragment;
 import com.jjz.energy.entry.jiusu.MineBean;
 import com.jjz.energy.entry.jiusu.MineInfoBean;
 import com.jjz.energy.presenter.mine.MinePresenter;
-import com.jjz.energy.ui.mine.information.MineInfomationActivity;
+import com.jjz.energy.ui.mine.information.HomePageActivity;
 import com.jjz.energy.util.StringUtil;
 import com.jjz.energy.util.glide.GlideUtils;
 import com.jjz.energy.util.networkUtil.PacketUtil;
@@ -65,7 +65,10 @@ public class MineFragment  extends BaseLazyFragment<MinePresenter> implements IM
      * 我的菜单列表数据
      */
     private List<MineBean> mList;
-
+    /**
+     * 我的页面数据
+     */
+    private MineInfoBean mMineInfoBean = new MineInfoBean();
 
     @Override
     protected void initView() {
@@ -76,19 +79,20 @@ public class MineFragment  extends BaseLazyFragment<MinePresenter> implements IM
      * 获取用户数据成功
      */
     @Override
-    public void isGetInfoSuccess(MineInfoBean loginBean) {
+    public void isGetInfoSuccess(MineInfoBean data) {
+        mMineInfoBean = data;
         //推送公告
-        String push_message = loginBean.getPush_message();
+        String push_message = mMineInfoBean.getPush_message();
         //显示文本
         if (!StringUtil.isEmpty(push_message) && !push_message.equals(SpUtil.init(mContext).readString("push_message"))){
             PopWindowUtil.getInstance().showPopupWindow(mContext, push_message, () -> {});
             SpUtil.init(mContext).commit("push_message",push_message);
         }
         //头像
-        GlideUtils.loadCircleImage(mContext, loginBean.getHead_pic(), imgHead);
+        GlideUtils.loadCircleImage(mContext, mMineInfoBean.getHead_pic(), imgHead);
         //昵称
-        tvNickName.setText(loginBean.getNickname());
-        //关注数量和粉丝数量
+        tvNickName.setText(mMineInfoBean.getNickname());
+        //关注数量和粉丝数量 todo 未完成
         tvFansSum.setText("粉丝:100万");
         tvLikeSum.setText("关注:50");
     }
@@ -153,7 +157,7 @@ public class MineFragment  extends BaseLazyFragment<MinePresenter> implements IM
                 break;
             //头像
             case R.id.img_head:
-                startActivity(new Intent(mContext, MineInfomationActivity.class));
+                startActivity(new Intent(mContext, HomePageActivity.class).putExtra("user_id",mMineInfoBean.getUser_id()));
                 break;
                 //我发布的
             case R.id.ll_mine_release:

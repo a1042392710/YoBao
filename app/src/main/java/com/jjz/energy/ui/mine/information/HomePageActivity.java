@@ -56,6 +56,11 @@ public class HomePageActivity extends BaseActivity {
 
     private String  headImg = "http://n.sinaimg.cn/sinacn/20170814/7484-fyixias0541501.jpg";
 
+    /**
+     * 用户Id
+     */
+    private long user_id;
+
     @Override
     protected BasePresenter getPresenter() {
         return null;
@@ -68,6 +73,9 @@ public class HomePageActivity extends BaseActivity {
 
     @Override
     protected void initView() {
+        //用户Id 为0表示查询自己  提交的时候不提交UserId
+        user_id = getIntent().getLongExtra("user_id",0);
+
         //初始化Tablayou和ViewPager
         initVpAndVp();
         //设置头像

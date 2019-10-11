@@ -43,7 +43,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:includeFontPadding="false"
-                    android:text="300"
+                    android:text="0"
                     android:textColor="#fe6149"
                     android:textSize="17sp"/>
 
@@ -400,6 +400,7 @@
     </android.support.v4.widget.NestedScrollView>
 
     <LinearLayout
+        android:id="@+id/ll_buyer"
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:background="@color/white"

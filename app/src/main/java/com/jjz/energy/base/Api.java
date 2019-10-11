@@ -206,7 +206,7 @@ public interface Api {
 
     //首页 查询宝贝详情
     @FormUrlEncoded
-    @POST("index/index")
+    @POST("goods/goodsInfo")
     Flowable<ResponseData<GoodsDetailsBean>> getGoodsDetails(@Field(PACK_NO) String pack_no);
 
 

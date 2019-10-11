@@ -125,16 +125,18 @@ public class IMActivity extends BaseActivity {
     public void initImData() {
         //获取会话
         conversation = JMessageClient.getSingleConversation(userName);
-        //重置会话聊天未读
-        conversation.resetUnreadCount();
-        //标题
-        tvImTitle.setText(conversation.getTitle() == null ? "" : conversation.getTitle());
-        //聊天对象
-        UserInfo info = (UserInfo) conversation.getTargetInfo();
-        userName = info.getUserName();
-        //刷新聊天数据并且滚动到底部
-        if (conversation.getAllMessage() != null) {
-            notifyImList();
+        if (conversation!=null) {
+            //重置会话聊天未读
+            conversation.resetUnreadCount();
+            //标题
+            tvImTitle.setText(conversation.getTitle() == null ? "" : conversation.getTitle());
+            //聊天对象
+            UserInfo info = (UserInfo) conversation.getTargetInfo();
+            userName = info.getUserName();
+            //刷新聊天数据并且滚动到底部
+            if (conversation.getAllMessage() != null) {
+                notifyImList();
+            }
         }
     }
 

@@ -17,6 +17,10 @@ public class MineInfoBean  implements Serializable {
      */
     private String nickname;
 
+    /**
+     * 个人主页
+     */
+    private long user_id ;
 
     // 推送公告
     private String push_message;
@@ -30,6 +34,13 @@ public class MineInfoBean  implements Serializable {
      */
     private int like_num;
 
+    public long getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(long user_id) {
+        this.user_id = user_id;
+    }
 
     public String getHead_pic() {
         return head_pic == null ? "" : head_pic;
