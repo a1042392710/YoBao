@@ -28,13 +28,30 @@ public class BaseApplication extends Application {
     public void onCreate() {
         super.onCreate();
         AppContext = getApplicationContext();
+        initBaiduSDK();
+        initJPushJMessage();
+        setupLeakCanary();
+    }
+
+
+
+    /**
+     * 百度SDK  临时放一下bugly
+     */
+    private void initBaiduSDK() {
+        //bugly 参数3  调试开关 /测试时true 发布时false
+        Bugly.init(getApplicationContext(), Constant.BUGLY_ID, true);
         //在使用SDK各组件之前初始化context信息，传入ApplicationContext
         SDKInitializer.initialize(this);
         //自4.3.0起，百度地图SDK所有接口均支持百度坐标和国测局坐标，用此方法设置您使用的坐标类型.
         //包括BD09LL和GCJ02两种坐标，默认是BD09LL坐标。
         SDKInitializer.setCoordType(CoordType.BD09LL);
-        //bugly 参数3  调试开关 /测试时true 发布时false
-        Bugly.init(getApplicationContext(), Constant.BUGLY_ID, true);
+    }
+
+    /**
+     * 极光推送和极光Im
+     */
+    private void initJPushJMessage() {
         //极光推送
         JPushInterface.setDebugMode(true);// true则会打印debug级别的日志，false则只会打印warning级别以上的日志
         JPushInterface.init(this);
@@ -42,7 +59,6 @@ public class BaseApplication extends Application {
         JMessageClient.init(this, true);
         //开启全局监听事件
         JMessageClient.registerEventReceiver(this);
-        setupLeakCanary();
     }
 
     /**
@@ -56,7 +72,7 @@ public class BaseApplication extends Application {
     }
 
     /**
-     *  消息点击事件
+     *  全局聊天消息点击事件
      **/
     public void onEvent(NotificationClickEvent event) {
         String userName = event.getMessage().getFromUser().getUserName();
@@ -81,6 +97,7 @@ public class BaseApplication extends Application {
             return new ClassicsFooter(context);
         });
     }
+
     public static Context getAppContext() {
         return AppContext;
     }

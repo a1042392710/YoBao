@@ -107,7 +107,9 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements IHomeVi
      * 商品分类Id
      */
     private int mGoodsTypeId = 0;
-
+    /**
+     * 商品列表
+     */
     private HomeGoodsAdapter mGoodsAdapter;
 
     @Override
@@ -239,7 +241,6 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements IHomeVi
 
     @Override
     public void isGetClassificationSuc(HomeDetailBean data) {
-
         //将商品分类存下来
         mHomeDetail = data;
         //清空table
@@ -250,15 +251,25 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements IHomeVi
         }
         //初始化banner
         initBanner(data.getBannerList());
-
-
     }
 
     @Override
     public void isGetGoodsSuc(List<GoodsBean> data) {
-        //todo 刷新商品列表信息
+        //加载更多
+        if (isLoadMore) {
+            //没有更多数据
+            if (StringUtil.isListEmpty(data)) {
+                //关闭加载更多
+                smartRefresh.setEnableLoadMore(false);
+            }else {
+                mGoodsAdapter.addData(data);   //添加数据
+            }
+        } else {
+            //刷新数据 启用加载更多
+            smartRefresh.setEnableLoadMore(true);
+            mGoodsAdapter.notifyChangeData(data);
+        }
         closeRefresh(smartRefresh);
-
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
