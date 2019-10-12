@@ -241,15 +241,19 @@
             android:configChanges="orientation|screenSize"/>
 
         <!--查看大图-->
-        <activity android:name="com.jjz.energy.ui.ImagePagerActivity"
-                  android:configChanges="orientation|screenSize"/>
+        <activity
+            android:name="com.jjz.energy.ui.ImagePagerActivity"
+            android:configChanges="orientation|screenSize" />
 
         <!--商品详情-->
-        <activity android:name="com.jjz.energy.ui.home.commodity.CommodityDetailActivity"
-                  android:configChanges="orientation|screenSize"/>
+        <activity
+            android:name="com.jjz.energy.ui.home.commodity.CommodityDetailActivity"
+            android:configChanges="orientation|screenSize"
+            android:windowSoftInputMode="stateVisible|adjustPan" />
 
         <!--个人主页-->
-        <activity android:name="com.jjz.energy.ui.mine.information.HomePageActivity"
+        <activity
+            android:name="com.jjz.energy.ui.mine.information.HomePageActivity"
         android:configChanges="orientation|screenSize"/>
 
         <!--我的喜欢和我的关注-->

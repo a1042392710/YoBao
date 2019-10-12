@@ -10,7 +10,6 @@ import java.util.List;
  */
 public class CommentBean implements Serializable {
 
-
     private List<Comment> list;
 
     public List<Comment> getList() {
@@ -26,9 +25,4 @@ public class CommentBean implements Serializable {
 
 
 
-
-    class Comment implements Serializable{
-
-
-    }
 }

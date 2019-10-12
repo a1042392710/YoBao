@@ -3,9 +3,11 @@ package com.jjz.energy.ui.home.commodity;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -14,10 +16,11 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.ActivityUtils;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jjz.energy.R;
-import com.jjz.energy.adapter.CommentAdapter;
+import com.jjz.energy.adapter.CommentExpandAdapter;
 import com.jjz.energy.base.BaseActivity;
 import com.jjz.energy.base.BaseApplication;
 import com.jjz.energy.base.BaseRecycleNewAdapter;
+import com.jjz.energy.entry.CommentBean;
 import com.jjz.energy.entry.commodity.GoodsDetailsBean;
 import com.jjz.energy.presenter.home.CommodityDetailsPresenter;
 import com.jjz.energy.ui.ImagePagerActivity;
@@ -25,14 +28,20 @@ import com.jjz.energy.ui.mine.MineLikeCommodityActivity;
 import com.jjz.energy.ui.mine.information.HomePageActivity;
 import com.jjz.energy.ui.mine.shop_order.SureBuyActivity;
 import com.jjz.energy.ui.notice.IMActivity;
+import com.jjz.energy.util.StringUtil;
 import com.jjz.energy.util.Utils;
 import com.jjz.energy.util.glide.GlideUtils;
 import com.jjz.energy.util.networkUtil.PacketUtil;
+import com.jjz.energy.util.system.SoftKeyBoardListener;
 import com.jjz.energy.view.home.ICommodityView;
+import com.jjz.energy.widgets.CustomExpandableListView;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -85,8 +94,8 @@ public class CommodityDetailActivity extends BaseActivity <CommodityDetailsPrese
     EditText etComment;
     @BindView(R.id.tv_comment_send)
     TextView tvCommentSend;
-    @BindView(R.id.rv_comment)
-    RecyclerView rvComment;
+    @BindView(R.id.expandable_comment)
+    CustomExpandableListView expandableListView;
     @BindView(R.id.tv_like)
     TextView tvLike;
     @BindView(R.id.tv_favorites)
@@ -97,6 +106,20 @@ public class CommodityDetailActivity extends BaseActivity <CommodityDetailsPrese
     TextView tvCommodityNum;
     @BindView(R.id.ll_buyer)
     LinearLayout llBuyer;
+    @BindView(R.id.smart_refresh)
+    SmartRefreshLayout smartRefresh;
+    @BindView(R.id.ll_reply)
+    //回复
+    LinearLayout llReply;
+    @BindView(R.id.img_reply_head)
+    ImageView imgReplyHead;
+    @BindView(R.id.et_reply_content)
+    EditText etReplyContent;
+    @BindView(R.id.tv_reply_send)
+    TextView tvReplySend;
+    @BindView(R.id.scrollView)
+    NestedScrollView scrollView;
+
     /**
      * 商品ID
      */
@@ -109,11 +132,23 @@ public class CommodityDetailActivity extends BaseActivity <CommodityDetailsPrese
      * 商品详情的图片
      */
     private   CommdityPhotoAdapter mPhotoAdapter;
-
     /**
      * 卖家的用户信息
      */
-    private GoodsDetailsBean.SellerInfoBean mSellerUserInfo ;
+    private GoodsDetailsBean mGoodsInfo ;
+    /**
+     * 评论的适配器
+     */
+    private CommentExpandAdapter mCommentAdapter ;
+
+    /**
+     * 页码
+     */
+    private int  mPage=1;
+    /*
+     * 是否加载更多
+     */
+    private boolean isLoadMore;
 
     @Override
     protected void initView() {
@@ -122,22 +157,37 @@ public class CommodityDetailActivity extends BaseActivity <CommodityDetailsPrese
         tvCommodityOldMoney.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
         tvCommodityOldMoney.getPaint().setAntiAlias(true); //去掉锯齿
         initRv();
+        initEdit();
         //获取商品详情
         mPresenter.getGoodsDetails(PacketUtil.getRequestPacket(Utils.stringToMap(GOODS_ID,
                 goods_id + "")));
+        //获取商品留言
+        getCommentData(false);
+    }
+
+    /**
+     * 发表评论
+     */
+    private void sendComment(Map<String,String> hashMap,String content) {
+        hashMap.put("content",content);
+        mPresenter.putComment(PacketUtil.getRequestPacket(hashMap));
+    }
+
+    /**
+     * 获取商品留言
+     */
+    private void getCommentData(boolean isLoadMore) {
+        this.isLoadMore = isLoadMore;
+        HashMap<String, String> hashMap = new HashMap<>();
+        hashMap.put(GOODS_ID, goods_id + " ");
+        hashMap.put("page", mPage+"");
+        mPresenter.getGoodsComment(PacketUtil.getRequestPacket(hashMap),isLoadMore);
     }
 
     /**
      * 初始化列表
      */
     private void initRv() {
-        rvComment.setLayoutManager(new LinearLayoutManager(mContext) {
-            @Override
-            public boolean canScrollVertically() {
-                return false;
-            }
-        });
-
         rvCommodityPhoto.setLayoutManager(new LinearLayoutManager(mContext) {
             @Override
             public boolean canScrollVertically() {
@@ -147,15 +197,84 @@ public class CommodityDetailActivity extends BaseActivity <CommodityDetailsPrese
         mPhotoAdapter = new CommdityPhotoAdapter(R.layout.item_commodity_photo, new ArrayList<>());
         rvCommodityPhoto.setAdapter(mPhotoAdapter);
 
+        //评论数据初始化并展开所有回复
+        expandableListView.setGroupIndicator(null);//隐藏标识箭头
+        mCommentAdapter = new CommentExpandAdapter(mContext,new ArrayList<>());
+        expandableListView.setAdapter(mCommentAdapter);
+        //父容器的点击事件
+        expandableListView.setOnGroupClickListener(
+                (expandableListView, view, groupPosition, l) -> {
+                    //点击回复留言  第一层
+                    showReplyView("comment_id",String.valueOf(mCommentAdapter.getCommentBeanList()
+                            .get(groupPosition).getComment_id()));
+                    return true;
+                });
+        //子项的点击事件
+        expandableListView.setOnChildClickListener(
+                (expandableListView, view, groupPosition, childPosition, l) -> {
+                    //点击留言回复 第二层
+                    showReplyView("reply_id",String.valueOf(mCommentAdapter.getCommentBeanList()
+                            .get(groupPosition).getReply_list().get(childPosition).getReply_id()));
+                    return false;
+                });
+        //加载更多
+        smartRefresh.setOnLoadMoreListener(refreshLayout -> {
+            mPage++;
+            getCommentData(true);
+        });
+        //滑动的时候，将软键盘隐藏
+        scrollView.setOnScrollChangeListener((NestedScrollView.OnScrollChangeListener)
+                (nestedScrollView, i, i1, i2, i3) -> {
+                    disMissSoftKeyboard();
+                });
 
-        List<String> list = new ArrayList<>();
-        list.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1565580470&di=6814f2590982e050de05badee7537513&imgtype=jpg&er=1&src=http%3A%2F%2Fpic1.win4000.com%2Fwallpaper%2Fc%2F547441f23ba1c.jpg");
-        list.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1564985827305&di=0c8f30df29dd9ecd82752e274ba13da7&imgtype=0&src=http%3A%2F%2Fpic67.nipic.com%2Ffile%2F20150515%2F9448607_221818217002_2.jpg");
-        list.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1564985827226&di=bec368fe3a9a7d24eb693d5e45d82eed&imgtype=" +
-                "0&src=http%3A%2F%2Fpic5.nipic.com%2F20091224%2F3822085_091707089473_2.jpg");
-        CommentAdapter mCommentAdatper = new CommentAdapter(R.layout.item_comment,list);
-        rvComment.setAdapter(mCommentAdatper);
 
+    }
+
+    /**
+     * 提交的键值对
+     */
+    private String reply_key , reply_value;
+
+    /**
+     * 展示回复的View  Type 1 comment_id  2 reply_id
+     */
+    private void  showReplyView(String reply_key ,String reply_value ){
+        this.reply_key = reply_key ;
+        this.reply_value = reply_value ;
+        //显示输入框和软键盘
+        llReply.setVisibility(View.VISIBLE);
+        showInput(etReplyContent);
+
+    }
+
+    @Override
+    public void isGetCommentSuc(CommentBean data) {
+        if (isLoadMore) {
+            //没有更多数据的时候，关闭加载更多
+            if (!mCommentAdapter.addChangeData(data.getList()))
+                smartRefresh.setEnableLoadMore(false);
+        } else {
+            //刷新数据
+            if (mCommentAdapter.notifyChangeData(data.getList())){
+                //有数据就开启加载更多
+                smartRefresh.setEnableLoadMore(true);
+            }
+        }
+        //全部展开
+        for(int i = 0; i < mCommentAdapter.getCommentBeanList().size(); i++) {
+            expandableListView.expandGroup(i);
+        }
+        closeRefresh(smartRefresh);
+    }
+
+    @Override
+    public void isPutCommentSuc(String data) {
+        etComment.setText("");
+        etReplyContent.setText("");
+        //发布评论成功
+        mPage=1;
+        getCommentData(false);
     }
 
     @Override
@@ -165,8 +284,8 @@ public class CommodityDetailActivity extends BaseActivity <CommodityDetailsPrese
             llBuyer.setVisibility(View.GONE);
             tvTalk.setVisibility(View.GONE);
         }
-        //获取商品详情 和卖家信息成功  写入数据
-        mSellerUserInfo = data.getSeller_info();
+        //商品所有信息存下来  写入数据
+        mGoodsInfo = data;
         //数量
         tvCommodityNum.setText("库存:"+data.getGoods_info().getStore_count()+"件");
         //现价
@@ -184,24 +303,38 @@ public class CommodityDetailActivity extends BaseActivity <CommodityDetailsPrese
         //多少人想要 + 浏览数量
         tvCommodityPageviews.setText(data.getGoods_info().getCollect_sum()+"人想要，"+data.getGoods_info().getClick_count()+"次浏览");
         //卖家昵称
-        tvSellerName.setText(mSellerUserInfo.getNickname());
-        tvToolbarTitle.setText(mSellerUserInfo.getNickname());
+        tvSellerName.setText(data.getSeller_info().getNickname());
+        tvToolbarTitle.setText(data.getSeller_info().getNickname());
         //卖家在售商品数量
-        tvSellerCommoditySum.setText(String.valueOf(mSellerUserInfo.getGoods_count()));
+        tvSellerCommoditySum.setText(String.valueOf(data.getSeller_info().getGoods_count()));
         //卖家累积交易
-        tvSellerOrderSum.setText(String.valueOf(mSellerUserInfo.getOrder_count()));
+        tvSellerOrderSum.setText(String.valueOf(data.getSeller_info().getOrder_count()));
         //卖家粉丝
-        tvFansSum.setText(String.valueOf(mSellerUserInfo.getFans_count()));
+        tvFansSum.setText(String.valueOf(data.getSeller_info().getFans_count()));
         //卖家头像
-        GlideUtils.loadCircleImage(mContext, mSellerUserInfo.getHead_pic(), imgSellerHead);
+        GlideUtils.loadCircleImage(mContext, data.getSeller_info().getHead_pic(), imgSellerHead);
         //买家头像
         GlideUtils.loadCircleImage(mContext, data.getBuyer_info().getHead_pic(), imgUserHead);
+        //买家头像
+        GlideUtils.loadCircleImage(mContext, data.getBuyer_info().getHead_pic(), imgReplyHead);
         //刷新商品图片
         mPhotoAdapter.setNewData(Arrays.asList(data.getGoods_info().getGoods_images().split(",")));
     }
 
+
+
+    /**
+     * 显示键盘
+     */
+    public void showInput (EditText et) {
+        et.requestFocus();
+        InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+        imm.showSoftInput(et, InputMethodManager.SHOW_IMPLICIT);
+    }
+
+
     @OnClick({R.id.ll_toolbar_left, R.id.tv_talk, R.id.ll_seller_commodity_sum, R.id.ll_seller_fans,
-            R.id.ll_seller_order_sum, R.id.img_seller_head, R.id.tv_comment_send, R.id.tv_like,
+            R.id.ll_seller_order_sum, R.id.img_seller_head, R.id.tv_comment_send, R.id.tv_like,R.id.tv_reply_send,
             R.id.tv_favorites, R.id.tv_buy})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -210,10 +343,9 @@ public class CommodityDetailActivity extends BaseActivity <CommodityDetailsPrese
                 break;
                 //聊一聊
             case R.id.tv_talk:
-                if (mSellerUserInfo!=null){
-
+                if (mGoodsInfo!=null){
                     startActivity(new Intent(mContext, IMActivity.class).putExtra("userName",
-                            mSellerUserInfo.getMobile()));
+                            mGoodsInfo.getSeller_info().getMobile()));
                 } else {
                     showToast("获取聊天对象失败");
                 }
@@ -226,15 +358,26 @@ public class CommodityDetailActivity extends BaseActivity <CommodityDetailsPrese
             case R.id.ll_seller_commodity_sum:
             case R.id.img_seller_head:
             case R.id.ll_seller_order_sum:
-                if (mSellerUserInfo == null) {
+                if (mGoodsInfo == null) {
                     showToast("获取卖家信息失败");
                     return;
                 }
                 startActivity(new Intent(mContext, HomePageActivity.class).putExtra("user_id"
-                        , mSellerUserInfo.getUser_id()));
+                        , mGoodsInfo.getSeller_info().getUser_id()));
                 break;
                 //发表评论
             case R.id.tv_comment_send:
+                if (StringUtil.isEmpty(etComment.getText().toString())){
+                    return;
+                }
+                sendComment(Utils.stringToMap("goods_id",mGoodsInfo.getGoods_info().getGoods_id()+""),etComment.getText().toString());
+                break;
+            //发送回复
+            case R.id.tv_reply_send:
+                if (StringUtil.isEmpty(etReplyContent.getText().toString())){
+                    return;
+                }
+                sendComment(Utils.stringToMap(reply_key,reply_value),etReplyContent.getText().toString());
                 break;
                 //想要
             case R.id.tv_like:
@@ -248,7 +391,30 @@ public class CommodityDetailActivity extends BaseActivity <CommodityDetailsPrese
             case R.id.tv_buy:
                 ActivityUtils.startActivity(SureBuyActivity.class);
                 break;
+
         }
+    }
+
+    /**
+     * 监听键盘
+     */
+    private void initEdit() {
+        //软键盘缩回时，如果 回复框 还在的话就隐藏
+        SoftKeyBoardListener.setListener(this,
+                new SoftKeyBoardListener.OnSoftKeyBoardChangeListener() {
+                    @Override
+                    public void keyBoardShow(int height) {
+
+                    }
+
+                    @Override
+                    public void keyBoardHide(int height) {
+                        if (llReply.getVisibility() == View.VISIBLE) {
+                            llReply.setVisibility(View.GONE);
+                            etReplyContent.setText("");
+                        }
+                    }
+                });
     }
 
     /**
@@ -280,6 +446,10 @@ public class CommodityDetailActivity extends BaseActivity <CommodityDetailsPrese
 
     @Override
     public void isFail(String msg, boolean isNetAndServiceError) {
+        if (isLoadMore){
+            mPage--;
+        }
+        closeRefresh(smartRefresh);
         showToast(msg);
     }
 

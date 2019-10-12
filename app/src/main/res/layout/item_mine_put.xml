@@ -13,14 +13,13 @@
         android:id="@+id/item_tv_over_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:drawableRight="@mipmap/ic_nani"
         android:paddingTop="1dp"
         android:paddingBottom="5dp"
         android:paddingRight="10dp"
         android:textColor="#a9a9a9"
         android:textSize="12sp"
         android:drawablePadding="5dp"
-        android:text="60天后下架"/>
+        android:text="已上架68天"/>
 
 
     <ImageView

@@ -45,4 +45,6 @@ public abstract class BaseRecycleNewAdapter<T> extends BaseQuickAdapter<T, BaseV
         super.addData(data);
         return true;
     }
+
+
 }

@@ -3,6 +3,7 @@ package com.jjz.energy.base;
 import com.jjz.energy.entry.AddressBean;
 import com.jjz.energy.entry.BindBean;
 import com.jjz.energy.entry.BindOwnerInfoBean;
+import com.jjz.energy.entry.CommentBean;
 import com.jjz.energy.entry.commodity.GoodsClassificationBean;
 import com.jjz.energy.entry.commodity.GoodsDetailsBean;
 import com.jjz.energy.entry.commodity.GoodsListBean;
@@ -208,6 +209,16 @@ public interface Api {
     @FormUrlEncoded
     @POST("goods/goodsInfo")
     Flowable<ResponseData<GoodsDetailsBean>> getGoodsDetails(@Field(PACK_NO) String pack_no);
+
+    //商品详情 查询留言评论列表
+    @FormUrlEncoded
+    @POST("goods/goodsComments")
+    Flowable<ResponseData<CommentBean>> getGoodsComment(@Field(PACK_NO) String pack_no);
+
+    //商品详情  发布留言评论
+    @FormUrlEncoded
+    @POST("goods/sendComment")
+    Flowable<ResponseData<String>> putComment(@Field(PACK_NO) String pack_no);
 
 
     //======================================================== 久速商城接口

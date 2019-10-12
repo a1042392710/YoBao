@@ -3,6 +3,7 @@ package com.jjz.energy.presenter.home;
 import android.annotation.SuppressLint;
 
 import com.jjz.energy.base.BasePresenter;
+import com.jjz.energy.entry.CommentBean;
 import com.jjz.energy.entry.commodity.GoodsDetailsBean;
 import com.jjz.energy.model.home.CommodityDetailsModel;
 import com.jjz.energy.util.networkUtil.CommonSubscriber;
@@ -40,6 +41,69 @@ public class CommodityDetailsPresenter extends BasePresenter<CommodityDetailsMod
                     protected void onSuccess(GoodsDetailsBean response) {
                         mView.stopLoading();
                         mView.isGetGoodsDetailsSuc(response);
+                    }
+
+                    @Override
+                    protected void onFail(String errorMsg ,boolean isNetAndSeriveError) {
+                        mView.isFail(errorMsg,isNetAndSeriveError);
+                        mView.stopLoading();
+                    }
+                }));
+
+    }
+
+    /**
+     * 获取商品评论
+     * @param map
+     */
+    @SuppressLint("CheckResult")
+    public void getGoodsComment(String map ,boolean isLoadMore) {
+
+        addSubscribe(mModel.getGoodsComment(map)
+                .subscribeWith(new CommonSubscriber<CommentBean>() {
+
+                    @Override
+                    protected void startLoading() {
+                        if (!isLoadMore){
+                            mView.showLoading();
+                        }
+                    }
+
+                    @Override
+                    protected void onSuccess(CommentBean response) {
+                        mView.stopLoading();
+                        mView.isGetCommentSuc(response);
+                    }
+
+                    @Override
+                    protected void onFail(String errorMsg ,boolean isNetAndSeriveError) {
+                        mView.isFail(errorMsg,isNetAndSeriveError);
+                        mView.stopLoading();
+                    }
+                }));
+
+    }
+
+
+    /**
+     * 发送评论
+     * @param map
+     */
+    @SuppressLint("CheckResult")
+    public void putComment(String map) {
+
+        addSubscribe(mModel.putComment(map)
+                .subscribeWith(new CommonSubscriber<String>() {
+
+                    @Override
+                    protected void startLoading() {
+                        mView.showLoading();
+                    }
+
+                    @Override
+                    protected void onSuccess(String response) {
+                        mView.stopLoading();
+                        mView.isPutCommentSuc(response);
                     }
 
                     @Override

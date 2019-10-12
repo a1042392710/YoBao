@@ -1,6 +1,7 @@
 package com.jjz.energy.view.home;
 
 import com.jjz.energy.base.IBaseView;
+import com.jjz.energy.entry.CommentBean;
 import com.jjz.energy.entry.commodity.GoodsDetailsBean;
 
 /**
@@ -11,6 +12,12 @@ public interface ICommodityView extends IBaseView {
 
     //获取商品详情
     void isGetGoodsDetailsSuc(GoodsDetailsBean data);
+
+    //获取评论列表
+    void isGetCommentSuc(CommentBean data);
+
+    //发布评论
+    void isPutCommentSuc(String data);
 
     void isFail(String msg, boolean isNetAndServiceError);
 }
