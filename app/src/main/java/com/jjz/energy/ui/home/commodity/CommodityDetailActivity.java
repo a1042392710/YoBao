@@ -18,7 +18,7 @@ import com.jjz.energy.adapter.CommentAdapter;
 import com.jjz.energy.base.BaseActivity;
 import com.jjz.energy.base.BaseApplication;
 import com.jjz.energy.base.BaseRecycleNewAdapter;
-import com.jjz.energy.entry.GoodsDetailsBean;
+import com.jjz.energy.entry.commodity.GoodsDetailsBean;
 import com.jjz.energy.presenter.home.CommodityDetailsPresenter;
 import com.jjz.energy.ui.ImagePagerActivity;
 import com.jjz.energy.ui.mine.MineLikeCommodityActivity;
@@ -93,9 +93,13 @@ public class CommodityDetailActivity extends BaseActivity <CommodityDetailsPrese
     TextView tvFavorites;
     @BindView(R.id.tv_buy)
     TextView tvBuy;
+    @BindView(R.id.tv_commodity_num)
+    TextView tvCommodityNum;
     @BindView(R.id.ll_buyer)
     LinearLayout llBuyer;
-
+    /**
+     * 商品ID
+     */
     public static final String GOODS_ID = "goods_id";
     /**
      * 该商品的id
@@ -156,15 +160,15 @@ public class CommodityDetailActivity extends BaseActivity <CommodityDetailsPrese
 
     @Override
     public void isGetGoodsDetailsSuc(GoodsDetailsBean data) {
-
         //当卖家查看自己的详情时，隐藏掉聊一聊和我想要
         if (data.getSeller_info().getUser_id()==data.getBuyer_info().getUser_id()){
             llBuyer.setVisibility(View.GONE);
             tvTalk.setVisibility(View.GONE);
         }
-
         //获取商品详情 和卖家信息成功  写入数据
         mSellerUserInfo = data.getSeller_info();
+        //数量
+        tvCommodityNum.setText("库存:"+data.getGoods_info().getStore_count()+"件");
         //现价
         tvCommodityNewMoney.setText("￥"+data.getGoods_info().getMarket_price());
         //原价
@@ -175,14 +179,14 @@ public class CommodityDetailActivity extends BaseActivity <CommodityDetailsPrese
         tvCommodityIsNew.setVisibility(data.getGoods_info().getIs_mnh()==1? View.VISIBLE : View.GONE);
         //标题  是否全新 如果是 标题前面要多加4个文字的距离
         tvCommodityTitle.setText("\u3000\u3000  "+data.getGoods_info().getGoods_name());
-        //宝贝描述
+        //商品描述
         tvCommodityContent.setText(data.getGoods_info().getMobile_content());
         //多少人想要 + 浏览数量
         tvCommodityPageviews.setText(data.getGoods_info().getCollect_sum()+"人想要，"+data.getGoods_info().getClick_count()+"次浏览");
         //卖家昵称
         tvSellerName.setText(mSellerUserInfo.getNickname());
         tvToolbarTitle.setText(mSellerUserInfo.getNickname());
-        //卖家在售宝贝数量
+        //卖家在售商品数量
         tvSellerCommoditySum.setText(String.valueOf(mSellerUserInfo.getGoods_count()));
         //卖家累积交易
         tvSellerOrderSum.setText(String.valueOf(mSellerUserInfo.getOrder_count()));
@@ -192,7 +196,7 @@ public class CommodityDetailActivity extends BaseActivity <CommodityDetailsPrese
         GlideUtils.loadCircleImage(mContext, mSellerUserInfo.getHead_pic(), imgSellerHead);
         //买家头像
         GlideUtils.loadCircleImage(mContext, data.getBuyer_info().getHead_pic(), imgUserHead);
-        //刷新宝贝图片
+        //刷新商品图片
         mPhotoAdapter.setNewData(Arrays.asList(data.getGoods_info().getGoods_images().split(",")));
     }
 
@@ -207,6 +211,7 @@ public class CommodityDetailActivity extends BaseActivity <CommodityDetailsPrese
                 //聊一聊
             case R.id.tv_talk:
                 if (mSellerUserInfo!=null){
+
                     startActivity(new Intent(mContext, IMActivity.class).putExtra("userName",
                             mSellerUserInfo.getMobile()));
                 } else {

@@ -47,7 +47,7 @@ public class SureBuyActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        tvToolbarTitle.setText("购买宝贝");
+        tvToolbarTitle.setText("购买商品");
     }
 
 

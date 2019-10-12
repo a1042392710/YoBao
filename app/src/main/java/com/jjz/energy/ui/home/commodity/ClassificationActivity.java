@@ -12,7 +12,7 @@ import com.jjz.energy.R;
 import com.jjz.energy.base.BaseActivity;
 import com.jjz.energy.base.BaseRecycleNewAdapter;
 import com.jjz.energy.base.Constant;
-import com.jjz.energy.entry.GoodsClassificationBean;
+import com.jjz.energy.entry.commodity.GoodsClassificationBean;
 import com.jjz.energy.presenter.home.PutCommodityPresenter;
 import com.jjz.energy.util.networkUtil.PacketUtil;
 import com.jjz.energy.view.home.IPutCommodityView;

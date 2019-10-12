@@ -25,7 +25,7 @@ import com.jjz.energy.R;
 import com.jjz.energy.adapter.CommonSelectPhotoAdapter;
 import com.jjz.energy.base.BaseActivity;
 import com.jjz.energy.base.Constant;
-import com.jjz.energy.entry.GoodsClassificationBean;
+import com.jjz.energy.entry.commodity.GoodsClassificationBean;
 import com.jjz.energy.presenter.home.PutCommodityPresenter;
 import com.jjz.energy.util.StringUtil;
 import com.jjz.energy.util.file.FileUtil;
@@ -59,7 +59,7 @@ import top.zibin.luban.Luban;
 import top.zibin.luban.OnCompressListener;
 
 /**
- * @Features: 发布宝贝
+ * @Features: 发布商品
  * @author: create by chenhao on 2019/8/1
  */
 @RuntimePermissions
@@ -116,7 +116,7 @@ public class PutCommodityActivity extends BaseActivity <PutCommodityPresenter>im
 
     @Override
     protected void initView() {
-        tvToolbarTitle.setText("发布宝贝");
+        tvToolbarTitle.setText("发布商品");
         tvToolbarRight.setText("发布");
         EventBus.getDefault().register(this);
         //地区
@@ -207,17 +207,17 @@ public class PutCommodityActivity extends BaseActivity <PutCommodityPresenter>im
             return false;
         }
         if (StringUtil.isListEmpty(mSelectPhotos) ) {
-            showToast("您还没有选择宝贝图片");
+            showToast("您还没有选择商品图片");
             return false;
         }
 
         if (mClassificationBean==null){
-            showToast("您还没有给宝贝选择类别");
+            showToast("您还没有给商品选择类别");
             return false;
         }
 
         if (mMoneyInfo==null){
-            showToast("请给宝贝开个价哦");
+            showToast("请给商品开个价哦");
             return false;
         }
         return true;

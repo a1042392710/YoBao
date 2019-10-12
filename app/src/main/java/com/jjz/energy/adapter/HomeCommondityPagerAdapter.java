@@ -6,7 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.jjz.energy.entry.GoodsClassificationBean;
+import com.jjz.energy.entry.commodity.GoodsClassificationBean;
 import com.jjz.energy.ui.home.commodity.HomeCommodityFragment;
 
 import java.util.List;

@@ -105,7 +105,7 @@
             android:layout_width="wrap_content"
             android:minWidth="70dp"
             android:layout_height="wrap_content"
-            android:text="宝贝数量"
+            android:text="商品数量"
             android:textColor="@color/text_black33"
             android:textSize="13sp"/>
 

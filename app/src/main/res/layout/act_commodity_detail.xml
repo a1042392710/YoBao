@@ -59,15 +59,24 @@
 
                 <TextView
                     android:id="@+id/tv_commodity_freight"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="3dp"
-                    android:layout_weight="1"
                     android:includeFontPadding="false"
                     tools:text="包邮"
                     android:textColor="#bcbcbc"
                     android:textSize="10sp"/>
 
+                <TextView
+                    android:id="@+id/tv_commodity_num"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="3dp"
+                    android:layout_weight="1"
+                    android:includeFontPadding="false"
+                    tools:text="库存:1件"
+                    android:textColor="#bcbcbc"
+                    android:textSize="10sp"/>
                 <TextView
                     android:id="@+id/tv_talk"
                     android:layout_width="75dp"
@@ -136,7 +145,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="18dp"
                 android:layout_marginTop="20dp"
-                android:text="宝贝描述"
+                android:text="商品描述"
                 android:textColor="#000000"
                 android:textSize="17sp"/>
 
@@ -254,7 +263,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"
-                        android:text="在售宝贝"
+                        android:text="在售商品"
                         android:textColor="#bcbcbc"
                         android:textSize="12sp"/>
 

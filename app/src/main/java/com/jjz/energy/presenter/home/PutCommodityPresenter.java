@@ -3,7 +3,7 @@ package com.jjz.energy.presenter.home;
 import android.annotation.SuppressLint;
 
 import com.jjz.energy.base.BasePresenter;
-import com.jjz.energy.entry.GoodsClassificationBean;
+import com.jjz.energy.entry.commodity.GoodsClassificationBean;
 import com.jjz.energy.model.home.PutCommodityModel;
 import com.jjz.energy.util.networkUtil.CommonSubscriber;
 import com.jjz.energy.view.home.IPutCommodityView;
@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * @ author Ch
  * @ date  2019/9/7  15:59
- * @ fuction 发布宝贝
+ * @ fuction 发布商品
  */
 public class PutCommodityPresenter extends BasePresenter<PutCommodityModel, IPutCommodityView> {
 
@@ -25,7 +25,7 @@ public class PutCommodityPresenter extends BasePresenter<PutCommodityModel, IPut
 
 
     /**
-     * 发布宝贝
+     * 发布商品
      */
     @SuppressLint("CheckResult")
     public void putCommodity(String data, List<File> files) {

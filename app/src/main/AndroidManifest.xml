@@ -232,7 +232,7 @@
         <activity android:name="com.jjz.energy.ui.mine.information.BindAliPayActivity"
                   android:configChanges="orientation|screenSize"/>
 
-        <!--发布宝贝-->
+        <!--发布商品-->
         <activity android:name="com.jjz.energy.ui.home.commodity.PutCommodityActivity"
             android:configChanges="orientation|screenSize"/>
 

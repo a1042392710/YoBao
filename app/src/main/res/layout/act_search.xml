@@ -48,7 +48,7 @@
                 android:paddingTop="8dp"
                 android:paddingRight="18dp"
                 android:paddingBottom="8dp"
-                android:hint="搜索宝贝"
+                android:hint="搜索商品"
                 android:textColor="#acacac"
                 android:textSize="13sp"/>
 

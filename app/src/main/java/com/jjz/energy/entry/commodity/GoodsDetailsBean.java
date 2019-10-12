@@ -1,4 +1,4 @@
-package com.jjz.energy.entry;
+package com.jjz.energy.entry.commodity;
 
 import java.io.Serializable;
 
@@ -61,7 +61,7 @@ public class GoodsDetailsBean implements Serializable {
         }
     }
 
-    public  class GoodsInfoBean {
+    public  class GoodsInfoBean  implements Serializable{
         /**
          * click_count : 0
          * collect_sum : 47
@@ -78,9 +78,18 @@ public class GoodsDetailsBean implements Serializable {
          * shop_price : 555.00
          * user_id : 6
          */
-
+        /**
+         * 浏览数
+         */
         private int click_count;
+        /**
+         * 收藏数
+         */
         private int collect_sum;
+        /**
+         * 库存
+         */
+        private int store_count;
         private int goods_id;
         //图片列表
         private String goods_images;
@@ -98,6 +107,14 @@ public class GoodsDetailsBean implements Serializable {
         private int shopping_price;
         //用户id
         private int user_id;
+
+        public int getStore_count() {
+            return store_count;
+        }
+
+        public void setStore_count(int store_count) {
+            this.store_count = store_count;
+        }
 
         public int getShopping_price() {
             return shopping_price;

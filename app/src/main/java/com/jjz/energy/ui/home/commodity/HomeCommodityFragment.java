@@ -8,7 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import com.jjz.energy.R;
 import com.jjz.energy.adapter.HomeGoodsAdapter;
 import com.jjz.energy.base.BaseLazyFragment;
-import com.jjz.energy.entry.GoodsListBean;
+import com.jjz.energy.entry.commodity.GoodsListBean;
 import com.jjz.energy.presenter.home.HomeCommodityPresenter;
 import com.jjz.energy.util.networkUtil.PacketUtil;
 import com.jjz.energy.view.home.IHomeCommodityView;
@@ -118,7 +118,7 @@ public class HomeCommodityFragment extends BaseLazyFragment<HomeCommodityPresent
         } else {
             // 新数据为空时 显示空数据页面
             if (!mGoodsAdapter.notifyChangeData(data.getList())){
-                mGoodsAdapter.setEmptyView(getLoadSirView(R.mipmap.ic_none_notice,"这里还没有宝贝",true, v -> {
+                mGoodsAdapter.setEmptyView(getLoadSirView(R.mipmap.ic_none_data,"这里还没有商品",true, v -> {
                     //点击刷新
                     getData(false);
                 }));

@@ -78,7 +78,7 @@ public class SearchActivity extends BaseActivity {
     private void initSearch() {
         switch (searchType){
             case SEARCH_COMMODITY:
-                etSearch.setHint("搜索热门宝贝");
+                etSearch.setHint("搜索热门商品");
                 break;
 
             case SEARCH_SHOP:

@@ -45,7 +45,7 @@
                 android:layout_marginTop="10dp"
                 android:background="@color/white"
                 android:ellipsize="end"
-                android:hint="宝贝标题 品牌型号 买家喜欢搜索的"
+                android:hint="商品标题 品牌型号 买家喜欢搜索的"
                 android:maxLines="2"
                 android:paddingLeft="18dp"
                 android:maxLength="30"
@@ -62,7 +62,7 @@
                 android:layout_height="wrap_content"
                 android:background="@color/white"
                 android:gravity="top"
-                android:hint="详情描述一下宝贝转手原因，规格尺寸，新旧程度等"
+                android:hint="详情描述一下商品转手原因，规格尺寸，新旧程度等"
                 android:minHeight="110dp"
                 android:paddingLeft="18dp"
                 android:paddingTop="6dp"
@@ -106,7 +106,7 @@
                     android:id="@+id/cb_is_new_commodity"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="全新宝贝"
+                    android:text="全新商品"
                     android:textColor="@color/text_black33"
                     android:textSize="13sp"/>
 

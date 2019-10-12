@@ -1,7 +1,7 @@
 package com.jjz.energy.view.home;
 
 import com.jjz.energy.base.IBaseView;
-import com.jjz.energy.entry.GoodsListBean;
+import com.jjz.energy.entry.commodity.GoodsListBean;
 
 /**
  * @Features: 首页 商品

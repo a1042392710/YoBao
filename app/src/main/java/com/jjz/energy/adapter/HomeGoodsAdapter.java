@@ -10,7 +10,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jjz.energy.R;
 import com.jjz.energy.base.BaseRecycleNewAdapter;
-import com.jjz.energy.entry.GoodsListBean;
+import com.jjz.energy.entry.commodity.GoodsListBean;
 import com.jjz.energy.util.glide.GlideUtils;
 import com.jjz.energy.util.glide.RoundedCornersTransform;
 

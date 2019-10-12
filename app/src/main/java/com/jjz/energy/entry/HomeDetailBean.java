@@ -1,5 +1,7 @@
 package com.jjz.energy.entry;
 
+import com.jjz.energy.entry.commodity.GoodsClassificationBean;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;

@@ -150,7 +150,7 @@ public class MainActivity extends BaseActivity {
         LinearLayout item_ll_put_post = view.findViewById(R.id.item_ll_put_post);
         //发布物流
         LinearLayout item_ll_put_logistics = view.findViewById(R.id.item_ll_put_logistics);
-        //发布宝贝
+        //发布商品
         LinearLayout item_ll_put_idle = view.findViewById(R.id.item_ll_put_idle);
         PopupWindow  popupWindow= PopWindowUtil.getInstance().showAllWindow(mContext,view);
         //关闭弹窗
@@ -162,16 +162,16 @@ public class MainActivity extends BaseActivity {
             //发布物流
             startActivity(new Intent(mContext, ReleaseLogisticsActivity.class));
         });
-        //发布宝贝
+        //发布商品
         item_ll_put_idle.setOnClickListener(v -> {
             popupWindow.dismiss();
-            //发布宝贝
+            //发布商品
             startActivity(new Intent(mContext, PutCommodityActivity.class));
         });
         //发布帖子
         item_ll_put_post.setOnClickListener(v -> {
             popupWindow.dismiss();
-            //发布宝贝
+            //发布商品
             startActivity(new Intent(mContext, PutCommunityActivity.class));
         });
     }

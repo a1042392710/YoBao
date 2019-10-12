@@ -120,7 +120,7 @@ public class HomePageActivity extends BaseActivity {
     }
 
     class ViewPagerAdapter extends FragmentPagerAdapter {
-        private String[] title = {"宝贝", "帖子", "评价"};
+        private String[] title = {"商品", "帖子", "评价"};
 
         private Fragment[] mFragments = new Fragment[]{new CommodityFragment(), new PostFragment(),
                 new CommentFragment()};

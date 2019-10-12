@@ -85,7 +85,7 @@ public class CommunityFragment extends BaseFragment {
                 break;
                 //发布帖子
             case R.id.img_postings:
-                //发布宝贝
+                //发布商品
                 startActivity(new Intent(mContext, PutCommunityActivity.class));
                 break;
         }
