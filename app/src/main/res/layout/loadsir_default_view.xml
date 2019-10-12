@@ -1,32 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/ll_timeout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/img_loadsir"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="4dp"
-        tools:background="@mipmap/ic_none_timeout" />
+
 
     <TextView
         android:id="@+id/tv_loadsir_msg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
         android:text="网络连接超时"
         android:layout_marginTop="3dp"
         android:textColor="@color/text_black28"
         android:textSize="15sp" />
 
     <TextView
+        android:layout_below="@id/tv_loadsir_msg"
+        android:layout_centerHorizontal="true"
         android:id="@+id/tv_loadsir_agan"
         android:layout_marginTop="5dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="点击重试" />
-</LinearLayout>
+        android:text="点击刷新" />
+
+    <ImageView
+        android:id="@+id/img_loadsir"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/tv_loadsir_msg"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="4dp"
+        tools:background="@mipmap/ic_none_timeout" />
+
+</RelativeLayout>

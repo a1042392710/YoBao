@@ -185,9 +185,7 @@ public class AddressManagerActivity extends BaseActivity<AddressManagerPresenter
         mList = data.getList();
         //无数据页面
         if (StringUtil.isListEmpty(mList)) {
-            mAddressManagerAdapter.setEmptyView(getLoadSirView(R.mipmap.ic_none_data, "暂无数据",true, v -> {
-                getData();
-            }));
+            mAddressManagerAdapter.setEmptyView(getLoadSirView(R.mipmap.ic_none_list_data,"您还没有添加收货地址",false, null));
         } else {
             mAddressManagerAdapter.notifyChangeData(mList);
         }
@@ -199,9 +197,7 @@ public class AddressManagerActivity extends BaseActivity<AddressManagerPresenter
     public void isDeleteSuccess(AddressBean data) {
         mAddressManagerAdapter.remove(selectPosition);
         if (StringUtil.isListEmpty(mAddressManagerAdapter.getData())){
-            mAddressManagerAdapter.setEmptyView(getLoadSirView(R.mipmap.ic_none_data, "暂无数据",true, v -> {
-                getData();
-            }));
+            mAddressManagerAdapter.setEmptyView(getLoadSirView(R.mipmap.ic_none_list_data,"您还没有添加收货地址",false, null));
         }
     }
 
