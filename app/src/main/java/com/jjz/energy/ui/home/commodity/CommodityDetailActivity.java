@@ -2,6 +2,7 @@ package com.jjz.energy.ui.home.commodity;
 
 import android.content.Intent;
 import android.graphics.Paint;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.LinearLayoutManager;
@@ -184,7 +185,7 @@ public class CommodityDetailActivity extends BaseActivity <CommodityDetailsPrese
         HashMap<String, String> map = new HashMap<>();
         map.put("goods_id", mGoodsInfo.getGoods_info().getGoods_id() + "");
         //   act :  collect/cance 收藏   取消收藏
-        map.put("act", isCollect == 1 ? "collect" : "cance");
+        map.put("act", isCollect == 0 ? "collect" : "cancel");
         mPresenter.putCollect(PacketUtil.getRequestPacket(map));
     }
 
@@ -282,14 +283,15 @@ public class CommodityDetailActivity extends BaseActivity <CommodityDetailsPrese
     //收藏或取消收藏成功
     @Override
     public void isPutCollectSuc(String data) {
-        showToast("操作成功");
-        //操作成功后 保存相应的值  收藏成功就为1  取消成功就为0
+        //操作成功后 保存相应的值  收藏成0功就为1  取消成功就为0
         isCollect = isCollect==1?0:1;
         //设置相应的图片
-        tvLike.setCompoundDrawables(isCollect == 1 ?
-                        getResources().getDrawable(R.mipmap.ic_checked_like) :
-                        getResources().getDrawable(R.mipmap.ic_unchecked_like), null,
-                null, null);
+        Drawable drawable= getResources().getDrawable(R.mipmap.ic_checked_like);
+        Drawable drawable2= getResources().getDrawable(R.mipmap.ic_unchecked_like);
+        // 这一步必须要做,否则不会显示.
+        drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
+        drawable2.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
+        tvLike.setCompoundDrawables(isCollect == 1 ? drawable:drawable2,null,null, null);
     }
 
     //获取商品详情成功
@@ -337,10 +339,12 @@ public class CommodityDetailActivity extends BaseActivity <CommodityDetailsPrese
         GlideUtils.loadCircleImage(mContext, data.getBuyer_info().getHead_pic(), imgReplyHead);
         isCollect = data.getGoods_info().getIs_collect();
        //是否收藏
-        tvLike.setCompoundDrawables(isCollect == 1 ?
-                        getResources().getDrawable(R.mipmap.ic_checked_like) :
-                        getResources().getDrawable(R.mipmap.ic_unchecked_like), null,
-                null, null);
+        Drawable drawable= getResources().getDrawable(R.mipmap.ic_checked_like);
+        Drawable drawable2= getResources().getDrawable(R.mipmap.ic_unchecked_like);
+        // 这一步必须要做,否则不会显示.
+        drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
+        drawable2.setBounds(0, 0, drawable2.getMinimumWidth(), drawable2.getMinimumHeight());
+        tvLike.setCompoundDrawables(isCollect == 1 ? drawable:drawable2,null,null, null);
     }
 
 

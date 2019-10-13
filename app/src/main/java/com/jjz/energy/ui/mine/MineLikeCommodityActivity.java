@@ -87,7 +87,7 @@ public class MineLikeCommodityActivity extends BaseActivity<MineLikeCommodityPre
         HashMap<String, String> map = new HashMap<>();
         map.put("goods_id",goods_id);
         //取消收藏
-        map.put("act","cance");
+        map.put("act","cancel");
         mPresenter.putCollect(PacketUtil.getRequestPacket(map));
 
     }
