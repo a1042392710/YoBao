@@ -1,5 +1,6 @@
 package com.jjz.energy.ui.home.commodity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
@@ -103,8 +104,6 @@ public class CommodityDetailActivity extends BaseActivity <CommodityDetailsPrese
     TextView tvFavorites;
     @BindView(R.id.tv_buy)
     TextView tvBuy;
-    @BindView(R.id.tv_commodity_num)
-    TextView tvCommodityNum;
     @BindView(R.id.ll_buyer)
     LinearLayout llBuyer;
     @BindView(R.id.smart_refresh)
@@ -295,6 +294,7 @@ public class CommodityDetailActivity extends BaseActivity <CommodityDetailsPrese
     }
 
     //获取商品详情成功
+    @SuppressLint("SetTextI18n")
     @Override
     public void isGetGoodsDetailsSuc(GoodsDetailsBean data) {
         //当卖家查看自己的详情时，隐藏掉聊一聊和我想要
@@ -304,24 +304,26 @@ public class CommodityDetailActivity extends BaseActivity <CommodityDetailsPrese
         }
         //商品所有信息存下来  写入数据
         mGoodsInfo = data;
-        //数量
-        tvCommodityNum.setText("库存:"+data.getGoods_info().getStore_count()+"件");
         //现价
-        tvCommodityNewMoney.setText("￥"+data.getGoods_info().getMarket_price());
+        tvCommodityNewMoney.setText(data.getGoods_info().getShop_price());
         //原价
-        tvCommodityOldMoney.setText("原价¥"+data.getGoods_info().getShop_price());
+        tvCommodityOldMoney.setText("原价¥"+data.getGoods_info().getMarket_price());
         //是否包邮。不包邮就显示运费
         tvCommodityFreight.setText(data.getGoods_info().getShopping_price()==0?"包邮":"运费"+data.getGoods_info().getShopping_price()+"元");
         //是否全新
-        tvCommodityIsNew.setVisibility(data.getGoods_info().getIs_mnh()==1? View.VISIBLE : View.GONE);
+        tvCommodityIsNew.setVisibility(data.getGoods_info().getIs_mnh() == 1 ? View.VISIBLE :
+                View.GONE);
         //标题  是否全新 如果是 标题前面要多加4个文字的距离
-        tvCommodityTitle.setText("\u3000\u3000  "+data.getGoods_info().getGoods_name());
+        tvCommodityTitle.setText("\u3000\u3000  " + data.getGoods_info().getGoods_name());
+
         //刷新商品图片
         mPhotoAdapter.setNewData(Arrays.asList(data.getGoods_info().getGoods_images().split(",")));
         //商品描述
         tvCommodityContent.setText(data.getGoods_info().getMobile_content());
-        //多少人想要 + 浏览数量
-        tvCommodityPageviews.setText(data.getGoods_info().getCollect_sum()+"人想要，"+data.getGoods_info().getClick_count()+"次浏览");
+        //多少人想要 + 浏览数量 + 库存
+        tvCommodityPageviews.setText(data.getGoods_info().getCollect_sum()+"人想要 | "
+                +data.getGoods_info().getClick_count()+"次浏览 | "
+                +"库存:"+data.getGoods_info().getStore_count()+"件");
         //卖家昵称
         tvSellerName.setText(data.getSeller_info().getNickname());
         tvToolbarTitle.setText(data.getSeller_info().getNickname());

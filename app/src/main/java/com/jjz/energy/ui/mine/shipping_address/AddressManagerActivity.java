@@ -216,7 +216,7 @@ public class AddressManagerActivity extends BaseActivity<AddressManagerPresenter
             }
             list.add(bean);
         }
-        mAddressManagerAdapter.setNewData(list);
+        mAddressManagerAdapter.notifyChangeData(list);
     }
 
     @Override

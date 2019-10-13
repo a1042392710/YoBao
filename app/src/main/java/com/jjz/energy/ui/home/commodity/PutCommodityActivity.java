@@ -483,7 +483,7 @@ public class PutCommodityActivity extends BaseActivity <PutCommodityPresenter>im
     public void isPutCommditySuccess(String data) {
         showToast("发布成功");
         //跳转发布详情
-        startActivity(new Intent(mContext, CommodityDetailActivity.class));
+        startActivity(new Intent(mContext, CommodityDetailActivity.class).putExtra(CommodityDetailActivity.GOODS_ID,Integer.valueOf(data)));
         finish();
     }
 

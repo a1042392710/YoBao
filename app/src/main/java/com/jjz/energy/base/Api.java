@@ -230,7 +230,7 @@ public interface Api {
 
     //我的  我的收藏
     @FormUrlEncoded
-    @POST("goods/sendComment")
+    @POST("user/myCollect")
     Flowable<ResponseData<LikeGoodsBean>> getLikeGoods(@Field(PACK_NO) String pack_no);
 
 

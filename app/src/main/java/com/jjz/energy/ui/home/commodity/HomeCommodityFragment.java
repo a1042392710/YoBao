@@ -122,6 +122,7 @@ public class HomeCommodityFragment extends BaseLazyFragment<HomeCommodityPresent
                     //点击刷新
                     getData(false);
                 }));
+                smartRefresh.setEnableLoadMore(false);
             }else{
                 //有数据就开启加载更多
                 smartRefresh.setEnableLoadMore(true);
