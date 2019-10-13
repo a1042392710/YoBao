@@ -19,5 +19,8 @@ public interface ICommodityView extends IBaseView {
     //发布评论
     void isPutCommentSuc(String data);
 
+    //收藏或取消收藏成功
+    void isPutCollectSuc(String data);
+
     void isFail(String msg, boolean isNetAndServiceError);
 }

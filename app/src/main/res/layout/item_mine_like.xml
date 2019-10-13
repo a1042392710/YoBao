@@ -9,7 +9,6 @@
                 android:background="@drawable/bg_stoke_gray"
                 android:padding="12dp">
 
-
     <LinearLayout
         android:id="@+id/ll_user_info"
         android:layout_width="match_parent"
@@ -21,7 +20,7 @@
         <ImageView
             android:id="@+id/item_img_user_head"
             android:layout_width="21dp"
-            android:src="@color/red_fe8977"
+            tools:src="@color/red_fe8977"
             android:layout_height="21dp"/>
 
         <TextView
@@ -52,7 +51,7 @@
         android:layout_width="80dp"
         android:layout_below="@id/ll_user_info"
         android:layout_marginRight="13dp"
-        android:src="@color/red_fe8977"
+        tools:src="@color/red_fe8977"
         android:layout_height="80dp"/>
 
     <TextView
@@ -65,7 +64,7 @@
         android:textColor="@color/text_black33"
         android:textSize="13sp"
         android:ellipsize="end"
-        android:text="自己用的电脑，想换新就甩了。喜欢的话就赶紧联系我吧。"
+        tools:text="自己用的电脑，想换新就甩了。喜欢的话就赶紧联系我吧。"
         android:layout_height="wrap_content"/>
 
 
@@ -79,7 +78,7 @@
         android:textColor="#bcbcbc"
         android:textSize="12sp"
         android:ellipsize="end"
-        android:text="130次浏览 2人想买 3个留言"
+        tools:text="130次浏览 2人想买 3个留言"
         android:layout_height="wrap_content"/>
 
     <LinearLayout
@@ -134,7 +133,7 @@
             android:layout_width="wrap_content"
             android:background="@drawable/bg_stoke_gray5"
             android:gravity="center"
-            android:text="联系卖家"
+            android:text="取消收藏"
             android:paddingTop="5dp"
             android:paddingLeft="11dp"
             android:paddingRight="11dp"
@@ -145,19 +144,19 @@
             android:layout_height="wrap_content"/>
 
         <TextView
-            android:layout_marginLeft="13dp"
             android:id="@+id/item_tv_lable_two"
             android:layout_width="wrap_content"
-            android:textSize="13sp"
-            android:textColor="@color/red_fe8977"
-            android:paddingTop="5dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="13dp"
+            android:background="@drawable/bg_stoke_orange"
+            android:gravity="center"
             android:paddingLeft="11dp"
+            android:paddingTop="5dp"
             android:paddingRight="11dp"
             android:paddingBottom="5dp"
-            android:gravity="center"
-            android:background="@drawable/bg_stoke_orange"
-            android:text="赶紧买"
-            android:layout_height="wrap_content"/>
+            android:text="立即购买"
+            android:textColor="@color/red_fe8977"
+            android:textSize="13sp" />
     </LinearLayout>
 
 </RelativeLayout>

@@ -115,6 +115,35 @@ public class CommodityDetailsPresenter extends BasePresenter<CommodityDetailsMod
 
     }
 
+    /**
+     * 收藏商品
+     */
+    @SuppressLint("CheckResult")
+    public void putCollect(String map) {
+
+        addSubscribe(mModel.putCollect(map)
+                .subscribeWith(new CommonSubscriber<String>() {
+
+                    @Override
+                    protected void startLoading() {
+                        mView.showLoading();
+                    }
+
+                    @Override
+                    protected void onSuccess(String response) {
+                        mView.stopLoading();
+                        mView.isPutCollectSuc(response);
+                    }
+
+                    @Override
+                    protected void onFail(String errorMsg ,boolean isNetAndSeriveError) {
+                        mView.isFail(errorMsg,isNetAndSeriveError);
+                        mView.stopLoading();
+                    }
+                }));
+
+    }
+
     @Override
     protected CommodityDetailsModel createModel() {
         return new CommodityDetailsModel();

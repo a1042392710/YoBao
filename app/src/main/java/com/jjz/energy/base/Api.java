@@ -4,6 +4,7 @@ import com.jjz.energy.entry.AddressBean;
 import com.jjz.energy.entry.BindBean;
 import com.jjz.energy.entry.BindOwnerInfoBean;
 import com.jjz.energy.entry.CommentBean;
+import com.jjz.energy.entry.LikeGoodsBean;
 import com.jjz.energy.entry.commodity.GoodsClassificationBean;
 import com.jjz.energy.entry.commodity.GoodsDetailsBean;
 import com.jjz.energy.entry.commodity.GoodsListBean;
@@ -219,6 +220,18 @@ public interface Api {
     @FormUrlEncoded
     @POST("goods/sendComment")
     Flowable<ResponseData<String>> putComment(@Field(PACK_NO) String pack_no);
+
+
+    //商品详情  收藏商品
+    @FormUrlEncoded
+    @POST("goods/collectGoods")
+    Flowable<ResponseData<String>> putCollect(@Field(PACK_NO) String pack_no);
+
+
+    //我的  我的收藏
+    @FormUrlEncoded
+    @POST("goods/sendComment")
+    Flowable<ResponseData<LikeGoodsBean>> getLikeGoods(@Field(PACK_NO) String pack_no);
 
 
     //======================================================== 久速商城接口

@@ -74,7 +74,7 @@ public class AddressManagerPresenter extends BasePresenter<AddressManagerModel, 
     }
 
     /**
-     * 删除收货地址
+     * 设为默认
      */
     public void defaultAddress(String pack_no) {
 

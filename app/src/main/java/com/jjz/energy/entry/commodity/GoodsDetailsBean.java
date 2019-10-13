@@ -107,6 +107,18 @@ public class GoodsDetailsBean implements Serializable {
         private int shopping_price;
         //用户id
         private int user_id;
+        /**
+         * 是否收藏了  1 收藏  2未收藏
+         */
+        private int is_collect;
+
+        public int getIs_collect() {
+            return is_collect;
+        }
+
+        public void setIs_collect(int is_collect) {
+            this.is_collect = is_collect;
+        }
 
         public int getStore_count() {
             return store_count;

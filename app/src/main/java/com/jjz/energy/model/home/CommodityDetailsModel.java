@@ -28,5 +28,9 @@ public class CommodityDetailsModel extends BaseModel {
     public Flowable<String> putComment(String requestData) {
         return RetrofitFactory.getRetrofit().create(Api.class).putComment(requestData).compose(RxSchedulerHepler.handleMyResult());
     }
+    //添加收藏
+    public Flowable<String> putCollect(String requestData) {
+        return RetrofitFactory.getRetrofit().create(Api.class).putCollect(requestData).compose(RxSchedulerHepler.handleMyResult());
+    }
 
 }

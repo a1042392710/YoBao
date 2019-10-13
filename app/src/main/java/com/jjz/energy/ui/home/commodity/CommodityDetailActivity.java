@@ -133,7 +133,7 @@ public class CommodityDetailActivity extends BaseActivity <CommodityDetailsPrese
      */
     private   CommdityPhotoAdapter mPhotoAdapter;
     /**
-     * 卖家的用户信息
+     * 商品详情的数据
      */
     private GoodsDetailsBean mGoodsInfo ;
     /**
@@ -171,6 +171,21 @@ public class CommodityDetailActivity extends BaseActivity <CommodityDetailsPrese
     private void sendComment(Map<String,String> hashMap,String content) {
         hashMap.put("content",content);
         mPresenter.putComment(PacketUtil.getRequestPacket(hashMap));
+    }
+
+    /**
+     * 收藏商品
+     */
+    private void putWant() {
+        if (mGoodsInfo==null) {
+            showToast("数据获取失败");
+            return;
+        }
+        HashMap<String, String> map = new HashMap<>();
+        map.put("goods_id", mGoodsInfo.getGoods_info().getGoods_id() + "");
+        //   act :  collect/cance 收藏   取消收藏
+        map.put("act", isCollect == 1 ? "collect" : "cance");
+        mPresenter.putCollect(PacketUtil.getRequestPacket(map));
     }
 
     /**
@@ -227,27 +242,9 @@ public class CommodityDetailActivity extends BaseActivity <CommodityDetailsPrese
                 (nestedScrollView, i, i1, i2, i3) -> {
                     disMissSoftKeyboard();
                 });
-
-
     }
 
-    /**
-     * 提交的键值对
-     */
-    private String reply_key , reply_value;
-
-    /**
-     * 展示回复的View  Type 1 comment_id  2 reply_id
-     */
-    private void  showReplyView(String reply_key ,String reply_value ){
-        this.reply_key = reply_key ;
-        this.reply_value = reply_value ;
-        //显示输入框和软键盘
-        llReply.setVisibility(View.VISIBLE);
-        showInput(etReplyContent);
-
-    }
-
+    //获取评论列表成功
     @Override
     public void isGetCommentSuc(CommentBean data) {
         if (isLoadMore) {
@@ -268,6 +265,7 @@ public class CommodityDetailActivity extends BaseActivity <CommodityDetailsPrese
         closeRefresh(smartRefresh);
     }
 
+    //提交留言成功
     @Override
     public void isPutCommentSuc(String data) {
         etComment.setText("");
@@ -277,6 +275,24 @@ public class CommodityDetailActivity extends BaseActivity <CommodityDetailsPrese
         getCommentData(false);
     }
 
+    /**
+     * 是否收藏该商品 1 收藏 0 未收藏
+     */
+    private int isCollect  = 0;
+    //收藏或取消收藏成功
+    @Override
+    public void isPutCollectSuc(String data) {
+        showToast("操作成功");
+        //操作成功后 保存相应的值  收藏成功就为1  取消成功就为0
+        isCollect = isCollect==1?0:1;
+        //设置相应的图片
+        tvLike.setCompoundDrawables(isCollect == 1 ?
+                        getResources().getDrawable(R.mipmap.ic_checked_like) :
+                        getResources().getDrawable(R.mipmap.ic_unchecked_like), null,
+                null, null);
+    }
+
+    //获取商品详情成功
     @Override
     public void isGetGoodsDetailsSuc(GoodsDetailsBean data) {
         //当卖家查看自己的详情时，隐藏掉聊一聊和我想要
@@ -298,6 +314,8 @@ public class CommodityDetailActivity extends BaseActivity <CommodityDetailsPrese
         tvCommodityIsNew.setVisibility(data.getGoods_info().getIs_mnh()==1? View.VISIBLE : View.GONE);
         //标题  是否全新 如果是 标题前面要多加4个文字的距离
         tvCommodityTitle.setText("\u3000\u3000  "+data.getGoods_info().getGoods_name());
+        //刷新商品图片
+        mPhotoAdapter.setNewData(Arrays.asList(data.getGoods_info().getGoods_images().split(",")));
         //商品描述
         tvCommodityContent.setText(data.getGoods_info().getMobile_content());
         //多少人想要 + 浏览数量
@@ -317,11 +335,30 @@ public class CommodityDetailActivity extends BaseActivity <CommodityDetailsPrese
         GlideUtils.loadCircleImage(mContext, data.getBuyer_info().getHead_pic(), imgUserHead);
         //买家头像
         GlideUtils.loadCircleImage(mContext, data.getBuyer_info().getHead_pic(), imgReplyHead);
-        //刷新商品图片
-        mPhotoAdapter.setNewData(Arrays.asList(data.getGoods_info().getGoods_images().split(",")));
+        isCollect = data.getGoods_info().getIs_collect();
+       //是否收藏
+        tvLike.setCompoundDrawables(isCollect == 1 ?
+                        getResources().getDrawable(R.mipmap.ic_checked_like) :
+                        getResources().getDrawable(R.mipmap.ic_unchecked_like), null,
+                null, null);
     }
 
 
+    /**
+     * 提交的键值对
+     */
+    private String reply_key , reply_value;
+
+    /**
+     * 展示回复的View  Type 1 comment_id  2 reply_id
+     */
+    private void  showReplyView(String reply_key ,String reply_value ){
+        this.reply_key = reply_key ;
+        this.reply_value = reply_value ;
+        //显示输入框和软键盘
+        llReply.setVisibility(View.VISIBLE);
+        showInput(etReplyContent);
+    }
 
     /**
      * 显示键盘
@@ -417,12 +454,6 @@ public class CommodityDetailActivity extends BaseActivity <CommodityDetailsPrese
                 });
     }
 
-    /**
-     * 收藏商品
-     */
-    private void putWant() {
-
-    }
 
     @Override
     public void showLoading() {
