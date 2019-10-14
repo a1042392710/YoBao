@@ -28,7 +28,7 @@
         android:layout_width="80dp"
         android:layout_below="@id/item_tv_over_time"
         android:layout_marginRight="13dp"
-        android:src="@color/red_fe8977"
+        tools:src="@color/red_fe8977"
         android:layout_height="80dp"/>
 
     <TextView
@@ -41,7 +41,7 @@
         android:textColor="@color/text_black33"
         android:textSize="13sp"
         android:ellipsize="end"
-        android:text="自己用的电脑，想换新就甩了。喜欢的话就赶紧联系我吧。"
+        tools:text="自己用的电脑，想换新就甩了。喜欢的话就赶紧联系我吧。"
         android:layout_height="wrap_content"/>
 
 
@@ -125,13 +125,13 @@
             android:id="@+id/item_tv_lable_two"
             android:layout_width="wrap_content"
             android:textSize="13sp"
-            android:textColor="@color/text_black33"
+            android:textColor="@color/red_fe8977"
             android:paddingTop="5dp"
-            android:paddingLeft="11dp"
-            android:paddingRight="11dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
             android:paddingBottom="5dp"
             android:gravity="center"
-            android:background="@drawable/bg_stoke_gray5"
+            android:background="@drawable/bg_stoke_orange"
             android:text="编辑"
             android:layout_height="wrap_content"/>
     </LinearLayout>

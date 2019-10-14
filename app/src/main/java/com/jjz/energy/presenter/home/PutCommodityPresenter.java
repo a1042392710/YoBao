@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 
 import com.jjz.energy.base.BasePresenter;
 import com.jjz.energy.entry.commodity.GoodsClassificationBean;
+import com.jjz.energy.entry.commodity.GoodsDetailsBean;
 import com.jjz.energy.model.home.PutCommodityModel;
 import com.jjz.energy.util.networkUtil.CommonSubscriber;
 import com.jjz.energy.view.home.IPutCommodityView;
@@ -23,6 +24,34 @@ public class PutCommodityPresenter extends BasePresenter<PutCommodityModel, IPut
         initPresenter(view);
     }
 
+    /**
+     * 获取商品详情
+     * @param map
+     */
+    @SuppressLint("CheckResult")
+    public void getGoodsDetails(String map) {
+
+        addSubscribe(mModel.getGoodsDetails(map)
+                .subscribeWith(new CommonSubscriber<GoodsDetailsBean>() {
+
+                    @Override
+                    protected void startLoading() {
+                        mView.showLoading();
+                    }
+
+                    @Override
+                    protected void onSuccess(GoodsDetailsBean response) {
+                        mView.isGetGoodsDetails(response);
+                    }
+
+                    @Override
+                    protected void onFail(String errorMsg ,boolean isNetAndSeriveError) {
+                        mView.isFail(errorMsg,isNetAndSeriveError);
+                        mView.stopLoading();
+                    }
+                }));
+
+    }
 
     /**
      * 发布商品

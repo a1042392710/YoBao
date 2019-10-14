@@ -6,10 +6,20 @@ import java.util.List;
 
 /**
  * @author chenhao 2018/12/20
- * @function 我的收藏列表
+ * @function 我的收藏列表 可共用为 商品列表
  */
 public class LikeGoodsBean implements Serializable {
 
+
+    private int num;
+
+    public int getNum() {
+        return num;
+    }
+
+    public void setNum(int num) {
+        this.num = num;
+    }
 
     public List<ListBean> getList() {
         if (list == null) {

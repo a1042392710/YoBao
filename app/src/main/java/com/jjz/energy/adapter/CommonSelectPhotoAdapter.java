@@ -77,11 +77,8 @@ public class CommonSelectPhotoAdapter extends BaseRecycleNewAdapter<Uri> {
             imgDelect.setOnClickListener(v -> {
                 mData.remove(holder.getLayoutPosition());
                 notifyItemRemoved(holder.getLayoutPosition());
-//            if (position != getItemCount()) {
                 // 如果移除的是最后一个，忽略
                 notifyItemRangeChanged(holder.getLayoutPosition(), getItemCount() - holder.getLayoutPosition());
-//            }
-
             });
         }
 

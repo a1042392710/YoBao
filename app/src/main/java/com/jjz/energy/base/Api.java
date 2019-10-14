@@ -4,12 +4,12 @@ import com.jjz.energy.entry.AddressBean;
 import com.jjz.energy.entry.BindBean;
 import com.jjz.energy.entry.BindOwnerInfoBean;
 import com.jjz.energy.entry.CommentBean;
+import com.jjz.energy.entry.HomeDetailBean;
 import com.jjz.energy.entry.LikeGoodsBean;
+import com.jjz.energy.entry.UserInfo;
 import com.jjz.energy.entry.commodity.GoodsClassificationBean;
 import com.jjz.energy.entry.commodity.GoodsDetailsBean;
 import com.jjz.energy.entry.commodity.GoodsListBean;
-import com.jjz.energy.entry.HomeDetailBean;
-import com.jjz.energy.entry.UserInfo;
 import com.jjz.energy.entry.jiusu.AgencyBean;
 import com.jjz.energy.entry.jiusu.HotBean;
 import com.jjz.energy.entry.jiusu.HotDetailBean;
@@ -182,23 +182,30 @@ public interface Api {
 
     //发布商品
     @Multipart
-    @POST("goods/create")
+    @POST("goods/save")
     Flowable<ResponseData<String>> putCommodity(
             @Part MultipartBody.Part params,  @PartMap Map<String, RequestBody> imgFiles
     );
-
 
     //查询商品分类
     @FormUrlEncoded
     @POST("goods/getCateList")
     Flowable<ResponseData<List<GoodsClassificationBean>>> getClassification(@Field(PACK_NO) String pack_no);
 
+    //查询我发布的商品
+    @FormUrlEncoded
+    @POST("user/myGoods")
+    Flowable<ResponseData<LikeGoodsBean>> getMinePutGoods(@Field(PACK_NO) String pack_no);
+
+    //下架商品
+    @FormUrlEncoded
+    @POST("goods/setGoodsSale")
+    Flowable<ResponseData<String>> downGoods(@Field(PACK_NO) String pack_no);
+
     //首页 查询商品分类
     @FormUrlEncoded
     @POST("index/index")
     Flowable<ResponseData<HomeDetailBean>> getHomeClassification(@Field(PACK_NO) String pack_no);
-
-
 
     //查询商品列表
     @FormUrlEncoded

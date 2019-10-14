@@ -159,4 +159,14 @@
             android:textSize="13sp" />
     </LinearLayout>
 
+
+    <!--  是否下架-->
+    <ImageView
+        android:id="@+id/item_img_is_down"
+        android:layout_width="80dp"
+        android:layout_alignParentRight="true"
+        android:visibility="gone"
+        android:src="@mipmap/ic_is_goods_down"
+        android:layout_height="60dp"/>
+
 </RelativeLayout>

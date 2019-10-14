@@ -109,7 +109,6 @@ public class CommodityDetailActivity extends BaseActivity <CommodityDetailsPrese
     @BindView(R.id.smart_refresh)
     SmartRefreshLayout smartRefresh;
     @BindView(R.id.ll_reply)
-    //回复
     LinearLayout llReply;
     @BindView(R.id.img_reply_head)
     ImageView imgReplyHead;
@@ -117,6 +116,8 @@ public class CommodityDetailActivity extends BaseActivity <CommodityDetailsPrese
     EditText etReplyContent;
     @BindView(R.id.tv_reply_send)
     TextView tvReplySend;
+    @BindView(R.id.tv_commodity_location)
+    TextView tvCommodityLocation;
     @BindView(R.id.scrollView)
     NestedScrollView scrollView;
 
@@ -304,6 +305,8 @@ public class CommodityDetailActivity extends BaseActivity <CommodityDetailsPrese
         }
         //商品所有信息存下来  写入数据
         mGoodsInfo = data;
+        //发布于哪里
+        tvCommodityLocation.setText("发布于"+data.getGoods_info().getCity());
         //现价
         tvCommodityNewMoney.setText(data.getGoods_info().getShop_price());
         //原价
@@ -315,7 +318,6 @@ public class CommodityDetailActivity extends BaseActivity <CommodityDetailsPrese
                 View.GONE);
         //标题  是否全新 如果是 标题前面要多加4个文字的距离
         tvCommodityTitle.setText("\u3000\u3000  " + data.getGoods_info().getGoods_name());
-
         //刷新商品图片
         mPhotoAdapter.setNewData(Arrays.asList(data.getGoods_info().getGoods_images().split(",")));
         //商品描述

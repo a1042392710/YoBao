@@ -1,8 +1,10 @@
 package com.jjz.energy.ui.mine;
 
+import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -13,6 +15,7 @@ import com.jjz.energy.base.BaseActivity;
 import com.jjz.energy.base.BaseRecycleNewAdapter;
 import com.jjz.energy.entry.LikeGoodsBean;
 import com.jjz.energy.presenter.mine.MineLikeCommodityPresenter;
+import com.jjz.energy.ui.home.commodity.CommodityDetailActivity;
 import com.jjz.energy.util.DateUtil;
 import com.jjz.energy.util.StringUtil;
 import com.jjz.energy.util.Utils;
@@ -69,6 +72,9 @@ public class MineLikeCommodityActivity extends BaseActivity<MineLikeCommodityPre
         mAdapter = new MineListAdapter(R.layout.item_mine_like,new ArrayList<>());
         rvMineLike.setLayoutManager(new LinearLayoutManager(mContext));
         rvMineLike.setAdapter(mAdapter);
+        mAdapter.setOnItemClickListener((adapter, view, position) -> {
+            startActivity(new Intent(mContext, CommodityDetailActivity.class).putExtra(CommodityDetailActivity.GOODS_ID,mAdapter.getData().get(position).getGoods_id()));
+        });
         smartRefresh.setOnLoadMoreListener(refreshLayout -> {
             mPage++;
             getData(true);
@@ -106,6 +112,8 @@ public class MineLikeCommodityActivity extends BaseActivity<MineLikeCommodityPre
             tvToolbarTitle.setText("我的收藏");
             mAdapter.setEmptyView(getLoadSirView(R.mipmap.ic_none_data,"您还没有收藏商品",false,null));
             smartRefresh.setEnableLoadMore(false);
+        }else{
+            tvToolbarTitle.setText("我发布的("+mAdapter.getData().size()+")");
         }
     }
 
@@ -113,7 +121,7 @@ public class MineLikeCommodityActivity extends BaseActivity<MineLikeCommodityPre
     @Override
     public void isSuccess(LikeGoodsBean data) {
         if (!StringUtil.isListEmpty(data.getList())){
-            tvToolbarTitle.setText("我收藏的("+data.getList().size()+")");
+            tvToolbarTitle.setText("我收藏的("+data.getNum()+")");
         }
         if (isLoadMore) {
             //没有更多数据的时候，关闭加载更多
@@ -142,6 +150,8 @@ public class MineLikeCommodityActivity extends BaseActivity<MineLikeCommodityPre
 
         @Override
         protected void convert(BaseViewHolder helper, LikeGoodsBean.ListBean item) {
+            //是否下架
+            ImageView item_is_down = helper.getView(R.id.item_img_is_down);
             //用户头像
             ImageView item_img_user_head = helper.getView(R.id.item_img_user_head);
             GlideUtils.loadCircleImage(mContext,item.getHead_pic(),item_img_user_head);
@@ -161,6 +171,8 @@ public class MineLikeCommodityActivity extends BaseActivity<MineLikeCommodityPre
                             + item.getComment_num() + "人留言");
             //价格
             helper.setText(R.id.item_tv_new_money, item.getShop_price());
+            //是否下架
+            item_is_down.setVisibility(item.getIs_on_sale()==0? View.VISIBLE:View.GONE);
             //原价
             helper.setText(R.id.item_tv_old_money, "原价￥"+item.getMarket_price());
             //取消收藏

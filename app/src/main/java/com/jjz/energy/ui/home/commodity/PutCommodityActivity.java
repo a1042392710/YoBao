@@ -21,13 +21,18 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.FutureTarget;
+import com.bumptech.glide.request.target.Target;
 import com.jjz.energy.R;
 import com.jjz.energy.adapter.CommonSelectPhotoAdapter;
 import com.jjz.energy.base.BaseActivity;
 import com.jjz.energy.base.Constant;
 import com.jjz.energy.entry.commodity.GoodsClassificationBean;
+import com.jjz.energy.entry.commodity.GoodsDetailsBean;
 import com.jjz.energy.presenter.home.PutCommodityPresenter;
 import com.jjz.energy.util.StringUtil;
+import com.jjz.energy.util.Utils;
 import com.jjz.energy.util.file.FileUtil;
 import com.jjz.energy.util.glide.MyGlideEngine;
 import com.jjz.energy.util.networkUtil.PacketUtil;
@@ -114,6 +119,11 @@ public class PutCommodityActivity extends BaseActivity <PutCommodityPresenter>im
      */
     private String address;
 
+    /**
+     * 商品id 当该页面为编辑修改页时
+     */
+    private int goods_id;
+
     @Override
     protected void initView() {
         tvToolbarTitle.setText("发布商品");
@@ -121,9 +131,15 @@ public class PutCommodityActivity extends BaseActivity <PutCommodityPresenter>im
         EventBus.getDefault().register(this);
         //地区
         address = SpUtil.init(mContext).readString("locationAddress");
-        tvLocationAddress.setText(address.replace("/"," "));
+        tvLocationAddress.setText(address.replace("/", " "));
         initSingerPicker();
         initRv();
+        //如果是编辑 查询数据后刷新当前页面
+        goods_id = getIntent().getIntExtra("goods_id", -1);
+        if (-1 != goods_id) {
+            mPresenter.getGoodsDetails(PacketUtil.getRequestPacket(Utils.stringToMap("goods_id",
+                    goods_id + "")));
+        }
     }
 
     /**
@@ -153,43 +169,75 @@ public class PutCommodityActivity extends BaseActivity <PutCommodityPresenter>im
             }
         });
         //适配器实例化 最多选三张
-        mSelectPhotoAdapter =
-                new CommonSelectPhotoAdapter(R.layout.item_put_commodity_select_photo,
+        mSelectPhotoAdapter = new CommonSelectPhotoAdapter(R.layout.item_put_commodity_select_photo,
                         mSelectPhotos, 5);
         rvPhoto.setAdapter(mSelectPhotoAdapter);
     }
 
+    //================================  重新编辑后发布商品
 
-    @OnClick({R.id.ll_toolbar_left, R.id.tv_toolbar_right, R.id.ll_commodity_type,R.id.ll_point_discount,
-            R.id.ll_commodity_money})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.ll_toolbar_left:
-                finish();
-                break;
-            //发布
-            case R.id.tv_toolbar_right:
-                if (isSubmitCheck()) {
-                    compressPhotos();
-                }
-                break;
-            //选择分类
-            case R.id.ll_commodity_type:
-                startActivityForResult(new Intent(mContext, ClassificationActivity.class),
-                        CLASSIFICATION_INTENT_CODE);
-                break;
-            //写入金额 是否包邮等
-            case R.id.ll_commodity_money:
-                showMoneyPopView();
-                break;
-            //积分折扣
-            case R.id.ll_point_discount:
-                pickerPoint.show();
-                break;
-        }
+    @Override
+    public void isGetGoodsDetails(GoodsDetailsBean data) {
+        setGoodsDetail(data.getGoods_info());
     }
 
-    //================================  数据提交
+    /**
+     * 帮用户填写所有信息
+     */
+    private void setGoodsDetail(GoodsDetailsBean.GoodsInfoBean info){
+        //标题
+        etCommodityTitle.setText(info.getGoods_name());
+        //内容
+        etCommodityContent.setText(info.getMobile_content());
+        //是否全新
+        cbIsNewCommodity.setChecked(info.getIs_mnh()==1? true:false);
+        //分类数据
+        mClassificationBean = new GoodsClassificationBean();
+        mClassificationBean.setId(info.getCat_id());
+        mClassificationBean.setMobile_name(info.getCat_name());
+        tvCommodityType.setText(info.getCat_name());
+        //价格信息
+        mMoneyInfo = new MoneyInfo(info.getShop_price(),info.getMarket_price(), String.valueOf(info.getShopping_price()),
+                0 == info.getShopping_price(),info.getStore_count());
+        //编辑前的图片
+        String[] sourceStrArray = info.getGoods_images().split(",");
+        //下载图片
+        downLoadImg(sourceStrArray);
+    }
+
+    /**
+     * 下载图片后保存本地
+     *
+     * @param sourceStrArray
+     */
+    private void downLoadImg(String[] sourceStrArray) {
+        final String[] strings = sourceStrArray;
+        final Context context = getApplicationContext();
+        new Thread(() -> {
+            try {
+                for (int i = 0; i < strings.length; i++) {
+                    String url = strings[i];
+                    FutureTarget<File> target = Glide.with(context)
+                            .load(url)
+                            .downloadOnly(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL);
+                    final File imageFile = target.get();
+                    mSelectPhotos.addFirst(Uri.parse(imageFile.getPath()));
+                    if (i == strings.length - 1) {
+                        //回主线程刷新数据
+                        runOnUiThread(() -> {
+                            stopProgressDialog();
+                            mSelectPhotoAdapter.notifyDataSetChanged();
+                        });
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                stopProgressDialog();
+            }
+        }).start();
+    }
+
+    //=========================================  数据提交
 
     /**
      * 提交前的检查
@@ -233,7 +281,6 @@ public class PutCommodityActivity extends BaseActivity <PutCommodityPresenter>im
      */
     private void compressPhotos() {
         mFileList = new ArrayList<>();
-
         //无图片直接提交
         if (mSelectPhotos.size() - 1 > 0) {
             //有图片则压缩
@@ -272,12 +319,14 @@ public class PutCommodityActivity extends BaseActivity <PutCommodityPresenter>im
         }
     }
 
-
     /**
      * 提交数据
      */
     private void submit() {
         HashMap<String, String> hashMap = new HashMap<>();
+        if (goods_id != -1) {
+            hashMap.put("goods_id", goods_id+"");
+        }
         //标题
         hashMap.put("goods_name",etCommodityTitle.getText().toString().trim());
         //内容
@@ -310,7 +359,7 @@ public class PutCommodityActivity extends BaseActivity <PutCommodityPresenter>im
     }
 
 
-        // ===================================================== 价格和运费弹窗
+    // ===================================================== 价格和运费弹窗
 
     //存储金额信息
     private MoneyInfo mMoneyInfo;
@@ -443,16 +492,12 @@ public class PutCommodityActivity extends BaseActivity <PutCommodityPresenter>im
            popupWindow.dismiss();
 
         });
-
     }
 
     /**
      * 金额输入框中的内容限制（最大：小数点前7位，小数点后2位）
-     *
-     * @param edt
      */
     public void judgeNumber(Editable edt, EditText editText) {
-
         String temp = edt.toString();
         int posDot = temp.indexOf(".");//返回指定字符在此字符串中第一次出现处的索引
         int index = editText.getSelectionStart();//获取光标位置
@@ -472,8 +517,8 @@ public class PutCommodityActivity extends BaseActivity <PutCommodityPresenter>im
             edt.delete(index - 1, index);//删除光标前的字符
             return;
         }
-        if (temp.length() - posDot - 1 > 2)//如果包含小数点
-        {
+        if (temp.length() - posDot - 1 > 2){
+            //如果包含小数点
             edt.delete(index - 1, index);//删除光标前的字符
             return;
         }
@@ -486,7 +531,6 @@ public class PutCommodityActivity extends BaseActivity <PutCommodityPresenter>im
         startActivity(new Intent(mContext, CommodityDetailActivity.class).putExtra(CommodityDetailActivity.GOODS_ID,Integer.valueOf(data)));
         finish();
     }
-
 
 
     @Override
@@ -508,6 +552,35 @@ public class PutCommodityActivity extends BaseActivity <PutCommodityPresenter>im
             this.isFreight = isFreight;
             this.freight = freight;
             this.num = num;
+        }
+    }
+
+    @OnClick({R.id.ll_toolbar_left, R.id.tv_toolbar_right, R.id.ll_commodity_type,R.id.ll_point_discount,
+            R.id.ll_commodity_money})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.ll_toolbar_left:
+                PopWindowUtil.getInstance().showPopupWindow(mContext, "您确定退出编辑页面？", () -> finish());
+                break;
+            //发布
+            case R.id.tv_toolbar_right:
+                if (isSubmitCheck()) {
+                    compressPhotos();
+                }
+                break;
+            //选择分类
+            case R.id.ll_commodity_type:
+                startActivityForResult(new Intent(mContext, ClassificationActivity.class),
+                        CLASSIFICATION_INTENT_CODE);
+                break;
+            //写入金额 是否包邮等
+            case R.id.ll_commodity_money:
+                showMoneyPopView();
+                break;
+            //积分折扣
+            case R.id.ll_point_discount:
+                pickerPoint.show();
+                break;
         }
     }
 
@@ -537,7 +610,7 @@ public class PutCommodityActivity extends BaseActivity <PutCommodityPresenter>im
         Matisse.from(this)
                 .choose(MimeType.ofImage())//照片视频全部显示
                 .countable(true)//有序选择图片
-                .maxSelectable(maxPhoto)//最大5张
+                .maxSelectable(maxPhoto)//最大6张
                 .thumbnailScale(0.85f)//缩放比例
                 .theme(R.style.Matisse_Zhihu)//主题  暗色主题R.style.Matisse_Dracula
                 .imageEngine(new MyGlideEngine())//加载方式 glide
@@ -569,6 +642,9 @@ public class PutCommodityActivity extends BaseActivity <PutCommodityPresenter>im
 
 
     // =================================== 生命周期和方法重写
+
+
+
     /**
      * 记录选中的分类
      */

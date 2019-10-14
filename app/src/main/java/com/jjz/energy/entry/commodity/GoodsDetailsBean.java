@@ -83,6 +83,14 @@ public class GoodsDetailsBean implements Serializable {
          */
         private int click_count;
         /**
+         * 分类id
+         */
+        private int cat_id;
+        /**
+         * 分类名
+         */
+        private String cat_name;
+        /**
          * 收藏数
          */
         private int collect_sum;
@@ -90,6 +98,9 @@ public class GoodsDetailsBean implements Serializable {
          * 库存
          */
         private int store_count;
+        /**
+         * 商品id
+         */
         private int goods_id;
         //图片列表
         private String goods_images;
@@ -111,6 +122,34 @@ public class GoodsDetailsBean implements Serializable {
          * 是否收藏了  1 收藏  2未收藏
          */
         private int is_collect;
+        /**
+         * 发布于 城市
+         */
+        private String city;
+
+        public String getCity() {
+            return city == null ? "" : city;
+        }
+
+        public void setCity(String city) {
+            this.city = city;
+        }
+
+        public String getCat_name() {
+            return cat_name == null ? "" : cat_name;
+        }
+
+        public void setCat_name(String cat_name) {
+            this.cat_name = cat_name;
+        }
+
+        public int getCat_id() {
+            return cat_id;
+        }
+
+        public void setCat_id(int cat_id) {
+            this.cat_id = cat_id;
+        }
 
         public int getIs_collect() {
             return is_collect;

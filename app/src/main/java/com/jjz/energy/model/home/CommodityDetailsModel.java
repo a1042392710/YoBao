@@ -15,7 +15,7 @@ import io.reactivex.Flowable;
  */
 public class CommodityDetailsModel extends BaseModel {
 
-    //分类列表
+    //获取商品详情
     public Flowable<GoodsDetailsBean> getGoodsDetails(String requestData) {
         return RetrofitFactory.getRetrofit().create(Api.class).getGoodsDetails(requestData).compose(RxSchedulerHepler.handleMyResult());
     }

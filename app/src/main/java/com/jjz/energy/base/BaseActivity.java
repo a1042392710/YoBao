@@ -78,6 +78,9 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
         initView();
     }
 
+    /**
+     * 子类重写后自己实现跳转动画
+     */
     protected  void initEnterTransition(){
 
     };

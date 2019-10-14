@@ -39,8 +39,8 @@ public class CommodityDetailsPresenter extends BasePresenter<CommodityDetailsMod
 
                     @Override
                     protected void onSuccess(GoodsDetailsBean response) {
-                        mView.stopLoading();
                         mView.isGetGoodsDetailsSuc(response);
+                        mView.stopLoading();
                     }
 
                     @Override
