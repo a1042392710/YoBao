@@ -1,5 +1,6 @@
 package com.jjz.energy.ui.mine;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -78,6 +79,7 @@ public class MineFragment  extends BaseLazyFragment<MinePresenter> implements IM
     /**
      * 获取用户数据成功
      */
+    @SuppressLint("SetTextI18n")
     @Override
     public void isGetInfoSuccess(MineInfoBean data) {
         mMineInfoBean = data;
@@ -92,9 +94,9 @@ public class MineFragment  extends BaseLazyFragment<MinePresenter> implements IM
         GlideUtils.loadCircleImage(mContext, mMineInfoBean.getHead_pic(), imgHead);
         //昵称
         tvNickName.setText(mMineInfoBean.getNickname());
-        //关注数量和粉丝数量 todo 未完成
-        tvFansSum.setText("粉丝:100万");
-        tvLikeSum.setText("关注:50");
+        //关注数量和粉丝数量
+        tvFansSum.setText("粉丝："+data.getFans_num());
+        tvLikeSum.setText("关注："+data.getFocus_num());
     }
 
 

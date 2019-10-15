@@ -64,6 +64,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
+                android:visibility="invisible"
                 android:layout_marginRight="8dp"
                 android:gravity="center"
                 android:padding="10dp"
@@ -76,6 +77,20 @@
          android:paddingLeft="15dp"
          android:paddingRight="15dp"
          android:layout_height="wrap_content">
+
+         <TextView
+             android:id="@+id/tv_like_user"
+             android:layout_width="61dp"
+             android:layout_height="33dp"
+             android:layout_alignParentRight="true"
+             android:layout_alignTop="@id/img_head"
+             android:layout_marginTop="10dp"
+             android:textColor="@color/white"
+             android:background="@drawable/bg_like_user"
+             android:textSize="13sp"
+             android:gravity="center"
+             android:text="关注"/>
+
          <ImageView
              android:id="@+id/img_head"
              android:layout_width="71dp"
@@ -87,11 +102,14 @@
          <TextView
              android:id="@+id/tv_user_name"
              android:layout_width="wrap_content"
-             android:text="南昌彭于晏"
+             android:text="用户昵称"
              android:textSize="17sp"
              android:textColor="@color/white"
              android:includeFontPadding="false"
              android:layout_toRightOf="@id/img_head"
+             android:singleLine="true"
+             android:ellipsize="end"
+             android:layout_toLeftOf="@id/tv_like_user"
              android:layout_alignTop="@id/img_head"
              android:layout_height="wrap_content"/>
 
@@ -102,7 +120,7 @@
              android:layout_below="@id/tv_user_name"
              android:layout_marginTop="7dp"
              android:layout_toRightOf="@id/img_head"
-             android:text="3小时前活跃"
+             android:text="刚刚活跃"
              android:textColor="@color/white"
              android:textSize="11sp"/>
 
@@ -111,7 +129,7 @@
              android:id="@+id/tv_user_like_and_fans"
              android:layout_width="wrap_content"
              android:layout_marginTop="7dp"
-             android:text="关注 14   粉丝 11"
+             android:text="关注 0   粉丝 0"
              android:textSize="11sp"
              android:textColor="@color/white"
              android:layout_toEndOf="@id/img_head"
@@ -122,7 +140,7 @@
              android:id="@+id/tv_user_desc"
              android:layout_width="wrap_content"
              android:layout_marginTop="8dp"
-             android:text="他现居浙江温州，90后水瓶座男生，自由职业喜欢宠物..."
+             tools:text="他现居浙江温州，90后水瓶座男生，自由职业喜欢宠物..."
              android:textSize="12sp"
              android:maxLines="2"
              android:ellipsize="end"
@@ -133,18 +151,7 @@
 
 
 
-             <TextView
-                 android:id="@+id/tv_like_user"
-                 android:layout_width="81dp"
-                 android:layout_height="33dp"
-                 android:layout_alignParentRight="true"
-                 android:layout_alignTop="@id/img_head"
-                 android:layout_marginTop="10dp"
-                 android:textColor="@color/white"
-                 android:background="@drawable/bg_like_user"
-                 android:textSize="13sp"
-                 android:gravity="center"
-                 android:text="关注"/>
+
 
 
 

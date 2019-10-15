@@ -11,7 +11,7 @@ public class UserInfo implements Serializable {
     /**
      * 用户ID
      */
-    private long user_id;
+    private int user_id;
     /**
      * 头像
      */
@@ -28,7 +28,6 @@ public class UserInfo implements Serializable {
      * 昵称
      */
     private String nickname;
-
     /**
      * 简介
      */
@@ -46,7 +45,6 @@ public class UserInfo implements Serializable {
      * 时间戳
      */
     private String time;
-
     /**
      * 生日
      */
@@ -76,11 +74,11 @@ public class UserInfo implements Serializable {
      */
     private int  completion;
 
-    public long getUser_id() {
+    public int getUser_id() {
         return user_id;
     }
 
-    public void setUser_id(long user_id) {
+    public void setUser_id(int user_id) {
         this.user_id = user_id;
     }
 

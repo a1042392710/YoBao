@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="65dp"
-                android:paddingLeft="18dp">
+    android:layout_width="match_parent"
+    android:layout_height="65dp"
+    android:paddingLeft="18dp">
 
     <TextView
         android:id="@+id/item_tv_is_like"
@@ -13,9 +13,9 @@
         android:layout_marginRight="18dp"
         android:background="@drawable/bg_gray_solid_b5"
         android:gravity="center"
-        android:text="关注"
+        android:text="取消关注"
         android:textColor="@color/white"
-        android:textSize="13sp"/>
+        android:textSize="13sp" />
 
     <ImageView
         android:id="@+id/item_img_head"
@@ -23,42 +23,41 @@
         android:layout_height="46dp"
         android:layout_centerVertical="true"
         android:layout_marginRight="12dp"
-        android:src="@mipmap/ic_default_head"/>
-    
-    
+        android:src="@mipmap/ic_default_head" />
+
+
     <TextView
-        android:layout_alignTop="@id/item_img_head"
         android:id="@+id/item_tv_user_name"
-        android:textSize="13sp"
-        android:textColor="@color/text_black33"
         android:layout_width="wrap_content"
-        android:text="南昌彭于晏"
-        android:includeFontPadding="false"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/item_img_head"
         android:layout_toRightOf="@id/item_img_head"
-        android:layout_height="wrap_content"/>
+        android:includeFontPadding="false"
+        android:text="南昌彭于晏"
+        android:textColor="@color/text_black33"
+        android:textSize="13sp" />
 
     <TextView
         android:id="@+id/item_tv_user_desc"
-        android:layout_toRightOf="@id/item_img_head"
-        android:layout_marginTop="9dp"
-        android:includeFontPadding="false"
-        android:maxLines="1"
-        android:maxEms="13"
-        android:ellipsize="end"
-        android:textSize="12sp"
-        android:textColor="#b0b0b0"
-        android:layout_below="@id/item_tv_user_name"
-        android:text="我是英雄联盟最骚的骚猪"
-        android:layout_toLeftOf="@id/item_tv_is_like"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
+        android:layout_height="wrap_content"
+        android:layout_below="@id/item_tv_user_name"
+        android:layout_marginTop="9dp"
+        android:layout_toLeftOf="@id/item_tv_is_like"
+        android:layout_toRightOf="@id/item_img_head"
+        android:ellipsize="end"
+        android:includeFontPadding="false"
+        android:maxEms="13"
+        android:maxLines="1"
+        android:text="我是英雄联盟最骚的骚猪"
+        android:textColor="#b0b0b0"
+        android:textSize="12sp" />
 
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_alignParentBottom="true"
-        android:background="@color/color_bg_f7"/>
+        android:background="@color/color_bg_f7" />
 
 </RelativeLayout>

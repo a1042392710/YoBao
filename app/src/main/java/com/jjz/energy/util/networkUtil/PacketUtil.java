@@ -79,7 +79,7 @@ public class PacketUtil {
                 }
             }
             rows.put("username", username);//用户名,手机号(后台暂定)
-            if (!StringUtils.isEmpty(decode_token)) {//解密后的token
+            if (!StringUtils.isEmpty(decode_token)) {//解密后的token 再次加密
                 token = AesUtils.encrypt(decode_token + date, AesUtils.KEY, AesUtils.IV);
             }
             rows.put("token", token);//后台给的token值，没有就为空

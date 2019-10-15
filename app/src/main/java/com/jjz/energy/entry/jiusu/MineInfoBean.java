@@ -20,7 +20,7 @@ public class MineInfoBean  implements Serializable {
     /**
      * 个人主页
      */
-    private long user_id ;
+    private int user_id ;
 
     // 推送公告
     private String push_message;
@@ -28,18 +28,34 @@ public class MineInfoBean  implements Serializable {
     /**
      * 粉丝数量
       */
-    private int fens_num;
+    private int focus_num;
     /**
      * 关注数量
      */
-    private int like_num;
+    private int fans_num;
 
-    public long getUser_id() {
-        return user_id;
+    public int getFocus_num() {
+        return focus_num;
     }
 
-    public void setUser_id(long user_id) {
+    public void setFocus_num(int focus_num) {
+        this.focus_num = focus_num;
+    }
+
+    public int getFans_num() {
+        return fans_num;
+    }
+
+    public void setFans_num(int fans_num) {
+        this.fans_num = fans_num;
+    }
+
+    public void setUser_id(int user_id) {
         this.user_id = user_id;
+    }
+
+    public int getUser_id() {
+        return user_id;
     }
 
     public String getHead_pic() {
@@ -66,19 +82,5 @@ public class MineInfoBean  implements Serializable {
         this.push_message = push_message;
     }
 
-    public int getFens_num() {
-        return fens_num;
-    }
 
-    public void setFens_num(int fens_num) {
-        this.fens_num = fens_num;
-    }
-
-    public int getLike_num() {
-        return like_num;
-    }
-
-    public void setLike_num(int like_num) {
-        this.like_num = like_num;
-    }
 }

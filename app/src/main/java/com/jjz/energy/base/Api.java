@@ -6,7 +6,9 @@ import com.jjz.energy.entry.BindOwnerInfoBean;
 import com.jjz.energy.entry.CommentBean;
 import com.jjz.energy.entry.HomeDetailBean;
 import com.jjz.energy.entry.LikeGoodsBean;
+import com.jjz.energy.entry.MineLikeAndFansBean;
 import com.jjz.energy.entry.UserInfo;
+import com.jjz.energy.entry.UserPageInfo;
 import com.jjz.energy.entry.commodity.GoodsClassificationBean;
 import com.jjz.energy.entry.commodity.GoodsDetailsBean;
 import com.jjz.energy.entry.commodity.GoodsListBean;
@@ -114,6 +116,31 @@ public interface Api {
     @FormUrlEncoded
     @POST("user/getUserinfo")
     Flowable<ResponseData<UserInfo>> getUserInfo(@Field(PACK_NO) String pack_no);
+
+    //获取主页个人信息
+    @FormUrlEncoded
+    @POST("user/getUserPageInfo")
+    Flowable<ResponseData<UserPageInfo>> getUserPageInfo(@Field(PACK_NO) String pack_no);
+
+    //关注用户和取消关注
+    @FormUrlEncoded
+    @POST("user/setFocusUser")
+    Flowable<ResponseData<String>> setFocusUser(@Field(PACK_NO) String pack_no);
+
+
+    //获取关注列表
+    @FormUrlEncoded
+    @POST("user/focusList")
+    Flowable<ResponseData<MineLikeAndFansBean>> getFocusList(@Field(PACK_NO) String pack_no);
+
+
+    //获取粉丝列表
+    @FormUrlEncoded
+    @POST("user/fansList")
+    Flowable<ResponseData<MineLikeAndFansBean>> getFansList(@Field(PACK_NO) String pack_no);
+
+
+
 
     //提交车主信息
     @FormUrlEncoded
