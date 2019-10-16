@@ -135,9 +135,9 @@ public class PutCommodityActivity extends BaseActivity <PutCommodityPresenter>im
         initSingerPicker();
         initRv();
         //如果是编辑 查询数据后刷新当前页面
-        goods_id = getIntent().getIntExtra("goods_id", -1);
+        goods_id = getIntent().getIntExtra(Constant.GOODS_ID, -1);
         if (-1 != goods_id) {
-            mPresenter.getGoodsDetails(PacketUtil.getRequestPacket(Utils.stringToMap("goods_id",
+            mPresenter.getGoodsDetails(PacketUtil.getRequestPacket(Utils.stringToMap(Constant.GOODS_ID,
                     goods_id + "")));
         }
     }
@@ -325,7 +325,7 @@ public class PutCommodityActivity extends BaseActivity <PutCommodityPresenter>im
     private void submit() {
         HashMap<String, String> hashMap = new HashMap<>();
         if (goods_id != -1) {
-            hashMap.put("goods_id", goods_id+"");
+            hashMap.put(Constant.GOODS_ID, goods_id+"");
         }
         //标题
         hashMap.put("goods_name",etCommodityTitle.getText().toString().trim());
@@ -528,7 +528,7 @@ public class PutCommodityActivity extends BaseActivity <PutCommodityPresenter>im
     public void isPutCommditySuccess(String data) {
         showToast("发布成功");
         //跳转发布详情
-        startActivity(new Intent(mContext, CommodityDetailActivity.class).putExtra(CommodityDetailActivity.GOODS_ID,Integer.valueOf(data)));
+        startActivity(new Intent(mContext, CommodityDetailActivity.class).putExtra(Constant.GOODS_ID,Integer.valueOf(data)));
         finish();
     }
 

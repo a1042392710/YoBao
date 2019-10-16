@@ -12,6 +12,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.jjz.energy.R;
 import com.jjz.energy.base.BaseActivity;
 import com.jjz.energy.base.BaseRecycleNewAdapter;
+import com.jjz.energy.base.Constant;
 import com.jjz.energy.entry.LikeGoodsBean;
 import com.jjz.energy.presenter.home.MinePutPresenter;
 import com.jjz.energy.ui.home.commodity.CommodityDetailActivity;
@@ -73,7 +74,7 @@ public class MinePutActivity extends BaseActivity <MinePutPresenter>implements I
         rvMinePut.setLayoutManager(new LinearLayoutManager(mContext));
         rvMinePut.setAdapter(mAdapter);
         mAdapter.setOnItemClickListener((adapter, view, position) -> {
-            startActivity(new Intent(mContext, CommodityDetailActivity.class).putExtra(CommodityDetailActivity.GOODS_ID,mAdapter.getData().get(position).getGoods_id()));
+            startActivity(new Intent(mContext, CommodityDetailActivity.class).putExtra(Constant.GOODS_ID,mAdapter.getData().get(position).getGoods_id()));
         });
         smartRefresh.setOnLoadMoreListener(refreshLayout -> {
             mPage++;
@@ -96,7 +97,7 @@ public class MinePutActivity extends BaseActivity <MinePutPresenter>implements I
      */
     private void downCommodity(String goods_id){
         HashMap<String,String> hashMap = new HashMap<>();
-        hashMap.put("goods_id",goods_id);
+        hashMap.put(Constant.GOODS_ID,goods_id);
         // onsale 上架  offsale 下架
         hashMap.put("act","offsale");
         mPresenter.downCommodity(PacketUtil.getRequestPacket(hashMap));
@@ -183,7 +184,7 @@ public class MinePutActivity extends BaseActivity <MinePutPresenter>implements I
             //编辑
             helper.getView(R.id.item_tv_lable_two).setOnClickListener(v -> {
                 //传递 goods_id
-                startActivity(new Intent(mContext, PutCommodityActivity.class).putExtra("goods_id",item.getGoods_id()));
+                startActivity(new Intent(mContext, PutCommodityActivity.class).putExtra(Constant.GOODS_ID,item.getGoods_id()));
             });
 
         }

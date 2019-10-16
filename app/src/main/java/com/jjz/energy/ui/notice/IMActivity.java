@@ -132,6 +132,10 @@ public class IMActivity extends BaseActivity {
             tvImTitle.setText(conversation.getTitle() == null ? "" : conversation.getTitle());
             //聊天对象
             UserInfo info = (UserInfo) conversation.getTargetInfo();
+            //设置用户id
+            if (!StringUtil.isEmpty(info.getAddress())){
+                mImAdapter.setUser_id(info.getAddress());
+            }
             userName = info.getUserName();
             //刷新聊天数据并且滚动到底部
             if (conversation.getAllMessage() != null) {

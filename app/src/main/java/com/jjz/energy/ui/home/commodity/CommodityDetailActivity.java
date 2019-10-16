@@ -15,13 +15,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.ActivityUtils;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jjz.energy.R;
 import com.jjz.energy.adapter.CommentExpandAdapter;
 import com.jjz.energy.base.BaseActivity;
 import com.jjz.energy.base.BaseApplication;
 import com.jjz.energy.base.BaseRecycleNewAdapter;
+import com.jjz.energy.base.Constant;
 import com.jjz.energy.entry.CommentBean;
 import com.jjz.energy.entry.commodity.GoodsDetailsBean;
 import com.jjz.energy.presenter.home.CommodityDetailsPresenter;
@@ -47,6 +47,8 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+
+import static com.jjz.energy.base.Constant.GOODS_ID;
 
 /**
  * @Features: 商品详情
@@ -122,10 +124,6 @@ public class CommodityDetailActivity extends BaseActivity <CommodityDetailsPrese
     NestedScrollView scrollView;
 
     /**
-     * 商品ID
-     */
-    public static final String GOODS_ID = "goods_id";
-    /**
      * 该商品的id
      */
     private int goods_id;
@@ -183,7 +181,7 @@ public class CommodityDetailActivity extends BaseActivity <CommodityDetailsPrese
             return;
         }
         HashMap<String, String> map = new HashMap<>();
-        map.put("goods_id", mGoodsInfo.getGoods_info().getGoods_id() + "");
+        map.put(Constant.GOODS_ID, mGoodsInfo.getGoods_info().getGoods_id() + "");
         //   act :  collect/cance 收藏   取消收藏
         map.put("act", isCollect == 0 ? "collect" : "cancel");
         mPresenter.putCollect(PacketUtil.getRequestPacket(map));
@@ -415,26 +413,28 @@ public class CommodityDetailActivity extends BaseActivity <CommodityDetailsPrese
                 if (StringUtil.isEmpty(etComment.getText().toString())){
                     return;
                 }
-                sendComment(Utils.stringToMap("goods_id",mGoodsInfo.getGoods_info().getGoods_id()+""),etComment.getText().toString());
+                sendComment(Utils.stringToMap(Constant.GOODS_ID,mGoodsInfo.getGoods_info().getGoods_id()+""),etComment.getText().toString());
                 break;
             //发送回复
             case R.id.tv_reply_send:
                 if (StringUtil.isEmpty(etReplyContent.getText().toString())){
                     return;
                 }
-                sendComment(Utils.stringToMap(reply_key,reply_value),etReplyContent.getText().toString());
+                sendComment(Utils.stringToMap(reply_key, reply_value),
+                        etReplyContent.getText().toString());
                 break;
-                //想要
+            //想要
             case R.id.tv_like:
                 putWant();
                 break;
-                //收藏夹
+            //收藏夹
             case R.id.tv_favorites:
                 startActivity(new Intent(mContext, MineLikeCommodityActivity.class));
                 break;
-                //立即购买
+            //立即购买
             case R.id.tv_buy:
-                ActivityUtils.startActivity(SureBuyActivity.class);
+                startActivity(new Intent(mContext, SureBuyActivity.class)
+                        .putExtra(GOODS_ID, mGoodsInfo == null ? mGoodsInfo.getGoods_info().getGoods_id() : -1));
                 break;
 
         }

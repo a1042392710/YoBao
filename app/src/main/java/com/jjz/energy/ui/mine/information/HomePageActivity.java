@@ -1,6 +1,7 @@
 package com.jjz.energy.ui.mine.information;
 
 import android.annotation.SuppressLint;
+import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -18,7 +19,7 @@ import com.jjz.energy.entry.UserPageInfo;
 import com.jjz.energy.presenter.mine.HomePagePresenter;
 import com.jjz.energy.ui.community.PostFragment;
 import com.jjz.energy.ui.home.commodity.CommentFragment;
-import com.jjz.energy.ui.home.commodity.CommodityFragment;
+import com.jjz.energy.ui.home.commodity.HomePageCommodityFragment;
 import com.jjz.energy.util.DateUtil;
 import com.jjz.energy.util.Utils;
 import com.jjz.energy.util.glide.GlideUtils;
@@ -27,8 +28,10 @@ import com.jjz.energy.util.networkUtil.PacketUtil;
 import com.jjz.energy.util.networkUtil.UserLoginBiz;
 import com.jjz.energy.view.mine.IHomePageView;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -95,18 +98,35 @@ public class HomePageActivity extends BaseActivity<HomePagePresenter> implements
             tvToolbarTitle.setText("我的主页");
             tvLikeUser.setVisibility(View.GONE);
         }
-        //初始化Tablayou和ViewPager
-        initVpAndVp();
         //获取用户信息
         mPresenter.getUserPageInfo(PacketUtil.getRequestPacket(Utils.stringToMap("user_id", AesUtils.encrypt(String.valueOf(user_id), AesUtils.KEY, AesUtils.IV))));
+        //初始化Tablayou和ViewPager
+        initVpAndVp();
     }
 
     /**
      * 初始化tblayout列表和vp
      */
     private void initVpAndVp() {
-        //初始化ViewPager 并与TabLayout绑定
-        noScrollVp.setAdapter(new ViewPagerAdapter(getSupportFragmentManager()));
+        List<Fragment> fragments = new ArrayList<>();
+
+        Bundle bundle = new Bundle();
+        bundle.putInt("user_id", user_id);
+        //实例化Fragment
+        HomePageCommodityFragment homePageCommodityFragment = new HomePageCommodityFragment();
+        homePageCommodityFragment.setArguments(bundle);
+        //实例化Fragment
+        PostFragment postFragment = new PostFragment();
+        postFragment.setArguments(bundle);
+        //实例化Fragment
+        CommentFragment commentFragment = new CommentFragment();
+        commentFragment.setArguments(bundle);
+        fragments.add(homePageCommodityFragment);
+        fragments.add(postFragment);
+        fragments.add(commentFragment);
+
+        //初始化ViePager 并与TabLayout绑定
+        noScrollVp.setAdapter(new ViewPagerAdapter(getSupportFragmentManager(),fragments));
         tablayout.setupWithViewPager(noScrollVp);
     }
 
@@ -171,18 +191,18 @@ public class HomePageActivity extends BaseActivity<HomePagePresenter> implements
     class ViewPagerAdapter extends FragmentPagerAdapter {
         private String[] title = {"商品", "帖子", "评价"};
 
-        private Fragment[] mFragments = new Fragment[]{new CommodityFragment(), new PostFragment(),
-                new CommentFragment()};
+        private List<Fragment> mFragments;
 
-        public ViewPagerAdapter(FragmentManager fm) {
+        public ViewPagerAdapter(FragmentManager fm ,List<Fragment> list  ) {
             super(fm);
+            this.mFragments = list;
         }
 
         @Override
-        public Fragment getItem(int position) { return mFragments[position];}
+        public Fragment getItem(int position) { return mFragments.get(position);}
 
         @Override
-        public int getCount() { return mFragments.length;}
+        public int getCount() { return mFragments.size();}
 
         @Nullable
         @Override

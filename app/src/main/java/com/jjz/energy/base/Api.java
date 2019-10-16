@@ -128,6 +128,12 @@ public interface Api {
     Flowable<ResponseData<String>> setFocusUser(@Field(PACK_NO) String pack_no);
 
 
+    //获取用户的所有商品
+    @FormUrlEncoded
+    @POST("user/userPageGoodsList")
+    Flowable<ResponseData<GoodsListBean>> getUserAllGoods(@Field(PACK_NO) String pack_no);
+
+
     //获取关注列表
     @FormUrlEncoded
     @POST("user/focusList")

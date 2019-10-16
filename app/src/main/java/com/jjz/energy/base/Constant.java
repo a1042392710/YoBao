@@ -44,11 +44,21 @@ public class Constant {
     public static final String WX_APP_SECRET = "ab718b505aca9871335d4a32c1a67dac";
     //金玖洲隐私协议
     public static final String PRIVACY_POLICY_URL = "http://api.jjznewenergy.com/index/user/userDeal";
+    //bugly id
     public static final String BUGLY_ID = "549524cc16";
-
 
     /**
      * 推送的消息类型
      */
     public  static  final int NOTICE_ONE = 100;
+
+
+    /**
+     * 商品id
+     */
+    public static final String GOODS_ID = "goods_id";
+
+
+
+
 }

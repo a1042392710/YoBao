@@ -237,7 +237,7 @@
             android:configChanges="orientation|screenSize"/>
 
         <!--订单详情-->
-        <activity android:name="com.jjz.energy.ui.order.OrderDetailsActivity"
+        <activity android:name="com.jjz.energy.ui.mine.shop_order.OrderDetailsActivity"
             android:configChanges="orientation|screenSize"/>
 
         <!--查看大图-->

@@ -2,6 +2,7 @@ package com.jjz.energy.view.mine;
 
 import com.jjz.energy.base.IBaseView;
 import com.jjz.energy.entry.UserPageInfo;
+import com.jjz.energy.entry.commodity.GoodsListBean;
 
 /**
  * create 个人主页
@@ -16,6 +17,10 @@ public interface IHomePageView extends IBaseView {
     };
     //关注或取消关注
     default  void isFocusUserSuccess(String data){
+
+    };
+    //获取用户所有的商品
+    default  void isGetUserAllGoods(GoodsListBean data){
 
     };
 

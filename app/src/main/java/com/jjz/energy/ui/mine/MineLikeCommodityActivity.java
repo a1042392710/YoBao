@@ -13,9 +13,11 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.jjz.energy.R;
 import com.jjz.energy.base.BaseActivity;
 import com.jjz.energy.base.BaseRecycleNewAdapter;
+import com.jjz.energy.base.Constant;
 import com.jjz.energy.entry.LikeGoodsBean;
 import com.jjz.energy.presenter.mine.MineLikeCommodityPresenter;
 import com.jjz.energy.ui.home.commodity.CommodityDetailActivity;
+import com.jjz.energy.ui.mine.shop_order.SureBuyActivity;
 import com.jjz.energy.util.DateUtil;
 import com.jjz.energy.util.StringUtil;
 import com.jjz.energy.util.Utils;
@@ -31,6 +33,8 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+
+import static com.jjz.energy.base.Constant.GOODS_ID;
 
 /**
  * @Features: 我收藏的
@@ -73,7 +77,7 @@ public class MineLikeCommodityActivity extends BaseActivity<MineLikeCommodityPre
         rvMineLike.setLayoutManager(new LinearLayoutManager(mContext));
         rvMineLike.setAdapter(mAdapter);
         mAdapter.setOnItemClickListener((adapter, view, position) -> {
-            startActivity(new Intent(mContext, CommodityDetailActivity.class).putExtra(CommodityDetailActivity.GOODS_ID,mAdapter.getData().get(position).getGoods_id()));
+            startActivity(new Intent(mContext, CommodityDetailActivity.class).putExtra(Constant.GOODS_ID,mAdapter.getData().get(position).getGoods_id()));
         });
         smartRefresh.setOnLoadMoreListener(refreshLayout -> {
             mPage++;
@@ -95,7 +99,7 @@ public class MineLikeCommodityActivity extends BaseActivity<MineLikeCommodityPre
      */
     private void cancleCollect(String goods_id){
         HashMap<String, String> map = new HashMap<>();
-        map.put("goods_id",goods_id);
+        map.put(Constant.GOODS_ID,goods_id);
         //取消收藏
         map.put("act","cancel");
         mPresenter.putCollect(PacketUtil.getRequestPacket(map));
@@ -181,9 +185,10 @@ public class MineLikeCommodityActivity extends BaseActivity<MineLikeCommodityPre
                 selectPosition = helper.getLayoutPosition();
                 cancleCollect(String.valueOf(item.getGoods_id()));
             });
-            //立即购买  todo 未完成 进入确认购买页
+            //立即购买  确认购买页
             helper.getView(R.id.item_tv_lable_two).setOnClickListener(v -> {
-
+                startActivity(new Intent(mContext, SureBuyActivity.class)
+                        .putExtra(GOODS_ID, item.getGoods_id()));
             });
 
         }

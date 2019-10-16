@@ -1,7 +1,6 @@
 package com.jjz.energy.ui.mine;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -22,7 +21,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -85,12 +83,6 @@ public class MinePostActivity extends BaseActivity {
         finish();
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
 
     class MinePostAdapter extends BaseRecycleNewAdapter<String> {
 

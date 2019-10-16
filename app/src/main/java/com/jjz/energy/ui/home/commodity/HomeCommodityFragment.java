@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import com.jjz.energy.R;
 import com.jjz.energy.adapter.HomeGoodsAdapter;
 import com.jjz.energy.base.BaseLazyFragment;
+import com.jjz.energy.base.Constant;
 import com.jjz.energy.entry.commodity.GoodsListBean;
 import com.jjz.energy.presenter.home.HomeCommodityPresenter;
 import com.jjz.energy.util.networkUtil.PacketUtil;
@@ -70,7 +71,7 @@ public class HomeCommodityFragment extends BaseLazyFragment<HomeCommodityPresent
         //子项点击事件
         mGoodsAdapter.setOnItemClickListener((adapter, view, position) -> {
             Bundle bundle = new Bundle();
-            bundle.putInt(CommodityDetailActivity.GOODS_ID,
+            bundle.putInt(Constant.GOODS_ID,
                     mGoodsAdapter.getData().get(position).getGoods_id());
             loginStartActivity(CommodityDetailActivity.class, bundle);
         });

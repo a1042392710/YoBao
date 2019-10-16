@@ -163,9 +163,10 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
             @Override
             public void gotResult(int i, String s) {
                 String msg =  i ==0?"登录成功":"登录失败:"+s;
-                LogUtil.e("久速","极光推送:"+msg);
+                LogUtil.e("久速","极光IM:"+msg);
             }
         });
+
         //跳转首页
         Intent intent = new Intent(mContext, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

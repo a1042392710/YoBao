@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 
 import com.jjz.energy.base.BasePresenter;
 import com.jjz.energy.entry.UserPageInfo;
+import com.jjz.energy.entry.commodity.GoodsListBean;
 import com.jjz.energy.model.mine.HomePageModel;
 import com.jjz.energy.util.networkUtil.CommonSubscriber;
 import com.jjz.energy.view.mine.IHomePageView;
@@ -30,9 +31,7 @@ public class HomePagePresenter extends BasePresenter<HomePageModel, IHomePageVie
                 .subscribeWith(new CommonSubscriber<UserPageInfo>() {
 
                     @Override
-                    protected void startLoading() {
-                        mView.showLoading();
-                    }
+                    protected void startLoading() {}
 
                     @Override
                     protected void onSuccess(UserPageInfo response) {
@@ -78,6 +77,40 @@ public class HomePagePresenter extends BasePresenter<HomePageModel, IHomePageVie
                 }));
 
     }
+
+
+    /**
+     * 查询该用户的所有商品
+     * @param map
+     */
+    @SuppressLint("CheckResult")
+    public void getUserAllGoods(String map,boolean isLoadMore) {
+
+        addSubscribe(mModel.getUserAllGoods(map)
+                .subscribeWith(new CommonSubscriber<GoodsListBean>() {
+
+                    @Override
+                    protected void startLoading() {
+                        if (!isLoadMore){
+                            mView.showLoading();
+                        }
+                    }
+
+                    @Override
+                    protected void onSuccess(GoodsListBean response) {
+                        mView.stopLoading();
+                        mView.isGetUserAllGoods(response);
+                    }
+
+                    @Override
+                    protected void onFail(String errorMsg ,boolean isNetAndSeriveError) {
+                        mView.stopLoading();
+                        mView.isFail(errorMsg,isNetAndSeriveError);
+                    }
+                }));
+
+    }
+
 
     @Override
     protected HomePageModel createModel() {

@@ -14,6 +14,7 @@ import com.jjz.energy.ui.mine.information.HomePageActivity;
 import com.jjz.energy.ui.notice.IMActivity;
 import com.jjz.energy.util.DateUtil;
 import com.jjz.energy.util.SafeClickListener;
+import com.jjz.energy.util.StringUtil;
 import com.jjz.energy.util.glide.GlideUtils;
 
 import java.util.List;
@@ -33,12 +34,21 @@ public class ImAdapter extends BaseRecycleNewAdapter<Message> {
     private String userName;
     private IMActivity mIMActivity;
 
+    private String user_id;
+
 
 
     public ImAdapter(int layoutResId, @Nullable List<Message> data,IMActivity context,String userName) {
         super(layoutResId, data);
         this.mIMActivity = context;
         this.userName = userName;
+    }
+
+    /**
+     * 设置用户id
+     */
+    public void setUser_id(String user_id){
+        this.user_id = user_id;
     }
 
     @Override
@@ -165,10 +175,11 @@ public class ImAdapter extends BaseRecycleNewAdapter<Message> {
         }
 
         //点头像进入主页
-        imgHerHead.setOnClickListener(v -> mContext.startActivity(new Intent(mContext,
-                HomePageActivity.class)));
-        imgMyHead.setOnClickListener(v -> mContext.startActivity(new Intent(mContext,
-                HomePageActivity.class)));
+        if (!StringUtil.isEmpty(user_id)){
+            imgHerHead.setOnClickListener(v -> mContext.startActivity(new Intent(mContext,
+                    HomePageActivity.class).putExtra("user_id",Integer.valueOf(user_id))));
+        }
+
 
         //重新发送消息  TODO 后面考虑发送图片的重试机制
         imgFail.setOnClickListener(new SafeClickListener() {
