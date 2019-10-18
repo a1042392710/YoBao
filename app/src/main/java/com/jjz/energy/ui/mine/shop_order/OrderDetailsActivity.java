@@ -11,6 +11,7 @@ import com.jjz.energy.R;
 import com.jjz.energy.adapter.OrderDetailsStatusAdapter;
 import com.jjz.energy.base.BaseActivity;
 import com.jjz.energy.base.BasePresenter;
+import com.jjz.energy.base.Constant;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,10 +74,15 @@ public class OrderDetailsActivity extends BaseActivity {
         return null;
     }
 
+    /**
+     * 订单sn
+     */
+    private String order_sn;
 
     @Override
     protected void initView() {
         tvToolbarTitle.setText("订单详情");
+        order_sn  = getIntent().getStringExtra(Constant.ORDER_SN);
         List<String> list = new ArrayList<>();
         list.add("");
         list.add("");

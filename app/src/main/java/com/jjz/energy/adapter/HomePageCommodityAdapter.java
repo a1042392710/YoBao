@@ -10,6 +10,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jjz.energy.R;
 import com.jjz.energy.base.BaseRecycleNewAdapter;
+import com.jjz.energy.entry.commodity.GoodsBean;
 import com.jjz.energy.entry.commodity.GoodsListBean;
 import com.jjz.energy.util.glide.RoundedCornersTransform;
 
@@ -19,10 +20,10 @@ import java.util.List;
  * @Features: 首页 > 个人主页 网格布局
  * @author: create by chenhao on 2019/6/18
  */
-public class HomePageCommodityAdapter extends BaseRecycleNewAdapter<GoodsListBean.GoodsBean> {
+public class HomePageCommodityAdapter extends BaseRecycleNewAdapter<GoodsBean> {
 
 
-    public HomePageCommodityAdapter(int layoutResId, @Nullable List<GoodsListBean.GoodsBean> data) {
+    public HomePageCommodityAdapter(int layoutResId, @Nullable List<GoodsBean> data) {
         super(layoutResId, data);
     }
 
@@ -32,7 +33,7 @@ public class HomePageCommodityAdapter extends BaseRecycleNewAdapter<GoodsListBea
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, GoodsListBean.GoodsBean item) {
+    protected void convert(BaseViewHolder helper, GoodsBean item) {
         //商品图片
         ImageView imgGoods = helper.getView(R.id.item_img_commodity);
         //商品标题

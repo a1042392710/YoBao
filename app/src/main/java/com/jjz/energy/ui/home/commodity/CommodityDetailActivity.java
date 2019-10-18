@@ -434,7 +434,7 @@ public class CommodityDetailActivity extends BaseActivity <CommodityDetailsPrese
             //立即购买
             case R.id.tv_buy:
                 startActivity(new Intent(mContext, SureBuyActivity.class)
-                        .putExtra(GOODS_ID, mGoodsInfo == null ? mGoodsInfo.getGoods_info().getGoods_id() : -1));
+                        .putExtra(GOODS_ID, mGoodsInfo != null ? mGoodsInfo.getGoods_info().getGoods_id() : -1));
                 break;
 
         }

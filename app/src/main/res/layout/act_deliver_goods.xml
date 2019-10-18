@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_bg_f7"
+    android:orientation="vertical">
+
+    <include layout="@layout/view_tool_bar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/bg_white_radius"
+                android:elevation="3dp"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp"
+                android:paddingBottom="25dp">
+
+                <TextView
+                    android:id="@+id/tv_cricle_seller"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:layout_marginTop="29dp"
+                    android:layout_marginRight="8dp"
+                    android:background="@drawable/bg_cricle_solid_orange"
+                    android:gravity="center"
+                    android:text="寄"
+                    android:textColor="@color/white"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tv_seller_name_and_phone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="17dp"
+                    android:layout_toRightOf="@id/tv_cricle_seller"
+                    android:text="一只蚂蚁 138123456"
+                    android:textColor="@color/text_black33"
+                    android:textSize="13sp" />
+
+
+                <TextView
+                    android:id="@+id/tv_seller_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_seller_name_and_phone"
+                    android:layout_alignLeft="@id/tv_seller_name_and_phone"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginRight="88dp"
+                    android:text="江西省南昌市新建区长麦南路118号（原新富女人城）宝乐迪量版式KTV"
+                    android:textColor="#a6a6a6"
+                    android:textSize="10sp" />
+
+
+                <View
+                    android:id="@+id/view_line"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@id/tv_seller_address"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@color/color_bg_f7" />
+
+                <TextView
+                    android:id="@+id/tv_buyer_name_and_phone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/view_line"
+                    android:layout_marginTop="17dp"
+                    android:layout_toRightOf="@id/tv_cricle_seller"
+                    android:text="一只大象 138123456"
+                    android:textColor="@color/text_black33"
+                    android:textSize="13sp" />
+
+
+                <TextView
+                    android:id="@+id/tv_cricle_buyer"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:layout_below="@id/tv_buyer_name_and_phone"
+                    android:layout_marginRight="8dp"
+                    android:background="@drawable/bg_cricle_solid_orange"
+                    android:gravity="center"
+                    android:text="收"
+                    android:textColor="@color/white"
+                    android:textSize="14sp" />
+
+
+                <TextView
+                    android:id="@+id/tv_buyer_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_buyer_name_and_phone"
+                    android:layout_alignLeft="@id/tv_buyer_name_and_phone"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginRight="88dp"
+                    android:text="江西省南昌市新建区长麦南路118号（原新富女人城）宝乐迪量版式KTV"
+                    android:textColor="#a6a6a6"
+                    android:textSize="10sp" />
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/bg_white_radius"
+                android:elevation="3dp"
+                android:padding="12dp">
+
+                <TextView
+                    android:id="@+id/tv_text_one"
+                    android:layout_width="wrap_content"
+                    android:text="已填邮寄单"
+                    android:textSize="13sp"
+                    android:textColor="@color/text_black33"
+                    android:layout_marginTop="5dp"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:id="@+id/tv_text_two"
+                    android:textColor="@color/text_blackA6"
+                    android:layout_below="@id/tv_text_one"
+                    android:layout_width="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:textSize="9sp"
+                    android:text="需要您自行联系快递。运费与货品安全保障请于快递员做好协商"
+                    android:layout_height="wrap_content"/>
+
+                <View
+                    android:id="@+id/view_line_two"
+                    android:layout_below="@id/tv_text_two"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="6dp"
+                    android:background="@color/color_bg_f7"/>
+
+                <TextView
+                    android:id="@+id/tv_text_three"
+                    android:layout_width="wrap_content"
+                    android:text="快递单号"
+                    android:layout_below="@id/view_line_two"
+                    android:layout_marginTop="10dp"
+                    android:textSize="12sp"
+                    android:textColor="@color/text_black33"
+                    android:layout_height="wrap_content"/>
+
+
+                <EditText
+                    android:id="@+id/et_express_number"
+                    android:layout_width="match_parent"
+                    android:layout_below="@id/tv_text_three"
+                    android:background="@color/white"
+                    android:textSize="11sp"
+                    android:inputType="number"
+                    android:textColor="@color/text_blackA6"
+                    android:hint="请输入快递单号"
+                    android:layout_height="40dp"/>
+
+                <View
+                    android:id="@+id/view_line_three"
+                    android:layout_below="@id/et_express_number"
+                    android:layout_width="match_parent"
+                    android:background="@color/color_bg_f7"
+                    android:layout_height="1dp"/>
+
+
+                <TextView
+                    android:id="@+id/tv_text_four"
+                    android:layout_width="wrap_content"
+                    android:text="快递公司"
+                    android:layout_below="@id/view_line_three"
+                    android:layout_marginTop="10dp"
+                    android:textSize="12sp"
+                    android:textColor="@color/text_black33"
+                    android:layout_height="wrap_content"/>
+
+
+                <TextView
+                    android:id="@+id/tv_express_company"
+                    android:layout_width="match_parent"
+                    android:layout_below="@id/tv_text_four"
+                    android:background="@color/white"
+                    android:textSize="11sp"
+                    android:textColor="@color/text_blackA6"
+                    android:gravity="center_vertical"
+                    android:text="请选择快递公司"
+                    android:layout_height="40dp"/>
+
+            </RelativeLayout>
+
+
+            <TextView
+                android:id="@+id/tv_submit"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:textColor="@color/white"
+                android:text="确认提交"
+                android:layout_marginLeft="10dp"
+                android:layout_marginBottom="30dp"
+                android:layout_marginTop="50dp"
+                android:layout_marginRight="10dp"
+                android:textSize="15sp"
+                android:gravity="center"
+                android:background="@drawable/bg_orange_solid"/>
+
+        </LinearLayout>
+    </ScrollView>
+
+
+</LinearLayout>

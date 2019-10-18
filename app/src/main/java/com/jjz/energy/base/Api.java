@@ -9,6 +9,7 @@ import com.jjz.energy.entry.LikeGoodsBean;
 import com.jjz.energy.entry.MineLikeAndFansBean;
 import com.jjz.energy.entry.UserInfo;
 import com.jjz.energy.entry.UserPageInfo;
+import com.jjz.energy.entry.commodity.GoodsBean;
 import com.jjz.energy.entry.commodity.GoodsClassificationBean;
 import com.jjz.energy.entry.commodity.GoodsDetailsBean;
 import com.jjz.energy.entry.commodity.GoodsListBean;
@@ -272,6 +273,24 @@ public interface Api {
     @FormUrlEncoded
     @POST("user/myCollect")
     Flowable<ResponseData<LikeGoodsBean>> getLikeGoods(@Field(PACK_NO) String pack_no);
+
+
+    // ==========================================================  订单
+
+
+    //确认订单页面获取商品信息
+    @FormUrlEncoded
+    @POST("order/checkOrder")
+    Flowable<ResponseData<GoodsBean>> getSureBuyInfo(@Field(PACK_NO) String pack_no);
+
+
+    //立即付款页面 获取支付信息
+    @FormUrlEncoded
+    @POST("user/myCollect")
+    Flowable<ResponseData<OrderPayTypeBean>> getBuyGoodsInfo(@Field(PACK_NO) String pack_no);
+
+
+
 
 
     //======================================================== 久速商城接口

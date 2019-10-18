@@ -58,6 +58,11 @@ public class Constant {
      */
     public static final String GOODS_ID = "goods_id";
 
+    /**
+     * 订单编号
+     */
+    public static final String ORDER_SN = "order_sn";
+
 
 
 
