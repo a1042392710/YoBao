@@ -249,6 +249,10 @@
         <activity android:name="com.jjz.energy.ui.mine.shop_order.ExpressCompanyActivity"
             android:configChanges="orientation|screenSize"/>
 
+        <!--物流详情-->
+        <activity android:name="com.jjz.energy.ui.mine.shop_order.ExpressDetailsActivity"
+            android:configChanges="orientation|screenSize"/>
+
 
         <!--查看大图-->
         <activity

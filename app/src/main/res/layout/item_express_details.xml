@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal">
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_marginLeft="21dp"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/item_img_cricle"
+            android:layout_width="16dp"
+            tools:src="@mipmap/ic_bg_cricle_gray"
+            android:layout_height="16dp"/>
+
+        <View
+            android:id="@+id/item_view_line"
+            android:layout_width="1dp"
+            android:background="#dddddd"
+            android:layout_height="57dp"/>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="14dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/item_tv_title"
+            android:layout_width="wrap_content"
+            android:text="到广州天河区，天河第九仓库"
+            android:includeFontPadding="false"
+            android:layout_marginRight="40dp"
+            android:textSize="13sp"
+            android:textColor="#888888"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/item_tv_time"
+            android:layout_marginTop="6dp"
+            android:layout_width="wrap_content"
+            android:text="2018-01-20  12:20:30"
+            android:textSize="12sp"
+            android:textColor="#aaaaaa"
+            android:layout_height="wrap_content"/>
+
+
+    </LinearLayout>
+
+</LinearLayout>

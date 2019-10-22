@@ -16,6 +16,7 @@ import com.jjz.energy.entry.jiusu.MineBean;
 import com.jjz.energy.entry.jiusu.MineInfoBean;
 import com.jjz.energy.presenter.mine.MinePresenter;
 import com.jjz.energy.ui.mine.information.HomePageActivity;
+import com.jjz.energy.ui.mine.shop_order.ExpressDetailsActivity;
 import com.jjz.energy.util.StringUtil;
 import com.jjz.energy.util.glide.GlideUtils;
 import com.jjz.energy.util.networkUtil.PacketUtil;
@@ -155,7 +156,7 @@ public class MineFragment  extends BaseLazyFragment<MinePresenter> implements IM
         switch (view.getId()) {
             //设置
             case R.id.img_setting:
-                startActivity(new Intent(mContext,MineSettingActivity.class));
+                startActivity(new Intent(mContext, ExpressDetailsActivity.class));
                 break;
             //头像
             case R.id.img_head:
