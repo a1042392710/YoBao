@@ -64,6 +64,27 @@ public class Constant {
     public static final String ORDER_SN = "order_sn";
 
 
+    /**
+     * 支付方式  支付宝
+     */
+
+    public static final String PAYTYPE_ALIPAY = "alipayApp";
+
+    /**
+     * 支付成功 支付宝
+     */
+    public static final String PAYSUC_ALIPAY_CODE= "9000";
+
+    /**
+     * 支付取消 支付宝
+     */
+    public static final String PAYCANCLE_ALIPAY_CODE= "6001";
+
+    /**
+     * 支付方式  微信
+     */
+    public static final String PAYTYPE_WECHAT = "appWeixinPay";
+
 
 
 }

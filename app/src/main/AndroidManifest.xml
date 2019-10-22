@@ -245,6 +245,11 @@
             android:configChanges="orientation|screenSize"/>
 
 
+        <!--选择物流公司-->
+        <activity android:name="com.jjz.energy.ui.mine.shop_order.ExpressCompanyActivity"
+            android:configChanges="orientation|screenSize"/>
+
+
         <!--查看大图-->
         <activity
             android:name="com.jjz.energy.ui.ImagePagerActivity"

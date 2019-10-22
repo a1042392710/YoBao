@@ -40,7 +40,7 @@ public class CommodityDetailsPresenter extends BasePresenter<CommodityDetailsMod
                     @Override
                     protected void onSuccess(GoodsDetailsBean response) {
                         mView.isGetGoodsDetailsSuc(response);
-                        mView.stopLoading();
+//                        mView.stopLoading();
                     }
 
                     @Override
@@ -71,8 +71,8 @@ public class CommodityDetailsPresenter extends BasePresenter<CommodityDetailsMod
 
                     @Override
                     protected void onSuccess(CommentBean response) {
-                        mView.stopLoading();
                         mView.isGetCommentSuc(response);
+                        mView.stopLoading();
                     }
 
                     @Override

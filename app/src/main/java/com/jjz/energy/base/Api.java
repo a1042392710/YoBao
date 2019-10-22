@@ -28,6 +28,8 @@ import com.jjz.energy.entry.jiusu.ShareInfoBean;
 import com.jjz.energy.entry.jiusu.ShopMarkerBean;
 import com.jjz.energy.entry.jiusu.VipListInfo;
 import com.jjz.energy.entry.jiusu.WithdrawListBean;
+import com.jjz.energy.entry.order.ExpressCompanyBean;
+import com.jjz.energy.entry.order.ShopOrderDetailsBean;
 import com.jjz.energy.util.networkUtil.ResponseData;
 import com.jjz.energy.wxapi.OrderPayTypeBean;
 
@@ -277,23 +279,28 @@ public interface Api {
 
     // ==========================================================  订单
 
-
     //确认订单页面获取商品信息
     @FormUrlEncoded
     @POST("order/checkOrder")
     Flowable<ResponseData<GoodsBean>> getSureBuyInfo(@Field(PACK_NO) String pack_no);
 
-
     //立即付款页面 获取支付信息
     @FormUrlEncoded
-    @POST("user/myCollect")
+    @POST("order/createOrder")
     Flowable<ResponseData<OrderPayTypeBean>> getBuyGoodsInfo(@Field(PACK_NO) String pack_no);
 
+    // 查询物流公司
+    @FormUrlEncoded
+    @POST("user/myCollect")
+    Flowable<ResponseData<List<ExpressCompanyBean>>> getExpressCompany(@Field(PACK_NO) String pack_no);
+
+    // 订单详情
+    @FormUrlEncoded
+    @POST("user/myCollect")
+    Flowable<ResponseData<ShopOrderDetailsBean>> getShopOrderDetails(@Field(PACK_NO) String pack_no);
 
 
-
-
-    //======================================================== 久速商城接口
+    //======================================================== 以下是 久速接口
 
 
     //查询下级代理

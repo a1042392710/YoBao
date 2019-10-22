@@ -68,7 +68,7 @@
                 android:paddingTop="6dp"
                 android:paddingRight="18dp"
                 android:paddingBottom="6dp"
-                android:maxLength="300"
+                android:maxLength="1000"
                 android:textColor="@color/text_black33"
                 android:textColorHint="#949494"
                 android:textSize="13sp"/>

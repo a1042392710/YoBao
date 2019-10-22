@@ -1,4 +1,4 @@
-package com.jjz.energy.model.home;
+package com.jjz.energy.model.order;
 
 import com.jjz.energy.base.Api;
 import com.jjz.energy.base.BaseModel;
@@ -22,7 +22,7 @@ public class SureBuyModel extends BaseModel {
     }
 
 
-    //我的发布
+    //调起支付 获取支付信息
     public Flowable<OrderPayTypeBean> getBuyGoodsInfo(String requestData) {
         return RetrofitFactory.getRetrofit().create(Api.class).getBuyGoodsInfo(requestData).compose(RxSchedulerHepler.handleMyResult());
     }

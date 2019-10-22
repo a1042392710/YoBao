@@ -4,7 +4,7 @@ import android.annotation.SuppressLint;
 
 import com.jjz.energy.base.BasePresenter;
 import com.jjz.energy.entry.commodity.GoodsBean;
-import com.jjz.energy.model.home.SureBuyModel;
+import com.jjz.energy.model.order.SureBuyModel;
 import com.jjz.energy.util.networkUtil.CommonSubscriber;
 import com.jjz.energy.view.order.ISureBuyView;
 import com.jjz.energy.wxapi.OrderPayTypeBean;

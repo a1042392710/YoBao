@@ -13,6 +13,7 @@ public interface ICommodityView extends IBaseView {
     //获取商品详情
     void isGetGoodsDetailsSuc(GoodsDetailsBean data);
 
+
     //获取评论列表
     void isGetCommentSuc(CommentBean data);
 

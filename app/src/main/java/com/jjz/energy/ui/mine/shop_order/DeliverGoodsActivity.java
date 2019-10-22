@@ -1,5 +1,7 @@
 package com.jjz.energy.ui.mine.shop_order;
 
+import android.content.Intent;
+import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -8,12 +10,16 @@ import android.widget.TextView;
 import com.jjz.energy.R;
 import com.jjz.energy.base.BaseActivity;
 import com.jjz.energy.base.BasePresenter;
+import com.jjz.energy.base.Constant;
+import com.jjz.energy.entry.order.ExpressCompanyBean;
+
+import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
- * @Features: 我要发货物
+ * @Features: 我要发货
  * @author: create by chenhao on 2019/10/18
  */
 public class DeliverGoodsActivity extends BaseActivity {
@@ -64,12 +70,16 @@ public class DeliverGoodsActivity extends BaseActivity {
             case R.id.ll_toolbar_left:
                 finish();
                 break;
-                //选择物流公司
+            //选择物流公司
             case R.id.tv_express_company:
-
+                startActivityForResult(new Intent(mContext, ExpressCompanyActivity.class), 10);
                 break;
-                //提交数据
+            //提交数据
             case R.id.tv_submit:
+                if (mExpressCompanyBean==null){
+                    showToast("请填写物流信息");
+                    return;
+                }
                 submit();
                 break;
                 //无需寄件
@@ -82,7 +92,23 @@ public class DeliverGoodsActivity extends BaseActivity {
      * 提交数据
      */
     private void submit(){
+        HashMap<String,String> map = new HashMap<>();
 
+
+    }
+    /*
+     * 存下物流公司的信息
+     */
+    private ExpressCompanyBean mExpressCompanyBean ;
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode==10 && resultCode==RESULT_OK){
+            //写入物流公司
+            mExpressCompanyBean = (ExpressCompanyBean) data.getSerializableExtra(Constant.INTENT_KEY_OBJECT);
+            tvExpressCompany.setText(mExpressCompanyBean.getMobile_name());
+        }
     }
 
     @Override

@@ -77,7 +77,7 @@ public class SureBuyActivity extends BaseActivity<SureBuyPresenter>implements IS
     /**
      * 记录付款方式  默认为微信支付
      */
-    private String selectPayType  = "appWeixinPay";
+    private String selectPayType  = Constant.PAYTYPE_WECHAT;
 
     /**
      * 付款方式
@@ -114,7 +114,7 @@ public class SureBuyActivity extends BaseActivity<SureBuyPresenter>implements IS
         pickerPayType.setItemWidth(200);
         pickerPayType.setTitleText("请选择");
         pickerPayType.setOnItemPickListener((index, item) -> {
-               selectPayType = index==0?"wechat":"alipay";
+               selectPayType = index==0?Constant.PAYTYPE_WECHAT:Constant.PAYTYPE_ALIPAY;
                tvPayType.setText(item);
         });
     }
@@ -153,13 +153,12 @@ public class SureBuyActivity extends BaseActivity<SureBuyPresenter>implements IS
     //获取支付信息
     @Override
     public void isGetBuyInfoSuccess(OrderPayTypeBean data) {
-
         order_sn = data.getOrder_sn();
         WxPayUtil wxPayUtil = new WxPayUtil();
         //微信支付
-        if (selectPayType.equals("appWeixinPay")) {
-            wxPayUtil.pay(mContext, data, tvCommodityTitle.getText().toString());
-        } else if (selectPayType.equals("alipayApp")) {
+        if (selectPayType.equals(Constant.PAYTYPE_WECHAT)) {
+            wxPayUtil.pay(mContext, data, "shop");
+        } else if (selectPayType.equals(Constant.PAYTYPE_ALIPAY)) {
             //支付宝支付
             if (!StringUtil.isEmpty(data.getZfb())) {
                 new Thread(() -> {
@@ -182,10 +181,10 @@ public class SureBuyActivity extends BaseActivity<SureBuyPresenter>implements IS
         public void handleMessage(Message msg) {
             PayResult payResult = new PayResult((Map<String, String>) msg.obj);
             String resultStatus = payResult.getResultStatus();
-            if ("9000".equals(resultStatus)) {
+            if (Constant.PAYSUC_ALIPAY_CODE.equals(resultStatus)) {
                 //支付成功
                 paySuc();
-            } else if ("6001".equals(resultStatus)) {
+            } else if (Constant.PAYCANCLE_ALIPAY_CODE.equals(resultStatus)) {
                 showToast("支付取消");
             } else {
                 showToast("支付失败");
@@ -200,7 +199,7 @@ public class SureBuyActivity extends BaseActivity<SureBuyPresenter>implements IS
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEventMainThread(LoginEventBean loginEventBean) {
-        if (loginEventBean.getLoginStatus() == LoginEventBean.WEIXIN_VIP_PAYSUC) {//全部
+        if (loginEventBean.getLoginStatus() == LoginEventBean.WEIXIN_PAYSUC) {
             paySuc();
         }
     }
@@ -248,6 +247,8 @@ public class SureBuyActivity extends BaseActivity<SureBuyPresenter>implements IS
                 map.put(Constant.GOODS_ID,mGoodsBean.getGoods_id()+"");
                 map.put("address_id",address_id+"");
                 map.put("pay_code", selectPayType);
+                map.put("goods_num", "1");//数量
+                //积分抵扣 map.put("points_deduction", "1");
                 mPresenter.getBuyGoodsInfo(PacketUtil.getRequestPacket(map));
                 break;
         }

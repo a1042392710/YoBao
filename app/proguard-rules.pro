@@ -273,3 +273,6 @@
 
 -dontwarn cn.jiguang.**
 -keep class cn.jiguang.** { *; }
+
+ #androidx
+-keep public class * implements androidx.versionedparcelable.VersionedParcelable

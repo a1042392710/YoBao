@@ -160,8 +160,7 @@ public class CommodityDetailActivity extends BaseActivity <CommodityDetailsPrese
         //获取商品详情
         mPresenter.getGoodsDetails(PacketUtil.getRequestPacket(Utils.stringToMap(GOODS_ID,
                 goods_id + "")));
-        //获取商品留言
-        getCommentData(false);
+
     }
 
     /**
@@ -296,6 +295,9 @@ public class CommodityDetailActivity extends BaseActivity <CommodityDetailsPrese
     @SuppressLint("SetTextI18n")
     @Override
     public void isGetGoodsDetailsSuc(GoodsDetailsBean data) {
+        //获取商品留言
+        getCommentData(false);
+
         //当卖家查看自己的详情时，隐藏掉聊一聊和我想要
         if (data.getSeller_info().getUser_id()==data.getBuyer_info().getUser_id()){
             llBuyer.setVisibility(View.GONE);
@@ -311,11 +313,18 @@ public class CommodityDetailActivity extends BaseActivity <CommodityDetailsPrese
         tvCommodityOldMoney.setText("原价¥"+data.getGoods_info().getMarket_price());
         //是否包邮。不包邮就显示运费
         tvCommodityFreight.setText(data.getGoods_info().getShopping_price()==0?"包邮":"运费"+data.getGoods_info().getShopping_price()+"元");
-        //是否全新
-        tvCommodityIsNew.setVisibility(data.getGoods_info().getIs_mnh() == 1 ? View.VISIBLE :
-                View.GONE);
-        //标题  是否全新 如果是 标题前面要多加4个文字的距离
-        tvCommodityTitle.setText("\u3000\u3000  " + data.getGoods_info().getGoods_name());
+
+        //标题  是否全新 如果是 标题前面要多加4个文字的距离 还要有全新的标识
+        if (data.getGoods_info().getIs_mnh() == 1){
+            tvCommodityIsNew.setVisibility(View.VISIBLE);
+            tvCommodityTitle.setText("\u3000\u3000  " + data.getGoods_info().getGoods_name());
+        }else{
+            tvCommodityIsNew.setVisibility(View.GONE);
+            tvCommodityTitle.setText(data.getGoods_info().getGoods_name());
+        }
+
+
+
         //刷新商品图片
         mPhotoAdapter.setNewData(Arrays.asList(data.getGoods_info().getGoods_images().split(",")));
         //商品描述
