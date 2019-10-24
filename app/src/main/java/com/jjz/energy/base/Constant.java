@@ -62,6 +62,14 @@ public class Constant {
      * 订单编号
      */
     public static final String ORDER_SN = "order_sn";
+    /**
+     * 用户类型  0 是买主 1 是卖主
+     */
+    public static final String USER_TYPE = "user_type";
+    /**
+     * 用户id
+     */
+    public static final String USER_ID= "user_id";
 
 
     /**

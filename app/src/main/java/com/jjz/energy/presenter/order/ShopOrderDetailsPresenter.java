@@ -4,7 +4,7 @@ import android.annotation.SuppressLint;
 
 import com.jjz.energy.base.BasePresenter;
 import com.jjz.energy.entry.order.ShopOrderDetailsBean;
-import com.jjz.energy.model.order.OrderDetailsModel;
+import com.jjz.energy.model.order.ShopOrderDetailsModel;
 import com.jjz.energy.util.networkUtil.CommonSubscriber;
 import com.jjz.energy.view.order.IOrderDetalsView;
 
@@ -13,10 +13,10 @@ import com.jjz.energy.view.order.IOrderDetalsView;
  * @ date  2019/9/7  15:59
  * @ fuction 订单详情
  */
-public class OrderDetailsPresenter extends BasePresenter<OrderDetailsModel, IOrderDetalsView> {
+public class ShopOrderDetailsPresenter extends BasePresenter<ShopOrderDetailsModel, IOrderDetalsView> {
 
 
-    public OrderDetailsPresenter(IOrderDetalsView view) {
+    public ShopOrderDetailsPresenter(IOrderDetalsView view) {
         initPresenter(view);
     }
 
@@ -55,7 +55,7 @@ public class OrderDetailsPresenter extends BasePresenter<OrderDetailsModel, IOrd
 
 
     @Override
-    protected OrderDetailsModel createModel() {
-        return new OrderDetailsModel();
+    protected ShopOrderDetailsModel createModel() {
+        return new ShopOrderDetailsModel();
     }
 }

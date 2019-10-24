@@ -134,7 +134,7 @@ public class MineLikeCommodityActivity extends BaseActivity<MineLikeCommodityPre
         } else {
             // 新数据为空时 显示空数据页面
             if (!mAdapter.notifyChangeData(data.getList())) {
-                mAdapter.setEmptyView(getLoadSirView(R.mipmap.ic_none_data, "您还没有收藏商品", true,
+                mAdapter.setEmptyView(getLoadSirView(R.mipmap.ic_none_data, "您还没有收藏商品", false,
                         null));
                 smartRefresh.setEnableLoadMore(false);
             } else {

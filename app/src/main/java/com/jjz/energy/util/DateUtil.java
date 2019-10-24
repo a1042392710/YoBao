@@ -68,7 +68,7 @@ public class DateUtil  {
             format = "yyyy-MM-dd HH:mm:ss";
         }
         SimpleDateFormat sdf = new SimpleDateFormat(format);
-        return sdf.format(new Date(time));
+        return sdf.format(new Date(time*1000L));
     }
 
     private final static long minute = 60 * 1000;// 1分钟

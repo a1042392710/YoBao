@@ -6,6 +6,7 @@ import com.jjz.energy.entry.BindOwnerInfoBean;
 import com.jjz.energy.entry.CommentBean;
 import com.jjz.energy.entry.HomeDetailBean;
 import com.jjz.energy.entry.LikeGoodsBean;
+import com.jjz.energy.entry.MineBuyerBean;
 import com.jjz.energy.entry.MineLikeAndFansBean;
 import com.jjz.energy.entry.UserInfo;
 import com.jjz.energy.entry.UserPageInfo;
@@ -276,6 +277,16 @@ public interface Api {
     @POST("user/myCollect")
     Flowable<ResponseData<LikeGoodsBean>> getLikeGoods(@Field(PACK_NO) String pack_no);
 
+    //我的  我买到的
+    @FormUrlEncoded
+    @POST("order/buyerOrderList")
+    Flowable<ResponseData<MineBuyerBean>> getMyBuyer(@Field(PACK_NO) String pack_no);
+
+    //我的  我卖出的
+    @FormUrlEncoded
+    @POST("order/salerOrderList")
+    Flowable<ResponseData<MineBuyerBean>> getMySeller(@Field(PACK_NO) String pack_no);
+
 
     // ==========================================================  订单
 
@@ -296,7 +307,7 @@ public interface Api {
 
     // 订单详情
     @FormUrlEncoded
-    @POST("user/myCollect")
+    @POST("order/orderinfo")
     Flowable<ResponseData<ShopOrderDetailsBean>> getShopOrderDetails(@Field(PACK_NO) String pack_no);
 
 

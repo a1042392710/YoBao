@@ -17,8 +17,16 @@ import java.util.List;
  */
 public class OrderDetailsStatusAdapter extends BaseRecycleNewAdapter<String> {
 
-    public OrderDetailsStatusAdapter(int layoutResId, @Nullable List<String> data) {
+    //订单状态（0待支付，1待发货,2待收货，3待评价，4交易关闭，5交易完成）
+
+    /**
+     * 订单状态
+     */
+    private int status;
+
+    public OrderDetailsStatusAdapter(int layoutResId, @Nullable List<String> data ,int status) {
         super(layoutResId, data);
+        this.status = status;
     }
 
     @Override
@@ -30,20 +38,21 @@ public class OrderDetailsStatusAdapter extends BaseRecycleNewAdapter<String> {
         //线
         View line = helper.getView(R.id.item_view_line );
 
-        if (helper.getLayoutPosition()==mData.size()-2){
-            line.setBackgroundColor(mContext.getResources().getColor(R.color.gray_f6));
-        }else{
+        //根据订单状态显示球的位置 大与等于当前状态时
+        if ( status >= helper.getLayoutPosition() ){
+            //显示ok球 红线
             line.setBackgroundColor(mContext.getResources().getColor(R.color.red_fe8977));
-        }
-
-        //最后一个球隐藏线
-        if (helper.getLayoutPosition()==mData.size()-1){
-            imgCircle.setImageDrawable(mContext.getResources().getDrawable(R.mipmap.ic_circle_soild_orange));
-           line.setVisibility(View.GONE);
-        }else{
             imgCircle.setImageDrawable(mContext.getResources().getDrawable(R.mipmap.ic_ok));
-            line.setVisibility(View.VISIBLE);
+        } else {
+            //显示红球 灰线
+            line.setBackgroundColor(mContext.getResources().getColor(R.color.gray_f6));
+            imgCircle.setImageDrawable(mContext.getResources().getDrawable(R.mipmap.ic_circle_soild_orange));
         }
+        //最后一个球隐藏线
+        line.setVisibility(helper.getLayoutPosition() == mData.size() - 1 ? View.GONE :
+                View.VISIBLE);
+        //状态
+        helper.setText(R.id.item_tv_state, item);
 
     }
 }

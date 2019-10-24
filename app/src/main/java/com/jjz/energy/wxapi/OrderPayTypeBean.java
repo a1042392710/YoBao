@@ -12,6 +12,10 @@ public class OrderPayTypeBean implements Serializable {
      */
 
     private WxBean wx;
+    private String zfb;
+    private String order_sn;
+
+
 
     public String getZfb() {
         return zfb == null ? "" : zfb;
@@ -20,10 +24,6 @@ public class OrderPayTypeBean implements Serializable {
     public void setZfb(String zfb) {
         this.zfb = zfb;
     }
-
-    private String zfb;
-    private String order_sn;
-
     public String getOrder_sn() {
         return order_sn == null ? "" : order_sn;
     }

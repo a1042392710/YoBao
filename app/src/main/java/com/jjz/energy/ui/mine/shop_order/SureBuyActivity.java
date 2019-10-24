@@ -207,7 +207,7 @@ public class SureBuyActivity extends BaseActivity<SureBuyPresenter>implements IS
 
     //支付成功 进入订单详情页面
     private void paySuc() {
-        startActivity(new Intent(mContext,OrderDetailsActivity.class).putExtra(Constant.ORDER_SN,order_sn));
+        startActivity(new Intent(mContext,OrderDetailsActivity.class).putExtra(Constant.ORDER_SN,order_sn).putExtra(Constant.USER_TYPE,0));
         finish();
     }
 
@@ -248,7 +248,7 @@ public class SureBuyActivity extends BaseActivity<SureBuyPresenter>implements IS
                 map.put("address_id",address_id+"");
                 map.put("pay_code", selectPayType);
                 map.put("goods_num", "1");//数量
-                //积分抵扣 map.put("points_deduction", "1");
+                //积分抵扣 map.put("points_deduction", "0");
                 mPresenter.getBuyGoodsInfo(PacketUtil.getRequestPacket(map));
                 break;
         }

@@ -46,7 +46,7 @@
                 android:layout_height="wrap_content"
                 android:paddingLeft="10dp"
                 android:paddingTop="16dp"
-                android:text="订单编号： 415257513567170998833"
+                android:text="订单编号："
                 android:textColor="#868686"
                 android:textSize="13sp" />
 
@@ -54,10 +54,9 @@
                 android:id="@+id/tv_order_time"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
                 android:paddingLeft="10dp"
                 android:paddingTop="12dp"
-                android:text="交易时间： 2018-05-08 11:49 "
+                android:text="交易时间： "
                 android:textColor="#868686"
                 android:textSize="13sp" />
 
@@ -68,7 +67,7 @@
                 android:paddingLeft="10dp"
                 android:paddingTop="12dp"
                 android:paddingBottom="16dp"
-                android:text="交易状态： 待评价 "
+                android:text="交易状态：  "
                 android:textColor="#868686"
                 android:textSize="13sp" />
 
@@ -123,7 +122,7 @@
                     android:layout_toRightOf="@id/img_commodity"
                     android:ellipsize="end"
                     android:maxLines="2"
-                    android:text="风花雪月牛肉干风花雪月牛肉干风花雪月牛肉干"
+                    tools:text="风花雪月牛肉干风花雪月牛肉干风花雪月牛肉干"
                     android:textColor="@color/text_black33"
                     android:textSize="15sp" />
 
@@ -134,7 +133,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignBottom="@id/img_commodity"
                     android:layout_toRightOf="@id/img_commodity"
-                    android:text="￥55.0 x1"
+                    tools:text="￥55.0 x1"
                     android:textColor="@color/red_fe8977"
                     android:textSize="14sp" />
 
@@ -295,7 +294,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="商品总额："
+                    android:text="商品金额："
                     android:textColor="#868686"
                     android:textSize="13sp" />
 
@@ -367,11 +366,13 @@
                 android:background="@color/color_bg_f7" />
 
             <TextView
+                android:id="@+id/tv_price_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
+                android:layout_marginBottom="20dp"
                 android:padding="7dp"
-                android:text="实付金额：￥49"
+                android:text="实付金额："
                 android:textColor="@color/red_fe8977"
                 android:textSize="15sp" />
 
@@ -381,6 +382,7 @@
 
 
     <LinearLayout
+        android:id="@+id/ll_bottom_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
@@ -391,14 +393,14 @@
         <TextView
             android:id="@+id/tv_order_lable_one"
             android:layout_width="0dp"
-            android:layout_height="30dp"
+            android:layout_height="35dp"
             android:layout_weight="1"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:textSize="13sp"
             android:background="@drawable/bg_gray_solid_b5"
             android:gravity="center"
-            android:text="按钮一"
+            tools:text="按钮一"
             android:textColor="@color/white" />
 
 
@@ -409,11 +411,11 @@
             android:background="@drawable/bg_orange_solid"
             android:gravity="center"
             android:textSize="13sp"
-            android:text="按钮二"
+            tools:text="按钮二"
             android:layout_marginRight="5dp"
             android:textColor="@color/white"
             android:layout_weight="1"
-            android:layout_height="30dp"/>
+            android:layout_height="35dp"/>
 
     </LinearLayout>
 

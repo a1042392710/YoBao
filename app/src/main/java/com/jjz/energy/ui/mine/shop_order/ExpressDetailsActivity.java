@@ -61,19 +61,19 @@ public class ExpressDetailsActivity extends BaseActivity {
         list.add("");
         list.add("");
         list.add("");
-        mAdapter  = new ExpressAdapter(R.layout.item_express_details,list);
+        mAdapter = new ExpressAdapter(R.layout.item_express_details, list);
         rvExpress.setAdapter(mAdapter);
 
     }
 
     @Override
     public void showLoading() {
-    startProgressDialog();
+        startProgressDialog();
     }
 
     @Override
     public void stopLoading() {
-    stopProgressDialog();
+        stopProgressDialog();
     }
 
 
@@ -86,7 +86,7 @@ public class ExpressDetailsActivity extends BaseActivity {
     /**
      * 物流信息
      */
-    class ExpressAdapter extends BaseRecycleNewAdapter<String>{
+    class ExpressAdapter extends BaseRecycleNewAdapter<String> {
 
         public ExpressAdapter(int layoutResId, @Nullable List<String> data) {
             super(layoutResId, data);
@@ -103,7 +103,12 @@ public class ExpressDetailsActivity extends BaseActivity {
             //时间
             TextView item_tv_time = helper.getView(R.id.item_tv_time);
             //商品图片
-            GlideUtils.loadRoundCircleImage(mContext,"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1571742620248&di=f6b62a9483c0af3a988127dee9018cbf&imgtype=0&src=http%3A%2F%2Fn.sinaimg.cn%2Ftranslate%2F533%2Fw800h533%2F20180810%2FzRtQ-hhnunsq7211829.jpg",item_img_cricle);
+            GlideUtils.loadRoundCircleImage(mContext, "https://timgsa.baidu" +
+                            ".com/timg?image&quality=80&size=b9999_10000&sec=1571742620248&di" +
+                            "=f6b62a9483c0af3a988127dee9018cbf&imgtype=0&src=http%3A%2F%2Fn" +
+                            ".sinaimg" +
+                            ".cn%2Ftranslate%2F533%2Fw800h533%2F20180810%2FzRtQ-hhnunsq7211829.jpg",
+                    item_img_cricle);
 
 
             //第一个圆球和字是红色
@@ -117,7 +122,6 @@ public class ExpressDetailsActivity extends BaseActivity {
             //最后一条隐藏线
             item_view_line.setVisibility(helper.getLayoutPosition() == mData.size() - 1 ?
                     View.GONE : View.VISIBLE);
-
 
         }
     }
