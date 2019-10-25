@@ -47,6 +47,10 @@ public class MineBuyerBean implements Serializable {
          */
         private String goods_name;
         /**
+         * 用户电话
+         */
+        private String mobile;
+        /**
          * 原价
          */
         private String market_price;
@@ -79,6 +83,14 @@ public class MineBuyerBean implements Serializable {
 
         private String order_sn;
 
+
+        public String getMobile() {
+            return mobile == null ? "" : mobile;
+        }
+
+        public void setMobile(String mobile) {
+            this.mobile = mobile;
+        }
 
         public int getUser_id() {
             return user_id;

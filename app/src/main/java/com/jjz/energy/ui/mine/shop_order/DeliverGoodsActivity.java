@@ -9,9 +9,13 @@ import android.widget.TextView;
 
 import com.jjz.energy.R;
 import com.jjz.energy.base.BaseActivity;
-import com.jjz.energy.base.BasePresenter;
 import com.jjz.energy.base.Constant;
 import com.jjz.energy.entry.order.ExpressCompanyBean;
+import com.jjz.energy.presenter.order.ExpressPresenter;
+import com.jjz.energy.util.StringUtil;
+import com.jjz.energy.util.Utils;
+import com.jjz.energy.util.networkUtil.PacketUtil;
+import com.jjz.energy.view.order.IExpressView;
 
 import java.util.HashMap;
 
@@ -22,7 +26,7 @@ import butterknife.OnClick;
  * @Features: 我要发货
  * @author: create by chenhao on 2019/10/18
  */
-public class DeliverGoodsActivity extends BaseActivity {
+public class DeliverGoodsActivity extends BaseActivity<ExpressPresenter>implements IExpressView {
     @BindView(R.id.ll_toolbar_left)
     LinearLayout llToolbarLeft;
     @BindView(R.id.tv_toolbar_title)
@@ -46,23 +50,45 @@ public class DeliverGoodsActivity extends BaseActivity {
     @BindView(R.id.tv_express_company)
     TextView tvExpressCompany;
 
-    @Override
-    protected BasePresenter getPresenter() {
-        return null;
-    }
-
-    @Override
-    protected int layoutId() {
-        return R.layout.act_deliver_goods;
-    }
+    /**
+     * 订单编号
+     */
+    private String order_sn;
 
     @Override
     protected void initView() {
-            tvToolbarTitle.setText("我要发货");
-            tvToolbarRight.setText("无需寄件");
+        order_sn = getIntent().getStringExtra(Constant.ORDER_SN);
+        tvToolbarTitle.setText("我要发货");
+        tvToolbarRight.setText("无需寄件");
+        getExpressInfo();
     }
 
 
+    /**
+     * 获取物流地址信息
+     */
+    private void getExpressInfo(){
+        mPresenter.getExpressAddressInfo(PacketUtil.getRequestPacket(Utils.stringToMap(Constant.ORDER_SN,order_sn)));
+    }
+
+    /**
+     * 发货
+     */
+    private void putExpressInfo(){
+        if (StringUtil.isEmpty(etExpressNumber.getText().toString())){
+            showToast("请填写物流单号");
+            return;
+        }
+        if (mExpressCompanyBean==null){
+            showToast("请选择物流公司");
+            return;
+        }
+        HashMap<String,String>map = new HashMap<>();
+        map.put(Constant.ORDER_SN,order_sn);
+        map.put("物流单号",etExpressNumber.getText().toString());
+        map.put("物流公司",mExpressCompanyBean.getId());
+        mPresenter.putExpressInfo(PacketUtil.getRequestPacket(map));
+    }
 
     @OnClick({R.id.ll_toolbar_left, R.id.tv_express_company, R.id.tv_submit, R.id.tv_toolbar_right})
     public void onViewClicked(View view) {
@@ -76,11 +102,7 @@ public class DeliverGoodsActivity extends BaseActivity {
                 break;
             //提交数据
             case R.id.tv_submit:
-                if (mExpressCompanyBean==null){
-                    showToast("请填写物流信息");
-                    return;
-                }
-                submit();
+                putExpressInfo();
                 break;
                 //无需寄件
             case R.id.tv_toolbar_right:
@@ -88,14 +110,7 @@ public class DeliverGoodsActivity extends BaseActivity {
         }
     }
 
-    /**
-     * 提交数据
-     */
-    private void submit(){
-        HashMap<String,String> map = new HashMap<>();
 
-
-    }
     /*
      * 存下物流公司的信息
      */
@@ -107,8 +122,18 @@ public class DeliverGoodsActivity extends BaseActivity {
         if (requestCode==10 && resultCode==RESULT_OK){
             //写入物流公司
             mExpressCompanyBean = (ExpressCompanyBean) data.getSerializableExtra(Constant.INTENT_KEY_OBJECT);
-            tvExpressCompany.setText(mExpressCompanyBean.getMobile_name());
+            tvExpressCompany.setText(mExpressCompanyBean.getName());
         }
+    }
+
+    @Override
+    protected ExpressPresenter getPresenter() {
+        return new ExpressPresenter(this);
+    }
+
+    @Override
+    protected int layoutId() {
+        return R.layout.act_deliver_goods;
     }
 
     @Override
@@ -121,4 +146,8 @@ public class DeliverGoodsActivity extends BaseActivity {
         stopProgressDialog();
     }
 
+    @Override
+    public void isFail(String msg, boolean isNetAndServiceError) {
+        showToast(msg);
+    }
 }

@@ -47,7 +47,34 @@ public class MineBuyerPresenter extends BasePresenter<MineBuyerModel, IMineBuyer
 
     }
 
+    /**
+     * 获取我卖出的商品
+     */
+    public void getMySeller(String pack_no,boolean isLoadMore) {
 
+        addSubscribe( mModel.getMySeller(pack_no)
+                .subscribeWith(new CommonSubscriber<MineBuyerBean>() {
+
+                    @Override
+                    protected void startLoading() {
+                        if (!isLoadMore){
+                            mView.showLoading();
+                        }
+                    }
+                    @Override
+                    protected void onSuccess(MineBuyerBean response) {
+                        mView.stopLoading();
+                        mView.isSuccess(response);
+                    }
+
+                    @Override
+                    protected void onFail(String errorMsg ,boolean isNetAndSeriveError) {
+                        mView.isFail(errorMsg,isNetAndSeriveError);
+                        mView.stopLoading();
+                    }
+                }));
+
+    }
 
     @Override
     protected MineBuyerModel createModel() {

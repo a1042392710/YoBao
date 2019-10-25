@@ -18,6 +18,7 @@ import com.jjz.energy.entry.MineBuyerBean;
 import com.jjz.energy.presenter.mine.MineBuyerPresenter;
 import com.jjz.energy.ui.mine.information.HomePageActivity;
 import com.jjz.energy.ui.mine.shop_order.OrderDetailsActivity;
+import com.jjz.energy.ui.notice.IMActivity;
 import com.jjz.energy.util.StringUtil;
 import com.jjz.energy.util.Utils;
 import com.jjz.energy.util.glide.GlideUtils;
@@ -200,6 +201,7 @@ public class MineBuyerActivity extends BaseActivity <MineBuyerPresenter>implemen
                 case "提醒发货":
                     break;
                 case "联系卖家":
+                    startActivity(new Intent(mContext, IMActivity.class).putExtra("userName",data.getMobile()));
                     break;
                 case "申请退款":
                     break;

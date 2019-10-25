@@ -29,6 +29,7 @@ import com.jjz.energy.entry.jiusu.ShareInfoBean;
 import com.jjz.energy.entry.jiusu.ShopMarkerBean;
 import com.jjz.energy.entry.jiusu.VipListInfo;
 import com.jjz.energy.entry.jiusu.WithdrawListBean;
+import com.jjz.energy.entry.order.ExpressAddressInfoBean;
 import com.jjz.energy.entry.order.ExpressCompanyBean;
 import com.jjz.energy.entry.order.ShopOrderDetailsBean;
 import com.jjz.energy.util.networkUtil.ResponseData;
@@ -302,8 +303,28 @@ public interface Api {
 
     // 查询物流公司
     @FormUrlEncoded
-    @POST("user/myCollect")
+    @POST("order/shippingList")
     Flowable<ResponseData<List<ExpressCompanyBean>>> getExpressCompany(@Field(PACK_NO) String pack_no);
+
+    // 发货
+    @FormUrlEncoded
+    @POST("user/myCollect")
+    Flowable<ResponseData<String>> putExpressInfo(@Field(PACK_NO) String pack_no);
+
+    // 见面交易
+    @FormUrlEncoded
+    @POST("user/myCollect")
+    Flowable<ResponseData<String>> putMeetingTransaction(@Field(PACK_NO) String pack_no);
+
+    // 获取物流地址信息
+    @FormUrlEncoded
+    @POST("user/myCollect")
+    Flowable<ResponseData<ExpressAddressInfoBean>> getExpressAddressInfo(@Field(PACK_NO) String pack_no);
+
+    // 获取物流跟踪信息
+    @FormUrlEncoded
+    @POST("user/myCollect")
+    Flowable<ResponseData<ExpressAddressInfoBean>> getExpressTracking(@Field(PACK_NO) String pack_no);
 
     // 订单详情
     @FormUrlEncoded

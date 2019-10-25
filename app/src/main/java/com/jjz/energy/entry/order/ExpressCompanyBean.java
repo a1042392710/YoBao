@@ -10,27 +10,26 @@ public class ExpressCompanyBean implements Serializable {
     /**
      * 类别id
      */
-    private int id = 0;
+    private String id ;
     /**
      * 分类名称
      */
-    private String mobile_name;
+    private String name;
 
 
-
-    public int getId() {
-        return id;
+    public String getId() {
+        return id == null ? "" : id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public String getMobile_name() {
-        return mobile_name == null ? "" : mobile_name;
+    public String getName() {
+        return name == null ? "" : name;
     }
 
-    public void setMobile_name(String mobile_name) {
-        this.mobile_name = mobile_name;
+    public void setName(String name) {
+        this.name = name;
     }
 }

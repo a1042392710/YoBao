@@ -13,9 +13,9 @@ import com.jjz.energy.base.BaseActivity;
 import com.jjz.energy.base.BaseRecycleNewAdapter;
 import com.jjz.energy.base.Constant;
 import com.jjz.energy.entry.order.ExpressCompanyBean;
-import com.jjz.energy.presenter.order.ExpressCompanyPresenter;
+import com.jjz.energy.presenter.order.ExpressPresenter;
 import com.jjz.energy.util.networkUtil.PacketUtil;
-import com.jjz.energy.view.order.IExpressCompanyView;
+import com.jjz.energy.view.order.IExpressView;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -28,7 +28,7 @@ import butterknife.OnClick;
  * @Features: 选择物流公司
  * @author: create by chenhao on 2019/10/7
  */
-public class ExpressCompanyActivity extends BaseActivity <ExpressCompanyPresenter>implements IExpressCompanyView {
+public class ExpressCompanyActivity extends BaseActivity <ExpressPresenter>implements IExpressView {
 
     @BindView(R.id.ll_toolbar_left)
     LinearLayout llToolbarLeft;
@@ -43,8 +43,8 @@ public class ExpressCompanyActivity extends BaseActivity <ExpressCompanyPresente
 
 
     @Override
-    protected ExpressCompanyPresenter getPresenter() {
-        return new ExpressCompanyPresenter(this);
+    protected ExpressPresenter getPresenter() {
+        return new ExpressPresenter(this);
     }
 
     @Override
@@ -67,13 +67,23 @@ public class ExpressCompanyActivity extends BaseActivity <ExpressCompanyPresente
         rvClassification.setLayoutManager(new LinearLayoutManager(this));
         mAdapter = new ExpressCompanyAdapter(R.layout.item_classification, new ArrayList<>());
         rvClassification.setAdapter(mAdapter);
-
+        //点击物流公司后返回上一级页面
         mAdapter.setOnItemClickListener((adapter, view, position) -> {
             Intent intent = new Intent();
             intent.putExtra(Constant.INTENT_KEY_OBJECT, (Serializable) mAdapter.getData().get(position));
             setResult(RESULT_OK, intent);
             finish();
         });
+    }
+
+    @Override
+    public void isGetExpressCompanySuc(List<ExpressCompanyBean> data) {
+        mAdapter.setNewData(data);
+    }
+
+    @Override
+    public void isFail(String msg, boolean isNetAndServiceError) {
+        showToast(msg);
     }
 
 
@@ -93,16 +103,6 @@ public class ExpressCompanyActivity extends BaseActivity <ExpressCompanyPresente
         finish();
     }
 
-    @Override
-    public void isGetExpressCompanySuc(List<ExpressCompanyBean> data) {
-        mAdapter.setNewData(data);
-    }
-
-    @Override
-    public void isFail(String msg, boolean isNetAndServiceError) {
-        showToast(msg);
-    }
-
     /**
      * 分类列表适配器
      */
@@ -115,7 +115,7 @@ public class ExpressCompanyActivity extends BaseActivity <ExpressCompanyPresente
         @Override
         protected void convert(BaseViewHolder helper, ExpressCompanyBean item) {
             //分类名称
-            helper.setText(R.id.item_tv_classification_title, item.getMobile_name());
+            helper.setText(R.id.item_tv_classification_title, item.getName());
         }
     }
 }

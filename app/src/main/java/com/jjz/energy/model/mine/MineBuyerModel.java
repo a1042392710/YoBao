@@ -14,9 +14,13 @@ import io.reactivex.Flowable;
  */
 public class MineBuyerModel extends ShopOrderDetailsModel {
 
-    //获取我的收藏
+    //获取我买到的
     public Flowable<MineBuyerBean> getMyBuyer(String requestData) {
         return RetrofitFactory.getRetrofit().create(Api.class).getMyBuyer(requestData).compose(RxSchedulerHepler.handleMyResult());
+    }
+    //获取我卖出的
+    public Flowable<MineBuyerBean> getMySeller(String requestData) {
+        return RetrofitFactory.getRetrofit().create(Api.class).getMySeller(requestData).compose(RxSchedulerHepler.handleMyResult());
     }
 
 }

@@ -14,11 +14,13 @@ import com.jjz.energy.base.BaseActivity;
 import com.jjz.energy.base.Constant;
 import com.jjz.energy.entry.order.ShopOrderDetailsBean;
 import com.jjz.energy.presenter.order.ShopOrderDetailsPresenter;
+import com.jjz.energy.ui.notice.IMActivity;
 import com.jjz.energy.util.DateUtil;
-import com.jjz.energy.util.Utils;
 import com.jjz.energy.util.glide.GlideUtils;
 import com.jjz.energy.util.networkUtil.PacketUtil;
 import com.jjz.energy.view.order.IOrderDetalsView;
+
+import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -95,7 +97,10 @@ public class OrderDetailsActivity extends BaseActivity<ShopOrderDetailsPresenter
         user_type = getIntent().getIntExtra(Constant.USER_TYPE, 0);
         rvOrderStatus.setLayoutManager(new GridLayoutManager(this, 5));
         //查询订单详情
-        mPresenter.getOrderDetails(PacketUtil.getRequestPacket(Utils.stringToMap(Constant.ORDER_SN, order_sn)));
+        HashMap<String,String> map = new HashMap<>();
+        map.put(Constant.ORDER_SN,order_sn);
+        map.put("identity",user_type==0?"buyer":"saler");
+        mPresenter.getOrderDetails(PacketUtil.getRequestPacket(map));
     }
 
 
@@ -108,6 +113,10 @@ public class OrderDetailsActivity extends BaseActivity<ShopOrderDetailsPresenter
                 break;
             case R.id.tv_talk_seller:
                 //和买家或者卖家聊天
+                if (mData==null){
+                    return;
+                }
+                startActivity(new Intent(mContext, IMActivity.class).putExtra("userName",mData.getMobile()));
                 break;
             case R.id.tv_logistics_details:
                 //查看物流详情
@@ -204,9 +213,15 @@ public class OrderDetailsActivity extends BaseActivity<ShopOrderDetailsPresenter
 
     }
 
+    /**
+     * 订单详情数据
+     */
+    private ShopOrderDetailsBean mData;
+
     //获取订单详情成功
     @Override
     public void isGetOrderDetailsSuc(ShopOrderDetailsBean data) {
+        mData = data;
         //设置底部按钮文字
         setBottomText(data.getStatus());
         //订单状态
