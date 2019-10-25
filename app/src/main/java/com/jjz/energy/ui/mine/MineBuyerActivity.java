@@ -1,6 +1,7 @@
 package com.jjz.energy.ui.mine;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -25,6 +26,8 @@ import com.jjz.energy.util.glide.GlideUtils;
 import com.jjz.energy.util.networkUtil.PacketUtil;
 import com.jjz.energy.view.mine.IMineBuyerView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -76,9 +79,18 @@ public class MineBuyerActivity extends BaseActivity <MineBuyerPresenter>implemen
         mAdapter.setOnItemClickListener((adapter, view, position) -> {
             startActivity(new Intent(mContext, OrderDetailsActivity.class).putExtra(Constant.ORDER_SN,mAdapter.getData().get(selectPosition).getOrder_sn()).putExtra(Constant.USER_TYPE,0));
         });
-        smartRefresh.setOnLoadMoreListener(refreshLayout -> {
-            mPage++;
-            getData(true);
+        smartRefresh.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
+            @Override
+            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+                mPage++;
+                getData(true);
+            }
+
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                mPage=1;
+                getData(false);
+            }
         });
         getData(false);
     }

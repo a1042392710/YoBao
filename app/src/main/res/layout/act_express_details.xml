@@ -30,27 +30,30 @@
 
 
             <TextView
+                android:id="@+id/tv_express_state"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:includeFontPadding="false"
-                android:text="已签收"
+                tools:text="已签收"
                 android:textColor="@color/red_fe8977"
                 android:textSize="15sp"
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/tv_express_company"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="13dp"
-                android:text="顺丰快递"
+                tools:text="顺丰快递"
                 android:textColor="#aaaaaa"
                 android:textSize="12sp" />
 
             <TextView
+                android:id="@+id/tv_express_no"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
-                android:text="快递单号：12345678945"
+                tools:text="快递单号：12345678945"
                 android:textColor="#aaaaaa"
                 android:textSize="12sp" />
 
@@ -74,6 +77,8 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/color_bg_f7" />
+
+
 
 
     <android.support.v7.widget.RecyclerView

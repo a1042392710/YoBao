@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import com.jjz.energy.base.BasePresenter;
 import com.jjz.energy.entry.order.ExpressAddressInfoBean;
 import com.jjz.energy.entry.order.ExpressCompanyBean;
+import com.jjz.energy.entry.order.ExpressTrackingBean;
 import com.jjz.energy.model.order.ExpressModel;
 import com.jjz.energy.util.networkUtil.CommonSubscriber;
 import com.jjz.energy.view.order.IExpressView;
@@ -88,35 +89,7 @@ public class ExpressPresenter extends BasePresenter<ExpressModel, IExpressView> 
     }
 
 
-    /**
-     * 见面交易
-     * @param map
-     */
-    @SuppressLint("CheckResult")
-    public void putMeetingTransaction(String map) {
 
-        addSubscribe(mModel.putExpressInfo(map)
-                .subscribeWith(new CommonSubscriber<String>() {
-
-                    @Override
-                    protected void startLoading() {
-                        mView.showLoading();
-                    }
-
-                    @Override
-                    protected void onSuccess(String response) {
-                        mView.stopLoading();
-                        mView.isPutMeetingTransactionSuc(response);
-                    }
-
-                    @Override
-                    protected void onFail(String errorMsg ,boolean isNetAndSeriveError) {
-                        mView.isFail(errorMsg,isNetAndSeriveError);
-                        mView.stopLoading();
-                    }
-                }));
-
-    }
 
     /**
      * 获取物流地址信息
@@ -156,7 +129,7 @@ public class ExpressPresenter extends BasePresenter<ExpressModel, IExpressView> 
     public void getExpressTracking(String map) {
 
         addSubscribe(mModel.getExpressTracking(map)
-                .subscribeWith(new CommonSubscriber<ExpressAddressInfoBean>() {
+                .subscribeWith(new CommonSubscriber<ExpressTrackingBean>() {
 
                     @Override
                     protected void startLoading() {
@@ -164,9 +137,9 @@ public class ExpressPresenter extends BasePresenter<ExpressModel, IExpressView> 
                     }
 
                     @Override
-                    protected void onSuccess(ExpressAddressInfoBean response) {
+                    protected void onSuccess(ExpressTrackingBean response) {
                         mView.stopLoading();
-                        mView.isGetExpressAddressInfoSuc(response);
+                        mView.isGetExpressTrackingSuc(response);
                     }
 
                     @Override

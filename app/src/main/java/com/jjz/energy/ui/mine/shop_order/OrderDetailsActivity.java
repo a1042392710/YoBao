@@ -16,6 +16,7 @@ import com.jjz.energy.entry.order.ShopOrderDetailsBean;
 import com.jjz.energy.presenter.order.ShopOrderDetailsPresenter;
 import com.jjz.energy.ui.notice.IMActivity;
 import com.jjz.energy.util.DateUtil;
+import com.jjz.energy.util.StringUtil;
 import com.jjz.energy.util.glide.GlideUtils;
 import com.jjz.energy.util.networkUtil.PacketUtil;
 import com.jjz.energy.view.order.IOrderDetalsView;
@@ -79,8 +80,6 @@ public class OrderDetailsActivity extends BaseActivity<ShopOrderDetailsPresenter
     @BindView(R.id.ll_bottom_btn)
     LinearLayout llBottomBtn;
 
-
-
     /**
      * 订单sn
      */
@@ -120,7 +119,9 @@ public class OrderDetailsActivity extends BaseActivity<ShopOrderDetailsPresenter
                 break;
             case R.id.tv_logistics_details:
                 //查看物流详情
-                startActivity(new Intent(mContext,ExpressDetailsActivity.class));
+                if (mData!=null) {
+                    startActivity(new Intent(mContext, ExpressDetailsActivity.class).putExtra("shipping_no", mData.getShipping_no()));
+                }
                 break;
             case R.id.tv_order_lable_one:
                 //按钮一
@@ -146,10 +147,12 @@ public class OrderDetailsActivity extends BaseActivity<ShopOrderDetailsPresenter
             case "提醒发货":
                 break;
             case "去发货":
+                startActivity(new Intent(mContext,DeliverGoodsActivity.class).putExtra(Constant.ORDER_SN,order_sn));
                 break;
             case "提醒收货":
                 break;
             case "确认收货":
+
                 break;
             case "取消订单":
                 break;
@@ -222,6 +225,11 @@ public class OrderDetailsActivity extends BaseActivity<ShopOrderDetailsPresenter
     @Override
     public void isGetOrderDetailsSuc(ShopOrderDetailsBean data) {
         mData = data;
+        //没有物流信息，就表示为见面交易
+        if (StringUtil.isEmpty(data.getShipping_no())){
+            tvLogisticsDetails.setText("见面交易，无需物流");
+            tvLogisticsDetails.setEnabled(false);
+        }
         //设置底部按钮文字
         setBottomText(data.getStatus());
         //订单状态

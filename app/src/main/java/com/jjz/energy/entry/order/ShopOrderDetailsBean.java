@@ -66,7 +66,19 @@ public class ShopOrderDetailsBean implements Serializable {
     private String state;
     private String pay_name;
     private int twon;
+    /**
+     * 物流单号
+     */
+    private String shipping_no;
     private List<String> statusList;
+
+    public String getShipping_no() {
+        return shipping_no == null ? "" : shipping_no;
+    }
+
+    public void setShipping_no(String shipping_no) {
+        this.shipping_no = shipping_no;
+    }
 
     public String getPay_name() {
         return pay_name == null ? "" : pay_name;

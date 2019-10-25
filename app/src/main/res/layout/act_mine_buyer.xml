@@ -13,7 +13,6 @@
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@+id/smart_refresh"
         android:layout_width="match_parent"
-        app:srlEnableRefresh="false"
         android:paddingTop="10dp"
         android:layout_height="match_parent">
         <android.support.v7.widget.RecyclerView

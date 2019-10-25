@@ -4,6 +4,7 @@ import com.jjz.energy.base.Api;
 import com.jjz.energy.base.BaseModel;
 import com.jjz.energy.entry.order.ExpressAddressInfoBean;
 import com.jjz.energy.entry.order.ExpressCompanyBean;
+import com.jjz.energy.entry.order.ExpressTrackingBean;
 import com.jjz.energy.util.networkUtil.RetrofitFactory;
 import com.jjz.energy.util.networkUtil.RxSchedulerHepler;
 
@@ -28,10 +29,6 @@ public class ExpressModel extends BaseModel {
         return RetrofitFactory.getRetrofit().create(Api.class).putExpressInfo(requestData).compose(RxSchedulerHepler.handleMyResult());
     }
 
-    //见面交易
-    public Flowable<String> putMeetingTransaction(String requestData) {
-        return RetrofitFactory.getRetrofit().create(Api.class).putMeetingTransaction(requestData).compose(RxSchedulerHepler.handleMyResult());
-    }
 
     //获取物流地址信息
     public Flowable<ExpressAddressInfoBean> getExpressAddressInfo(String requestData) {
@@ -39,7 +36,7 @@ public class ExpressModel extends BaseModel {
     }
 
     //获取物流跟踪
-    public Flowable<ExpressAddressInfoBean> getExpressTracking(String requestData) {
+    public Flowable<ExpressTrackingBean> getExpressTracking(String requestData) {
         return RetrofitFactory.getRetrofit().create(Api.class).getExpressTracking(requestData).compose(RxSchedulerHepler.handleMyResult());
     }
 
