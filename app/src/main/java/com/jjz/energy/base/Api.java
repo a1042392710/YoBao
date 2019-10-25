@@ -328,6 +328,11 @@ public interface Api {
     @POST("order/orderinfo")
     Flowable<ResponseData<ShopOrderDetailsBean>> getShopOrderDetails(@Field(PACK_NO) String pack_no);
 
+    // 确认收货
+    @FormUrlEncoded
+    @POST("order/confirmOrder")
+    Flowable<ResponseData<String>> confirmReceipt(@Field(PACK_NO) String pack_no);
+
 
     //======================================================== 以下是 久速接口
 

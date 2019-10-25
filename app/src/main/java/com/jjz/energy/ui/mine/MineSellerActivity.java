@@ -93,8 +93,15 @@ public class MineSellerActivity extends BaseActivity <MineBuyerPresenter>impleme
                 getData(false);
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mPage=1;
         getData(false);
     }
+
 
     /**
      * 获取数据

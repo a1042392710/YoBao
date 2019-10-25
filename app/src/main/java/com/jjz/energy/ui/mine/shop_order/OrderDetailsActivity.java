@@ -1,8 +1,12 @@
 package com.jjz.energy.ui.mine.shop_order;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -17,8 +21,10 @@ import com.jjz.energy.presenter.order.ShopOrderDetailsPresenter;
 import com.jjz.energy.ui.notice.IMActivity;
 import com.jjz.energy.util.DateUtil;
 import com.jjz.energy.util.StringUtil;
+import com.jjz.energy.util.Utils;
 import com.jjz.energy.util.glide.GlideUtils;
 import com.jjz.energy.util.networkUtil.PacketUtil;
+import com.jjz.energy.util.system.PopWindowUtil;
 import com.jjz.energy.view.order.IOrderDetalsView;
 
 import java.util.HashMap;
@@ -77,6 +83,8 @@ public class OrderDetailsActivity extends BaseActivity<ShopOrderDetailsPresenter
     TextView tvOrderLableTwo;
     @BindView(R.id.tv_price_title)
     TextView tvPriceTitle;
+    @BindView(R.id.tv_system_toast)
+    TextView tvSystemToast;
     @BindView(R.id.ll_bottom_btn)
     LinearLayout llBottomBtn;
 
@@ -152,7 +160,9 @@ public class OrderDetailsActivity extends BaseActivity<ShopOrderDetailsPresenter
             case "提醒收货":
                 break;
             case "确认收货":
-
+                PopWindowUtil.getInstance().showPopupWindow(mContext, "点击按钮确认收货", () -> {
+                    mPresenter.confirmReceipt(PacketUtil.getRequestPacket(Utils.stringToMap(Constant.ORDER_SN,order_sn)));
+                });
                 break;
             case "取消订单":
                 break;
@@ -179,19 +189,38 @@ public class OrderDetailsActivity extends BaseActivity<ShopOrderDetailsPresenter
                 }else{
                     tvOrderLableOne.setVisibility(View.VISIBLE);
                     tvOrderLableTwo.setVisibility(View.VISIBLE);
+
                     tvOrderLableOne.setText("取消订单");
                     tvOrderLableTwo.setText("去发货");
                 }
                 break;
+
             //待收货
             case 2:
+                //距离确认收货的时间
+                String time = DateUtil.dateDiff(System.currentTimeMillis(),
+                        mData.getEnd_time() * 1000L);
                 //买家
-                if (user_type==0) {
+                if (user_type == 0) {
+                    //设置文字提示
+                    tvSystemToast.setVisibility(View.VISIBLE);
+                    SpannableString spannableString = new SpannableString(time+"后，您仍未确认收货，系统会自动确认，钱款将会打到您的账户中");
+                    ForegroundColorSpan colorSpan = new ForegroundColorSpan(Color.parseColor("#fe8977"));
+                    spannableString.setSpan(colorSpan, 0, time.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+                    tvSystemToast.setText(spannableString);
+
                     tvOrderLableOne.setVisibility(View.VISIBLE);
-                    tvOrderLableOne.setText("申请退款");
                     tvOrderLableTwo.setVisibility(View.VISIBLE);
+                    tvOrderLableOne.setText("申请退款");
                     tvOrderLableTwo.setText("确认收货");
                 }else{
+                    tvSystemToast.setVisibility(View.VISIBLE);
+                    //设置文字提示
+                    SpannableString spannableString = new SpannableString(time+"后，买家仍未确认收货，系统会自动确认，钱款将会打到您的账户中");
+                    ForegroundColorSpan colorSpan = new ForegroundColorSpan(Color.parseColor("#fe8977"));
+                    spannableString.setSpan(colorSpan, 0, time.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+                    tvSystemToast.setText(spannableString);
+
                     tvOrderLableTwo.setVisibility(View.VISIBLE);
                     tvOrderLableTwo.setText("提醒收货");
                 }
@@ -262,6 +291,13 @@ public class OrderDetailsActivity extends BaseActivity<ShopOrderDetailsPresenter
         tvOrderInfoNum.setText("x"+data.getGoods_num());
         //实付金额
         tvPriceTitle.setText("实付金额：￥"+data.getOrder_amount());
+    }
+
+    //确认收货
+    @Override
+    public void isConfirmReceiptSuc(String data) {
+        showToast("收货成功");
+        finish();
     }
 
     @Override

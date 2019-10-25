@@ -20,4 +20,9 @@ public class ShopOrderDetailsModel extends BaseModel {
         return RetrofitFactory.getRetrofit().create(Api.class).getShopOrderDetails(requestData).compose(RxSchedulerHepler.handleMyResult());
     }
 
+    //确认收货
+    public Flowable<String> confirmReceipt(String requestData) {
+        return RetrofitFactory.getRetrofit().create(Api.class).confirmReceipt(requestData).compose(RxSchedulerHepler.handleMyResult());
+    }
+
 }

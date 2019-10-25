@@ -76,6 +76,35 @@ public class MineBuyerPresenter extends BasePresenter<MineBuyerModel, IMineBuyer
 
     }
 
+
+    /**
+     * 确认收货
+     */
+    public void confirmReceipt(String pack_no) {
+
+        addSubscribe(mModel.confirmReceipt(pack_no)
+                .subscribeWith(new CommonSubscriber<String>() {
+
+                    @Override
+                    protected void startLoading() {
+                        mView.showLoading();
+                    }
+
+                    @Override
+                    protected void onSuccess(String response) {
+                        mView.stopLoading();
+                        mView.isConfirmReceiptSuc(response);
+                    }
+
+                    @Override
+                    protected void onFail(String errorMsg, boolean isNetAndSeriveError) {
+                        mView.isFail(errorMsg, isNetAndSeriveError);
+                        mView.stopLoading();
+                    }
+                }));
+
+    }
+
     @Override
     protected MineBuyerModel createModel() {
         return new MineBuyerModel();

@@ -67,6 +67,20 @@ public class ShopOrderDetailsBean implements Serializable {
     private String pay_name;
     private int twon;
     /**
+     * 到期时间
+     */
+    private long end_time;
+
+
+    public long getEnd_time() {
+        return end_time;
+    }
+
+    public void setEnd_time(long end_time) {
+        this.end_time = end_time;
+    }
+
+    /**
      * 物流单号
      */
     private String shipping_no;

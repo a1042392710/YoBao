@@ -13,6 +13,9 @@ public interface IOrderDetalsView extends IBaseView {
     void isGetOrderDetailsSuc(ShopOrderDetailsBean data);
 
 
+    //确认收货
+    void isConfirmReceiptSuc(String data);
+
     void isFail(String msg, boolean isNetAndServiceError);
 
 

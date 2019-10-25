@@ -110,4 +110,32 @@ public class DateUtil  {
         }
         return "刚刚";
     }
+
+    /**
+     * 计算两个时间戳 相差的时间
+     * @param startTime
+     * @param endTime
+     * @param format
+     * @return
+     */
+    public static String dateDiff(long startTime, long endTime) {
+        // 按照传入的格式生成一个simpledateformate对象
+        long nd = 1000 * 24 * 60 * 60;// 一天的毫秒数
+        long nh = 1000 * 60 * 60;// 一小时的毫秒数
+        long nm = 1000 * 60;// 一分钟的毫秒数
+        long ns = 1000;// 一秒钟的毫秒数
+        long diff;
+        long day = 0;
+        // 获得两个时间的毫秒时间差异
+        diff = endTime
+                - startTime;
+        day = diff / nd;// 计算差多少天
+        long hour = diff % nd / nh;// 计算差多少小时
+        long min = diff % nd % nh / nm;// 计算差多少分钟
+        long sec = diff % nd % nh % nm / ns;// 计算差多少秒
+        // 输出结果
+        return day + "天" + hour + "小时" + min
+                + "分钟";
+
+    }
 }

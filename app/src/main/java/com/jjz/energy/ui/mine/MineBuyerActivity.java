@@ -16,6 +16,7 @@ import com.jjz.energy.base.BaseActivity;
 import com.jjz.energy.base.BaseRecycleNewAdapter;
 import com.jjz.energy.base.Constant;
 import com.jjz.energy.entry.MineBuyerBean;
+import com.jjz.energy.entry.enums.ShopOrderStatusEnum;
 import com.jjz.energy.presenter.mine.MineBuyerPresenter;
 import com.jjz.energy.ui.mine.information.HomePageActivity;
 import com.jjz.energy.ui.mine.shop_order.OrderDetailsActivity;
@@ -24,6 +25,7 @@ import com.jjz.energy.util.StringUtil;
 import com.jjz.energy.util.Utils;
 import com.jjz.energy.util.glide.GlideUtils;
 import com.jjz.energy.util.networkUtil.PacketUtil;
+import com.jjz.energy.util.system.PopWindowUtil;
 import com.jjz.energy.view.mine.IMineBuyerView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -51,7 +53,6 @@ public class MineBuyerActivity extends BaseActivity <MineBuyerPresenter>implemen
     RecyclerView rvMineBuyer;
     @BindView(R.id.smart_refresh)
     SmartRefreshLayout smartRefresh;
-
 
     /**
      * 页码
@@ -92,6 +93,12 @@ public class MineBuyerActivity extends BaseActivity <MineBuyerPresenter>implemen
                 getData(false);
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mPage=1;
         getData(false);
     }
 
@@ -127,9 +134,20 @@ public class MineBuyerActivity extends BaseActivity <MineBuyerPresenter>implemen
         closeRefresh(smartRefresh);
     }
 
+    //收货成功，并且刷新当条数据
+    @Override
+    public void isConfirmReceiptSuc(String data) {
+        showToast("收货成功");
+        MineBuyerBean.MineBuyerListBean bean = mAdapter.getData().get(selectPosition);
+        bean .setState("待评价");
+        bean .setStatus(ShopOrderStatusEnum.TO_EVALUATE.getIndex());
+        mAdapter.notifyItemChanged(selectPosition);
+    }
+
+
     @Override
     public void isFail(String msg, boolean isNetAndServiceError) {
-
+        showToast(msg);
     }
 
 
@@ -187,23 +205,27 @@ public class MineBuyerActivity extends BaseActivity <MineBuyerPresenter>implemen
             //价格
             helper.setText(R.id.item_tv_new_money, item.getGoods_price());
             //原价
-            helper.setText(R.id.item_tv_old_money, "原价￥"+item.getMarket_price());
+            helper.setText(R.id.item_tv_old_money, "原价￥" + item.getMarket_price());
             //设置底部标签文字
-            setLableText(helper.getView(R.id.item_tv_lable_one),helper.getView(R.id.item_tv_lable_two),item.getStatus());
+            setLableText(helper.getView(R.id.item_tv_lable_one),
+                    helper.getView(R.id.item_tv_lable_two), item.getStatus());
             //标签一
             tvLableOne.setOnClickListener(v -> {
-                lableClick(tvLableOne.getText().toString(),item);
+                //记录我点了哪个item
+                selectPosition = helper.getLayoutPosition();
+                lableClick(tvLableOne.getText().toString(), item);
             });
             //标签二
             tvLableTwo.setOnClickListener(v -> {
-                    lableClick(tvLableTwo.getText().toString(),item);
+                //记录我点了哪个item
+                selectPosition = helper.getLayoutPosition();
+                lableClick(tvLableTwo.getText().toString(), item);
             });
             //个人主页
             helper.getView(R.id.ll_user_info).setOnClickListener(v -> {
                 startActivity(new Intent(mContext, HomePageActivity.class).putExtra(Constant.USER_ID,item.getUser_id()));
             });
         }
-
 
         /**
          * 标签点击事件
@@ -218,6 +240,9 @@ public class MineBuyerActivity extends BaseActivity <MineBuyerPresenter>implemen
                 case "申请退款":
                     break;
                 case "确认收货":
+                    PopWindowUtil.getInstance().showPopupWindow(mContext, "点击按钮确认收货", () -> {
+                        mPresenter.confirmReceipt(PacketUtil.getRequestPacket(Utils.stringToMap(Constant.ORDER_SN,data.getOrder_sn())));
+                    });
                     break;
                 case "评价一下":
                     break;

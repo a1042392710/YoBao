@@ -52,7 +52,33 @@ public class ShopOrderDetailsPresenter extends BasePresenter<ShopOrderDetailsMod
     }
 
 
+    /**
+     * 确认收货
+     */
+    public void confirmReceipt(String pack_no) {
 
+        addSubscribe(mModel.confirmReceipt(pack_no)
+                .subscribeWith(new CommonSubscriber<String>() {
+
+                    @Override
+                    protected void startLoading() {
+                        mView.showLoading();
+                    }
+
+                    @Override
+                    protected void onSuccess(String response) {
+                        mView.stopLoading();
+                        mView.isConfirmReceiptSuc(response);
+                    }
+
+                    @Override
+                    protected void onFail(String errorMsg, boolean isNetAndSeriveError) {
+                        mView.isFail(errorMsg, isNetAndSeriveError);
+                        mView.stopLoading();
+                    }
+                }));
+
+    }
 
     @Override
     protected ShopOrderDetailsModel createModel() {

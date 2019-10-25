@@ -71,6 +71,19 @@
                 android:textColor="#868686"
                 android:textSize="13sp" />
 
+
+                <TextView
+                    android:id="@+id/tv_system_toast"
+                    android:paddingLeft="10dp"
+                    android:visibility="gone"
+                    android:paddingRight="18dp"
+                    android:textSize="11sp"
+                    android:textColor="@color/text_blackA6"
+                    android:layout_marginBottom="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="7dp"
