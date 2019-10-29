@@ -39,7 +39,14 @@ public class ShopOrderDetailsBean implements Serializable {
      * statusList : ["待支付","待发货","待收货","待评价","交易关闭","交易完成"]
      * twon : 0
      */
-
+    /**
+     * 到期时间
+     */
+    private long end_time;
+    /**
+     * 物流单号
+     */
+    private String shipping_no;
     private String address;
     private int city;
     private String consignee;
@@ -53,6 +60,7 @@ public class ShopOrderDetailsBean implements Serializable {
     private String goods_price;
     private int is_comment;
     private String mobile;
+    private String user_mobile;
     private String order_amount;
     private String order_sn;
     private int order_status;
@@ -66,11 +74,16 @@ public class ShopOrderDetailsBean implements Serializable {
     private String state;
     private String pay_name;
     private int twon;
-    /**
-     * 到期时间
-     */
-    private long end_time;
 
+    private List<String> statusList;
+
+    public String getUser_mobile() {
+        return user_mobile == null ? "" : user_mobile;
+    }
+
+    public void setUser_mobile(String user_mobile) {
+        this.user_mobile = user_mobile;
+    }
 
     public long getEnd_time() {
         return end_time;
@@ -79,12 +92,6 @@ public class ShopOrderDetailsBean implements Serializable {
     public void setEnd_time(long end_time) {
         this.end_time = end_time;
     }
-
-    /**
-     * 物流单号
-     */
-    private String shipping_no;
-    private List<String> statusList;
 
     public String getShipping_no() {
         return shipping_no == null ? "" : shipping_no;

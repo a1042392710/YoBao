@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+
+    <include layout="@layout/view_tool_bar" />
+
+
+    <RadioGroup
+        android:id="@+id/rg_evaluate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="32dp"
+        android:orientation="horizontal">
+
+
+        <RadioButton
+            android:id="@+id/rb_evaluate_bad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="@null"
+            android:drawableTop="@drawable/bg_rb_evaluation_bad"
+            android:drawablePadding="8dp"
+            android:gravity="center_horizontal"
+            android:background="@android:color/transparent"
+            android:padding="5dp"
+            android:text="差"
+            android:textColor="@drawable/bg_text_eveluate"
+            android:textSize="13sp" />
+
+
+        <RadioButton
+            android:id="@+id/rb_evaluate_ordinary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="24dp"
+            android:button="@null"
+            android:background="@android:color/transparent"
+            android:drawableTop="@drawable/bg_rb_evaluation_ordinary"
+            android:drawablePadding="8dp"
+            android:gravity="center_horizontal"
+            android:padding="5dp"
+            android:text="一般"
+            android:textColor="@drawable/bg_text_eveluate"
+            android:textSize="13sp" />
+
+        <RadioButton
+            android:id="@+id/rb_evaluate_good"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="24dp"
+            android:button="@null"
+            android:drawableTop="@drawable/bg_rb_evaluation_good"
+            android:background="@android:color/transparent"
+            android:drawablePadding="8dp"
+            android:checked="true"
+            android:gravity="center_horizontal"
+            android:padding="5dp"
+            android:text="很棒"
+            android:textColor="@drawable/bg_text_eveluate"
+            android:textSize="13sp" />
+    </RadioGroup>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="13dp"
+        android:layout_marginTop="22dp"
+        android:layout_marginRight="13dp"
+        android:background="#e5e5e5" />
+
+
+    <EditText
+        android:id="@+id/et_evaluat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:gravity="top"
+        android:hint="聊聊您这次交易的感受"
+        android:paddingRight="30dp"
+        android:maxLength="100"
+        android:ellipsize="end"
+        android:minHeight="85dp"
+        android:paddingLeft="23dp"
+        android:paddingTop="14dp"
+        android:textSize="@dimen/font_12sp" />
+
+
+
+    <ImageView
+        android:id="@+id/img_take_photo"
+        android:layout_marginLeft="24dp"
+        android:layout_width="52dp"
+        android:src="@mipmap/ic_add_photo"
+        android:layout_height="52dp"/>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_margin="13dp"
+        android:background="#e5e5e5"/>
+
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="30dp"
+        android:layout_weight="1"/>
+
+    <TextView
+        android:id="@+id/tv_put_evaluate"
+        android:text="提交评价"
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:textSize="14sp"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:background="@drawable/bg_orange_solid"
+        android:layout_height="40dp"/>
+
+
+
+</LinearLayout>

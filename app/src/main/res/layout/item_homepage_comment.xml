@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:visibility="visible"
+    android:layout_width="match_parent"
+    android:layout_margin="10dp"
+    android:padding="12dp"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+    <ImageView
+        android:id="@+id/item_img_my_head"
+        android:layout_width="36dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        tools:src="@color/red_fe8977"
+        android:layout_height="36dp" />
+
+    <TextView
+        android:id="@+id/item_tv_my_name"
+        tools:text="爱唱跳rap的彭于晏"
+        android:textSize="11sp"
+        android:textColor="@color/text_black33"
+        android:layout_toRightOf="@id/item_img_my_head"
+        android:layout_alignTop="@id/item_img_my_head"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+
+    <ImageView
+        android:id="@+id/item_img_my_evaluate_mark"
+        android:layout_width="24dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@id/item_tv_my_name"
+        android:layout_marginRight="10dp"
+        android:src="@mipmap/ic_rb_good_checked"
+        android:layout_height="24dp"/>
+
+    <TextView
+        android:id="@+id/item_tv_my_evaluate"
+        android:layout_below="@id/item_tv_my_name"
+        android:layout_alignLeft="@id/item_tv_my_name"
+        android:layout_marginTop="12dp"
+        android:textSize="13sp"
+        android:textColor="@color/text_black33"
+        tools:text="货品很好，爽快的买家货品很好"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="50dp"/>
+
+
+    <TextView
+        android:id="@+id/item_tv_my_evaluate_time"
+        android:layout_below="@id/item_tv_my_evaluate"
+        android:layout_alignLeft="@id/item_tv_my_evaluate"
+        android:layout_marginTop="7dp"
+        android:layout_width="wrap_content"
+        android:layout_marginBottom="5dp"
+        tools:text="2019-10-15 23:07:40"
+        android:textSize="10sp"
+        android:textColor="@color/text_blackA6"
+        android:layout_height="wrap_content"/>
+
+
+    <ImageView
+        android:id="@+id/item_img_my_evaluate"
+        android:layout_width="67dp"
+        android:layout_below="@id/item_tv_my_evaluate_time"
+        android:layout_marginTop="5dp"
+        android:layout_alignLeft="@id/item_tv_my_evaluate_time"
+        android:layout_marginBottom="10dp"
+        android:visibility="gone"
+        android:layout_height="67dp"
+        tools:src="@color/red_fe8977"/>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:background="@color/color_bg_f7"
+        android:layout_alignLeft="@id/item_img_my_evaluate"
+        android:layout_below="@id/item_img_my_evaluate"
+        android:layout_height="1dp"/>
+
+
+
+
+</RelativeLayout>

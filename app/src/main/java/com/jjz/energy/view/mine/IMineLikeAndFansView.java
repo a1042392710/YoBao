@@ -1,7 +1,7 @@
 package com.jjz.energy.view.mine;
 
 import com.jjz.energy.base.IBaseView;
-import com.jjz.energy.entry.MineLikeAndFansBean;
+import com.jjz.energy.entry.mine.MineLikeAndFansBean;
 
 /**
  * create 我的关注和我的粉丝

@@ -15,10 +15,12 @@ import com.jjz.energy.R;
 import com.jjz.energy.base.BaseActivity;
 import com.jjz.energy.base.BaseRecycleNewAdapter;
 import com.jjz.energy.base.Constant;
-import com.jjz.energy.entry.MineBuyerBean;
+import com.jjz.energy.entry.mine.MineBuyerBean;
 import com.jjz.energy.presenter.mine.MineBuyerPresenter;
 import com.jjz.energy.ui.mine.information.HomePageActivity;
 import com.jjz.energy.ui.mine.shop_order.DeliverGoodsActivity;
+import com.jjz.energy.ui.mine.shop_order.EvaluateActivity;
+import com.jjz.energy.ui.mine.shop_order.EvaluateDetailsActivity;
 import com.jjz.energy.ui.mine.shop_order.OrderDetailsActivity;
 import com.jjz.energy.ui.notice.IMActivity;
 import com.jjz.energy.util.StringUtil;
@@ -229,8 +231,10 @@ public class MineSellerActivity extends BaseActivity <MineBuyerPresenter>impleme
                 case "取消订单":
                     break;
                 case "评价一下":
+                    startActivity(new Intent(mContext, EvaluateActivity.class).putExtra(Constant.ORDER_SN, data.getOrder_sn()));
                     break;
                 case "查看评价":
+                    startActivity(new Intent(mContext, EvaluateDetailsActivity.class).putExtra(Constant.ORDER_SN, data.getOrder_sn()));
                     break;
             }
         }

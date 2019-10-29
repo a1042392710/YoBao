@@ -2,7 +2,7 @@ package com.jjz.energy.model.home;
 
 import com.jjz.energy.base.Api;
 import com.jjz.energy.base.BaseModel;
-import com.jjz.energy.entry.HomeDetailBean;
+import com.jjz.energy.entry.home.HomeDetailBean;
 import com.jjz.energy.util.networkUtil.RetrofitFactory;
 import com.jjz.energy.util.networkUtil.RxSchedulerHepler;
 

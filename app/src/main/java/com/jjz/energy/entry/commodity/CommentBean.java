@@ -1,11 +1,11 @@
-package com.jjz.energy.entry;
+package com.jjz.energy.entry.commodity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @Features: 评论的数据接收类
+ * @Features: 留言的数据接收类
  * @author: create by chenhao on 2019/10/12
  */
 public class CommentBean implements Serializable {

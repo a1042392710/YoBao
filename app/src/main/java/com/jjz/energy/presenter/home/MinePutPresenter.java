@@ -3,7 +3,7 @@ package com.jjz.energy.presenter.home;
 import android.annotation.SuppressLint;
 
 import com.jjz.energy.base.BasePresenter;
-import com.jjz.energy.entry.LikeGoodsBean;
+import com.jjz.energy.entry.mine.LikeGoodsBean;
 import com.jjz.energy.model.home.MinePutModel;
 import com.jjz.energy.util.networkUtil.CommonSubscriber;
 import com.jjz.energy.view.home.IMinePutView;

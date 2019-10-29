@@ -1,15 +1,16 @@
 package com.jjz.energy.base;
 
-import com.jjz.energy.entry.AddressBean;
-import com.jjz.energy.entry.BindBean;
-import com.jjz.energy.entry.BindOwnerInfoBean;
-import com.jjz.energy.entry.CommentBean;
-import com.jjz.energy.entry.HomeDetailBean;
-import com.jjz.energy.entry.LikeGoodsBean;
-import com.jjz.energy.entry.MineBuyerBean;
-import com.jjz.energy.entry.MineLikeAndFansBean;
+import com.jjz.energy.entry.commodity.HomePageCommentBean;
+import com.jjz.energy.entry.mine.AddressBean;
+import com.jjz.energy.entry.home.BindBean;
+import com.jjz.energy.entry.mine.BindOwnerInfoBean;
+import com.jjz.energy.entry.commodity.CommentBean;
+import com.jjz.energy.entry.home.HomeDetailBean;
+import com.jjz.energy.entry.mine.LikeGoodsBean;
+import com.jjz.energy.entry.mine.MineBuyerBean;
+import com.jjz.energy.entry.mine.MineLikeAndFansBean;
 import com.jjz.energy.entry.UserInfo;
-import com.jjz.energy.entry.UserPageInfo;
+import com.jjz.energy.entry.mine.UserPageInfo;
 import com.jjz.energy.entry.commodity.GoodsBean;
 import com.jjz.energy.entry.commodity.GoodsClassificationBean;
 import com.jjz.energy.entry.commodity.GoodsDetailsBean;
@@ -138,6 +139,11 @@ public interface Api {
     @FormUrlEncoded
     @POST("user/userPageGoodsList")
     Flowable<ResponseData<GoodsListBean>> getUserAllGoods(@Field(PACK_NO) String pack_no);
+
+    //获取用户的所有评价
+    @FormUrlEncoded
+    @POST("user/userPageGoodsList")
+    Flowable<ResponseData<HomePageCommentBean>> getUserComments(@Field(PACK_NO) String pack_no);
 
 
     //获取关注列表
@@ -288,6 +294,11 @@ public interface Api {
     @FormUrlEncoded
     @POST("order/salerOrderList")
     Flowable<ResponseData<MineBuyerBean>> getMySeller(@Field(PACK_NO) String pack_no);
+
+
+    // 评价一下
+    @POST("order/sendComment")
+    Flowable<ResponseData<String>> putEvaluateInfo(@Body MultipartBody mMultipartBody);
 
 
     // ==========================================================  订单

@@ -9,7 +9,7 @@ import android.widget.TextView;
 import com.jjz.energy.R;
 import com.jjz.energy.base.BaseActivity;
 import com.jjz.energy.base.Constant;
-import com.jjz.energy.entry.AddressBean;
+import com.jjz.energy.entry.mine.AddressBean;
 import com.jjz.energy.presenter.mine.AddAddressPresenter;
 import com.jjz.energy.util.system.PopWindowUtil;
 import com.jjz.energy.util.StringUtil;

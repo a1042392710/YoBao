@@ -15,10 +15,10 @@ import android.widget.TextView;
 
 import com.jjz.energy.R;
 import com.jjz.energy.base.BaseActivity;
-import com.jjz.energy.entry.UserPageInfo;
+import com.jjz.energy.entry.mine.UserPageInfo;
 import com.jjz.energy.presenter.mine.HomePagePresenter;
 import com.jjz.energy.ui.community.PostFragment;
-import com.jjz.energy.ui.home.commodity.CommentFragment;
+import com.jjz.energy.ui.home.commodity.HomePageCommentFragment;
 import com.jjz.energy.ui.home.commodity.HomePageCommodityFragment;
 import com.jjz.energy.util.DateUtil;
 import com.jjz.energy.util.Utils;
@@ -119,7 +119,7 @@ public class HomePageActivity extends BaseActivity<HomePagePresenter> implements
         PostFragment postFragment = new PostFragment();
         postFragment.setArguments(bundle);
         //实例化Fragment
-        CommentFragment commentFragment = new CommentFragment();
+        HomePageCommentFragment commentFragment = new HomePageCommentFragment();
         commentFragment.setArguments(bundle);
         fragments.add(homePageCommodityFragment);
         fragments.add(postFragment);

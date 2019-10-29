@@ -16,7 +16,7 @@ import com.jjz.energy.alipay.PayResult;
 import com.jjz.energy.base.BaseActivity;
 import com.jjz.energy.base.Constant;
 import com.jjz.energy.base.LoginEventBean;
-import com.jjz.energy.entry.AddressBean;
+import com.jjz.energy.entry.mine.AddressBean;
 import com.jjz.energy.entry.commodity.GoodsBean;
 import com.jjz.energy.presenter.order.SureBuyPresenter;
 import com.jjz.energy.ui.mine.shipping_address.AddressManagerActivity;

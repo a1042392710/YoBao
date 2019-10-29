@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import com.jjz.energy.R;
 import com.jjz.energy.base.BaseActivity;
-import com.jjz.energy.entry.BindOwnerInfoBean;
+import com.jjz.energy.entry.mine.BindOwnerInfoBean;
 import com.jjz.energy.entry.UserInfo;
 import com.jjz.energy.presenter.mine.BindOwnerInfoPresenter;
 import com.jjz.energy.util.IDCardValidate;

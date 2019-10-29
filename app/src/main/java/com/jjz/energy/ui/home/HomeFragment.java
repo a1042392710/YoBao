@@ -17,7 +17,7 @@ import android.widget.TextView;
 import com.jjz.energy.R;
 import com.jjz.energy.adapter.HomeCommondityPagerAdapter;
 import com.jjz.energy.base.BaseFragment;
-import com.jjz.energy.entry.HomeDetailBean;
+import com.jjz.energy.entry.home.HomeDetailBean;
 import com.jjz.energy.entry.event.LocationEvent;
 import com.jjz.energy.presenter.home.HomePresenter;
 import com.jjz.energy.ui.MainActivity;
@@ -103,10 +103,10 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements IHomeVi
     /**
      * 初始化banner
      */
-    private void initBanner(List<com.jjz.energy.entry.Banner> homeBeans) {
+    private void initBanner(List<com.jjz.energy.entry.home.Banner> homeBeans) {
         //处理好数据放入banner中
         List<String> list = new ArrayList<>();
-        for (com.jjz.energy.entry.Banner homeBean : homeBeans) {
+        for (com.jjz.energy.entry.home.Banner homeBean : homeBeans) {
             list.add(homeBean.getImage());
         }
         //设置图片加载器

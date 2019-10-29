@@ -2,7 +2,7 @@ package com.jjz.energy.model.mine;
 
 import com.jjz.energy.base.Api;
 import com.jjz.energy.base.BaseModel;
-import com.jjz.energy.entry.AddressBean;
+import com.jjz.energy.entry.mine.AddressBean;
 import com.jjz.energy.util.networkUtil.RetrofitFactory;
 import com.jjz.energy.util.networkUtil.RxSchedulerHepler;
 

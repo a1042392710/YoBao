@@ -1,7 +1,7 @@
 package com.jjz.energy.presenter.mine;
 
 import com.jjz.energy.base.BasePresenter;
-import com.jjz.energy.entry.AddressBean;
+import com.jjz.energy.entry.mine.AddressBean;
 import com.jjz.energy.model.mine.AddAddressModel;
 import com.jjz.energy.util.networkUtil.CommonSubscriber;
 import com.jjz.energy.view.mine.IAddAddressView;

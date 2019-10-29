@@ -3,7 +3,7 @@ package com.jjz.energy.presenter.mine;
 import android.annotation.SuppressLint;
 
 import com.jjz.energy.base.BasePresenter;
-import com.jjz.energy.entry.BindOwnerInfoBean;
+import com.jjz.energy.entry.mine.BindOwnerInfoBean;
 import com.jjz.energy.model.mine.BindOwnerInfoModel;
 import com.jjz.energy.util.networkUtil.CommonSubscriber;
 import com.jjz.energy.view.mine.IBindOwnerInfoView;

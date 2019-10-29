@@ -9,8 +9,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jjz.energy.R;
-import com.jjz.energy.entry.ChildComment;
-import com.jjz.energy.entry.Comment;
+import com.jjz.energy.entry.commodity.ChildComment;
+import com.jjz.energy.entry.commodity.Comment;
 import com.jjz.energy.util.DateUtil;
 import com.jjz.energy.util.StringUtil;
 import com.jjz.energy.util.glide.GlideUtils;

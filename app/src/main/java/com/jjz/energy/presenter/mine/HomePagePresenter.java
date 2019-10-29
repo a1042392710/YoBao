@@ -3,7 +3,8 @@ package com.jjz.energy.presenter.mine;
 import android.annotation.SuppressLint;
 
 import com.jjz.energy.base.BasePresenter;
-import com.jjz.energy.entry.UserPageInfo;
+import com.jjz.energy.entry.commodity.HomePageCommentBean;
+import com.jjz.energy.entry.mine.UserPageInfo;
 import com.jjz.energy.entry.commodity.GoodsListBean;
 import com.jjz.energy.model.mine.HomePageModel;
 import com.jjz.energy.util.networkUtil.CommonSubscriber;
@@ -110,7 +111,37 @@ public class HomePagePresenter extends BasePresenter<HomePageModel, IHomePageVie
                 }));
 
     }
+    /**
+     * 查询该用户的所有评价
+     * @param map
+     */
+    @SuppressLint("CheckResult")
+    public void getUserComments(String map,boolean isLoadMore) {
 
+        addSubscribe(mModel.getUserComments(map)
+                .subscribeWith(new CommonSubscriber<HomePageCommentBean>() {
+
+                    @Override
+                    protected void startLoading() {
+                        if (!isLoadMore){
+                            mView.showLoading();
+                        }
+                    }
+
+                    @Override
+                    protected void onSuccess(HomePageCommentBean response) {
+                        mView.stopLoading();
+                        mView.isGetUserComments(response);
+                    }
+
+                    @Override
+                    protected void onFail(String errorMsg ,boolean isNetAndSeriveError) {
+                        mView.stopLoading();
+                        mView.isFail(errorMsg,isNetAndSeriveError);
+                    }
+                }));
+
+    }
 
     @Override
     protected HomePageModel createModel() {

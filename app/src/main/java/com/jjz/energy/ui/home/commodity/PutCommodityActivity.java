@@ -281,7 +281,7 @@ public class PutCommodityActivity extends BaseActivity <PutCommodityPresenter>im
      */
     private void compressPhotos() {
         mFileList = new ArrayList<>();
-        //无图片直接提交
+        //无图片直接提交 -1 是减去 添加图片的那个数据
         if (mSelectPhotos.size() - 1 > 0) {
             //有图片则压缩
             for (int i = 0; i < mSelectPhotos.size() - 1; i++) {

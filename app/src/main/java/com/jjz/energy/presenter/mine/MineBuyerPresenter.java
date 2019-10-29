@@ -1,7 +1,7 @@
 package com.jjz.energy.presenter.mine;
 
 import com.jjz.energy.base.BasePresenter;
-import com.jjz.energy.entry.MineBuyerBean;
+import com.jjz.energy.entry.mine.MineBuyerBean;
 import com.jjz.energy.model.mine.MineBuyerModel;
 import com.jjz.energy.util.networkUtil.CommonSubscriber;
 import com.jjz.energy.view.mine.IMineBuyerView;

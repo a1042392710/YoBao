@@ -1,7 +1,7 @@
 package com.jjz.energy.view.home;
 
 import com.jjz.energy.base.IBaseView;
-import com.jjz.energy.entry.LikeGoodsBean;
+import com.jjz.energy.entry.mine.LikeGoodsBean;
 
 /**
  * @Features: 发布商品

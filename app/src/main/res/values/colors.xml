@@ -32,6 +32,7 @@
     <color name="text_black88">#888888</color>
     <color name="text_hint_bdbdbd">#bdbdbd</color>
     <color name="translucent">#F2FFFBFB</color>
+    <color name="text_orange">#ffad0b</color>
 
 
     <!--zxing-->

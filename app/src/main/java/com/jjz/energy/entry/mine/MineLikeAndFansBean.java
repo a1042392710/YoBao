@@ -1,4 +1,4 @@
-package com.jjz.energy.entry;
+package com.jjz.energy.entry.mine;
 
 import java.io.Serializable;
 import java.util.ArrayList;

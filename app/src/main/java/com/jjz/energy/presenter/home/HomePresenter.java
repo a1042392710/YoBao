@@ -3,7 +3,7 @@ package com.jjz.energy.presenter.home;
 import android.annotation.SuppressLint;
 
 import com.jjz.energy.base.BasePresenter;
-import com.jjz.energy.entry.HomeDetailBean;
+import com.jjz.energy.entry.home.HomeDetailBean;
 import com.jjz.energy.model.home.HomeModel;
 import com.jjz.energy.util.networkUtil.CommonSubscriber;
 import com.jjz.energy.view.home.IHomeView;

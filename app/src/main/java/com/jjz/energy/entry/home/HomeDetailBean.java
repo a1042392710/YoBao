@@ -1,4 +1,4 @@
-package com.jjz.energy.entry;
+package com.jjz.energy.entry.home;
 
 import com.jjz.energy.entry.commodity.GoodsClassificationBean;
 

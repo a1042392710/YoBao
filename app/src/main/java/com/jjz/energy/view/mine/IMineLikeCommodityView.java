@@ -2,7 +2,7 @@ package com.jjz.energy.view.mine;
 
 
 import com.jjz.energy.base.IBaseView;
-import com.jjz.energy.entry.LikeGoodsBean;
+import com.jjz.energy.entry.mine.LikeGoodsBean;
 
 /**
  * @author chenhao 2018/9/30

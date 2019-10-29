@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/color_bg_f7"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/view_tool_bar"/>
+
+
+
+    <RelativeLayout
+        android:id="@+id/rv_her"
+        android:visibility="visible"
+        android:layout_width="match_parent"
+        android:background="@drawable/bg_white_radius"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:elevation="5dp"
+        android:padding="12dp"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/img_commodity"
+            android:layout_width="64dp"
+            android:layout_marginRight="10dp"
+            tools:src="@color/red_fe8977"
+            android:layout_height="64dp"/>
+
+        <TextView
+            android:id="@+id/tv_commodity_title"
+            android:textColor="@color/text_black33"
+            android:textSize="13sp"
+            android:layout_toRightOf="@id/img_commodity"
+            tools:text="2012年入手的小姐姐，京东入手，今年"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"/>
+
+        <TextView
+            android:id="@+id/tv_order_time"
+            android:layout_alignLeft="@id/tv_commodity_title"
+            android:layout_marginTop="14dp"
+            android:textColor="@color/text_blackA6"
+            android:textSize="12sp"
+            android:layout_below="@id/tv_commodity_title"
+            android:text="交易成功时间 2019-05-05 23:03:15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+        <View
+            android:id="@+id/view_line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/img_commodity"
+            android:layout_marginTop="10dp"
+            android:background="@color/color_bg_f7"/>
+
+
+        <ImageView
+            android:id="@+id/img_her_head"
+            android:layout_width="36dp"
+            android:layout_below="@id/view_line"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            tools:src="@color/red_fe8977"
+            android:layout_height="36dp"/>
+
+        <TextView
+            android:id="@+id/tv_her_name"
+            tools:text="爱唱跳rap的彭于晏"
+            android:textSize="11sp"
+            android:textColor="@color/text_black33"
+            android:layout_toRightOf="@id/img_her_head"
+            android:layout_alignTop="@id/img_her_head"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+
+        <TextView
+            android:id="@+id/tv_her_evaluate"
+            android:layout_below="@id/tv_her_name"
+            android:layout_alignLeft="@id/tv_her_name"
+            android:layout_marginTop="12dp"
+            android:textSize="13sp"
+            android:textColor="@color/text_black33"
+            tools:text="货品很好，爽快的卖家货品很好"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="50dp"/>
+
+
+        <TextView
+            android:id="@+id/tv_her_evaluate_time"
+            android:layout_below="@id/tv_her_evaluate"
+            android:layout_alignLeft="@id/tv_her_evaluate"
+            android:layout_marginTop="7dp"
+            android:layout_width="wrap_content"
+            android:layout_marginBottom="5dp"
+            tools:text="2019-10-15 23:07:40"
+            android:textSize="10sp"
+            android:textColor="@color/text_blackA6"
+            android:layout_height="wrap_content"/>
+
+
+        <ImageView
+            android:id="@+id/img_her_evaluate"
+            android:layout_width="67dp"
+            android:layout_below="@id/tv_her_evaluate_time"
+            android:layout_marginTop="5dp"
+            android:layout_alignLeft="@id/tv_her_evaluate_time"
+            android:layout_marginBottom="5dp"
+            android:visibility="gone"
+            android:layout_height="67dp"
+            tools:src="@color/red_fe8977"/>
+
+
+        <ImageView
+            android:id="@+id/img_her_evaluate_mark"
+            android:layout_width="24dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@id/tv_her_name"
+            android:layout_marginRight="10dp"
+            android:src="@mipmap/ic_rb_good_checked"
+            android:layout_height="24dp"/>
+
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/rv_mine"
+        android:visibility="visible"
+        android:layout_width="match_parent"
+        android:background="@drawable/bg_white_radius"
+        android:layout_margin="10dp"
+        android:elevation="5dp"
+        android:padding="12dp"
+        android:layout_height="wrap_content">
+
+
+        <ImageView
+            android:id="@+id/img_my_head"
+            android:layout_width="36dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            tools:src="@color/red_fe8977"
+            android:layout_height="36dp" />
+
+        <TextView
+            android:id="@+id/tv_my_name"
+            tools:text="爱唱跳rap的彭于晏"
+            android:textSize="11sp"
+            android:textColor="@color/text_black33"
+            android:layout_toRightOf="@id/img_my_head"
+            android:layout_alignTop="@id/img_my_head"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+
+        <TextView
+            android:id="@+id/tv_my_evaluate"
+            android:layout_below="@id/tv_my_name"
+            android:layout_alignLeft="@id/tv_my_name"
+            android:layout_marginTop="12dp"
+            android:textSize="13sp"
+            android:textColor="@color/text_black33"
+            tools:text="货品很好，爽快的买家货品很好"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="50dp"/>
+
+
+        <TextView
+            android:id="@+id/tv_my_evaluate_time"
+            android:layout_below="@id/tv_my_evaluate"
+            android:layout_alignLeft="@id/tv_my_evaluate"
+            android:layout_marginTop="7dp"
+            android:layout_width="wrap_content"
+            android:layout_marginBottom="5dp"
+            tools:text="2019-10-15 23:07:40"
+            android:textSize="10sp"
+            android:textColor="@color/text_blackA6"
+            android:layout_height="wrap_content"/>
+
+
+        <ImageView
+            android:id="@+id/img_my_evaluate"
+            android:layout_width="67dp"
+            android:layout_below="@id/tv_my_evaluate_time"
+            android:layout_marginTop="5dp"
+            android:layout_alignLeft="@id/tv_my_evaluate_time"
+            android:layout_marginBottom="5dp"
+            android:visibility="gone"
+            android:layout_height="67dp"
+            tools:src="@color/red_fe8977"/>
+
+
+        <ImageView
+            android:id="@+id/img_my_evaluate_mark"
+            android:layout_width="24dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@id/tv_my_name"
+            android:layout_marginRight="10dp"
+            android:src="@mipmap/ic_rb_good_checked"
+            android:layout_height="24dp"/>
+    </RelativeLayout>
+
+
+    <TextView
+        android:id="@+id/tv_evaluate_toast"
+        android:visibility="gone"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/red_fe8977"
+        android:layout_gravity="center_horizontal"
+        android:textSize="@dimen/font_12sp"
+        android:layout_width="wrap_content"
+        android:text="对方还没评价哦"
+        android:layout_height="wrap_content"/>
+
+
+</LinearLayout>

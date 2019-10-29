@@ -3,7 +3,7 @@ package com.jjz.energy.presenter.mine;
 import android.annotation.SuppressLint;
 
 import com.jjz.energy.base.BasePresenter;
-import com.jjz.energy.entry.MineLikeAndFansBean;
+import com.jjz.energy.entry.mine.MineLikeAndFansBean;
 import com.jjz.energy.model.mine.MineLikeAndFansModel;
 import com.jjz.energy.util.networkUtil.CommonSubscriber;
 import com.jjz.energy.view.mine.IMineLikeAndFansView;

@@ -1,7 +1,7 @@
 package com.jjz.energy.model.mine;
 
 import com.jjz.energy.base.Api;
-import com.jjz.energy.entry.MineBuyerBean;
+import com.jjz.energy.entry.mine.MineBuyerBean;
 import com.jjz.energy.model.order.ShopOrderDetailsModel;
 import com.jjz.energy.util.networkUtil.RetrofitFactory;
 import com.jjz.energy.util.networkUtil.RxSchedulerHepler;

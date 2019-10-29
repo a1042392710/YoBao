@@ -21,7 +21,7 @@ import java.util.HashMap;
 import butterknife.BindView;
 
 /**
- * @Features: 商品列表
+ * @Features: 首页商品列表
  * @author: create by chenhao on 2019/10/11
  */
 public class HomeCommodityFragment extends BaseLazyFragment<HomeCommodityPresenter> implements IHomeCommodityView {

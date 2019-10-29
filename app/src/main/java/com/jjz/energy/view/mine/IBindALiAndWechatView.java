@@ -1,7 +1,7 @@
 package com.jjz.energy.view.mine;
 
 import com.jjz.energy.base.IBaseView;
-import com.jjz.energy.entry.BindBean;
+import com.jjz.energy.entry.home.BindBean;
 
 /**
  * create 绑定微信和支付宝

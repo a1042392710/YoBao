@@ -309,6 +309,14 @@
         <activity android:name="com.jjz.energy.ui.mine.information.ChangeDescActivity"
                   android:configChanges="orientation|screenSize"/>
 
+        <!--评价一下-->
+        <activity android:name="com.jjz.energy.ui.mine.shop_order.EvaluateActivity"
+                  android:configChanges="orientation|screenSize"/>
+
+        <!--评价详情-->
+        <activity android:name="com.jjz.energy.ui.mine.shop_order.EvaluateDetailsActivity"
+                  android:configChanges="orientation|screenSize"/>
+
         <!--zxing-->
         <activity
             android:name="com.jjz.energy.zxing.android.CaptureActivity"

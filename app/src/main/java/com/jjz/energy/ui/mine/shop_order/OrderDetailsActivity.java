@@ -102,14 +102,26 @@ public class OrderDetailsActivity extends BaseActivity<ShopOrderDetailsPresenter
         tvToolbarTitle.setText("订单详情");
         order_sn = getIntent().getStringExtra(Constant.ORDER_SN);
         user_type = getIntent().getIntExtra(Constant.USER_TYPE, 0);
+        if (user_type==1){
+            tvTalkSeller.setText("联系买家");
+        }
         rvOrderStatus.setLayoutManager(new GridLayoutManager(this, 5));
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getData();
+    }
+
+    //获取数据
+    private void getData(){
         //查询订单详情
         HashMap<String,String> map = new HashMap<>();
         map.put(Constant.ORDER_SN,order_sn);
         map.put("identity",user_type==0?"buyer":"saler");
         mPresenter.getOrderDetails(PacketUtil.getRequestPacket(map));
     }
-
 
     @OnClick({R.id.ll_toolbar_left, R.id.tv_talk_seller, R.id.tv_logistics_details,
             R.id.tv_order_lable_one, R.id.tv_order_lable_two})
@@ -123,7 +135,7 @@ public class OrderDetailsActivity extends BaseActivity<ShopOrderDetailsPresenter
                 if (mData==null){
                     return;
                 }
-                startActivity(new Intent(mContext, IMActivity.class).putExtra("userName",mData.getMobile()));
+                startActivity(new Intent(mContext, IMActivity.class).putExtra("userName",mData.getUser_mobile()));
                 break;
             case R.id.tv_logistics_details:
                 //查看物流详情
@@ -149,8 +161,10 @@ public class OrderDetailsActivity extends BaseActivity<ShopOrderDetailsPresenter
         switch (str){
 
             case "查看评价":
+                startActivity(new Intent(mContext, EvaluateDetailsActivity.class).putExtra(Constant.ORDER_SN, order_sn));
                 break;
             case "评价一下":
+                startActivity(new Intent(mContext, EvaluateActivity.class).putExtra(Constant.ORDER_SN, order_sn));
                 break;
             case "提醒发货":
                 break;

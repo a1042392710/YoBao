@@ -11,7 +11,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.jjz.energy.R;
 import com.jjz.energy.base.BaseFragment;
 import com.jjz.energy.base.BaseRecycleNewAdapter;
-import com.jjz.energy.entry.MineLikeAndFansBean;
+import com.jjz.energy.entry.mine.MineLikeAndFansBean;
 import com.jjz.energy.presenter.mine.MineLikeAndFansPresenter;
 import com.jjz.energy.ui.mine.information.HomePageActivity;
 import com.jjz.energy.util.StringUtil;

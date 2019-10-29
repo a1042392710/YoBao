@@ -1,7 +1,7 @@
 package com.jjz.energy.view.home;
 
 import com.jjz.energy.base.IBaseView;
-import com.jjz.energy.entry.CommentBean;
+import com.jjz.energy.entry.commodity.CommentBean;
 import com.jjz.energy.entry.commodity.GoodsDetailsBean;
 
 /**
