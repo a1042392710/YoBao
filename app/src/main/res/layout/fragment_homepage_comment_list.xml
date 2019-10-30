@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+
+    <RadioGroup
+        android:id="@+id/rg_comment"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginBottom="10dp"
+        android:layout_height="wrap_content">
+
+        <RadioButton
+            android:id="@+id/rb_comment_all"
+            android:layout_width="wrap_content"
+            android:paddingLeft="13dp"
+            android:paddingRight="13dp"
+            android:checked="true"
+            android:gravity="center"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:background="@drawable/bg_homepage_comment_fliter"
+            android:button="@null"
+            android:textColor="@drawable/text_homepage_comment"
+            android:text="全部 0"
+            android:textSize="13sp"
+            android:layout_height="wrap_content"/>
+
+        <RadioButton
+            android:id="@+id/rb_comment_good"
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:paddingLeft="13dp"
+            android:paddingRight="13dp"
+            android:gravity="center"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:textColor="@drawable/text_homepage_comment"
+            android:textSize="13sp"
+            android:background="@drawable/bg_homepage_comment_fliter"
+            android:button="@null"
+            android:text="很棒 0"
+            android:layout_height="wrap_content"/>
+
+        <RadioButton
+            android:id="@+id/rb_comment_have_photo"
+            android:layout_width="wrap_content"
+            android:paddingLeft="13dp"
+            android:paddingRight="13dp"
+            android:textColor="@drawable/text_homepage_comment"
+            android:gravity="center"
+            android:textSize="13sp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:layout_marginLeft="15dp"
+            android:background="@drawable/bg_homepage_comment_fliter"
+            android:button="@null"
+            android:text="有图 0"
+            android:layout_height="wrap_content"/>
+
+
+    </RadioGroup>
+
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/smart_refresh"
+        android:layout_width="match_parent"
+        android:paddingBottom="15dp"
+        android:layout_height="match_parent">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+
+</LinearLayout>

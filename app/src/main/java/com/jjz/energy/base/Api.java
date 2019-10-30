@@ -30,6 +30,7 @@ import com.jjz.energy.entry.jiusu.ShareInfoBean;
 import com.jjz.energy.entry.jiusu.ShopMarkerBean;
 import com.jjz.energy.entry.jiusu.VipListInfo;
 import com.jjz.energy.entry.jiusu.WithdrawListBean;
+import com.jjz.energy.entry.order.EvaluateDetailsBean;
 import com.jjz.energy.entry.order.ExpressAddressInfoBean;
 import com.jjz.energy.entry.order.ExpressCompanyBean;
 import com.jjz.energy.entry.order.ExpressTrackingBean;
@@ -142,7 +143,7 @@ public interface Api {
 
     //获取用户的所有评价
     @FormUrlEncoded
-    @POST("user/userPageGoodsList")
+    @POST("user/userPageCommentList")
     Flowable<ResponseData<HomePageCommentBean>> getUserComments(@Field(PACK_NO) String pack_no);
 
 
@@ -295,11 +296,14 @@ public interface Api {
     @POST("order/salerOrderList")
     Flowable<ResponseData<MineBuyerBean>> getMySeller(@Field(PACK_NO) String pack_no);
 
-
     // 评价一下
     @POST("order/sendComment")
     Flowable<ResponseData<String>> putEvaluateInfo(@Body MultipartBody mMultipartBody);
 
+    //查看评价
+    @FormUrlEncoded
+    @POST("order/orderComment")
+    Flowable<ResponseData<EvaluateDetailsBean>> getEvaluateDetails(@Field(PACK_NO) String pack_no);
 
     // ==========================================================  订单
 

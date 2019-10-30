@@ -2,6 +2,7 @@ package com.jjz.energy.model.order;
 
 import com.jjz.energy.base.Api;
 import com.jjz.energy.base.BaseModel;
+import com.jjz.energy.entry.order.EvaluateDetailsBean;
 import com.jjz.energy.util.StringUtil;
 import com.jjz.energy.util.networkUtil.RetrofitFactory;
 import com.jjz.energy.util.networkUtil.RxSchedulerHepler;
@@ -34,4 +35,11 @@ public class EvaluateModel extends BaseModel {
 
         return RetrofitFactory.getRetrofit().create(Api.class).putEvaluateInfo(mBuilder.build()).compose(RxSchedulerHepler.handleMyResult());
     }
+
+
+    //发货
+    public Flowable<EvaluateDetailsBean> getEvaluateDetails(String requestData) {
+        return RetrofitFactory.getRetrofit().create(Api.class).getEvaluateDetails(requestData).compose(RxSchedulerHepler.handleMyResult());
+    }
+
 }

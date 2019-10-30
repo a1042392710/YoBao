@@ -9,7 +9,13 @@ import android.widget.TextView;
 import com.jjz.energy.R;
 import com.jjz.energy.base.BaseActivity;
 import com.jjz.energy.base.Constant;
+import com.jjz.energy.entry.order.EvaluateDetailsBean;
 import com.jjz.energy.presenter.order.EvaluatePresenter;
+import com.jjz.energy.util.DateUtil;
+import com.jjz.energy.util.StringUtil;
+import com.jjz.energy.util.Utils;
+import com.jjz.energy.util.glide.GlideUtils;
+import com.jjz.energy.util.networkUtil.PacketUtil;
 import com.jjz.energy.view.order.IEvaluateView;
 
 import butterknife.BindView;
@@ -76,9 +82,83 @@ public class EvaluateDetailsActivity extends BaseActivity<EvaluatePresenter> imp
     protected void initView() {
         order_sn = getIntent().getStringExtra(Constant.ORDER_SN );
         tvToolbarTitle.setText("评价详情");
+        mPresenter.getEvaluateDetails(PacketUtil.getRequestPacket(Utils.stringToMap(Constant.ORDER_SN,order_sn)));
     }
 
 
+    @Override
+    public void isGetEvaluateDetailsInfoSuc(EvaluateDetailsBean data) {
+        //买家有评价
+        if (!StringUtil.isEmpty(data.getBuyer_content())){
+            rvHer.setVisibility(View.VISIBLE);
+            GlideUtils.loadRoundCircleImage(mContext,data.getGoods_info().getGoods_images(),imgCommodity);
+            tvCommodityTitle.setText(data.getGoods_info().getGoods_name());
+            tvOrderTime.setText("交易成功时间 "+ DateUtil.longToDate(data.getGoods_info().getConfirm_time(),null));
+            tvHerEvaluate.setText(data.getBuyer_content());
+            tvHerName.setText(data.getBuyer_nickname());
+            tvHerEvaluateTime.setText(DateUtil.longToDate(data.getBuyer_add_time(),null));
+            GlideUtils.loadCircleImage(mContext,data.getBuyer_head_pic(),imgHerHead);
+            //评论的图
+            if (!StringUtil.isEmpty(data.getBuyer_img())){
+                imgHerEvaluate.setVisibility(View.VISIBLE);
+                GlideUtils.loadImage(mContext,data.getBuyer_img(),imgHerEvaluate);
+            }
+            //评价
+            setStart(0,data.getBuyer_start());
+        }
+        //卖家有评价
+        if (!StringUtil.isEmpty(data.getSaler_content())){
+            rvMine.setVisibility(View.VISIBLE);
+            tvMyEvaluate.setText(data.getSaler_content());
+            tvMyName.setText(data.getSaler_nickname());
+            tvMyEvaluateTime.setText(DateUtil.longToDate(data.getSaler_add_time(),null));
+            //头像
+            GlideUtils.loadCircleImage(mContext,data.getSaler_head_pic(),imgMyHead);
+            //评论的图
+            if (!StringUtil.isEmpty(data.getSaler_img())){
+                imgMyEvaluate.setVisibility(View.VISIBLE);
+                GlideUtils.loadImage(mContext,data.getSaler_img(),imgMyEvaluate);
+            }
+            //评价
+            setStart(1,data.getSaler_start());
+        }
+
+    }
+
+    /**
+     * @param type 0 买家  1 卖家
+     */
+    private void setStart(int type, int start) {
+
+        switch (start) {
+            //差
+            case 1:
+                if (type==0){
+                    imgHerEvaluateMark.setImageDrawable(getResources().getDrawable(R.mipmap.ic_rb_bad_checked));
+                }else{
+                    imgMyEvaluateMark.setImageDrawable(getResources().getDrawable(R.mipmap.ic_rb_bad_checked));
+                }
+                break;
+            //一般
+            case 2:
+                if (type==0){
+                    imgHerEvaluateMark.setImageDrawable(getResources().getDrawable(R.mipmap.ic_rb_ordinary_checked));
+                }else{
+                    imgMyEvaluateMark.setImageDrawable(getResources().getDrawable(R.mipmap.ic_rb_ordinary_checked));
+                }
+                break;
+            //好
+            case 3:
+                if (type==0){
+                    imgHerEvaluateMark.setImageDrawable(getResources().getDrawable(R.mipmap.ic_rb_good_checked));
+                }else{
+                    imgMyEvaluateMark.setImageDrawable(getResources().getDrawable(R.mipmap.ic_rb_good_checked));
+                }
+                break;
+
+
+        }
+    }
 
     @Override
     public void showLoading() {

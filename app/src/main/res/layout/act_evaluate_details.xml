@@ -12,7 +12,7 @@
 
     <RelativeLayout
         android:id="@+id/rv_her"
-        android:visibility="visible"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:background="@drawable/bg_white_radius"
         android:layout_marginLeft="10dp"
@@ -136,7 +136,7 @@
 
     <RelativeLayout
         android:id="@+id/rv_mine"
-        android:visibility="visible"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:background="@drawable/bg_white_radius"
         android:layout_margin="10dp"

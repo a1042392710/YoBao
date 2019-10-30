@@ -93,7 +93,7 @@ public class EvaluateActivity extends BaseActivity<EvaluatePresenter> implements
                     checkedIndex = 1;
                 }else if (checkedId==R.id.rb_evaluate_ordinary ){
                     checkedIndex=2;
-                }  else{
+                } else{
                     checkedIndex=3;
                 }
         });

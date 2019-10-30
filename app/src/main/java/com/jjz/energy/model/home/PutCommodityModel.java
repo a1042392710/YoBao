@@ -43,7 +43,6 @@ public class PutCommodityModel extends BaseModel {
         return RetrofitFactory.getRetrofit().create(Api.class).putCommodity(mBuilder, photos).compose(RxSchedulerHepler.handleMyResult());
     }
 
-
     //分类列表
     public Flowable<List<GoodsClassificationBean>> getClassification(String requestData) {
         return RetrofitFactory.getRetrofit().create(Api.class).getClassification(requestData).compose(RxSchedulerHepler.handleMyResult());

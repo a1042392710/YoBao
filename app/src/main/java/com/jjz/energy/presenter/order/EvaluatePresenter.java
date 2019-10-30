@@ -3,6 +3,7 @@ package com.jjz.energy.presenter.order;
 import android.annotation.SuppressLint;
 
 import com.jjz.energy.base.BasePresenter;
+import com.jjz.energy.entry.order.EvaluateDetailsBean;
 import com.jjz.energy.model.order.EvaluateModel;
 import com.jjz.energy.util.networkUtil.CommonSubscriber;
 import com.jjz.energy.view.order.IEvaluateView;
@@ -49,6 +50,36 @@ public class EvaluatePresenter extends BasePresenter<EvaluateModel, IEvaluateVie
                 }));
 
     }
+
+    /**
+     *  提交评价信息
+     */
+    @SuppressLint("CheckResult")
+    public void getEvaluateDetails(String map) {
+
+        addSubscribe(mModel.getEvaluateDetails(map)
+                .subscribeWith(new CommonSubscriber<EvaluateDetailsBean>() {
+
+                    @Override
+                    protected void startLoading() {
+                        mView.showLoading();
+                    }
+
+                    @Override
+                    protected void onSuccess(EvaluateDetailsBean response) {
+                        mView.isGetEvaluateDetailsInfoSuc(response);
+                        mView.stopLoading();
+                    }
+
+                    @Override
+                    protected void onFail(String errorMsg, boolean isNetAndSeriveError) {
+                        mView.isFail(errorMsg,isNetAndSeriveError);
+                        mView.stopLoading();
+                    }
+                }));
+
+    }
+
 
     @Override
     protected EvaluateModel createModel() {

@@ -33,6 +33,7 @@
     <color name="text_hint_bdbdbd">#bdbdbd</color>
     <color name="translucent">#F2FFFBFB</color>
     <color name="text_orange">#ffad0b</color>
+    <color name="bg_66000000">#66000000</color>
 
 
     <!--zxing-->

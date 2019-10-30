@@ -11,6 +11,7 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.jjz.energy.R;
@@ -62,7 +63,7 @@ public class HomePageActivity extends BaseActivity<HomePagePresenter> implements
     @BindView(R.id.tv_like_user)
     TextView tvLikeUser;
     @BindView(R.id.ll_header)
-    LinearLayout llHeader;
+    RelativeLayout llHeader;
     @BindView(R.id.tablayout)
     TabLayout tablayout;
     @BindView(R.id.no_scroll_vp)
