@@ -18,6 +18,9 @@ import com.jjz.energy.base.BaseActivity;
 import com.jjz.energy.base.Constant;
 import com.jjz.energy.entry.order.ShopOrderDetailsBean;
 import com.jjz.energy.presenter.order.ShopOrderDetailsPresenter;
+import com.jjz.energy.ui.mine.shop_order.refund_order.ApplicationRefundActivity;
+import com.jjz.energy.ui.mine.shop_order.refund_order.RefundDetailsActivity;
+import com.jjz.energy.ui.mine.shop_order.refund_order.RefundTypeSelectActivity;
 import com.jjz.energy.ui.notice.IMActivity;
 import com.jjz.energy.util.DateUtil;
 import com.jjz.energy.util.StringUtil;
@@ -174,13 +177,24 @@ public class OrderDetailsActivity extends BaseActivity<ShopOrderDetailsPresenter
             case "提醒收货":
                 break;
             case "确认收货":
-                PopWindowUtil.getInstance().showPopupWindow(mContext, "点击按钮确认收货", () -> {
+                PopWindowUtil.getInstance().showPopupWindow(mContext, "您是否确认收货？", () -> {
                     mPresenter.confirmReceipt(PacketUtil.getRequestPacket(Utils.stringToMap(Constant.ORDER_SN,order_sn)));
                 });
                 break;
             case "取消订单":
+                PopWindowUtil.getInstance().showPopupWindow(mContext, "您是否确定取消该笔订单？", () -> {
+                    mPresenter.cancelOrder(PacketUtil.getRequestPacket(Utils.stringToMap(Constant.ORDER_SN,order_sn)));
+                });
                 break;
             case "申请退款":
+                startActivity(new Intent(mContext, ApplicationRefundActivity.class).putExtra(Constant.ORDER_SN,order_sn));
+                break;
+            case "退款详情":
+                startActivity(new Intent(mContext, RefundDetailsActivity.class).putExtra(Constant.ORDER_SN,order_sn));
+                break;
+            //进入选择服务方式页面
+            case "我要退款":
+                startActivity(new Intent(mContext, RefundTypeSelectActivity.class).putExtra(Constant.INTENT_KEY_OBJECT,mData));
                 break;
 
         }
@@ -198,12 +212,13 @@ public class OrderDetailsActivity extends BaseActivity<ShopOrderDetailsPresenter
             case 1:
                 //买家
                 if (user_type==0) {
+                    tvOrderLableOne.setVisibility(View.VISIBLE);
                     tvOrderLableTwo.setVisibility(View.VISIBLE);
+                    tvOrderLableOne.setText("申请退款");
                     tvOrderLableTwo.setText("提醒发货");
                 }else{
                     tvOrderLableOne.setVisibility(View.VISIBLE);
                     tvOrderLableTwo.setVisibility(View.VISIBLE);
-
                     tvOrderLableOne.setText("取消订单");
                     tvOrderLableTwo.setText("去发货");
                 }
@@ -225,7 +240,7 @@ public class OrderDetailsActivity extends BaseActivity<ShopOrderDetailsPresenter
 
                     tvOrderLableOne.setVisibility(View.VISIBLE);
                     tvOrderLableTwo.setVisibility(View.VISIBLE);
-                    tvOrderLableOne.setText("申请退款");
+                    tvOrderLableOne.setText("我要退款");
                     tvOrderLableTwo.setText("确认收货");
                 }else{
                     tvSystemToast.setVisibility(View.VISIBLE);
@@ -246,7 +261,6 @@ public class OrderDetailsActivity extends BaseActivity<ShopOrderDetailsPresenter
                 break;
             //交易关闭
             case 4:
-                llBottomBtn.setVisibility(View.GONE);
                 break;
             //交易完成
             case 5:
@@ -255,8 +269,6 @@ public class OrderDetailsActivity extends BaseActivity<ShopOrderDetailsPresenter
                 break;
 
         }
-
-
     }
 
     /**
@@ -270,8 +282,8 @@ public class OrderDetailsActivity extends BaseActivity<ShopOrderDetailsPresenter
         mData = data;
         //没有物流信息，就表示为见面交易
         if (StringUtil.isEmpty(data.getShipping_no())){
-            tvLogisticsDetails.setText("见面交易，无需物流");
-            tvLogisticsDetails.setEnabled(false);
+            tvLogisticsDetails.setText("无物流信息");
+            tvLogisticsDetails.setVisibility(View.GONE);
         }
         //设置底部按钮文字
         setBottomText(data.getStatus());
@@ -313,6 +325,14 @@ public class OrderDetailsActivity extends BaseActivity<ShopOrderDetailsPresenter
         showToast("收货成功");
         finish();
     }
+
+    //取消订单
+    @Override
+    public void isCancelOrderSuc(String data) {
+        showToast("取消订单成功");
+        finish();
+    }
+
 
     @Override
     public void isFail(String msg, boolean isNetAndServiceError) {

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/color_bg_f7"
+    android:orientation="vertical">
+
+    <include layout="@layout/view_tool_bar"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/bg_white_radius"
+        android:elevation="3dp"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
+        android:paddingBottom="25dp">
+
+
+        <TextView
+            android:id="@+id/tv_cricle_seller"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_marginTop="29dp"
+            android:layout_marginRight="12dp"
+            android:background="@drawable/bg_cricle_solid_orange"
+            android:gravity="center"
+            android:text="退"
+            android:textColor="@color/white"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tv_seller_name_and_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="17dp"
+            android:layout_toRightOf="@id/tv_cricle_seller"
+            tools:text="一只蚂蚁 138123456"
+            android:textColor="@color/text_black33"
+            android:textSize="13sp" />
+
+
+        <TextView
+            android:id="@+id/tv_seller_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_seller_name_and_phone"
+            android:layout_alignLeft="@id/tv_seller_name_and_phone"
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="88dp"
+            tools:text="江西省南昌市新建区长麦南路118号（原新富女人城）宝乐迪量版式KTV"
+            android:textColor="#a6a6a6"
+            android:textSize="10sp" />
+
+        <TextView
+            android:id="@+id/tv_address_list"
+            android:layout_width="wrap_content"
+            android:padding="10dp"
+            android:textSize="14sp"
+            android:text="地址簿"
+            android:textColor="@color/red_fe8977"
+            android:textStyle="bold"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@id/tv_seller_name_and_phone"
+            android:layout_height="wrap_content"/>
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:textSize="11sp"
+        android:textColor="@color/text_black66"
+        android:layout_marginRight="20dp"
+        android:text="@string/refund_agree_return"
+        android:layout_height="wrap_content"/>
+
+
+    <TextView
+        android:id="@+id/tv_sure"
+        android:layout_width="match_parent"
+        android:layout_height="38dp"
+        android:layout_marginLeft="18dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginRight="18dp"
+        android:layout_marginBottom="15dp"
+        android:background="@drawable/bg_orange_solid"
+        android:gravity="center"
+        android:text="发送退货地址"
+        android:textColor="@color/white"
+        android:textSize="15sp"/>
+
+</LinearLayout>

@@ -317,13 +317,32 @@
         <activity android:name="com.jjz.energy.ui.mine.shop_order.EvaluateDetailsActivity"
                   android:configChanges="orientation|screenSize"/>
 
-        <!--zxing-->
-        <activity
-            android:name="com.jjz.energy.zxing.android.CaptureActivity"
-            android:configChanges="orientation|screenSize"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.NoActionBar"
-            android:windowSoftInputMode="adjustPan|stateHidden" />
+        <!--选择退货还是退款-->
+        <activity android:name="com.jjz.energy.ui.mine.shop_order.refund_order.RefundTypeSelectActivity"
+            android:configChanges="orientation|screenSize"/>
+
+        <!--申请退款-->
+        <activity android:name="com.jjz.energy.ui.mine.shop_order.refund_order.ApplicationRefundActivity"
+            android:configChanges="orientation|screenSize"/>
+
+        <!--退货退款详情页面-->
+        <activity android:name="com.jjz.energy.ui.mine.shop_order.refund_order.RefundDetailsActivity"
+            android:configChanges="orientation|screenSize"/>
+
+        <!--卖家同意退货-->
+        <activity android:name="com.jjz.energy.ui.mine.shop_order.refund_order.SellerAgreeReturnActivity"
+            android:configChanges="orientation|screenSize"/>
+
+        <!--卖家拒绝申请-->
+        <activity android:name="com.jjz.energy.ui.mine.shop_order.refund_order.SellerRefuseApplicationActivity"
+            android:configChanges="orientation|screenSize"/>
+
+
+        <!--买家填写退货物流-->
+        <activity android:name="com.jjz.energy.ui.mine.shop_order.refund_order.ReturnLogisticsActivity"
+            android:configChanges="orientation|screenSize"/>
+
+
 
         <!--****************** 支付****************** -->
 
@@ -353,6 +372,15 @@
             android:required="false" />
 
         <!--******************************** 第三方********************* -->
+
+        <!--zxing-->
+        <activity
+            android:name="com.jjz.energy.zxing.android.CaptureActivity"
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
+
 
         <!--bugly-->
         <activity

@@ -125,7 +125,7 @@
                     android:padding="10dp"
                     android:text="联系卖家"
                     android:textColor="#00b7ee"
-                    android:textSize="14sp" />
+                    android:textSize="13sp" />
 
                 <TextView
                     android:id="@+id/tv_commodity_title"
@@ -137,7 +137,7 @@
                     android:maxLines="2"
                     tools:text="风花雪月牛肉干风花雪月牛肉干风花雪月牛肉干"
                     android:textColor="@color/text_black33"
-                    android:textSize="15sp" />
+                    android:textSize="14sp" />
 
 
                 <TextView
@@ -203,6 +203,7 @@
                     android:padding="10dp"
                     android:layout_marginRight="10dp"
                     android:text="物流详情"
+                    android:textSize="13sp"
                     android:textColor="#00b7ee" />
 
             </LinearLayout>

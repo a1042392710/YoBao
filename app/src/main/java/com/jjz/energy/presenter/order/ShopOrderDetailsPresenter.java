@@ -80,6 +80,35 @@ public class ShopOrderDetailsPresenter extends BasePresenter<ShopOrderDetailsMod
 
     }
 
+    /**
+     * 取消订单
+     */
+    public void cancelOrder(String pack_no) {
+
+        addSubscribe(mModel.cancelOrder(pack_no)
+                .subscribeWith(new CommonSubscriber<String>() {
+
+                    @Override
+                    protected void startLoading() {
+                        mView.showLoading();
+                    }
+
+                    @Override
+                    protected void onSuccess(String response) {
+                        mView.stopLoading();
+                        mView.isCancelOrderSuc(response);
+                    }
+
+                    @Override
+                    protected void onFail(String errorMsg, boolean isNetAndSeriveError) {
+                        mView.isFail(errorMsg, isNetAndSeriveError);
+                        mView.stopLoading();
+                    }
+                }));
+
+    }
+
+
     @Override
     protected ShopOrderDetailsModel createModel() {
         return new ShopOrderDetailsModel();

@@ -18,6 +18,11 @@ public interface IMineBuyerView extends IBaseView {
 
    };
 
+    //成功取消订单
+   default void isCancelOrderSuc(String data){
+
+   };
+
     void isFail(String msg, boolean isNetAndServiceError);
 
 

@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/color_bg_f7"
+    android:orientation="vertical">
+
+    <include layout="@layout/view_tool_bar"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:layout_marginTop="10dp"
+        android:padding="10dp"
+        android:text="商品信息"
+        android:textColor="@color/text_black33"
+        android:textSize="13sp" />
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="17dp"
+        android:elevation="2dp"
+        android:background="@color/white"
+        android:paddingTop="11dp"
+        android:paddingRight="11dp"
+        android:paddingBottom="11dp">
+
+        <ImageView
+            android:id="@+id/img_commodity"
+            android:layout_width="63dp"
+            android:layout_height="63dp"
+            android:layout_marginRight="10dp"
+            tools:src="@color/red_fe8977" />
+
+        <TextView
+            android:id="@+id/tv_commodity_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="70dp"
+            android:layout_toRightOf="@id/img_commodity"
+            android:ellipsize="end"
+            android:maxLines="2"
+            tools:text="风花雪月牛肉干风花雪月牛肉干风花雪月牛肉干"
+            android:textColor="@color/text_black33"
+            android:textSize="14sp" />
+
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_only_refund"
+        android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
+        android:paddingLeft="18dp"
+        android:paddingRight="18dp"
+        android:elevation="2dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:background="@color/white"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/img_test_one"
+            android:layout_width="20dp"
+            android:src="@mipmap/ic_refund_money"
+            android:layout_marginRight="18dp"
+            android:layout_height="20dp"/>
+
+        <TextView
+            android:id="@+id/tv_test_one"
+            android:layout_width="wrap_content"
+            android:text="我要退款(无需退货)"
+            android:textSize="14sp"
+            android:textColor="@color/text_black33"
+            android:layout_toRightOf="@id/img_test_one"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/tv_test_two"
+            android:layout_width="wrap_content"
+            android:text="没收到货，或与卖家协商同意不用退货只退款"
+            android:layout_below="@id/tv_test_one"
+            android:layout_marginTop="10dp"
+            android:textSize="13sp"
+            android:textColor="@color/text_black99"
+            android:layout_alignLeft="@id/tv_test_one"
+            android:layout_height="wrap_content"/>
+
+
+        <ImageView
+            android:src="@mipmap/ic_gray_right_more"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_sales_return"
+        android:layout_width="match_parent"
+        android:layout_marginTop="1dp"
+        android:paddingLeft="18dp"
+        android:paddingRight="18dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:background="@color/white"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/img_test_three"
+            android:layout_width="20dp"
+            android:src="@mipmap/ic_refund_sales"
+            android:layout_marginRight="18dp"
+            android:layout_height="20dp"/>
+
+        <TextView
+            android:id="@+id/tv_test_four"
+            android:layout_width="wrap_content"
+            android:text="我要退货退款"
+            android:textSize="14sp"
+            android:textColor="@color/text_black33"
+            android:layout_toRightOf="@id/img_test_three"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/tv_test_five"
+            android:layout_width="wrap_content"
+            android:text="已收到货，需要退还收到的货物"
+            android:layout_below="@id/img_test_three"
+            android:layout_marginTop="10dp"
+            android:textSize="13sp"
+            android:textColor="@color/text_black99"
+            android:layout_alignLeft="@id/tv_test_four"
+            android:layout_height="wrap_content"/>
+
+
+        <ImageView
+            android:src="@mipmap/ic_gray_right_more"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </RelativeLayout>
+
+</LinearLayout>

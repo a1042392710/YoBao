@@ -17,11 +17,15 @@ import com.jjz.energy.base.BaseRecycleNewAdapter;
 import com.jjz.energy.base.Constant;
 import com.jjz.energy.entry.mine.MineBuyerBean;
 import com.jjz.energy.entry.enums.ShopOrderStatusEnum;
+import com.jjz.energy.entry.order.ShopOrderDetailsBean;
 import com.jjz.energy.presenter.mine.MineBuyerPresenter;
 import com.jjz.energy.ui.mine.information.HomePageActivity;
 import com.jjz.energy.ui.mine.shop_order.EvaluateActivity;
 import com.jjz.energy.ui.mine.shop_order.EvaluateDetailsActivity;
 import com.jjz.energy.ui.mine.shop_order.OrderDetailsActivity;
+import com.jjz.energy.ui.mine.shop_order.refund_order.ApplicationRefundActivity;
+import com.jjz.energy.ui.mine.shop_order.refund_order.RefundDetailsActivity;
+import com.jjz.energy.ui.mine.shop_order.refund_order.RefundTypeSelectActivity;
 import com.jjz.energy.ui.notice.IMActivity;
 import com.jjz.energy.util.StringUtil;
 import com.jjz.energy.util.Utils;
@@ -227,6 +231,10 @@ public class MineBuyerActivity extends BaseActivity <MineBuyerPresenter>implemen
             helper.getView(R.id.ll_user_info).setOnClickListener(v -> {
                 startActivity(new Intent(mContext, HomePageActivity.class).putExtra(Constant.USER_ID,item.getUser_id()));
             });
+            //聊一聊
+            helper.getView(R.id.item_tv_talk).setOnClickListener(v -> {
+                startActivity(new Intent(mContext, IMActivity.class).putExtra("userName",item.getMobile()));
+            });
         }
 
         /**
@@ -236,10 +244,8 @@ public class MineBuyerActivity extends BaseActivity <MineBuyerPresenter>implemen
             switch (btnStr) {
                 case "提醒发货":
                     break;
-                case "联系卖家":
-                    startActivity(new Intent(mContext, IMActivity.class).putExtra("userName",data.getMobile()));
-                    break;
                 case "申请退款":
+                    startActivity(new Intent(mContext, ApplicationRefundActivity.class).putExtra(Constant.ORDER_SN,data.getOrder_sn()));
                     break;
                 case "确认收货":
                     PopWindowUtil.getInstance().showPopupWindow(mContext, "点击按钮确认收货", () -> {
@@ -251,6 +257,15 @@ public class MineBuyerActivity extends BaseActivity <MineBuyerPresenter>implemen
                     break;
                 case "查看评价":
                     startActivity(new Intent(mContext, EvaluateDetailsActivity.class).putExtra(Constant.ORDER_SN, data.getOrder_sn()));
+                    break;
+                case "退款详情":
+                    startActivity(new Intent(mContext, RefundDetailsActivity.class).putExtra(Constant.ORDER_SN, data.getOrder_sn()));
+                    break;
+                case "我要退款":
+                    ShopOrderDetailsBean bean = new ShopOrderDetailsBean();
+                    bean.setGoods_images(data.getGoods_images());
+                    bean.setGoods_name(data.getGoods_name());
+                    startActivity(new Intent(mContext, RefundTypeSelectActivity.class).putExtra(Constant.INTENT_KEY_OBJECT,bean));
                     break;
             }
         }
@@ -264,28 +279,28 @@ public class MineBuyerActivity extends BaseActivity <MineBuyerPresenter>implemen
             switch (status) {
                 //待发货
                 case 1:
-                    textOne.setText("提醒发货");
-                    textTwo.setText("联系卖家");
+                    textOne.setText("申请退款");
+                    textTwo.setText("提醒发货");
                     break;
                 //待收货
                 case 2:
-                    textOne.setText("申请退款");
+                    textOne.setText("我要退款");
                     textTwo.setText("确认收货");
                     break;
                 //待评价
                 case 3:
                     textOne.setText("评价一下");
-                    textTwo.setText("联系卖家");
+                    textTwo.setVisibility(View.GONE);
                     break;
                 //交易关闭
                 case 4:
                     textOne.setVisibility(View.GONE);
-                    textTwo.setText("联系卖家");
+                    textTwo.setVisibility(View.GONE);
                     break;
                 //交易完成
                 case 5:
                     textOne.setText("查看评价");
-                    textTwo.setText("联系卖家");
+                    textTwo.setVisibility(View.GONE);
                     break;
 
             }

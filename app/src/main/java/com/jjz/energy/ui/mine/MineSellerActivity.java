@@ -22,11 +22,13 @@ import com.jjz.energy.ui.mine.shop_order.DeliverGoodsActivity;
 import com.jjz.energy.ui.mine.shop_order.EvaluateActivity;
 import com.jjz.energy.ui.mine.shop_order.EvaluateDetailsActivity;
 import com.jjz.energy.ui.mine.shop_order.OrderDetailsActivity;
+import com.jjz.energy.ui.mine.shop_order.refund_order.RefundDetailsActivity;
 import com.jjz.energy.ui.notice.IMActivity;
 import com.jjz.energy.util.StringUtil;
 import com.jjz.energy.util.Utils;
 import com.jjz.energy.util.glide.GlideUtils;
 import com.jjz.energy.util.networkUtil.PacketUtil;
+import com.jjz.energy.util.system.PopWindowUtil;
 import com.jjz.energy.view.mine.IMineBuyerView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -104,7 +106,6 @@ public class MineSellerActivity extends BaseActivity <MineBuyerPresenter>impleme
         getData(false);
     }
 
-
     /**
      * 获取数据
      */
@@ -137,9 +138,18 @@ public class MineSellerActivity extends BaseActivity <MineBuyerPresenter>impleme
         closeRefresh(smartRefresh);
     }
 
+    //收货成功，并且刷新当条数据
+    @Override
+    public void isCancelOrderSuc(String data) {
+        showToast("取消订单成功");
+        mAdapter.remove(selectPosition);
+    }
+
+
+
     @Override
     public void isFail(String msg, boolean isNetAndServiceError) {
-
+        showToast(msg);
     }
 
 
@@ -212,6 +222,10 @@ public class MineSellerActivity extends BaseActivity <MineBuyerPresenter>impleme
             helper.getView(R.id.ll_user_info).setOnClickListener(v -> {
                 startActivity(new Intent(mContext, HomePageActivity.class).putExtra(Constant.USER_ID,item.getUser_id()));
             });
+            //聊一聊
+            helper.getView(R.id.item_tv_talk).setOnClickListener(v -> {
+                startActivity(new Intent(mContext, IMActivity.class).putExtra("userName",item.getMobile()));
+            });
         }
 
 
@@ -225,16 +239,19 @@ public class MineSellerActivity extends BaseActivity <MineBuyerPresenter>impleme
                 case "去发货":
                     startActivity(new Intent(mContext, DeliverGoodsActivity.class).putExtra(Constant.ORDER_SN,data.getOrder_sn()));
                     break;
-                case "联系买家":
-                    startActivity(new Intent(mContext, IMActivity.class).putExtra("userName",data.getMobile()));
-                    break;
                 case "取消订单":
+                    PopWindowUtil.getInstance().showPopupWindow(mContext, "您是否确定取消该笔订单？", () -> {
+                    mPresenter.cancelOrder(PacketUtil.getRequestPacket(Utils.stringToMap(Constant.ORDER_SN,data.getOrder_sn())));
+                    });
                     break;
                 case "评价一下":
                     startActivity(new Intent(mContext, EvaluateActivity.class).putExtra(Constant.ORDER_SN, data.getOrder_sn()));
                     break;
                 case "查看评价":
                     startActivity(new Intent(mContext, EvaluateDetailsActivity.class).putExtra(Constant.ORDER_SN, data.getOrder_sn()));
+                    break;
+                case "退款详情":
+                    startActivity(new Intent(mContext, RefundDetailsActivity.class).putExtra(Constant.ORDER_SN, data.getOrder_sn()));
                     break;
             }
         }
@@ -254,22 +271,22 @@ public class MineSellerActivity extends BaseActivity <MineBuyerPresenter>impleme
                 //待收货
                 case 2:
                     textOne.setText("提醒收货");
-                    textTwo.setText("联系买家");
+                    textTwo.setVisibility(View.GONE);
                     break;
                 //待评价
                 case 3:
                     textOne.setText("评价一下");
-                    textTwo.setText("联系买家");
+                    textTwo.setVisibility(View.GONE);
                     break;
                 //交易关闭
                 case 4:
                     textOne.setVisibility(View.GONE);
-                    textTwo.setText("联系买家");
+                    textTwo.setVisibility(View.GONE);
                     break;
                 //交易完成
                 case 5:
                     textOne.setText("查看评价");
-                    textTwo.setText("联系买家");
+                    textTwo.setVisibility(View.GONE);
                     break;
 
             }

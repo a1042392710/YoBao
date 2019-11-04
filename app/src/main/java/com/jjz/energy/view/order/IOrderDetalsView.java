@@ -12,9 +12,11 @@ public interface IOrderDetalsView extends IBaseView {
     //获取商品信息
     void isGetOrderDetailsSuc(ShopOrderDetailsBean data);
 
-
     //确认收货
     void isConfirmReceiptSuc(String data);
+
+    //取消订单
+    void isCancelOrderSuc(String data);
 
     void isFail(String msg, boolean isNetAndServiceError);
 

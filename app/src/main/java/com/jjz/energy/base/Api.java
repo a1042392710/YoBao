@@ -1,20 +1,14 @@
 package com.jjz.energy.base;
 
-import com.jjz.energy.entry.commodity.HomePageCommentBean;
-import com.jjz.energy.entry.mine.AddressBean;
-import com.jjz.energy.entry.home.BindBean;
-import com.jjz.energy.entry.mine.BindOwnerInfoBean;
-import com.jjz.energy.entry.commodity.CommentBean;
-import com.jjz.energy.entry.home.HomeDetailBean;
-import com.jjz.energy.entry.mine.LikeGoodsBean;
-import com.jjz.energy.entry.mine.MineBuyerBean;
-import com.jjz.energy.entry.mine.MineLikeAndFansBean;
 import com.jjz.energy.entry.UserInfo;
-import com.jjz.energy.entry.mine.UserPageInfo;
+import com.jjz.energy.entry.commodity.CommentBean;
 import com.jjz.energy.entry.commodity.GoodsBean;
 import com.jjz.energy.entry.commodity.GoodsClassificationBean;
 import com.jjz.energy.entry.commodity.GoodsDetailsBean;
 import com.jjz.energy.entry.commodity.GoodsListBean;
+import com.jjz.energy.entry.commodity.HomePageCommentBean;
+import com.jjz.energy.entry.home.BindBean;
+import com.jjz.energy.entry.home.HomeDetailBean;
 import com.jjz.energy.entry.jiusu.AgencyBean;
 import com.jjz.energy.entry.jiusu.HotBean;
 import com.jjz.energy.entry.jiusu.HotDetailBean;
@@ -30,10 +24,18 @@ import com.jjz.energy.entry.jiusu.ShareInfoBean;
 import com.jjz.energy.entry.jiusu.ShopMarkerBean;
 import com.jjz.energy.entry.jiusu.VipListInfo;
 import com.jjz.energy.entry.jiusu.WithdrawListBean;
+import com.jjz.energy.entry.mine.AddressBean;
+import com.jjz.energy.entry.mine.BindOwnerInfoBean;
+import com.jjz.energy.entry.mine.LikeGoodsBean;
+import com.jjz.energy.entry.mine.MineBuyerBean;
+import com.jjz.energy.entry.mine.MineLikeAndFansBean;
+import com.jjz.energy.entry.mine.UserPageInfo;
+import com.jjz.energy.entry.order.ApplicationRefundBean;
 import com.jjz.energy.entry.order.EvaluateDetailsBean;
 import com.jjz.energy.entry.order.ExpressAddressInfoBean;
 import com.jjz.energy.entry.order.ExpressCompanyBean;
 import com.jjz.energy.entry.order.ExpressTrackingBean;
+import com.jjz.energy.entry.order.RefundDetailsBean;
 import com.jjz.energy.entry.order.ShopOrderDetailsBean;
 import com.jjz.energy.util.networkUtil.ResponseData;
 import com.jjz.energy.wxapi.OrderPayTypeBean;
@@ -62,7 +64,7 @@ import retrofit2.http.Url;
  * Date: 2018/10/25 上午8:45
  */
 public interface Api {
-     String BASE_URL = "http://172.16.32.5/shop/";
+     String BASE_URL = "http://172.16.32.3/shop/";
 //        String BASE_URL = "http://apit.jjznewenergy.com/app/";
      String PACK_NO = "params";
 
@@ -98,16 +100,12 @@ public interface Api {
     //忘记密码 = 提交验证码
     @FormUrlEncoded
     @POST("user/forgetPassword")
-    Flowable<ResponseData<UserInfo>> forgotPasswordPutVCode(
-            @Field(PACK_NO) String data
-    );
+    Flowable<ResponseData<UserInfo>> forgotPasswordPutVCode(@Field(PACK_NO) String data);
 
     //忘记密码 = 重置密码
     @FormUrlEncoded
     @POST("user/setNewpassword")
-    Flowable<ResponseData<UserInfo>> resetPassword(
-            @Field(PACK_NO) String data
-    );
+    Flowable<ResponseData<UserInfo>> resetPassword(@Field(PACK_NO) String data);
 
     //获取我的页面数据
     @FormUrlEncoded
@@ -348,6 +346,27 @@ public interface Api {
     @POST("order/confirmOrder")
     Flowable<ResponseData<String>> confirmReceipt(@Field(PACK_NO) String pack_no);
 
+    // 取消订单
+    @FormUrlEncoded
+    @POST("order/confirmOrder")
+    Flowable<ResponseData<String>> cancelShopOrder(@Field(PACK_NO) String pack_no);
+
+    //退款申请页面
+    @FormUrlEncoded
+    @POST("returnGoods/addReturnGoods")
+    Flowable<ResponseData<ApplicationRefundBean>> getApplicationRefundData(@Field(PACK_NO) String pack_no);
+
+    //退款详情页面
+    @FormUrlEncoded
+    @POST("returnGoods/addReturnGoods")
+    Flowable<ResponseData<RefundDetailsBean>> getRefundDetails(@Field(PACK_NO) String pack_no);
+
+    // 退款申请页面  提交申请
+    @Multipart
+    @POST("returnGoods/doAddReturnGoods")
+    Flowable<ResponseData<ApplicationRefundBean>> submitRefund(
+            @Part MultipartBody.Part photo, @Part("file") String urlsdesc, @PartMap Map<String, RequestBody> imgs
+    );
 
     //======================================================== 以下是 久速接口
 

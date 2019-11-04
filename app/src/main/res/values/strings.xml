@@ -40,4 +40,10 @@
     <string name="minute">分</string>
 
 
+    <string name="refund_confirm_receipt">1.如果拒绝退款，买家可以申请客服介入处理\n2.如果您逾期未处理，将自动退款给买家</string>
+
+    <string name="refund_agree_return">如因您提供的退货地址错误，导致买家无法退货或退回商品后无法送达，由您承担因此产生的后果。</string>
+
+
+
 </resources>
