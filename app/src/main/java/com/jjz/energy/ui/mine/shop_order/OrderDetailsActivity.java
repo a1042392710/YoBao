@@ -19,7 +19,7 @@ import com.jjz.energy.base.Constant;
 import com.jjz.energy.entry.order.ShopOrderDetailsBean;
 import com.jjz.energy.presenter.order.ShopOrderDetailsPresenter;
 import com.jjz.energy.ui.mine.shop_order.refund_order.ApplicationRefundActivity;
-import com.jjz.energy.ui.mine.shop_order.refund_order.RefundDetailsActivity;
+import com.jjz.energy.ui.mine.shop_order.refund_order.BuyerRefundDetailsActivity;
 import com.jjz.energy.ui.mine.shop_order.refund_order.RefundTypeSelectActivity;
 import com.jjz.energy.ui.notice.IMActivity;
 import com.jjz.energy.util.DateUtil;
@@ -190,7 +190,7 @@ public class OrderDetailsActivity extends BaseActivity<ShopOrderDetailsPresenter
                 startActivity(new Intent(mContext, ApplicationRefundActivity.class).putExtra(Constant.ORDER_SN,order_sn));
                 break;
             case "退款详情":
-                startActivity(new Intent(mContext, RefundDetailsActivity.class).putExtra(Constant.ORDER_SN,order_sn));
+                startActivity(new Intent(mContext, BuyerRefundDetailsActivity.class).putExtra(Constant.ORDER_SN,order_sn));
                 break;
             //进入选择服务方式页面
             case "我要退款":

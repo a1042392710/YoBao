@@ -325,8 +325,12 @@
         <activity android:name="com.jjz.energy.ui.mine.shop_order.refund_order.ApplicationRefundActivity"
             android:configChanges="orientation|screenSize"/>
 
-        <!--退货退款详情页面-->
-        <activity android:name="com.jjz.energy.ui.mine.shop_order.refund_order.RefundDetailsActivity"
+        <!--买家查看退货退款详情页面-->
+        <activity android:name="com.jjz.energy.ui.mine.shop_order.refund_order.BuyerRefundDetailsActivity"
+            android:configChanges="orientation|screenSize"/>
+
+        <!--卖家查看退货退款详情页面-->
+        <activity android:name="com.jjz.energy.ui.mine.shop_order.refund_order.SellerRefundDetailsActivity"
             android:configChanges="orientation|screenSize"/>
 
         <!--卖家同意退货-->

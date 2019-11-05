@@ -73,7 +73,7 @@
         android:textSize="11sp"
         android:textColor="@color/text_black66"
         android:layout_marginRight="20dp"
-        android:text="@string/refund_agree_return"
+        android:text="@string/refund_seller_agree_cargo_return"
         android:layout_height="wrap_content"/>
 
 

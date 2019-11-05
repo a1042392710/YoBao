@@ -50,6 +50,29 @@
                     android:textSize="11sp" />
             </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/ll_return_suc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:paddingLeft="3dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_return_suc"
+                android:text="退款金额：￥ 100.00元"
+                android:layout_width="match_parent"
+                android:padding="10dp"
+                android:textColor="@color/text_black28"
+                android:textSize="12sp"
+                android:layout_height="wrap_content"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:background="@color/color_bg_f7"
+                android:layout_height="0.8dp"/>
+        </LinearLayout>
+
 
             <!--退款提示-->
             <TextView
@@ -211,13 +234,30 @@
 
 
             <TextView
+                android:id="@+id/tv_history"
+                android:layout_width="match_parent"
+                android:text="协商历史"
+                android:background="@color/white"
+                android:paddingBottom="10dp"
+                android:elevation="2dp"
+                android:paddingLeft="14dp"
+                android:paddingTop="10dp"
+                android:paddingRight="15dp"
+                android:drawableRight="@mipmap/ic_gray_right_more"
+                android:textColor="@color/text_black28"
+                android:textSize="13sp"
+                android:layout_marginTop="10dp"
+                android:layout_height="wrap_content"/>
+
+
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:background="@color/white"
-                android:paddingBottom="12dp"
+                android:paddingBottom="10dp"
                 android:paddingLeft="14dp"
-                android:paddingTop="12dp"
+                android:paddingTop="10dp"
                 android:textSize="13sp"
                 android:text="退款信息"
                 android:textColor="@color/text_black28" />
@@ -264,17 +304,17 @@
                 android:layout_marginTop="1dp"
                 android:background="@color/white"
                 android:orientation="horizontal"
-                android:paddingBottom="10dp"
+                android:paddingBottom="8dp"
                 android:paddingLeft="14dp"
                 android:paddingRight="14dp"
-                android:paddingTop="10dp">
+                android:paddingTop="8dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="退款原因："
                     android:textColor="@color/text_black66"
-                    android:textSize="12sp" />
+                    android:textSize="11sp" />
 
                 <TextView
                     android:id="@+id/tv_refund_reson"
@@ -282,7 +322,7 @@
                     android:layout_height="wrap_content"
                     android:text="排错/多拍"
                     android:textColor="@color/text_black66"
-                    android:textSize="12sp" />
+                    android:textSize="11sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -291,17 +331,17 @@
                 android:layout_marginTop="1dp"
                 android:background="@color/white"
                 android:orientation="horizontal"
-                android:paddingBottom="10dp"
+                android:paddingBottom="8dp"
                 android:paddingLeft="14dp"
                 android:paddingRight="14dp"
-                android:paddingTop="10dp">
+                android:paddingTop="8dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="退款金额："
                     android:textColor="@color/text_black66"
-                    android:textSize="12sp" />
+                    android:textSize="11sp" />
 
                 <TextView
                     android:id="@+id/tv_refund_money"
@@ -309,7 +349,7 @@
                     android:layout_height="wrap_content"
                     android:text="¥159.00"
                     android:textColor="@color/text_black66"
-                    android:textSize="12sp" />
+                    android:textSize="11sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -318,17 +358,17 @@
                 android:layout_marginTop="1dp"
                 android:background="@color/white"
                 android:orientation="horizontal"
-                android:paddingBottom="10dp"
+                android:paddingBottom="8dp"
                 android:paddingLeft="14dp"
                 android:paddingRight="14dp"
-                android:paddingTop="10dp">
+                android:paddingTop="8dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="申请时间："
                     android:textColor="@color/text_black66"
-                    android:textSize="12sp" />
+                    android:textSize="11sp" />
 
                 <TextView
                     android:id="@+id/tv_refund_application_time"
@@ -336,7 +376,7 @@
                     android:layout_height="wrap_content"
                     android:text="2018年12月07日16:08:12"
                     android:textColor="@color/text_black66"
-                    android:textSize="12sp" />
+                    android:textSize="11sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -345,17 +385,17 @@
                 android:layout_marginTop="1dp"
                 android:background="@color/white"
                 android:orientation="horizontal"
-                android:paddingBottom="10dp"
+                android:paddingBottom="8dp"
                 android:paddingLeft="14dp"
                 android:paddingRight="14dp"
-                android:paddingTop="10dp">
+                android:paddingTop="8dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="退款编号："
                     android:textColor="@color/text_black66"
-                    android:textSize="12sp" />
+                    android:textSize="11sp" />
 
                 <TextView
                     android:id="@+id/tv_refund_number"
@@ -363,7 +403,7 @@
                     android:layout_height="wrap_content"
                     android:text="6787980987668797"
                     android:textColor="@color/text_black66"
-                    android:textSize="12sp" />
+                    android:textSize="11sp" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

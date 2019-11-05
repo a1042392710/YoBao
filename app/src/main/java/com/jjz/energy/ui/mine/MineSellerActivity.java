@@ -22,7 +22,7 @@ import com.jjz.energy.ui.mine.shop_order.DeliverGoodsActivity;
 import com.jjz.energy.ui.mine.shop_order.EvaluateActivity;
 import com.jjz.energy.ui.mine.shop_order.EvaluateDetailsActivity;
 import com.jjz.energy.ui.mine.shop_order.OrderDetailsActivity;
-import com.jjz.energy.ui.mine.shop_order.refund_order.RefundDetailsActivity;
+import com.jjz.energy.ui.mine.shop_order.refund_order.BuyerRefundDetailsActivity;
 import com.jjz.energy.ui.notice.IMActivity;
 import com.jjz.energy.util.StringUtil;
 import com.jjz.energy.util.Utils;
@@ -251,7 +251,7 @@ public class MineSellerActivity extends BaseActivity <MineBuyerPresenter>impleme
                     startActivity(new Intent(mContext, EvaluateDetailsActivity.class).putExtra(Constant.ORDER_SN, data.getOrder_sn()));
                     break;
                 case "退款详情":
-                    startActivity(new Intent(mContext, RefundDetailsActivity.class).putExtra(Constant.ORDER_SN, data.getOrder_sn()));
+                    startActivity(new Intent(mContext, BuyerRefundDetailsActivity.class).putExtra(Constant.ORDER_SN, data.getOrder_sn()));
                     break;
             }
         }

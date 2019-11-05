@@ -42,8 +42,58 @@
 
     <string name="refund_confirm_receipt">1.如果拒绝退款，买家可以申请客服介入处理\n2.如果您逾期未处理，将自动退款给买家</string>
 
-    <string name="refund_agree_return">如因您提供的退货地址错误，导致买家无法退货或退回商品后无法送达，由您承担因此产生的后果。</string>
 
 
+
+
+
+    <!-- ===================================== 给买家看的-->
+
+    <!-- 买家申请退款-->
+    <string name="refund_buyer_money_application">请等待卖家处理</string>
+    <string name="refund_buyer_money_application_toast">您已发起退款申请，请耐心等待卖家处理</string>
+    <string name="refund_buyer_money_application_toast_all">1.买家同意或者超时未处理，系统将退款给您\n2.如果买家拒绝，您可以修改申请后再次发起，卖家会重新处理</string>
+
+    <!--买家申请退货-->
+    <string name="refund_buyer_cargo_application">请等待卖家处理</string>
+    <string name="refund_buyer_cargo_application_toast">请等待卖家处理</string>
+    <string name="refund_buyer_cargo_application_toast_all">1.卖家同意或者超时未处理，请按照给出的地址退货，并请记录退运货单号\n2.如卖家拒绝，您可以修改申请后再次发起，卖家会重新处理\n3.如卖家超时未处理，退货申请将达成，请按系统给出的退货地址退货</string>
+
+    <!--卖家拒绝退货和退款 -->
+    <string name="refund_buyer_refuse_return">卖家已拒绝，您需要及时响应</string>
+    <string name="refund_buyer_refuse_return_toast_all">1.您可以修改申请后再次发起，卖家会重新处理\n2.如果您逾期未处理，本次申请将自动关闭</string>
+
+    <!--卖家同意退货-->
+    <string name="refund_buyer_cargo_return">请退货并填写物流信息</string>
+    <string name="refund_buyer_cargo_return_toast">卖家已同意退货申请，请尽早退货</string>
+    <string name="refund_buyer_cargo_return_toast_all">1.未与卖家协商一致，请勿使用平邮或到付，以免卖家拒签货物\n2.交易的欠款还在中间账户中，确保您资金安全\n3.请填写真是物流信息，逾期未填写，退货申请将撤销</string>
+
+    <!--等待卖家收货-->
+    <string name="refund_buyer_wait_seller_rceiving">请等待卖家收货并退款</string>
+    <string name="refund_buyer_wait_seller_rceiving_toast">如果卖家收到货并验货无误，将操作退款给您</string>
+    <string name="refund_buyer_wait_seller_rceiving_toast_all">如果卖家拒绝退款，需要您修改退货申请</string>
+
+    <!--买家关闭退款申请-->
+    <string name="refund_buyer_close_money_application">退款关闭</string>
+    <string name="refund_buyer_close_money_application_toast">您已撤销本次退款申请，如问题仍未解决，您可以重新发起申请</string>
+
+    <!-- ===================================== 给卖家看的-->
+
+    <!-- 卖家退款审核-->
+    <string name="refund_seller_audit">请处理退款申请</string>
+    <string name="refund_seller_audit_toast">请及时联系买家协商退款事宜</string>
+    <string name="refund_seller_audit_toast_all">如未发货，请点击同意退款给买家/n如实际已发货，请主动与买家联系，确认后去订单上操作发货/n逾期未响应，系统将自动退款给买家</string>
+    <!--卖家退货审核-->
+    <string name="refund_seller_cargo_application">请处理退货申请</string>
+    <string name="refund_seller_cargo_application_toast">请及时联系买家协商退货事宜</string>
+    <string name="refund_seller_cargo_application_toast_all">1.如果您同意，请点击“同意退货”，将正确退货地址给买家\n2.如果您拒绝，买家可以申请客服介入处理\n3.如果您逾期未处理，系统会自动将当前地址发给买家</string>
+    <!--卖家同意退货-->
+    <string name="refund_seller_agree_cargo_return">如因您提供的退货地址错误，导致买家无法退货或退回商品后无法送达，由您承担因此产生的后果</string>
+    <!-- 卖家拒绝退货和退款 -->
+    <string name="refund_seller_refuse_return">请等待买家响应</string>
+    <string name="refund_seller__refuse_return_toast_all">1.买家修改退款申请后，需要您重新处理\n2.如果买家超时未响应，退款申请将自动关闭</string>
+    <!-- 卖家确认收货-->
+    <string name="refund_seller_confirm_receipt">请确认收货</string>
+    <string name="refund_seller_confirm_receipt_toast">买家已退货，收到买家退货时，请验货后同意退款</string>
 
 </resources>

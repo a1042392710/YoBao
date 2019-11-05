@@ -20,10 +20,10 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
- * @Features: 退款详情
+ * @Features: 卖家查看退款详情
  * @author: create by chenhao on 2019/11/4
  */
-public class RefundDetailsActivity extends BaseActivity<RefundPresenter>implements IRefundView {
+public class SellerRefundDetailsActivity extends BaseActivity<RefundPresenter>implements IRefundView {
 
     @BindView(R.id.ll_toolbar_left)
     LinearLayout llToolbarLeft;
@@ -69,6 +69,12 @@ public class RefundDetailsActivity extends BaseActivity<RefundPresenter>implemen
     TextView tvRefundApplicationTime;
     @BindView(R.id.tv_refund_number)
     TextView tvRefundNumber;
+    @BindView(R.id.ll_return_suc)
+    LinearLayout llReturnSuc;
+    @BindView(R.id.tv_return_suc)
+    TextView tvReturnSuc;
+    @BindView(R.id.tv_history)
+    TextView tvHistory;
 
     /**
      * 订单编号
@@ -98,28 +104,19 @@ public class RefundDetailsActivity extends BaseActivity<RefundPresenter>implemen
 
             case "同意退款":
                 break;
-
-            case "同意退货":
-                startActivity(new Intent(mContext,SellerAgreeReturnActivity.class));
-                break;
-
+                //拒绝退款
             case "拒绝申请":
                 startActivity(new Intent(mContext,SellerRefuseApplicationActivity.class));
                 break;
-
+            case "同意退货":
+                startActivity(new Intent(mContext,SellerAgreeReturnActivity.class));
+                break;
+            case "拒绝退货申请":
+                startActivity(new Intent(mContext,SellerAgreeReturnActivity.class));
+                break;
             case "客服介入":
                 break;
 
-            case "撤销申请":
-                break;
-
-            case "填写退货物流":
-                startActivity(new Intent(mContext,ReturnLogisticsActivity.class));
-                break;
-
-            case "修改申请":
-                startActivity(new Intent(mContext,ApplicationRefundActivity.class).putExtra(Constant.ORDER_SN,order_sn));
-                break;
         }
     }
 
@@ -150,7 +147,7 @@ public class RefundDetailsActivity extends BaseActivity<RefundPresenter>implemen
 
     @Override
     protected int layoutId() {
-        return R.layout.act_refund_details;
+        return R.layout.act_seller_refund_details;
     }
 
 
