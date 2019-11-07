@@ -200,7 +200,7 @@
                     android:paddingTop="5dp"
                     android:paddingRight="11dp"
                     android:paddingBottom="5dp"
-                    tools:text="客服介入"
+                    android:text="客服介入"
                     android:textColor="@color/text_black33"
                     android:textSize="12sp" />
 
@@ -284,7 +284,7 @@
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_marginRight="15dp"
-                    tools:src="@color/red_fe8977" />
+                    android:src="@color/color_bg_f7" />
 
                 <TextView
                     android:id="@+id/tv_commodity_type"
@@ -344,7 +344,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:text="退款金额："
+                    android:text="退款金额："
                     android:textColor="@color/text_black66"
                     android:textSize="11sp" />
 

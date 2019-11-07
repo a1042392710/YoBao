@@ -82,7 +82,7 @@
     <!-- 卖家退款审核-->
     <string name="refund_seller_audit">请处理退款申请</string>
     <string name="refund_seller_audit_toast">请及时联系买家协商退款事宜</string>
-    <string name="refund_seller_audit_toast_all">如未发货，请点击同意退款给买家/n如实际已发货，请主动与买家联系，确认后去订单上操作发货/n逾期未响应，系统将自动退款给买家</string>
+    <string name="refund_seller_audit_toast_all">1.如未发货，请点击同意退款给买家\n2.如实际已发货，请主动与买家联系，确认后去订单上操作发货\n3.逾期未响应，系统将自动退款给买家</string>
     <!--卖家退货审核-->
     <string name="refund_seller_cargo_application">请处理退货申请</string>
     <string name="refund_seller_cargo_application_toast">请及时联系买家协商退货事宜</string>
@@ -98,6 +98,6 @@
 
     <!-- 等待买家退货-->
     <string name="refund_seller_wait_receipt">请等待卖家退货</string>
-    <string name="refund_seller_wait_receipt_toast">1.买家已退货，收到买家退货时，请验货后同意退款\n2.如果买家在超时结束前未退货，退货申请将自动关闭</string>
+    <string name="refund_seller_wait_receipt_toast">买家已退货，收到买家退货时，请验货后同意退款\n如果买家在超时结束前未退货，退货申请将自动关闭</string>
 
 </resources>
