@@ -14,9 +14,13 @@ import android.widget.TextView;
 import com.jjz.energy.R;
 import com.jjz.energy.base.BaseActivity;
 import com.jjz.energy.base.BasePresenter;
+import com.jjz.energy.base.Constant;
+import com.jjz.energy.util.StringUtil;
 import com.jjz.energy.util.flowlayout.FlowLayout;
 import com.jjz.energy.util.flowlayout.TagAdapter;
 import com.jjz.energy.util.flowlayout.TagFlowLayout;
+import com.jjz.energy.util.system.PopWindowUtil;
+import com.jjz.energy.util.system.SpUtil;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -34,6 +38,9 @@ public class SearchActivity extends BaseActivity {
     EditText etSearch;
     @BindView(R.id.tl_search)
     TagFlowLayout tlSearch;
+    @BindView(R.id.img_search_clear)
+    ImageView imgSearchClear;
+
     //搜索类型
     public static final String SEARCH_TYPE = "search_type";
     //搜索商铺
@@ -88,15 +95,16 @@ public class SearchActivity extends BaseActivity {
 
 
     }
-
-    private String[] mVals = {"清洁剂", "尾气清洁剂", "久速", "清洁剂", "尾气", "久速", "清洁剂", "陈大帅", "周星星", "清洁剂"
-            , "尾气清洁剂", "久速"};
-
     /**
      * 给TagFlowLayout 赋值
      */
     private void initFlowLayout() {
-
+        //从本地获取历史记录
+        String historyStr = SpUtil.init(mContext).readString(Constant.SEARCH_HISTORY);
+        if (StringUtil.isEmpty(historyStr)){
+            return;
+        }
+        String[] mVals = historyStr.split(",");
         final LayoutInflater mInflater = LayoutInflater.from(this);
         tlSearch.setAdapter(new TagAdapter<String>(mVals) {
 
@@ -129,8 +137,7 @@ public class SearchActivity extends BaseActivity {
     }
 
 
-
-    @OnClick({R.id.img_back, R.id.tv_search})
+    @OnClick({R.id.img_back, R.id.tv_search, R.id.img_search_clear})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.img_back:
@@ -138,7 +145,26 @@ public class SearchActivity extends BaseActivity {
                 break;
                 //搜索
             case R.id.tv_search:
+                String searchStr =  etSearch.getText().toString();
+                if (StringUtil.isEmpty(searchStr)){
+                    return;
+                }
+                //将本次搜索记录存到本地
+                String history =
+                        SpUtil.init(mContext).readString(Constant.SEARCH_HISTORY) + (searchStr + ",");
+                SpUtil.init(mContext).commit(Constant.SEARCH_HISTORY,history);
+                startActivity(new Intent(mContext,SearchResultActivity.class).putExtra("search_data",searchStr));
+                finish();
                 break;
+                //清除历史记录
+            case R.id.img_search_clear:
+                PopWindowUtil.getInstance().showPopupWindow(mContext, "您是否要清除全部历史搜索记录", () -> {
+                    SpUtil.init(mContext).commit(Constant.SEARCH_HISTORY,"");
+                    tlSearch.setVisibility(View.GONE);
+                });
+                break;
+            default:
+              break;
         }
     }
 }

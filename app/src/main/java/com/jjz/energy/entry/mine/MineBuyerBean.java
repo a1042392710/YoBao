@@ -43,6 +43,10 @@ public class MineBuyerBean implements Serializable {
          */
         private int user_id;
         /**
+         * 申请售后的id
+         */
+        private int rec_id;
+        /**
          * 商品名称
          */
         private String goods_name;
@@ -80,9 +84,40 @@ public class MineBuyerBean implements Serializable {
          * 订单状态 状态码
          */
         private int status;
-
+        /**
+         * 订单编号
+         */
         private String order_sn;
 
+        private String return_id;
+        /**
+         * 售后状态
+         */
+        private int return_status;
+
+        public int getReturn_status() {
+            return return_status;
+        }
+
+        public void setReturn_status(int return_status) {
+            this.return_status = return_status;
+        }
+
+        public String getReturn_id() {
+            return return_id == null ? "" : return_id;
+        }
+
+        public void setReturn_id(String return_id) {
+            this.return_id = return_id;
+        }
+
+        public int getRec_id() {
+            return rec_id;
+        }
+
+        public void setRec_id(int rec_id) {
+            this.rec_id = rec_id;
+        }
 
         public String getMobile() {
             return mobile == null ? "" : mobile;

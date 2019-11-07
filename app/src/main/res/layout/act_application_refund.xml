@@ -120,6 +120,7 @@
                 android:paddingRight="14dp">
 
                 <TextView
+                    android:id="@+id/tv_select_refund_cause_text"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -196,6 +197,7 @@
             </LinearLayout>
 
             <TextView
+                android:id="@+id/tv_refund_reson_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="0.8dp"
@@ -222,7 +224,7 @@
                 android:paddingLeft="14dp"
                 android:paddingTop="10dp"
                 android:textColor="@color/text_black28"
-                android:textSize="11sp" />
+                android:textSize="12sp" />
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_refund_photo"

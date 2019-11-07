@@ -44,6 +44,23 @@ public class ShopOrderDetailsBean implements Serializable {
      */
     private long end_time;
     /**
+     * 商品Id
+     */
+    private int rec_id;
+    /**
+     * 售后id
+     */
+    private String return_id;
+
+    public String getReturn_id() {
+        return return_id == null ? "" : return_id;
+    }
+
+    public void setReturn_id(String return_id) {
+        this.return_id = return_id;
+    }
+
+    /**
      * 物流单号
      */
     private String shipping_no;
@@ -74,8 +91,25 @@ public class ShopOrderDetailsBean implements Serializable {
     private String state;
     private String pay_name;
     private int twon;
+    private int return_status;
+
+    public int getReturn_status() {
+        return return_status;
+    }
+
+    public void setReturn_status(int return_status) {
+        this.return_status = return_status;
+    }
 
     private List<String> statusList;
+
+    public int getRec_id() {
+        return rec_id;
+    }
+
+    public void setRec_id(int rec_id) {
+        this.rec_id = rec_id;
+    }
 
     public String getUser_mobile() {
         return user_mobile == null ? "" : user_mobile;

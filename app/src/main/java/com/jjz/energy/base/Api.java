@@ -345,25 +345,24 @@ public interface Api {
     @FormUrlEncoded
     @POST("order/confirmOrder")
     Flowable<ResponseData<String>> confirmReceipt(@Field(PACK_NO) String pack_no);
-
     // 取消订单
     @FormUrlEncoded
-    @POST("order/confirmOrder")
+    @POST("order/cancelOrder")
     Flowable<ResponseData<String>> cancelShopOrder(@Field(PACK_NO) String pack_no);
 
     //退款申请页面
     @FormUrlEncoded
-    @POST("returnGoods/addReturnGoods")
+    @POST("return_goods/addReturnGoods")
     Flowable<ResponseData<ApplicationRefundBean>> getApplicationRefundData(@Field(PACK_NO) String pack_no);
 
     //退款详情页面
     @FormUrlEncoded
-    @POST("returnGoods/addReturnGoods")
+    @POST("return_goods/returnGoodsInfo")
     Flowable<ResponseData<RefundDetailsBean>> getRefundDetails(@Field(PACK_NO) String pack_no);
 
     // 退款申请页面  提交申请
     @Multipart
-    @POST("returnGoods/doAddReturnGoods")
+    @POST("return_goods/doAddReturnGoods")
     Flowable<ResponseData<ApplicationRefundBean>> submitRefund(
             @Part MultipartBody.Part photo, @Part("file") String urlsdesc, @PartMap Map<String, RequestBody> imgs
     );

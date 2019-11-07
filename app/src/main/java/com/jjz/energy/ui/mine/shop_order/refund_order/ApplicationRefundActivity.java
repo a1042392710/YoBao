@@ -48,6 +48,7 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -94,6 +95,8 @@ public class ApplicationRefundActivity extends BaseActivity<ApplicationRefundPre
     //选择退款理由
     @BindView(R.id.tv_select_refund_cause)
     TextView tvSelectRefundCause;
+    @BindView(R.id.tv_select_refund_cause_text)
+    TextView tvSelectRefundCauseText;
     //退款金额
     @BindView(R.id.et_refund_money)
     EditText etRefundMoney;
@@ -106,6 +109,8 @@ public class ApplicationRefundActivity extends BaseActivity<ApplicationRefundPre
     //提交退款申请
     @BindView(R.id.tv_refund_submit)
     TextView tvRefundSubmit;
+    @BindView(R.id.tv_refund_reson_text)
+    TextView tvRefundResonText;
 
     /**
      * 选择图片 recyclerView的适配器
@@ -116,19 +121,30 @@ public class ApplicationRefundActivity extends BaseActivity<ApplicationRefundPre
      */
     private LinkedList<Uri> mSelectPhotos;
     /**
-     * 订单Id
+     * 商品id
      */
-    private String order_sn;
+    private int rec_id;
+    /**
+     * 退款类型  0 仅退款  1 退货退款
+     */
+    private String type ;
 
 
     @Override
     protected void initView() {
-        tvToolbarTitle.setText("申请退款");
-        order_sn = getIntent().getStringExtra(Constant.ORDER_SN);
+        rec_id = getIntent().getIntExtra(Constant.REC_ID,0);
+        type = getIntent().getStringExtra("type");
+        if (Constant.RETURN_SALES.equals(type)){
+            tvToolbarTitle.setText("申请退货退款");
+            tvRefundResonText.setText("退货退款说明");
+            tvSelectRefundCauseText.setText("退货退款原因");
+        }else{
+            tvToolbarTitle.setText("申请退款");
+        }
         //初始化
         setData();
         //获取退款的商品信息
-        mPresenter.getApplicationData(PacketUtil.getRequestPacket(Utils.stringToMap(Constant.ORDER_SN, order_sn)) );
+        mPresenter.getApplicationData(PacketUtil.getRequestPacket(Utils.stringToMap(Constant.REC_ID, rec_id+"")) );
     }
 
     /**
@@ -166,7 +182,6 @@ public class ApplicationRefundActivity extends BaseActivity<ApplicationRefundPre
         View popView = View.inflate(mContext, R.layout.item_pop_refund_type, null);
         RecyclerView rv = popView.findViewById(R.id.rv_refund_type);
         rv.setLayoutManager(new LinearLayoutManager(this));
-
         //退款原因
         mResonAdapter = new RefundTypeAdapter(R.layout.item_refund_type, mResonList);
         rv.setAdapter(mResonAdapter);
@@ -181,7 +196,7 @@ public class ApplicationRefundActivity extends BaseActivity<ApplicationRefundPre
     @Override
     public void isSuccess(ApplicationRefundBean data) {
         //商品图片
-        GlideUtils.loadRoundCircleImage(this, data.getOrder_goods().getOriginal_img(), imgCommodity);
+        GlideUtils.loadRoundCircleImage(this, data.getOrder_goods().getGoods_images(), imgCommodity);
         //商品名称
         tvHomeApplianceType.setText(data.getOrder_goods().getGoods_name());
         //商品价格
@@ -210,7 +225,7 @@ public class ApplicationRefundActivity extends BaseActivity<ApplicationRefundPre
             downLoadImg(sourceStrArray);
         } else {
             //正常申请 退款总价
-            etRefundMoney.setText(data.getOrder_goods().getTotal());
+            etRefundMoney.setText(String.valueOf(data.getOrder_goods().getTotal()));
             if (!StringUtil.isListEmpty(mResonList)) {
                 mResonList.get(0).setSelect(true);
             }
@@ -256,8 +271,6 @@ public class ApplicationRefundActivity extends BaseActivity<ApplicationRefundPre
         showToast("您的退款申请已经提交！");
         finish();
     }
-
-
 
     // ============================================ 数据提交
 
@@ -313,9 +326,11 @@ public class ApplicationRefundActivity extends BaseActivity<ApplicationRefundPre
     private void submit(){
         //提交
         HashMap<String, String> map = new HashMap<>();
-        map.put(Constant.ORDER_SN, order_sn);
+        map.put(Constant.REC_ID,rec_id+"");
         //退款原因
         map.put("reason", mResonAdapter.getSelectId() + "");
+        //退款类型
+        map.put("type", type);
         //退款说明
         map.put("describe", etRefundReson.getText().toString());
         //退款金额
@@ -415,7 +430,7 @@ public class ApplicationRefundActivity extends BaseActivity<ApplicationRefundPre
     @NeedsPermission({Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE})
     void takePhoto() {
         Matisse.from(this)
-                .choose(MimeType.ofImage())//照片视频全部显示
+                .choose(EnumSet.of(MimeType.JPEG, MimeType.PNG, MimeType.BMP, MimeType.WEBP))//照片视频全部显示
                 .countable(true)//有序选择图片
                 .maxSelectable(maxPhoto)//最大5张
                 .thumbnailScale(0.85f)//缩放比例

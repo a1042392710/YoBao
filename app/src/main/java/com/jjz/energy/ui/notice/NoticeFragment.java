@@ -13,7 +13,6 @@ import com.jjz.energy.base.BaseLazyFragment;
 import com.jjz.energy.base.BasePresenter;
 import com.jjz.energy.base.LoginEventBean;
 import com.jjz.energy.util.StringUtil;
-import com.jjz.energy.util.networkUtil.UserLoginBiz;
 import com.jjz.energy.util.system.PopWindowUtil;
 
 import org.greenrobot.eventbus.EventBus;
@@ -63,8 +62,6 @@ public class NoticeFragment extends BaseLazyFragment {
     private void initJMessage() {
         EventBus.getDefault().register(this);
         JMessageClient.registerEventReceiver(this);
-        //进入单聊会话，不接受指定用户的通知
-        JMessageClient.enterSingleConversation(UserLoginBiz.getInstance(mContext).readUserInfo().getMobile());
 
     }
 

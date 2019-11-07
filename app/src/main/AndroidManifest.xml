@@ -341,9 +341,16 @@
         <activity android:name="com.jjz.energy.ui.mine.shop_order.refund_order.SellerRefuseApplicationActivity"
             android:configChanges="orientation|screenSize"/>
 
-
         <!--买家填写退货物流-->
         <activity android:name="com.jjz.energy.ui.mine.shop_order.refund_order.ReturnLogisticsActivity"
+            android:configChanges="orientation|screenSize"/>
+
+        <!--退款 协商历史-->
+        <activity android:name="com.jjz.energy.ui.mine.shop_order.refund_order.RefundHistoryActivity"
+            android:configChanges="orientation|screenSize"/>
+
+        <!--消息列表-->
+        <activity android:name="com.jjz.energy.ui.notice.SystemNoticeActivity"
             android:configChanges="orientation|screenSize"/>
 
 

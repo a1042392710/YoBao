@@ -17,8 +17,8 @@ import android.widget.TextView;
 import com.jjz.energy.R;
 import com.jjz.energy.adapter.HomeCommondityPagerAdapter;
 import com.jjz.energy.base.BaseFragment;
-import com.jjz.energy.entry.home.HomeDetailBean;
 import com.jjz.energy.entry.event.LocationEvent;
+import com.jjz.energy.entry.home.HomeDetailBean;
 import com.jjz.energy.presenter.home.HomePresenter;
 import com.jjz.energy.ui.MainActivity;
 import com.jjz.energy.ui.city.CityPickerActivity;
@@ -29,6 +29,7 @@ import com.jjz.energy.ui.home.insurance.InsuranceActivity;
 import com.jjz.energy.ui.home.jiusu_shop.JiuSuShopActivity;
 import com.jjz.energy.ui.home.logistics.LogisticsActivity;
 import com.jjz.energy.ui.home.pension.PensionActivity;
+import com.jjz.energy.ui.notice.SystemNoticeActivity;
 import com.jjz.energy.util.StringUtil;
 import com.jjz.energy.util.glide.GlideImageLoader;
 import com.jjz.energy.util.networkUtil.PacketUtil;
@@ -91,7 +92,6 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements IHomeVi
      * 商品分类列表
      */
     private HomeDetailBean mHomeDetail;
-
     @Override
     protected void initView() {
         EventBus.getDefault().register(this);
@@ -191,6 +191,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements IHomeVi
                 break;
             //通知
             case R.id.img_notice:
+                startActivity(new Intent(mContext, SystemNoticeActivity.class));
                 break;
             //物流
             case R.id.ll_logistics:

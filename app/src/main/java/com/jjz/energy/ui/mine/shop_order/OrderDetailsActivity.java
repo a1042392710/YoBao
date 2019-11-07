@@ -1,5 +1,6 @@
 package com.jjz.energy.ui.mine.shop_order;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.widget.GridLayoutManager;
@@ -16,11 +17,13 @@ import com.jjz.energy.R;
 import com.jjz.energy.adapter.OrderDetailsStatusAdapter;
 import com.jjz.energy.base.BaseActivity;
 import com.jjz.energy.base.Constant;
+import com.jjz.energy.entry.enums.RefundOrderStatusEnum;
 import com.jjz.energy.entry.order.ShopOrderDetailsBean;
 import com.jjz.energy.presenter.order.ShopOrderDetailsPresenter;
 import com.jjz.energy.ui.mine.shop_order.refund_order.ApplicationRefundActivity;
 import com.jjz.energy.ui.mine.shop_order.refund_order.BuyerRefundDetailsActivity;
 import com.jjz.energy.ui.mine.shop_order.refund_order.RefundTypeSelectActivity;
+import com.jjz.energy.ui.mine.shop_order.refund_order.SellerRefundDetailsActivity;
 import com.jjz.energy.ui.notice.IMActivity;
 import com.jjz.energy.util.DateUtil;
 import com.jjz.energy.util.StringUtil;
@@ -187,16 +190,21 @@ public class OrderDetailsActivity extends BaseActivity<ShopOrderDetailsPresenter
                 });
                 break;
             case "申请退款":
-                startActivity(new Intent(mContext, ApplicationRefundActivity.class).putExtra(Constant.ORDER_SN,order_sn));
+                startActivity(new Intent(mContext, ApplicationRefundActivity.class).putExtra(Constant.REC_ID,mData.getRec_id()).putExtra("type",Constant.RETURN_MONEY));
                 break;
             case "退款详情":
-                startActivity(new Intent(mContext, BuyerRefundDetailsActivity.class).putExtra(Constant.ORDER_SN,order_sn));
+                //卖家详情
+                if (user_type == 1){
+                    startActivity(new Intent(mContext, SellerRefundDetailsActivity.class).putExtra(Constant.RETURN_ID,mData.getReturn_id()));
+                }else{
+                    //买家详情
+                    startActivity(new Intent(mContext, BuyerRefundDetailsActivity.class).putExtra(Constant.RETURN_ID,mData.getReturn_id()));
+                }
                 break;
             //进入选择服务方式页面
             case "我要退款":
                 startActivity(new Intent(mContext, RefundTypeSelectActivity.class).putExtra(Constant.INTENT_KEY_OBJECT,mData));
                 break;
-
         }
     }
 
@@ -205,11 +213,13 @@ public class OrderDetailsActivity extends BaseActivity<ShopOrderDetailsPresenter
      * 设置底部文字
      */
     private void setBottomText(int status) {
+        llBottomBtn.setVisibility(View.GONE);
         tvOrderLableOne.setVisibility(View.GONE);
         tvOrderLableTwo.setVisibility(View.GONE);
         switch (status) {
             //待发货
             case 1:
+                llBottomBtn.setVisibility(View.VISIBLE);
                 //买家
                 if (user_type==0) {
                     tvOrderLableOne.setVisibility(View.VISIBLE);
@@ -226,6 +236,7 @@ public class OrderDetailsActivity extends BaseActivity<ShopOrderDetailsPresenter
 
             //待收货
             case 2:
+                llBottomBtn.setVisibility(View.VISIBLE);
                 //距离确认收货的时间
                 String time = DateUtil.dateDiff(System.currentTimeMillis(),
                         mData.getEnd_time() * 1000L);
@@ -249,13 +260,13 @@ public class OrderDetailsActivity extends BaseActivity<ShopOrderDetailsPresenter
                     ForegroundColorSpan colorSpan = new ForegroundColorSpan(Color.parseColor("#fe8977"));
                     spannableString.setSpan(colorSpan, 0, time.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
                     tvSystemToast.setText(spannableString);
-
                     tvOrderLableTwo.setVisibility(View.VISIBLE);
                     tvOrderLableTwo.setText("提醒收货");
                 }
                 break;
             //待评价
             case 3:
+                llBottomBtn.setVisibility(View.VISIBLE);
                 tvOrderLableTwo.setVisibility(View.VISIBLE);
                 tvOrderLableTwo.setText("评价一下");
                 break;
@@ -264,6 +275,7 @@ public class OrderDetailsActivity extends BaseActivity<ShopOrderDetailsPresenter
                 break;
             //交易完成
             case 5:
+                llBottomBtn.setVisibility(View.VISIBLE);
                 tvOrderLableTwo.setVisibility(View.VISIBLE);
                 tvOrderLableTwo.setText("查看评价");
                 break;
@@ -277,24 +289,44 @@ public class OrderDetailsActivity extends BaseActivity<ShopOrderDetailsPresenter
     private ShopOrderDetailsBean mData;
 
     //获取订单详情成功
+    @SuppressLint("SetTextI18n")
     @Override
     public void isGetOrderDetailsSuc(ShopOrderDetailsBean data) {
         mData = data;
         //没有物流信息，就表示为见面交易
         if (StringUtil.isEmpty(data.getShipping_no())){
-            tvLogisticsDetails.setText("无物流信息");
-            tvLogisticsDetails.setVisibility(View.GONE);
+            tvLogisticsDetails.setVisibility(View.INVISIBLE);
+        }else{
+            tvLogisticsDetails.setText("物流详情");
+            tvLogisticsDetails.setVisibility(View.VISIBLE);
         }
-        //设置底部按钮文字
-        setBottomText(data.getStatus());
+
+        if (!StringUtil.isEmpty(data.getReturn_id())&&!"-2".equals(data.getReturn_status())){
+            llBottomBtn.setVisibility(View.VISIBLE);
+            tvOrderLableTwo.setVisibility(View.VISIBLE);
+            tvOrderLableOne.setVisibility(View.GONE);
+            tvOrderLableTwo.setText("退款详情");
+            //如果退款完成，则显示正常订单状态中文 否则 显示售后状态中文
+            if ("5".equals(data.getReturn_status())){
+                //交易状态
+                tvOrderState.setText(data.getState());
+            }else{
+                //订单状态
+                tvOrderState.setText(RefundOrderStatusEnum.getName(data.getReturn_status()));
+            }
+        }else{
+            //交易状态
+            tvOrderState.setText(data.getState());
+            //设置底部按钮文字
+            setBottomText(data.getStatus());
+        }
         //订单状态
         rvOrderStatus.setAdapter(new OrderDetailsStatusAdapter(R.layout.item_order_status, data.getStatusList(),data.getStatus()));
         //订单编号
         tvOrderSn.setText("订单编号："+data.getOrder_sn());
         //交易时间
         tvOrderTime.setText("交易时间："+ DateUtil.longToDate(data.getPay_time(),null));
-        //交易状态
-        tvOrderState.setText("交易状态："+data.getState());
+
         //商品图片
         GlideUtils.loadRoundCircleImage(mContext,data.getGoods_images(),imgCommodity);
         //商品名称

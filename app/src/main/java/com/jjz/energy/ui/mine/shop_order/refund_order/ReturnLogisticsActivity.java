@@ -29,6 +29,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.util.EnumSet;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -192,7 +193,7 @@ public class ReturnLogisticsActivity extends BaseActivity {
     @NeedsPermission({Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA})
     void takePhoto() {
         Matisse.from(this)
-                .choose(MimeType.ofImage())//照片视频全部显示
+                .choose(EnumSet.of(MimeType.JPEG, MimeType.PNG, MimeType.BMP, MimeType.WEBP))//照片视频全部显示
                 .countable(true)//有序选择图片
                 .maxSelectable(maxPhoto)//最大5张
                 .thumbnailScale(0.85f)//缩放比例

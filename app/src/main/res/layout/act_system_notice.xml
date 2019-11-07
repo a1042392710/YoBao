@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:background="@color/color_bg_f7"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/view_tool_bar"/>
+
+    <RelativeLayout
+        android:id="@+id/rl_system"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/white"
+        android:paddingTop="8dp"
+        android:paddingBottom="6dp"
+        android:paddingRight="14dp"
+        android:paddingLeft="14dp">
+
+
+        <ImageView
+            android:id="@+id/img_system_notice"
+            android:src="@mipmap/ic_message_system"
+            android:layout_width="44dp"
+            android:layout_height="44dp" />
+
+        <TextView
+            android:id="@+id/tv_system_title"
+            android:layout_width="wrap_content"
+            android:textColor="@color/text_black28"
+            android:textSize="14sp"
+            android:layout_toRightOf="@id/img_system_notice"
+            android:layout_marginLeft="11dp"
+            android:layout_height="wrap_content"
+            android:text="系统消息" />
+
+        <TextView
+            android:id="@+id/tv_system_content"
+            android:layout_width="wrap_content"
+            android:textColor="@color/text_black75"
+            android:textSize="11sp"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/tv_system_title"
+            android:layout_below="@id/tv_system_title"
+            android:layout_marginTop="6dp"
+            android:text="暂无系统消息" />
+
+        <TextView
+            android:id="@+id/tv_system_time"
+            android:textSize="11sp"
+            android:textColor="@color/text_black75"
+            android:layout_width="wrap_content"
+            android:layout_alignBottom="@id/tv_system_title"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            tools:text="16:08" />
+
+
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/color_bg_f7"/>
+
+    <RelativeLayout
+        android:id="@+id/rl_order"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/white"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:paddingRight="14dp"
+        android:paddingLeft="14dp">
+
+
+        <ImageView
+            android:id="@+id/img_order_notice"
+            android:layout_width="44dp"
+            android:src="@mipmap/ic_message_order"
+            android:layout_height="44dp" />
+
+        <TextView
+            android:id="@+id/tv_order_title"
+            android:layout_width="wrap_content"
+            android:textColor="@color/text_black28"
+            android:textSize="14sp"
+            android:layout_toRightOf="@id/img_order_notice"
+            android:layout_marginLeft="11dp"
+            android:layout_height="wrap_content"
+            android:text="订单消息" />
+
+        <TextView
+            android:id="@+id/tv_order_content"
+            android:layout_width="wrap_content"
+            android:textColor="@color/text_black75"
+            android:textSize="11sp"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/tv_order_title"
+            android:layout_below="@id/tv_order_title"
+            android:layout_marginTop="6dp"
+            android:text="暂无订单消息" />
+
+        <TextView
+            android:id="@+id/tv_order_time"
+            android:textSize="11sp"
+            android:textColor="@color/text_black75"
+            android:layout_width="wrap_content"
+            android:layout_alignBottom="@id/tv_order_title"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            tools:text="16:08" />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/color_bg_f7"/>
+
+    <RelativeLayout
+        android:id="@+id/rl_logistics"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/white"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:paddingRight="14dp"
+        android:paddingLeft="14dp">
+
+
+        <ImageView
+            android:id="@+id/img_logistics_notice"
+            android:layout_width="44dp"
+            android:src="@mipmap/ic_message_logistics"
+            android:layout_height="44dp" />
+
+        <TextView
+            android:id="@+id/tv_logistics_title"
+            android:layout_width="wrap_content"
+            android:textColor="@color/text_black28"
+            android:textSize="14sp"
+            android:layout_toRightOf="@id/img_logistics_notice"
+            android:layout_marginLeft="11dp"
+            android:layout_height="wrap_content"
+            android:text="物流消息" />
+
+        <TextView
+            android:id="@+id/tv_logistics_content"
+            android:layout_width="wrap_content"
+            android:textColor="@color/text_black75"
+            android:textSize="11sp"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/tv_logistics_title"
+            android:layout_below="@id/tv_logistics_title"
+            android:layout_marginTop="6dp"
+            android:text="暂无物流消息" />
+
+        <TextView
+            android:id="@+id/tv_logistics_time"
+            android:textSize="11sp"
+            android:textColor="@color/text_black75"
+            android:layout_width="wrap_content"
+            android:layout_alignBottom="@id/tv_logistics_title"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            tools:text="16:08" />
+
+
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/color_bg_f7"/>
+
+    <RelativeLayout
+        android:id="@+id/rl_message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/white"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:paddingRight="14dp"
+        android:paddingLeft="14dp">
+
+
+        <ImageView
+            android:src="@mipmap/ic_message_message"
+            android:id="@+id/img_message_notice"
+            android:layout_width="44dp"
+            android:layout_height="44dp" />
+
+        <TextView
+            android:id="@+id/tv_message_title"
+            android:layout_width="wrap_content"
+            android:textColor="@color/text_black28"
+            android:textSize="14sp"
+            android:layout_toRightOf="@id/img_message_notice"
+            android:layout_marginLeft="11dp"
+            android:layout_height="wrap_content"
+            android:text="留言消息" />
+
+        <TextView
+            android:id="@+id/tv_message_content"
+            android:layout_width="wrap_content"
+            android:textColor="@color/text_black75"
+            android:textSize="11sp"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/tv_message_title"
+            android:layout_below="@id/tv_message_title"
+            android:layout_marginTop="6dp"
+            android:text="暂无留言消息" />
+
+        <TextView
+            android:id="@+id/tv_message_time"
+            android:textSize="11sp"
+            android:textColor="@color/text_black75"
+            android:layout_width="wrap_content"
+            android:layout_alignBottom="@id/tv_message_title"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            tools:text="16:08" />
+
+
+    </RelativeLayout>
+
+</LinearLayout>

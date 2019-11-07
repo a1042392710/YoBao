@@ -57,7 +57,7 @@
     <!--买家申请退货-->
     <string name="refund_buyer_cargo_application">请等待卖家处理</string>
     <string name="refund_buyer_cargo_application_toast">请等待卖家处理</string>
-    <string name="refund_buyer_cargo_application_toast_all">1.卖家同意或者超时未处理，请按照给出的地址退货，并请记录退运货单号\n2.如卖家拒绝，您可以修改申请后再次发起，卖家会重新处理\n3.如卖家超时未处理，退货申请将达成，请按系统给出的退货地址退货</string>
+    <string name="refund_buyer_cargo_application_toast_all">1.卖家同意后，请按照给出的地址退货，并请记录退运货单号\n2.如卖家拒绝，您可以修改申请后再次发起，卖家会重新处理\n3.如卖家超时未处理，退货申请将达成，请按系统给出的退货地址退货</string>
 
     <!--卖家拒绝退货和退款 -->
     <string name="refund_buyer_refuse_return">卖家已拒绝，您需要及时响应</string>
@@ -91,9 +91,13 @@
     <string name="refund_seller_agree_cargo_return">如因您提供的退货地址错误，导致买家无法退货或退回商品后无法送达，由您承担因此产生的后果</string>
     <!-- 卖家拒绝退货和退款 -->
     <string name="refund_seller_refuse_return">请等待买家响应</string>
-    <string name="refund_seller__refuse_return_toast_all">1.买家修改退款申请后，需要您重新处理\n2.如果买家超时未响应，退款申请将自动关闭</string>
+    <string name="refund_seller__refuse_return_toast">买家修改退款申请后，需要您重新处理\n如果买家超时未响应，退款申请将自动关闭</string>
     <!-- 卖家确认收货-->
     <string name="refund_seller_confirm_receipt">请确认收货</string>
     <string name="refund_seller_confirm_receipt_toast">买家已退货，收到买家退货时，请验货后同意退款</string>
+
+    <!-- 等待买家退货-->
+    <string name="refund_seller_wait_receipt">请等待卖家退货</string>
+    <string name="refund_seller_wait_receipt_toast">1.买家已退货，收到买家退货时，请验货后同意退款\n2.如果买家在超时结束前未退货，退货申请将自动关闭</string>
 
 </resources>

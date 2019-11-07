@@ -19,7 +19,7 @@
         android:layout_weight="1"
         tools:text="多拍/不想要了"
         android:textColor="@color/text_black28"
-        android:textSize="15sp" />
+        android:textSize="14sp" />
 
     <ImageView
         android:id="@+id/pop_img_one"

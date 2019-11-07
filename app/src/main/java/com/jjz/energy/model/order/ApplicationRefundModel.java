@@ -43,7 +43,7 @@ public class ApplicationRefundModel extends BaseModel {
         Map<String, RequestBody> photos = new HashMap<>();
         if (urls.size() > 0) {
             for (int i = 0; i < urls.size(); i++) {
-                photos.put("file" + i + "\"; filename=\"" + urls.get(i).getName(), RequestBody.create(MediaType.parse("image/png"), urls.get(i)));
+                photos.put("imgs[]\"; filename=\"" + urls.get(i).getName(), RequestBody.create(MediaType.parse("image/png"), urls.get(i)));
 
             }
         }

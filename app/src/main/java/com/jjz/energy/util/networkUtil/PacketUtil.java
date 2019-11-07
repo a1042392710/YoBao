@@ -1,12 +1,6 @@
 package com.jjz.energy.util.networkUtil;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
-import android.content.Context;
-import android.content.pm.PackageManager;
-import android.os.Build;
-import android.support.v4.app.ActivityCompat;
-import android.telephony.TelephonyManager;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.StringUtils;
@@ -51,24 +45,25 @@ public class PacketUtil {
             String uuid = UUID.randomUUID().toString();
             //随机字符串
             rows.put("nonce_str", uuid);
-            //设备ID
-            TelephonyManager manager = (TelephonyManager) BaseApplication.getAppContext().getSystemService(Context.TELEPHONY_SERVICE);
-            try {
-                if (ActivityCompat.checkSelfPermission(BaseApplication.getAppContext(), Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED) {
-                    assert manager != null;
-                    if (StringUtils.isEmpty(manager.getDeviceId())) {
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                            rows.put("device_info", manager.getDeviceId(0));
-                        }
-                    } else {
-                        rows.put("device_info", manager.getDeviceId());
-                    }
-                }
-            } catch (Exception ignored) {
-                rows.put("device_info", "");
-            }
+//            //设备ID
+//            TelephonyManager manager = (TelephonyManager) BaseApplication.getAppContext().getSystemService(Context.TELEPHONY_SERVICE);
+//            try {
+//                if (ActivityCompat.checkSelfPermission(BaseApplication.getAppContext(), Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED) {
+//                    assert manager != null;
+//                    if (StringUtils.isEmpty(manager.getDeviceId())) {
+//                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//                            rows.put("device_info", manager.getDeviceId(0));
+//                        }
+//                    } else {
+//                        rows.put("device_info", manager.getDeviceId());
+//                    }
+//                }
+//            } catch (Exception ignored) {
+//                rows.put("device_info", "");
+//            }
 
-
+            String device_info = Utils.getUUID();
+            rows.put("device_info",device_info);
             // 用户ID
             if (UserLoginBiz.getInstance(BaseApplication.getAppContext()).detectUserLoginStatus()) {//获取用户登录信息
                 UserInfo loginBean = UserLoginBiz.getInstance(BaseApplication.getAppContext()).readUserInfo();
@@ -84,8 +79,8 @@ public class PacketUtil {
             }
             rows.put("token", token);//后台给的token值，没有就为空
 
-            assert manager != null;
-            String sign = Utils.getSign(date, uuid, manager.getDeviceId(), username, token);//Sign签名
+//            assert manager != null;
+            String sign = Utils.getSign(date, uuid, device_info, username, token);//Sign签名
             rows.put("sign", sign);//
 
             if (data instanceof String) {

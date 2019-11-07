@@ -15,6 +15,7 @@ import com.jjz.energy.R;
 import com.jjz.energy.base.BaseActivity;
 import com.jjz.energy.base.BaseRecycleNewAdapter;
 import com.jjz.energy.base.Constant;
+import com.jjz.energy.entry.enums.RefundOrderStatusEnum;
 import com.jjz.energy.entry.mine.MineBuyerBean;
 import com.jjz.energy.entry.enums.ShopOrderStatusEnum;
 import com.jjz.energy.entry.order.ShopOrderDetailsBean;
@@ -84,7 +85,8 @@ public class MineBuyerActivity extends BaseActivity <MineBuyerPresenter>implemen
         rvMineBuyer.setLayoutManager(new LinearLayoutManager(mContext));
         rvMineBuyer.setAdapter(mAdapter);
         mAdapter.setOnItemClickListener((adapter, view, position) -> {
-            startActivity(new Intent(mContext, OrderDetailsActivity.class).putExtra(Constant.ORDER_SN,mAdapter.getData().get(selectPosition).getOrder_sn()).putExtra(Constant.USER_TYPE,0));
+            startActivity(new Intent(mContext, OrderDetailsActivity.class)
+                    .putExtra(Constant.ORDER_SN,mAdapter.getData().get(position).getOrder_sn()).putExtra(Constant.USER_TYPE,0));
         });
         smartRefresh.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
             @Override
@@ -134,7 +136,11 @@ public class MineBuyerActivity extends BaseActivity <MineBuyerPresenter>implemen
                 smartRefresh.setEnableLoadMore(false);
             } else {
                 //有数据就开启加载更多
-                smartRefresh.setEnableLoadMore(true);
+                if (data.getList().size()>6){
+                    smartRefresh.setEnableLoadMore(true);
+                }else{
+                    smartRefresh.setEnableLoadMore(false);
+                }
             }
         }
         closeRefresh(smartRefresh);
@@ -212,9 +218,24 @@ public class MineBuyerActivity extends BaseActivity <MineBuyerPresenter>implemen
             helper.setText(R.id.item_tv_new_money, item.getGoods_price());
             //原价
             helper.setText(R.id.item_tv_old_money, "原价￥" + item.getMarket_price());
-            //设置底部标签文字
-            setLableText(helper.getView(R.id.item_tv_lable_one),
-                    helper.getView(R.id.item_tv_lable_two), item.getStatus());
+            //如果该笔订单处于售后状态并且不为买家取消和售后完成   则显示退款详情
+            if (!StringUtil.isEmpty(item.getReturn_id())&&!"-2".equals(item.getReturn_status())){
+                tvLableOne.setVisibility(View.VISIBLE);
+                tvLableTwo.setVisibility(View.GONE);
+                helper.setText(R.id.item_tv_lable_one,"退款详情");
+                //如果退款完成，则显示正常订单状态中文 否则 显示售后状态中文
+                if ("5".equals(item.getReturn_status())){
+                    helper.setText(R.id.item_tv_order_state,item.getState());
+                }else{
+                    //订单状态
+                    helper.setText(R.id.item_tv_order_state, RefundOrderStatusEnum.getName(item.getReturn_status()));
+                }
+            }else{
+                helper.setText(R.id.item_tv_order_state, item.getState());
+                //设置底部标签文字  正常订单流程
+                setLableText(tvLableOne,tvLableTwo,item.getStatus());
+            }
+
             //标签一
             tvLableOne.setOnClickListener(v -> {
                 //记录我点了哪个item
@@ -245,7 +266,7 @@ public class MineBuyerActivity extends BaseActivity <MineBuyerPresenter>implemen
                 case "提醒发货":
                     break;
                 case "申请退款":
-                    startActivity(new Intent(mContext, ApplicationRefundActivity.class).putExtra(Constant.ORDER_SN,data.getOrder_sn()));
+                    startActivity(new Intent(mContext, ApplicationRefundActivity.class).putExtra(Constant.REC_ID,data.getRec_id()).putExtra("type",Constant.RETURN_MONEY));
                     break;
                 case "确认收货":
                     PopWindowUtil.getInstance().showPopupWindow(mContext, "点击按钮确认收货", () -> {
@@ -259,12 +280,13 @@ public class MineBuyerActivity extends BaseActivity <MineBuyerPresenter>implemen
                     startActivity(new Intent(mContext, EvaluateDetailsActivity.class).putExtra(Constant.ORDER_SN, data.getOrder_sn()));
                     break;
                 case "退款详情":
-                    startActivity(new Intent(mContext, BuyerRefundDetailsActivity.class).putExtra(Constant.ORDER_SN, data.getOrder_sn()));
+                    startActivity(new Intent(mContext, BuyerRefundDetailsActivity.class).putExtra(Constant.RETURN_ID, data.getReturn_id()));
                     break;
                 case "我要退款":
                     ShopOrderDetailsBean bean = new ShopOrderDetailsBean();
                     bean.setGoods_images(data.getGoods_images());
                     bean.setGoods_name(data.getGoods_name());
+                    bean.setRec_id(data.getRec_id());
                     startActivity(new Intent(mContext, RefundTypeSelectActivity.class).putExtra(Constant.INTENT_KEY_OBJECT,bean));
                     break;
             }
@@ -279,13 +301,13 @@ public class MineBuyerActivity extends BaseActivity <MineBuyerPresenter>implemen
             switch (status) {
                 //待发货
                 case 1:
-                    textOne.setText("申请退款");
-                    textTwo.setText("提醒发货");
+                    textOne.setText("提醒发货");
+                    textTwo.setText("申请退款");
                     break;
                 //待收货
                 case 2:
-                    textOne.setText("我要退款");
-                    textTwo.setText("确认收货");
+                    textOne.setText("确认收货");
+                    textTwo.setText("我要退款");
                     break;
                 //待评价
                 case 3:

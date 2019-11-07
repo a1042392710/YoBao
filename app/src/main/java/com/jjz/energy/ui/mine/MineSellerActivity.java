@@ -15,6 +15,7 @@ import com.jjz.energy.R;
 import com.jjz.energy.base.BaseActivity;
 import com.jjz.energy.base.BaseRecycleNewAdapter;
 import com.jjz.energy.base.Constant;
+import com.jjz.energy.entry.enums.RefundOrderStatusEnum;
 import com.jjz.energy.entry.mine.MineBuyerBean;
 import com.jjz.energy.presenter.mine.MineBuyerPresenter;
 import com.jjz.energy.ui.mine.information.HomePageActivity;
@@ -22,7 +23,7 @@ import com.jjz.energy.ui.mine.shop_order.DeliverGoodsActivity;
 import com.jjz.energy.ui.mine.shop_order.EvaluateActivity;
 import com.jjz.energy.ui.mine.shop_order.EvaluateDetailsActivity;
 import com.jjz.energy.ui.mine.shop_order.OrderDetailsActivity;
-import com.jjz.energy.ui.mine.shop_order.refund_order.BuyerRefundDetailsActivity;
+import com.jjz.energy.ui.mine.shop_order.refund_order.SellerRefundDetailsActivity;
 import com.jjz.energy.ui.notice.IMActivity;
 import com.jjz.energy.util.StringUtil;
 import com.jjz.energy.util.Utils;
@@ -82,7 +83,7 @@ public class MineSellerActivity extends BaseActivity <MineBuyerPresenter>impleme
         rvMineSeller.setLayoutManager(new LinearLayoutManager(mContext));
         rvMineSeller.setAdapter(mAdapter);
         mAdapter.setOnItemClickListener((adapter, view, position) -> {
-            startActivity(new Intent(mContext, OrderDetailsActivity.class).putExtra(Constant.ORDER_SN,mAdapter.getData().get(selectPosition).getOrder_sn()).putExtra(Constant.USER_TYPE,1));
+            startActivity(new Intent(mContext, OrderDetailsActivity.class).putExtra(Constant.ORDER_SN,mAdapter.getData().get(position).getOrder_sn()).putExtra(Constant.USER_TYPE,1));
         });
         smartRefresh.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
             @Override
@@ -132,7 +133,11 @@ public class MineSellerActivity extends BaseActivity <MineBuyerPresenter>impleme
                 smartRefresh.setEnableLoadMore(false);
             } else {
                 //有数据就开启加载更多
-                smartRefresh.setEnableLoadMore(true);
+                if (data.getList().size()>6){
+                    smartRefresh.setEnableLoadMore(true);
+                }else{
+                    smartRefresh.setEnableLoadMore(false);
+                }
             }
         }
         closeRefresh(smartRefresh);
@@ -142,7 +147,10 @@ public class MineSellerActivity extends BaseActivity <MineBuyerPresenter>impleme
     @Override
     public void isCancelOrderSuc(String data) {
         showToast("取消订单成功");
-        mAdapter.remove(selectPosition);
+        MineBuyerBean.  MineBuyerListBean bean = mAdapter.getData().get(selectPosition);
+        bean.setStatus(4);
+        bean.setState("交易关闭");
+        mAdapter.notifyItemChanged(selectPosition);
     }
 
 
@@ -191,7 +199,6 @@ public class MineSellerActivity extends BaseActivity <MineBuyerPresenter>impleme
 
             TextView tvLableOne =  helper.getView(R.id.item_tv_lable_one);
             TextView tvLableTwo =  helper.getView(R.id.item_tv_lable_two);
-
             //用户头像
             ImageView item_img_user_head = helper.getView(R.id.item_img_user_head);
             GlideUtils.loadCircleImage(mContext,item.getHead_pic(),item_img_user_head);
@@ -202,20 +209,35 @@ public class MineSellerActivity extends BaseActivity <MineBuyerPresenter>impleme
             helper.setText(R.id.item_tv_user_name, item.getNickname());
             //标题
             helper.setText(R.id.item_tv_title, item.getGoods_name());
-            //订单状态
-            helper.setText(R.id.item_tv_order_state, item.getState());
             //价格
             helper.setText(R.id.item_tv_new_money, item.getGoods_price());
             //原价
             helper.setText(R.id.item_tv_old_money, "原价￥"+item.getMarket_price());
-            //设置底部标签文字
-            setLableText(helper.getView(R.id.item_tv_lable_one),helper.getView(R.id.item_tv_lable_two),item.getStatus());
+            //如果该笔订单处于售后状态并且不为买家取消和售后完成   则显示退款详情
+            if (!StringUtil.isEmpty(item.getReturn_id())&&!"-2".equals(item.getReturn_status())){
+                tvLableOne.setVisibility(View.VISIBLE);
+                tvLableTwo.setVisibility(View.GONE);
+                helper.setText(R.id.item_tv_lable_one,"退款详情");
+                //如果退款完成，则显示正常订单状态中文 否则 显示售后状态中文
+                if ("5".equals(item.getReturn_status())){
+                    helper.setText(R.id.item_tv_order_state,item.getState());
+                }else{
+                    //订单状态
+                    helper.setText(R.id.item_tv_order_state, RefundOrderStatusEnum.getName(item.getReturn_status()));
+                }
+            }else{
+                helper.setText(R.id.item_tv_order_state, item.getState());
+                //设置底部标签文字  正常订单流程
+                setLableText(tvLableOne,tvLableTwo,item.getStatus());
+            }
             //标签一
             tvLableOne.setOnClickListener(v -> {
+                selectPosition = helper.getLayoutPosition();
                 lableClick(tvLableOne.getText().toString(),item);
             });
             //标签二
             tvLableTwo.setOnClickListener(v -> {
+                selectPosition = helper.getLayoutPosition();
                 lableClick(tvLableTwo.getText().toString(),item);
             });
             //个人主页
@@ -251,7 +273,7 @@ public class MineSellerActivity extends BaseActivity <MineBuyerPresenter>impleme
                     startActivity(new Intent(mContext, EvaluateDetailsActivity.class).putExtra(Constant.ORDER_SN, data.getOrder_sn()));
                     break;
                 case "退款详情":
-                    startActivity(new Intent(mContext, BuyerRefundDetailsActivity.class).putExtra(Constant.ORDER_SN, data.getOrder_sn()));
+                    startActivity(new Intent(mContext, SellerRefundDetailsActivity.class).putExtra(Constant.RETURN_ID, data.getReturn_id()));
                     break;
             }
         }
@@ -265,8 +287,8 @@ public class MineSellerActivity extends BaseActivity <MineBuyerPresenter>impleme
             switch (status) {
                 //待发货
                 case 1:
-                    textOne.setText("取消订单");
-                    textTwo.setText("去发货");
+                    textTwo.setText("取消订单");
+                    textOne.setText("去发货");
                     break;
                 //待收货
                 case 2:

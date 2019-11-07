@@ -119,11 +119,11 @@ public class ImAdapter extends BaseRecycleNewAdapter<Message> {
         }
 
         //加载对方头像
-        GlideUtils.loadCircleImage(mContext, null != item.getFromUser().getAvatarFile() ?
+        GlideUtils.loadHead(mContext, null != item.getFromUser().getAvatarFile() ?
                         item.getFromUser().getAvatarFile().getAbsolutePath() : "",
                 imgHerHead);
         //加载我的头像
-        GlideUtils.loadCircleImage(mContext, null != item.getFromUser().getAvatarFile() ?
+        GlideUtils.loadHead(mContext, null != item.getFromUser().getAvatarFile() ?
                         item.getFromUser().getAvatarFile().getAbsolutePath() : "",
                 imgMyHead);
 

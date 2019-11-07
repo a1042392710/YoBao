@@ -52,16 +52,6 @@ public class Constant {
      */
     public  static  final int NOTICE_ONE = 100;
 
-
-    /**
-     * 商品id
-     */
-    public static final String GOODS_ID = "goods_id";
-
-    /**
-     * 订单编号
-     */
-    public static final String ORDER_SN = "order_sn";
     /**
      * 用户类型  0 是买主 1 是卖主
      */
@@ -70,7 +60,13 @@ public class Constant {
      * 用户id
      */
     public static final String USER_ID= "user_id";
+    /**
+     * 搜索的历史记录
+     */
+    public static final String SEARCH_HISTORY= "search_history";
 
+
+    // ----------------------------------------------- 支付
 
     /**
      * 支付方式  支付宝
@@ -92,6 +88,38 @@ public class Constant {
      * 支付方式  微信
      */
     public static final String PAYTYPE_WECHAT = "appWeixinPay";
+
+
+    //------------------------------------------ 订单和售后
+
+
+    /**
+     * 商品id
+     */
+    public static final String GOODS_ID = "goods_id";
+
+    /**
+     * 订单编号
+     */
+    public static final String ORDER_SN = "order_sn";
+    /**
+     * 商品编号
+     */
+    public static final String REC_ID = "rec_id";
+    /**
+     * 售后id
+     */
+    public static final String RETURN_ID = "return_id";
+    /**
+     * 售后   仅退款标识
+     */
+    public static final String RETURN_MONEY= "0";
+    /**
+     * 售后   退货退款标识
+     */
+    public static final String RETURN_SALES = "1";
+
+
 
 
 

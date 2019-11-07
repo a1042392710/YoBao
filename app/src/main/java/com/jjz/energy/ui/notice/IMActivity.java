@@ -92,6 +92,7 @@ public class IMActivity extends BaseActivity {
     protected void initView() {
         //聊天对象的UserName 必传
         userName = getIntent().getStringExtra("userName");
+        tvImTitle.setText(userName);
         //展示商品图片
         GlideUtils.loadImage(mContext,"http://img004.hc360.cn/k2/M0F/4D/EE/wKhQxFmx8rCEEGuwAAAAAIeZn9k905.jpg",imgCommodity);
         initImRv();
@@ -124,12 +125,12 @@ public class IMActivity extends BaseActivity {
     //初始化聊天数据
     public void initImData() {
         //获取会话
-        conversation = JMessageClient.getSingleConversation(userName);
+        conversation = Conversation.createSingleConversation(userName);
         if (conversation!=null) {
             //重置会话聊天未读
             conversation.resetUnreadCount();
             //标题
-            tvImTitle.setText(conversation.getTitle() == null ? "" : conversation.getTitle());
+            tvImTitle.setText(StringUtil.isEmpty(conversation.getTitle())? userName : conversation.getTitle());
             //聊天对象
             UserInfo info = (UserInfo) conversation.getTargetInfo();
             //设置用户id
@@ -138,7 +139,7 @@ public class IMActivity extends BaseActivity {
             }
             userName = info.getUserName();
             //刷新聊天数据并且滚动到底部
-            if (conversation.getAllMessage() != null) {
+            if (conversation.getAllMessage().size()>0) {
                 notifyImList();
             }
         }
@@ -148,13 +149,11 @@ public class IMActivity extends BaseActivity {
      * 刷新聊天数据
      */
     private void notifyImList(){
-        if (conversation.getAllMessage().size() > 0) {
-            //设置刷新不闪屏`
+            //设置刷新不闪屏
             ((SimpleItemAnimator) rvIm.getItemAnimator()).setSupportsChangeAnimations(false);
             //处理会话数据
             mImAdapter.setNewData(conversation.getAllMessage());
             rvIm.scrollToPosition(conversation.getAllMessage().size() - 1);
-        }
     }
 
     /**
@@ -193,8 +192,7 @@ public class IMActivity extends BaseActivity {
      */
     private void sendMsg(String msg) {
         //创建消息
-        Message message = JMessageClient.createSingleTextMessage(userName, null,
-                msg);
+        final Message message = conversation.createSendTextMessage(msg);
         //发送消息
         JMessageClient.sendMessage(message);
         //刷新数据并获取焦点，使得软键盘不缩回

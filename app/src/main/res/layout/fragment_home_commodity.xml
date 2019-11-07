@@ -12,6 +12,9 @@
         app:srlEnableRefresh="false"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvType"
@@ -23,5 +26,9 @@
         android:layout_marginLeft="3dp"
         android:layout_marginRight="15dp"
         android:paddingTop="5dp"/>
+
+        </LinearLayout>
+
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
 </LinearLayout>

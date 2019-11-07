@@ -36,7 +36,7 @@
                     android:layout_marginBottom="12dp"
                     android:layout_marginTop="17dp"
                     android:includeFontPadding="false"
-                    android:text="请确认收货"
+                    tools:text="请确认收货"
                     android:textColor="@color/white"
                     android:textSize="18sp" />
 
@@ -45,7 +45,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="13dp"
-                    android:text="还剩9天23时30分"
+                    tools:text="还剩9天23时30分"
                     android:textColor="@color/white"
                     android:textSize="11sp" />
             </LinearLayout>
@@ -55,6 +55,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
+                android:visibility="gone"
                 android:paddingLeft="3dp"
                 android:orientation="vertical">
 
@@ -83,7 +84,7 @@
                 android:paddingLeft="14dp"
                 android:paddingRight="14dp"
                 android:paddingTop="16dp"
-                android:text="买家已退货，收到买家退货时，请验货后同意退款"
+                tools:text="买家已退货，收到买家退货时，请验货后同意退款"
                 android:textColor="@color/text_black28"
                 android:textSize="11sp" />
 
@@ -98,6 +99,7 @@
         <RelativeLayout
             android:id="@+id/rl_express_info"
             android:layout_width="match_parent"
+            android:visibility="gone"
             android:padding="10dp"
             android:background="@color/white"
             android:layout_height="wrap_content">
@@ -167,12 +169,13 @@
                 android:id="@+id/tv_refund_all_toast"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 android:background="@color/white"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
                 android:paddingRight="18dp"
                 android:paddingLeft="18dp"
-                android:text="@string/refund_confirm_receipt"
+                tools:text="@string/refund_confirm_receipt"
                 android:textColor="@color/text_black66"
                 android:textSize="10sp" />
 
@@ -196,7 +199,7 @@
                     android:paddingTop="5dp"
                     android:paddingRight="11dp"
                     android:paddingBottom="5dp"
-                    tools:text="客服介入"
+                    android:text="客服介入"
                     android:textColor="@color/text_black33"
                     android:textSize="12sp" />
 
@@ -204,6 +207,7 @@
                     android:id="@+id/item_tv_lable_two"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:visibility="gone"
                     android:layout_marginLeft="13dp"
                     android:background="@drawable/bg_stoke_gray5"
                     android:gravity="center"
@@ -211,7 +215,7 @@
                     android:paddingTop="5dp"
                     android:paddingRight="11dp"
                     android:paddingBottom="5dp"
-                    android:text="同意退款"
+                    tools:text="同意退款"
                     android:textColor="@color/text_black33"
                     android:textSize="12sp" />
 
@@ -219,15 +223,16 @@
                     android:id="@+id/item_tv_lable_three"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:visibility="gone"
                     android:layout_marginLeft="13dp"
-                    android:background="@drawable/bg_stoke_gray5"
+                    android:background="@drawable/bg_stoke_orange"
                     android:gravity="center"
                     android:paddingLeft="11dp"
                     android:paddingTop="5dp"
                     android:paddingRight="11dp"
                     android:paddingBottom="5dp"
-                    android:text="拒绝申请"
-                    android:textColor="@color/text_black33"
+                    tools:text="拒绝申请"
+                    android:textColor="@color/red_fe8977"
                     android:textSize="12sp" />
             </LinearLayout>
 
@@ -317,7 +322,7 @@
                     android:id="@+id/tv_refund_reson"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="排错/多拍"
+                    tools:text="排错/多拍"
                     android:textColor="@color/text_black66"
                     android:textSize="11sp" />
             </LinearLayout>
@@ -344,7 +349,7 @@
                     android:id="@+id/tv_refund_money"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="¥159.00"
+                    tools:text="¥159.00"
                     android:textColor="@color/text_black66"
                     android:textSize="11sp" />
             </LinearLayout>
@@ -371,7 +376,7 @@
                     android:id="@+id/tv_refund_application_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="2018年12月07日16:08:12"
+                    tools:text="2018年12月07日16:08:12"
                     android:textColor="@color/text_black66"
                     android:textSize="11sp" />
             </LinearLayout>
@@ -398,7 +403,7 @@
                     android:id="@+id/tv_refund_number"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="6787980987668797"
+                    tools:text="6787980987668797"
                     android:textColor="@color/text_black66"
                     android:textSize="11sp" />
             </LinearLayout>

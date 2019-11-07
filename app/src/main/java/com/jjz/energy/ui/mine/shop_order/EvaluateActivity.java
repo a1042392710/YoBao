@@ -32,6 +32,7 @@ import com.zhihu.matisse.MimeType;
 import com.zhihu.matisse.internal.entity.CaptureStrategy;
 
 import java.io.File;
+import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.List;
 
@@ -222,7 +223,7 @@ public class EvaluateActivity extends BaseActivity<EvaluatePresenter> implements
     @NeedsPermission({Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE})
     void takePhoto() {
         Matisse.from(this)
-                .choose(MimeType.ofImage())//照片视频全部显示
+                .choose(EnumSet.of(MimeType.JPEG, MimeType.PNG, MimeType.BMP, MimeType.WEBP))//照片视频全部显示
                 .countable(true)//有序选择图片
                 .maxSelectable(1)//最大9张
                 .thumbnailScale(0.85f)//缩放比例
