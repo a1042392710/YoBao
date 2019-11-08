@@ -8,11 +8,15 @@ import android.widget.TextView;
 
 import com.jjz.energy.R;
 import com.jjz.energy.base.BaseActivity;
-import com.jjz.energy.base.BasePresenter;
 import com.jjz.energy.base.Constant;
 import com.jjz.energy.entry.mine.AddressBean;
+import com.jjz.energy.presenter.order.RefundPresenter;
 import com.jjz.energy.ui.mine.shipping_address.AddressManagerActivity;
 import com.jjz.energy.util.StringUtil;
+import com.jjz.energy.util.networkUtil.PacketUtil;
+import com.jjz.energy.view.order.IRefundView;
+
+import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -21,7 +25,7 @@ import butterknife.OnClick;
  * @Features: 卖家同意退货
  * @author: create by chenhao on 2019/11/4
  */
-public class SellerAgreeReturnActivity extends BaseActivity {
+public class SellerAgreeReturnActivity extends BaseActivity <RefundPresenter>implements IRefundView {
 
 
     @BindView(R.id.ll_toolbar_left)
@@ -40,30 +44,32 @@ public class SellerAgreeReturnActivity extends BaseActivity {
     TextView tvAddressList;
     @BindView(R.id.tv_sure)
     TextView tvSure;
+    /**
+     * 售后id
+     */
+    private String return_id;
+    /**
+     * 订单sn
+     */
+    private String order_sn;
 
     @Override
     protected void initView() {
         tvToolbarTitle.setText("卖家同意退货");
+        return_id = getIntent().getStringExtra(Constant.RETURN_ID);
+        order_sn = getIntent().getStringExtra(Constant.ORDER_SN);
+        mPresenter.getAddressList(PacketUtil.getRequestPacket(null));
     }
 
     @Override
-    public void showLoading() {
-        startProgressDialog();
-    }
-
-    @Override
-    public void stopLoading() {
-        stopProgressDialog();
-    }
-
-    @Override
-    protected BasePresenter getPresenter() {
-        return null;
-    }
-
-    @Override
-    protected int layoutId() {
-        return R.layout.act_seller_agree_return;
+    public void isSellerGetAddressSuccess(AddressBean data) {
+        if (!StringUtil.isListEmpty(data.getList())){
+            seller_address_id = data.getList().get(0).getAddress_id();
+            tvSellerNameAndPhone.setText(data.getList().get(0).getConsignee()+" "+data.getList().get(0).getMobile());
+            tvSellerAddress.setText(data.getList().get(0).getFull_address());
+        }else{
+            tvSellerNameAndPhone.setText("去地址簿添加地址");
+        }
     }
 
     /**
@@ -103,7 +109,44 @@ public class SellerAgreeReturnActivity extends BaseActivity {
                     showToast("请去地址簿添加地址");
                     return;
                 }
+                HashMap<String,String> map = new HashMap<>();
+                map.put("address_id",seller_address_id+"");
+                map.put("id",return_id);
+                // 1 表示发送收货地址
+                map.put("status",1+"");
+                mPresenter.sellerPutExpressInfo(PacketUtil.getRequestPacket(map));
                 break;
         }
+    }
+
+    @Override
+    public void isSellerPutExpressInfoSuccess(String data) {
+        showToast("地址已发送成功");
+        finish();
+    }
+
+    @Override
+    public void isFail(String msg) {
+        showToast(msg);
+    }
+
+    @Override
+    public void showLoading() {
+        startProgressDialog();
+    }
+
+    @Override
+    public void stopLoading() {
+        stopProgressDialog();
+    }
+
+    @Override
+    protected RefundPresenter getPresenter() {
+        return new RefundPresenter(this);
+    }
+
+    @Override
+    protected int layoutId() {
+        return R.layout.act_seller_agree_return;
     }
 }

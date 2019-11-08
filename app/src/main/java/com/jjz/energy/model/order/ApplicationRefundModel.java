@@ -44,7 +44,6 @@ public class ApplicationRefundModel extends BaseModel {
         if (urls.size() > 0) {
             for (int i = 0; i < urls.size(); i++) {
                 photos.put("imgs[]\"; filename=\"" + urls.get(i).getName(), RequestBody.create(MediaType.parse("image/png"), urls.get(i)));
-
             }
         }
 

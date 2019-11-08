@@ -7,25 +7,17 @@ package com.jjz.energy.base;
  */
 public class Constant {
 
+    //---------------------------- 系统常量
+
+    /**
+     * 图片选择器 文件过滤
+     */
+    public static final String MATISSE_FILE_PATH = "com.jjz.energy.fileprovider";
 
     /**
      * Intent 传输对象时的key值
      */
     public static final String INTENT_KEY_OBJECT = "bean";
-    /**
-     * 图片选择器 文件过滤
-     */
-    public static final String MATISSE_FILE_PATH = "com.jjz.energy.fileprovider";
-    /**
-     * 定义相册请求码常量
-     */
-    public static final int REQUEST_CODE_CHOOSE = 23;
-    /**
-     * 扫一扫的REQUSET_CODE
-     */
-    public static final int REQUEST_CODE_SCAN = 30;
-
-    public static final String TOAST_NO_MORE_DATA = "没有更多数据";
 
     public static final String LOGIN_ID = "login_id";
     public static final String APP_KEY = "asd$:ASD*SD$#@Psda13r49shw2%:d;)0D";
@@ -34,7 +26,7 @@ public class Constant {
     public static final String NETWORK_ERR = "0";
     public static final String NETWORK_NOLOGIN = "-1";
 
-//    ScanCode
+    //    ScanCode
     public static final String SCAN_TYPE_SHARE = "share";
     public static final String SCAN_TYPE_ORDER = "order";
 
@@ -47,10 +39,26 @@ public class Constant {
     //bugly id
     public static final String BUGLY_ID = "549524cc16";
 
+    //--------------------------------------- Intent 请求码
+
+    /**
+     * 选择物流公司
+     */
+    public static final int SELECT_COMPANY_CODE = 40;
+    /**
+     * 定义相册请求码常量
+     */
+    public static final int REQUEST_CODE_CHOOSE = 23;
+    /**
+     * 扫一扫的REQUSET_CODE
+     */
+    public static final int REQUEST_CODE_SCAN = 30;
     /**
      * 推送的消息类型
      */
     public  static  final int NOTICE_ONE = 100;
+
+    //------------------------------- 用户
 
     /**
      * 用户类型  0 是买主 1 是卖主
@@ -60,6 +68,7 @@ public class Constant {
      * 用户id
      */
     public static final String USER_ID= "user_id";
+
     /**
      * 搜索的历史记录
      */
@@ -113,11 +122,13 @@ public class Constant {
     /**
      * 售后   仅退款标识
      */
-    public static final String RETURN_MONEY= "0";
+    public static final int RETURN_MONEY = 0;
     /**
      * 售后   退货退款标识
      */
-    public static final String RETURN_SALES = "1";
+    public static final int RETURN_SALES = 1;
+
+
 
 
 

@@ -4,7 +4,6 @@ import java.math.BigInteger;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
 
 /**
  * @Features: 日期管理工具类
@@ -32,32 +31,12 @@ public class DateUtil  {
     /**
      * 将时间戳转换为时间
      */
-    public static String stampToDate(String s) {
+    public static String stampToDateDay(String s) {
         SimpleDateFormat sdr = new SimpleDateFormat("yyyy-MM-dd");
         long lcc = Long.valueOf(s);
         int i = Integer.parseInt(s);
         String times = sdr.format(new Date(i * 1000L));
         return times;
-    }
-
-
-    /**
-     * 将时间戳转换为时间
-     */
-    public static String stampToDateMinite(String s) {
-        SimpleDateFormat sdr = new SimpleDateFormat("yyyy-MM-dd  HH:mm");
-        int i = Integer.parseInt(s);
-        String times = sdr.format(new Date(i * 1000L));
-        return times;
-    }
-
-    /**
-     * 时间戳转日期
-     */
-    public static String stampToDateMinite(long time, String pattern) {
-        Date date = new Date(time);
-        SimpleDateFormat format = new SimpleDateFormat(pattern, Locale.getDefault());
-        return format.format(date);
     }
 
     /**
@@ -76,6 +55,7 @@ public class DateUtil  {
     private final static long day = 24 * hour;// 1天
     private final static long month = 31 * day;// 月
     private final static long year = 12 * month;// 年
+
     /**
      * 返回文字描述的日期
      *
@@ -115,7 +95,6 @@ public class DateUtil  {
      * 计算两个时间戳 相差的时间
      * @param startTime
      * @param endTime
-     * @param format
      * @return
      */
     public static String dateDiff(long startTime, long endTime) {

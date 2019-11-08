@@ -86,7 +86,7 @@
                 android:paddingTop="16dp"
                 tools:text="买家已退货，收到买家退货时，请验货后同意退款"
                 android:textColor="@color/text_black28"
-                android:textSize="11sp" />
+                android:textSize="12sp" />
 
             <View
                 android:layout_width="match_parent"
@@ -130,6 +130,7 @@
                 android:layout_below="@id/tv_refund_express_info_title"
                 android:includeFontPadding="false"
                 android:layout_marginTop="5dp"
+                android:layout_marginRight="40dp"
                 android:textColor="@color/red_fe8977"
                 android:textSize="11sp"
                 android:layout_width="wrap_content"
@@ -177,7 +178,7 @@
                 android:paddingLeft="18dp"
                 tools:text="@string/refund_confirm_receipt"
                 android:textColor="@color/text_black66"
-                android:textSize="10sp" />
+                android:textSize="11sp" />
 
 
             <LinearLayout

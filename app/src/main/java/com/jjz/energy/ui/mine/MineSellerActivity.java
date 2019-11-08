@@ -83,7 +83,9 @@ public class MineSellerActivity extends BaseActivity <MineBuyerPresenter>impleme
         rvMineSeller.setLayoutManager(new LinearLayoutManager(mContext));
         rvMineSeller.setAdapter(mAdapter);
         mAdapter.setOnItemClickListener((adapter, view, position) -> {
-            startActivity(new Intent(mContext, OrderDetailsActivity.class).putExtra(Constant.ORDER_SN,mAdapter.getData().get(position).getOrder_sn()).putExtra(Constant.USER_TYPE,1));
+            startActivity(new Intent(mContext, OrderDetailsActivity.class)
+                    .putExtra(Constant.ORDER_SN,mAdapter.getData().get(position).getOrder_sn())
+                    .putExtra(Constant.USER_TYPE,1));
         });
         smartRefresh.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
             @Override
@@ -214,12 +216,12 @@ public class MineSellerActivity extends BaseActivity <MineBuyerPresenter>impleme
             //原价
             helper.setText(R.id.item_tv_old_money, "原价￥"+item.getMarket_price());
             //如果该笔订单处于售后状态并且不为买家取消和售后完成   则显示退款详情
-            if (!StringUtil.isEmpty(item.getReturn_id())&&!"-2".equals(item.getReturn_status())){
+            if (!StringUtil.isEmpty(item.getReturn_id())&&-2!=item.getReturn_status()){
                 tvLableOne.setVisibility(View.VISIBLE);
                 tvLableTwo.setVisibility(View.GONE);
                 helper.setText(R.id.item_tv_lable_one,"退款详情");
                 //如果退款完成，则显示正常订单状态中文 否则 显示售后状态中文
-                if ("5".equals(item.getReturn_status())){
+                if (5==item.getReturn_status()){
                     helper.setText(R.id.item_tv_order_state,item.getState());
                 }else{
                     //订单状态

@@ -97,10 +97,12 @@ public class RefundTypeSelectActivity extends BaseActivity {
                 //退款
             case R.id.rl_only_refund:
                 startActivity(new Intent(mContext,ApplicationRefundActivity.class).putExtra(Constant.REC_ID,mShopOrderDetailsBean.getRec_id()).putExtra("type",Constant.RETURN_MONEY));
+                finish();
                 break;
                 //退货退款页面
             case R.id.rl_sales_return:
                 startActivity(new Intent(mContext,ApplicationRefundActivity.class).putExtra(Constant.REC_ID,mShopOrderDetailsBean.getRec_id()).putExtra("type",Constant.RETURN_SALES));
+                finish();
                 break;
         }
     }

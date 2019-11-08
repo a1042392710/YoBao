@@ -10,13 +10,18 @@ import android.widget.TextView;
 import com.jjz.energy.R;
 import com.jjz.energy.base.BaseActivity;
 import com.jjz.energy.base.Constant;
+import com.jjz.energy.entry.enums.RefundOrderStatusEnum;
 import com.jjz.energy.entry.order.RefundDetailsBean;
 import com.jjz.energy.presenter.order.RefundPresenter;
+import com.jjz.energy.ui.mine.shop_order.ExpressDetailsActivity;
 import com.jjz.energy.util.DateUtil;
 import com.jjz.energy.util.Utils;
 import com.jjz.energy.util.glide.GlideUtils;
 import com.jjz.energy.util.networkUtil.PacketUtil;
+import com.jjz.energy.util.system.PopWindowUtil;
 import com.jjz.energy.view.order.IRefundView;
+
+import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -91,9 +96,13 @@ public class SellerRefundDetailsActivity extends BaseActivity<RefundPresenter>im
     protected void initView() {
         tvToolbarTitle.setText("退款详情");
         return_id = getIntent().getStringExtra(Constant.RETURN_ID);
-        getData();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getData();
+    }
 
     /**
      * 获取退款退货详情数据
@@ -118,13 +127,19 @@ public class SellerRefundDetailsActivity extends BaseActivity<RefundPresenter>im
             }
         }
         //根据订单状态来显示按钮和相应的控件
-        setLableTextAndView(data.getReturn_status(), data);
+        setLableTextAndView(data);
     }
+
+    /**
+     * 保存数据源
+     */
+    private RefundDetailsBean mDetailsBean;
 
     /**
      * 根据状态显示文字
      */
-    private void setLableTextAndView(int return_status, RefundDetailsBean data) {
+    private void setLableTextAndView(RefundDetailsBean data) {
+        mDetailsBean = data;
         //先隐藏所有控件
         //简单提示
         tvRefundStateToast.setVisibility(View.GONE);
@@ -150,16 +165,7 @@ public class SellerRefundDetailsActivity extends BaseActivity<RefundPresenter>im
         //退款编号
         tvRefundNumber.setText(data.getRefund_sn());
 
-        switch (return_status) {
-            //买家取消退款申请
-            case -2:
-                tvRefundStateToast.setVisibility(View.VISIBLE);
-                tvRejectReson.setText("退款关闭");
-                //todo 退款时间
-                tvTime.setText("退款时间");
-                tvRefundStateToast.setText("买家已撤销本次退款申请");
-                break;
-
+        switch (data.getReturn_status()) {
             //卖家拒绝退款
             case -1:
                 tvRefundStateToast.setVisibility(View.VISIBLE);
@@ -176,23 +182,23 @@ public class SellerRefundDetailsActivity extends BaseActivity<RefundPresenter>im
                 tvRefundAllToast.setVisibility(View.VISIBLE);
                 itemTvLableThree.setVisibility(View.VISIBLE);
                 itemTvLableTwo.setVisibility(View.VISIBLE);
-                //todo 退款时间
+                //todo 剩余时间
                 tvTime.setText("还剩几天");
-                if (type==0){
+                if (type == 0) {
                     //仅退款
                     tvRejectReson.setText(R.string.refund_seller_audit);
                     tvRefundStateToast.setText(R.string.refund_seller_audit_toast);
                     tvRefundAllToast.setText(R.string.refund_seller_audit_toast_all);
                     itemTvLableTwo.setText("拒绝申请");
                     itemTvLableThree.setText("同意退款");
-                }else if (type==1){
+                } else if (type == 1) {
                     //退款不退货
                     tvRejectReson.setText(R.string.refund_seller_audit);
                     tvRefundStateToast.setText(R.string.refund_seller_audit_toast);
-                    tvRefundAllToast.setText(R.string.refund_seller_audit_toast_all);
+                    tvRefundAllToast.setText(R.string.refund_seller_audit_toast_all_two);
                     itemTvLableTwo.setText("拒绝申请");
                     itemTvLableThree.setText("同意退款");
-                }else{
+                } else {
                     //退货
                     tvRejectReson.setText(R.string.refund_seller_cargo_application);
                     tvRefundStateToast.setText(R.string.refund_seller_cargo_application_toast);
@@ -201,13 +207,15 @@ public class SellerRefundDetailsActivity extends BaseActivity<RefundPresenter>im
                     itemTvLableThree.setText("同意退货");
                 }
                 break;
-                //卖家通过审核，等待买家退货
+            //卖家通过审核，等待买家退货
             case 1:
                 tvRefundStateToast.setVisibility(View.VISIBLE);
                 itemTvLableThree.setVisibility(View.VISIBLE);
                 tvRejectReson.setText(R.string.refund_seller_wait_receipt);
                 tvRefundStateToast.setText(R.string.refund_seller_wait_receipt_toast);
                 itemTvLableThree.setText("收到货，同意退款");
+                //todo 显示剩余时间
+                tvTime.setText("显示剩余时间");
                 break;
                 //买家已发货
             case 2:
@@ -219,7 +227,14 @@ public class SellerRefundDetailsActivity extends BaseActivity<RefundPresenter>im
                 tvRefundStateToast.setText(R.string.refund_seller_confirm_receipt_toast);
                 itemTvLableThree.setText("同意退款");
                 itemTvLableTwo.setText("拒绝退款");
-                // todo 显示退货物流
+                //todo 显示剩余时间
+                tvTime.setText("显示剩余时间");
+                //写入退货物流信息
+                tvRefundExpressInfoTitle.setText("退货物流："+ mDetailsBean.getTrick().getShipping_name()+"("+mDetailsBean.getTrick().getCourier_number()+")" );
+                //详情
+                tvRefundExpressInfoContent.setText(mDetailsBean.getTrick().getAcceptStation());
+                //时间
+                tvRefundExpressInfoTime.setText(mDetailsBean.getTrick().getAcceptTime());
 
 
                 break;
@@ -227,10 +242,18 @@ public class SellerRefundDetailsActivity extends BaseActivity<RefundPresenter>im
             case 5:
                 llReturnSuc.setVisibility(View.VISIBLE);
                 //写入退款金额
-                tvReturnSuc.setText("￥"+data.getRefund_money()+"元");
+                tvReturnSuc.setText("退款金额：￥"+data.getRefund_money()+"元");
                 tvRejectReson.setText("退款成功");
                 tvTime.setText(DateUtil.longToDate(data.getRefund_time(),null));
                 break;
+                //买家取消退款申请
+            case -2:
+                tvRefundStateToast.setVisibility(View.VISIBLE);
+                tvRejectReson.setText("退款关闭");
+                tvTime.setText(DateUtil.longToDate(data.getCanceltime(),null));
+                tvRefundStateToast.setText("买家已撤销本次退款申请");
+                break;
+
 
         }
         stopLoading();
@@ -242,28 +265,38 @@ public class SellerRefundDetailsActivity extends BaseActivity<RefundPresenter>im
      */
     private void onLableClick(String str){
         switch (str){
-
             case "同意退款":
             case "收到货，同意退款":
+                PopWindowUtil.getInstance().showPopupWindow(mContext, "确认后，您将退款给买家", () -> {
+                    HashMap<String,String>map = new HashMap<>();
+                    map.put("id",return_id);
+                    map.put("status", RefundOrderStatusEnum.RETURN_SUC.getIndex()+"");
+                   mPresenter.sellerAgreeReturnMoney(PacketUtil.getRequestPacket(map));
+                });
                 break;
+            case "拒绝申请":
             case "拒绝退款":
-                startActivity(new Intent(mContext,SellerRefuseApplicationActivity.class));
-                break;
             case "拒绝退货申请":
-                startActivity(new Intent(mContext,SellerRefuseApplicationActivity.class));
+                startActivity(new Intent(mContext,SellerRefuseApplicationActivity.class).putExtra(Constant.RETURN_ID,return_id));
                 break;
             case "同意退货":
-                startActivity(new Intent(mContext,SellerAgreeReturnActivity.class));
+                startActivity(new Intent(mContext,SellerAgreeReturnActivity.class).putExtra(Constant.RETURN_ID,return_id).putExtra(Constant.ORDER_SN,mDetailsBean.getOrder_sn()));
                 break;
             case "客服介入":
+                //todo 客服
                 break;
 
         }
     }
-
+    //卖家同意退款
+    @Override
+    public void isSellerAgreeReturnMoneySuccess(String data) {
+        showToast("操作成功");
+        getData();
+    }
 
     @OnClick({ R.id.ll_toolbar_left, R.id.item_tv_lable_one, R.id.item_tv_lable_two,R.id.tv_history,
-            R.id.item_tv_lable_three })
+            R.id.item_tv_lable_three ,R.id.rl_express_info})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ll_toolbar_left:
@@ -281,6 +314,12 @@ public class SellerRefundDetailsActivity extends BaseActivity<RefundPresenter>im
                 //协商历史
             case R.id.tv_history:
                 startActivity(new Intent(mContext,RefundHistoryActivity.class).putExtra(Constant.RETURN_ID,return_id));
+                break;
+            //物流详情
+            case R.id.rl_express_info:
+                startActivity(new Intent(mContext, ExpressDetailsActivity.class)
+                        .putExtra("shipping_no", mDetailsBean.getTrick().getCourier_number())
+                        .putExtra(Constant.RETURN_ID,return_id));
                 break;
         }
     }

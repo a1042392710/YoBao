@@ -29,6 +29,7 @@ import com.jjz.energy.entry.mine.BindOwnerInfoBean;
 import com.jjz.energy.entry.mine.LikeGoodsBean;
 import com.jjz.energy.entry.mine.MineBuyerBean;
 import com.jjz.energy.entry.mine.MineLikeAndFansBean;
+import com.jjz.energy.entry.mine.RefundHistroyBean;
 import com.jjz.energy.entry.mine.UserPageInfo;
 import com.jjz.energy.entry.order.ApplicationRefundBean;
 import com.jjz.energy.entry.order.EvaluateDetailsBean;
@@ -221,6 +222,9 @@ public interface Api {
     Flowable<ResponseData<AddressBean>> getAddressList(@Field(PACK_NO) String pack_no);
 
 
+
+
+
     //======================================================== 发布 帖子 / 物流 / 商品
 
 
@@ -345,6 +349,7 @@ public interface Api {
     @FormUrlEncoded
     @POST("order/confirmOrder")
     Flowable<ResponseData<String>> confirmReceipt(@Field(PACK_NO) String pack_no);
+
     // 取消订单
     @FormUrlEncoded
     @POST("order/cancelOrder")
@@ -364,11 +369,42 @@ public interface Api {
     @Multipart
     @POST("return_goods/doAddReturnGoods")
     Flowable<ResponseData<ApplicationRefundBean>> submitRefund(
-            @Part MultipartBody.Part photo, @Part("file") String urlsdesc, @PartMap Map<String, RequestBody> imgs
+            @Part MultipartBody.Part prams, @Part("file") String urlsdesc, @PartMap Map<String, RequestBody> imgs
     );
 
-    //======================================================== 以下是 久速接口
+    //买家撤销退款
+    @FormUrlEncoded
+    @POST("return_goods/doRefund")
+    Flowable<ResponseData<String>> buyerCancelApplication(@Field(PACK_NO) String pack_no);
 
+    //买家提交退货物流信息
+    @Multipart
+    @POST("return_goods/doRefund")
+    Flowable<ResponseData<String>> buyerPutExpressInfo(@Part MultipartBody.Part prams, @PartMap Map<String, RequestBody> imgs);
+
+    //卖家同意退款
+    @FormUrlEncoded
+    @POST("return_goods/doRefund")
+    Flowable<ResponseData<String>> sellerAgreeReturnMoney(@Field(PACK_NO) String pack_no);
+
+    //卖家同意退货，上传退货地址
+    @FormUrlEncoded
+    @POST("return_goods/doRefund")
+    Flowable<ResponseData<String>> sellerPutExpressInfo(@Field(PACK_NO) String pack_no);
+
+    //卖家拒绝退款申请
+    @Multipart
+    @POST("return_goods/doRefund")
+    Flowable<ResponseData<String>> sellerRefuseApplication(@Part MultipartBody.Part prams, @PartMap Map<String, RequestBody> imgs);
+
+    /**
+     * 退货 == 协商历史
+     */
+    @FormUrlEncoded
+    @POST("return_goods/returnGoodsLog")
+    Flowable<ResponseData<RefundHistroyBean>> getRefundHistoryList(@Field(PACK_NO) String pack_no);
+
+    //======================================================== 以下是 久速接口
 
     //查询下级代理
     @FormUrlEncoded

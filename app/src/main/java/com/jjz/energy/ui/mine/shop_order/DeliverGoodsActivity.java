@@ -152,7 +152,7 @@ public class DeliverGoodsActivity extends BaseActivity<ExpressPresenter>implemen
                 break;
             //选择物流公司
             case R.id.tv_express_company:
-                startActivityForResult(new Intent(mContext, ExpressCompanyActivity.class), 10);
+                startActivityForResult(new Intent(mContext, ExpressCompanyActivity.class), Constant.SELECT_COMPANY_CODE);
                 break;
             //提交数据
             case R.id.tv_submit:
@@ -171,7 +171,6 @@ public class DeliverGoodsActivity extends BaseActivity<ExpressPresenter>implemen
         }
     }
 
-
     /*
      * 存下物流公司的信息
      */
@@ -184,21 +183,26 @@ public class DeliverGoodsActivity extends BaseActivity<ExpressPresenter>implemen
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-            if (resultCode==RESULT_OK){
-                //写入物流公司
-                mExpressCompanyBean = (ExpressCompanyBean) data.getSerializableExtra(Constant.INTENT_KEY_OBJECT);
-                tvExpressCompany.setText(mExpressCompanyBean.getName());
-            }else if (resultCode == AddressManagerActivity.RESULT_ADDRESS){
-                AddressBean.ListBean bean = (AddressBean.ListBean) data.getSerializableExtra(Constant.INTENT_KEY_OBJECT);
-                //显示收货地址
-                String addressStr = bean.getArea()+bean.getAddress();
-                //地址
-                tvSellerAddress.setText(addressStr.replace(" ", ""));
-                //地址id
-                seller_address_id = bean.getAddress_id();
-                //人名和电话
-                tvSellerNameAndPhone.setText(bean.getConsignee()+" " + bean.getMobile());
-            }
+        //收货地址
+        if (resultCode == AddressManagerActivity.RESULT_ADDRESS) {
+            AddressBean.ListBean bean =
+                    (AddressBean.ListBean) data.getSerializableExtra(Constant.INTENT_KEY_OBJECT);
+            //显示收货地址
+            String addressStr = bean.getArea() + bean.getAddress();
+            //地址
+            tvSellerAddress.setText(addressStr.replace(" ", ""));
+            //地址id
+            seller_address_id = bean.getAddress_id();
+            //人名和电话
+            tvSellerNameAndPhone.setText(bean.getConsignee() + " " + bean.getMobile());
+        }
+        //物流公司
+        if (requestCode == Constant.SELECT_COMPANY_CODE && resultCode == RESULT_OK) {
+            //写入物流公司
+            mExpressCompanyBean =
+                    (ExpressCompanyBean) data.getSerializableExtra(Constant.INTENT_KEY_OBJECT);
+            tvExpressCompany.setText(mExpressCompanyBean.getName());
+        }
     }
 
     @Override

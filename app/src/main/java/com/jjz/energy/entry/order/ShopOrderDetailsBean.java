@@ -77,7 +77,8 @@ public class ShopOrderDetailsBean implements Serializable {
     private String goods_price;
     private int is_comment;
     private String mobile;
-    private String user_mobile;
+    private String buyer_mobile;
+    private String seller_mobile;
     private String order_amount;
     private String order_sn;
     private int order_status;
@@ -103,20 +104,28 @@ public class ShopOrderDetailsBean implements Serializable {
 
     private List<String> statusList;
 
+    public String getBuyer_mobile() {
+        return buyer_mobile == null ? "" : buyer_mobile;
+    }
+
+    public void setBuyer_mobile(String buyer_mobile) {
+        this.buyer_mobile = buyer_mobile;
+    }
+
+    public String getSeller_mobile() {
+        return seller_mobile == null ? "" : seller_mobile;
+    }
+
+    public void setSeller_mobile(String seller_mobile) {
+        this.seller_mobile = seller_mobile;
+    }
+
     public int getRec_id() {
         return rec_id;
     }
 
     public void setRec_id(int rec_id) {
         this.rec_id = rec_id;
-    }
-
-    public String getUser_mobile() {
-        return user_mobile == null ? "" : user_mobile;
-    }
-
-    public void setUser_mobile(String user_mobile) {
-        this.user_mobile = user_mobile;
     }
 
     public long getEnd_time() {

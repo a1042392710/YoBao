@@ -49,6 +49,16 @@ public class AddressBean implements Serializable {
         private int twon;
         private String address;
         private String area;
+        private String full_address;
+
+
+        public String getFull_address() {
+            return full_address == null ? "" : full_address;
+        }
+
+        public void setFull_address(String full_address) {
+            this.full_address = full_address;
+        }
 
         public String getArea() {
             return area == null ? "" : area;

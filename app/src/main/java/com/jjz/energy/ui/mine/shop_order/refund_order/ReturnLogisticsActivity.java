@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -17,10 +18,17 @@ import android.widget.TextView;
 import com.jjz.energy.R;
 import com.jjz.energy.adapter.CommonSelectPhotoAdapter;
 import com.jjz.energy.base.BaseActivity;
-import com.jjz.energy.base.BasePresenter;
 import com.jjz.energy.base.Constant;
+import com.jjz.energy.entry.order.ExpressCompanyBean;
+import com.jjz.energy.presenter.order.RefundPresenter;
+import com.jjz.energy.ui.mine.shop_order.ExpressCompanyActivity;
+import com.jjz.energy.util.StringUtil;
+import com.jjz.energy.util.file.FileUtil;
+import com.jjz.energy.util.glide.GlideUtils;
 import com.jjz.energy.util.glide.MyGlideEngine;
+import com.jjz.energy.util.networkUtil.PacketUtil;
 import com.jjz.energy.util.system.PopWindowUtil;
+import com.jjz.energy.view.order.IRefundView;
 import com.zhihu.matisse.Matisse;
 import com.zhihu.matisse.MimeType;
 import com.zhihu.matisse.internal.entity.CaptureStrategy;
@@ -29,7 +37,10 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.EnumSet;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -38,13 +49,16 @@ import butterknife.OnClick;
 import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.OnNeverAskAgain;
 import permissions.dispatcher.RuntimePermissions;
+import top.zibin.luban.Luban;
+import top.zibin.luban.OnCompressListener;
 
 /**
  * @Features: 填写退货物流
  * @author: create by chenhao on 2019/11/4
  */
 @RuntimePermissions
-public class ReturnLogisticsActivity extends BaseActivity {
+public class ReturnLogisticsActivity extends BaseActivity <RefundPresenter> implements IRefundView {
+
     @BindView(R.id.ll_toolbar_left)
     LinearLayout llToolbarLeft;
     @BindView(R.id.tv_toolbar_title)
@@ -80,16 +94,25 @@ public class ReturnLogisticsActivity extends BaseActivity {
      * 选择图片 recyclerView的适配器
      */
     private CommonSelectPhotoAdapter mSelectPhotoAdapter;
-
     /**
      * 选中的所有图片
      */
     private LinkedList<Uri> mSelectPhotos;
-
+    /*
+     * 存下物流公司的信息
+     */
+    private ExpressCompanyBean mExpressCompanyBean ;
+    /**
+     * 售后id
+     */
+    private String return_id;
 
     @Override
     protected void initView() {
         tvToolbarTitle.setText("填写退货物流");
+        GlideUtils.loadRoundCircleImage(mContext,getIntent().getStringExtra("img"),imgCommodity);
+        tvCommodityTitle.setText(getIntent().getStringExtra("name"));
+        return_id = getIntent().getStringExtra(Constant.RETURN_ID);
         setData();
     }
 
@@ -109,6 +132,12 @@ public class ReturnLogisticsActivity extends BaseActivity {
         rvSelectPhoto.setAdapter(mSelectPhotoAdapter);
     }
 
+    //买家提交退货信息成功
+    @Override
+    public void isBuyerPutExpressInfoSuccess(String data) {
+        showToast("提交成功");
+        finish();
+    }
 
     @OnClick({R.id.ll_toolbar_left, R.id.tv_express_company, R.id.tv_sure})
     public void onViewClicked(View view) {
@@ -116,17 +145,92 @@ public class ReturnLogisticsActivity extends BaseActivity {
             case R.id.ll_toolbar_left:
                 finish();
                 break;
+                //选择物流公司
             case R.id.tv_express_company:
+                startActivityForResult(new Intent(mContext, ExpressCompanyActivity.class), Constant.SELECT_COMPANY_CODE);
                 break;
             //提交
             case R.id.tv_sure:
+                if (StringUtil.isEmpty(etExpressNumber.getText().toString())){
+                    showToast("请填写物流单号");
+                    return;
+                }
+                if (mExpressCompanyBean==null){
+                    showToast("请选择物流公司");
+                    return;
+                }
+                compressPhotos();
                 break;
         }
     }
 
+    // ============================================ 数据提交
+
+    /**
+     * 待上传的所有图片
+     */
+    private List<File> mFileList;
+    /**
+     * 压缩图片
+     */
+    private void compressPhotos() {
+        mFileList = new ArrayList<>();
+        //无图片直接提交
+        if (mSelectPhotos.size() - 1 > 0) {
+            //有图片则压缩
+            for (int i = 0; i < mSelectPhotos.size() - 1; i++) {
+                int finalI = 1 + i;
+                Luban.with(this)
+                        .load(FileUtil.getRealFilePath(mContext, mSelectPhotos.get(i)))
+                        .ignoreBy(100)
+                        .filter(path -> !(TextUtils.isEmpty(path) || path.toLowerCase().endsWith(".gif")))
+                        .setCompressListener(new OnCompressListener() {
+                            @Override
+                            public void onStart() {
+                                showLoading();
+                            }
+
+                            @Override
+                            public void onSuccess(File file) {
+                                //压缩完图片后提交数据
+                                mFileList.add(file);
+                                if (finalI == mSelectPhotos.size() - 1) {
+                                    stopLoading();
+                                    submit();
+                                }
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                showToast("图片压缩失败，请重试");
+                                stopLoading();
+                            }
+                        }).launch();
+            }
+        } else {
+            submit();
+        }
+    }
+
+    /**
+     * 提交数据
+     */
+    private void submit(){
+        //提交
+        HashMap<String, String> map = new HashMap<>();
+        map.put("id",return_id);
+        // 2 已退货
+        map.put("status",2+"");
+        map.put("shipping_id",mExpressCompanyBean.getId());
+        map.put("courier_number",etExpressNumber.getText().toString());
+        mPresenter.buyerPutExpressInfo(PacketUtil.getRequestPacket(map),mFileList);
+    }
+
+
+
     @Override
-    protected BasePresenter getPresenter() {
-        return null;
+    protected RefundPresenter getPresenter() {
+        return new RefundPresenter(this);
     }
 
     @Override
@@ -158,6 +262,10 @@ public class ReturnLogisticsActivity extends BaseActivity {
                 }
                 //刷新数据
                 mSelectPhotoAdapter.notifyDataSetChanged();
+            }else if (requestCode == Constant.SELECT_COMPANY_CODE){
+                //写入物流公司
+                mExpressCompanyBean = (ExpressCompanyBean) data.getSerializableExtra(Constant.INTENT_KEY_OBJECT);
+                tvExpressCompany.setText(mExpressCompanyBean.getName());
             }
         }
     }
@@ -220,6 +328,11 @@ public class ReturnLogisticsActivity extends BaseActivity {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
        ReturnLogisticsActivityPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
+    }
+
+    @Override
+    public void isFail(String msg) {
+        showToast(msg);
     }
 
 }

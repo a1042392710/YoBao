@@ -129,7 +129,7 @@ public class MineInfomationActivity extends BaseActivity<MineInformationPresente
         }
         //生日
         if (!StringUtil.isEmpty(userInfo.getBirthday())) {
-            tvBirthday.setText(DateUtil.stampToDate(userInfo.getBirthday()));
+            tvBirthday.setText(DateUtil.stampToDateDay(userInfo.getBirthday()));
         }
         /**
          * 是否设置了登录密码

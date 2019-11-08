@@ -83,15 +83,16 @@ public class ApplicationRefundBean implements Serializable {
         private int reason;        //订单原因id
         private String describe;        //说明
         private String imgs; //图片url，逗号分隔
-        private String refund_deposit;//金额
+        private String refund_money;//金额
 
-        public String getRefund_deposit() {
-            return refund_deposit == null ? "" : refund_deposit;
+        public String getRefund_money() {
+            return refund_money == null ? "" : refund_money;
         }
 
-        public void setRefund_deposit(String refund_deposit) {
-            this.refund_deposit = refund_deposit;
+        public void setRefund_money(String refund_money) {
+            this.refund_money = refund_money;
         }
+
 
         public int getReason() {
             return reason;

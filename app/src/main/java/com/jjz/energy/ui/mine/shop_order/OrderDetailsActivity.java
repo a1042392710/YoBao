@@ -17,9 +17,9 @@ import com.jjz.energy.R;
 import com.jjz.energy.adapter.OrderDetailsStatusAdapter;
 import com.jjz.energy.base.BaseActivity;
 import com.jjz.energy.base.Constant;
-import com.jjz.energy.entry.enums.RefundOrderStatusEnum;
 import com.jjz.energy.entry.order.ShopOrderDetailsBean;
 import com.jjz.energy.presenter.order.ShopOrderDetailsPresenter;
+import com.jjz.energy.ui.home.commodity.CommodityDetailActivity;
 import com.jjz.energy.ui.mine.shop_order.refund_order.ApplicationRefundActivity;
 import com.jjz.energy.ui.mine.shop_order.refund_order.BuyerRefundDetailsActivity;
 import com.jjz.energy.ui.mine.shop_order.refund_order.RefundTypeSelectActivity;
@@ -99,7 +99,7 @@ public class OrderDetailsActivity extends BaseActivity<ShopOrderDetailsPresenter
      */
     private String order_sn;
     /**
-     * 用户类型  0是买家 1是卖家
+     * 用户类型  0是买家 1是卖家    进页面必须要传
      */
     private int user_type;
 
@@ -130,23 +130,24 @@ public class OrderDetailsActivity extends BaseActivity<ShopOrderDetailsPresenter
     }
 
     @OnClick({R.id.ll_toolbar_left, R.id.tv_talk_seller, R.id.tv_logistics_details,
-            R.id.tv_order_lable_one, R.id.tv_order_lable_two})
+            R.id.tv_order_lable_one, R.id.tv_order_lable_two ,R.id.rl_goods})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ll_toolbar_left:
                 finish();
                 break;
             case R.id.tv_talk_seller:
-                //和买家或者卖家聊天
                 if (mData==null){
                     return;
                 }
-                startActivity(new Intent(mContext, IMActivity.class).putExtra("userName",mData.getUser_mobile()));
+                //和买家或者卖家聊天
+                startActivity(new Intent(mContext, IMActivity.class).putExtra("userName",user_type==0?mData.getSeller_mobile():mData.getBuyer_mobile()));
                 break;
             case R.id.tv_logistics_details:
                 //查看物流详情
                 if (mData!=null) {
-                    startActivity(new Intent(mContext, ExpressDetailsActivity.class).putExtra("shipping_no", mData.getShipping_no()));
+                    startActivity(new Intent(mContext, ExpressDetailsActivity.class)
+                            .putExtra("shipping_no", mData.getShipping_no()));
                 }
                 break;
             case R.id.tv_order_lable_one:
@@ -157,6 +158,12 @@ public class OrderDetailsActivity extends BaseActivity<ShopOrderDetailsPresenter
                 //按钮二
                 lableCilck(tvOrderLableTwo.getText().toString());
                 break;
+            case R.id.rl_goods:
+                //商品详情
+                if (mData!=null) {
+                    startActivity(new Intent(mContext, CommodityDetailActivity.class).putExtra(Constant.GOODS_ID,mData.getGoods_id()));
+                }
+                break;
         }
     }
 
@@ -165,19 +172,19 @@ public class OrderDetailsActivity extends BaseActivity<ShopOrderDetailsPresenter
      */
     private void lableCilck(String str){
         switch (str){
-
             case "查看评价":
                 startActivity(new Intent(mContext, EvaluateDetailsActivity.class).putExtra(Constant.ORDER_SN, order_sn));
                 break;
             case "评价一下":
-                startActivity(new Intent(mContext, EvaluateActivity.class).putExtra(Constant.ORDER_SN, order_sn));
+                startActivityForResult(new Intent(mContext, EvaluateActivity.class).putExtra(Constant.ORDER_SN, order_sn),10);
                 break;
             case "提醒发货":
                 break;
             case "去发货":
-                startActivity(new Intent(mContext,DeliverGoodsActivity.class).putExtra(Constant.ORDER_SN,order_sn));
+                startActivityForResult(new Intent(mContext,DeliverGoodsActivity.class).putExtra(Constant.ORDER_SN,order_sn),10);
                 break;
             case "提醒收货":
+
                 break;
             case "确认收货":
                 PopWindowUtil.getInstance().showPopupWindow(mContext, "您是否确认收货？", () -> {
@@ -190,7 +197,7 @@ public class OrderDetailsActivity extends BaseActivity<ShopOrderDetailsPresenter
                 });
                 break;
             case "申请退款":
-                startActivity(new Intent(mContext, ApplicationRefundActivity.class).putExtra(Constant.REC_ID,mData.getRec_id()).putExtra("type",Constant.RETURN_MONEY));
+                startActivityForResult(new Intent(mContext, ApplicationRefundActivity.class).putExtra(Constant.REC_ID,mData.getRec_id()).putExtra("type",Constant.RETURN_MONEY),10);
                 break;
             case "退款详情":
                 //卖家详情
@@ -203,7 +210,7 @@ public class OrderDetailsActivity extends BaseActivity<ShopOrderDetailsPresenter
                 break;
             //进入选择服务方式页面
             case "我要退款":
-                startActivity(new Intent(mContext, RefundTypeSelectActivity.class).putExtra(Constant.INTENT_KEY_OBJECT,mData));
+                startActivityForResult(new Intent(mContext, RefundTypeSelectActivity.class).putExtra(Constant.INTENT_KEY_OBJECT,mData),10);
                 break;
         }
     }
@@ -301,25 +308,17 @@ public class OrderDetailsActivity extends BaseActivity<ShopOrderDetailsPresenter
             tvLogisticsDetails.setVisibility(View.VISIBLE);
         }
 
-        if (!StringUtil.isEmpty(data.getReturn_id())&&!"-2".equals(data.getReturn_status())){
+        if (!StringUtil.isEmpty(data.getReturn_id())&&-2!=data.getReturn_status()){
             llBottomBtn.setVisibility(View.VISIBLE);
             tvOrderLableTwo.setVisibility(View.VISIBLE);
             tvOrderLableOne.setVisibility(View.GONE);
             tvOrderLableTwo.setText("退款详情");
-            //如果退款完成，则显示正常订单状态中文 否则 显示售后状态中文
-            if ("5".equals(data.getReturn_status())){
-                //交易状态
-                tvOrderState.setText(data.getState());
-            }else{
-                //订单状态
-                tvOrderState.setText(RefundOrderStatusEnum.getName(data.getReturn_status()));
-            }
         }else{
-            //交易状态
-            tvOrderState.setText(data.getState());
             //设置底部按钮文字
             setBottomText(data.getStatus());
         }
+        //交易状态
+        tvOrderState.setText(data.getState());
         //订单状态
         rvOrderStatus.setAdapter(new OrderDetailsStatusAdapter(R.layout.item_order_status, data.getStatusList(),data.getStatus()));
         //订单编号
@@ -355,7 +354,7 @@ public class OrderDetailsActivity extends BaseActivity<ShopOrderDetailsPresenter
     @Override
     public void isConfirmReceiptSuc(String data) {
         showToast("收货成功");
-        finish();
+        getData();
     }
 
     //取消订单
@@ -364,7 +363,6 @@ public class OrderDetailsActivity extends BaseActivity<ShopOrderDetailsPresenter
         showToast("取消订单成功");
         finish();
     }
-
 
     @Override
     public void isFail(String msg, boolean isNetAndServiceError) {

@@ -20,6 +20,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:elevation="3dp"
                 android:background="@color/white"
                 android:layout_margin="10dp"
                 android:padding="10dp"
@@ -49,14 +50,13 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:background="@drawable/bg_white_radius"
-                android:elevation="3dp"
                 android:padding="12dp">
 
                 <TextView
                     android:id="@+id/tv_text_one"
                     android:layout_width="wrap_content"
                     android:text="已填邮寄单"
-                    android:textSize="13sp"
+                    android:textSize="14sp"
                     android:textColor="@color/text_black33"
                     android:layout_marginTop="5dp"
                     android:layout_height="wrap_content"/>
@@ -67,7 +67,7 @@
                     android:layout_below="@id/tv_text_one"
                     android:layout_width="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:textSize="9sp"
+                    android:textSize="10sp"
                     android:text="需要您自行联系快递。运费与货品安全保障请于快递员做好协商"
                     android:layout_height="wrap_content"/>
 
@@ -85,7 +85,7 @@
                     android:text="快递单号"
                     android:layout_below="@id/view_line_two"
                     android:layout_marginTop="10dp"
-                    android:textSize="12sp"
+                    android:textSize="13sp"
                     android:textColor="@color/text_black33"
                     android:layout_height="wrap_content"/>
 
@@ -95,8 +95,10 @@
                     android:layout_width="match_parent"
                     android:layout_below="@id/tv_text_three"
                     android:background="@color/white"
-                    android:textSize="11sp"
-                    android:textColor="@color/text_blackA6"
+                    android:textSize="12sp"
+                    android:inputType="number"
+                    android:digits="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                    android:textColor="@color/text_black66"
                     android:hint="请输入快递单号"
                     android:layout_height="40dp"/>
 
@@ -114,7 +116,7 @@
                     android:text="快递公司"
                     android:layout_below="@id/view_line_three"
                     android:layout_marginTop="10dp"
-                    android:textSize="12sp"
+                    android:textSize="13sp"
                     android:textColor="@color/text_black33"
                     android:layout_height="wrap_content"/>
 
@@ -124,8 +126,8 @@
                     android:layout_width="match_parent"
                     android:layout_below="@id/tv_text_four"
                     android:background="@color/white"
-                    android:textSize="11sp"
-                    android:textColor="@color/text_blackA6"
+                    android:textSize="12sp"
+                    android:textColor="@color/text_black66"
                     android:gravity="center_vertical"
                     android:hint="请选择快递公司"
                     android:layout_height="40dp"/>

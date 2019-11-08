@@ -50,6 +50,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="交易状态：  "
+                    android:visibility="invisible"
                     android:textColor="#868686"
                     android:textSize="13sp" />
 
@@ -117,9 +118,9 @@
 
 
             <RelativeLayout
+                android:id="@+id/rl_goods"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
                 android:paddingLeft="17dp"
                 android:paddingTop="11dp"
                 android:paddingRight="11dp"

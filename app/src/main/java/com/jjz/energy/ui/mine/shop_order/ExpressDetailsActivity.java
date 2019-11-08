@@ -12,14 +12,16 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.jjz.energy.R;
 import com.jjz.energy.base.BaseActivity;
 import com.jjz.energy.base.BaseRecycleNewAdapter;
+import com.jjz.energy.base.Constant;
 import com.jjz.energy.entry.order.ExpressTrackingBean;
 import com.jjz.energy.presenter.order.ExpressPresenter;
-import com.jjz.energy.util.Utils;
+import com.jjz.energy.util.StringUtil;
 import com.jjz.energy.util.glide.GlideUtils;
 import com.jjz.energy.util.networkUtil.PacketUtil;
 import com.jjz.energy.view.order.IExpressView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
@@ -55,15 +57,26 @@ public class ExpressDetailsActivity extends BaseActivity <ExpressPresenter> impl
      * 物流单号
      */
     private String shipping_no;
+    /**
+     * 区分 是订单还是售后 有这个id 就表示售后物流
+     */
+    private String return_id;
 
     @Override
     protected void initView() {
         tvToolbarTitle.setText("物流详情");
         shipping_no  = getIntent().getStringExtra("shipping_no");
+        return_id  = getIntent().getStringExtra(Constant.RETURN_ID);
         rvExpress.setLayoutManager(new LinearLayoutManager(this));
         mAdapter = new ExpressAdapter(R.layout.item_express_details, new ArrayList<>());
         rvExpress.setAdapter(mAdapter);
-        mPresenter.getExpressTracking(PacketUtil.getRequestPacket(Utils.stringToMap("shipping_no",shipping_no)));
+        //查询物流信息
+        HashMap<String,String> map = new HashMap<>();
+        map.put("shipping_no",shipping_no);
+        if (!StringUtil.isEmpty(return_id)){
+            map.put(Constant.RETURN_ID,return_id);
+        }
+        mPresenter.getExpressTracking(PacketUtil.getRequestPacket(map));
     }
 
     @Override

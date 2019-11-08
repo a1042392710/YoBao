@@ -7,11 +7,12 @@ import java.io.Serializable;
  * @author: create by chenhao on 2019/11/4
  */
 public class RefundDetailsBean implements Serializable {
+
+
     /**
      * 售后状态
      */
    private int return_status;
-
     /**
      * 退款类型  0 仅退款 1 退货
      */
@@ -61,9 +62,43 @@ public class RefundDetailsBean implements Serializable {
      */
     private long refund_time;
     /**
+     * 买家撤销时间
+     */
+    private long canceltime;
+    /**
      * 拒绝原因
      */
     private String reject_reason;
+    /**
+     * 商品id
+     */
+    private int rec_id;
+
+    private Trick trick;
+
+    public Trick getTrick() {
+        return trick;
+    }
+
+    public void setTrick(Trick trick) {
+        this.trick = trick;
+    }
+
+    public long getCanceltime() {
+        return canceltime;
+    }
+
+    public void setCanceltime(long canceltime) {
+        this.canceltime = canceltime;
+    }
+
+    public int getRec_id() {
+        return rec_id;
+    }
+
+    public void setRec_id(int rec_id) {
+        this.rec_id = rec_id;
+    }
 
     public String getReject_reason() {
         return reject_reason == null ? "" : reject_reason;
@@ -175,5 +210,59 @@ public class RefundDetailsBean implements Serializable {
 
     public void setReturn_status(int return_status) {
         this.return_status = return_status;
+    }
+
+    public  class Trick implements Serializable{
+
+        /**
+         * 物流公司
+         */
+        private String shipping_name;
+        private String courier_number;
+        private String state;
+        private String AcceptStation;
+        private String AcceptTime;
+
+        public String getAcceptTime() {
+            return AcceptTime == null ? "" : AcceptTime;
+        }
+
+        public void setAcceptTime(String acceptTime) {
+            AcceptTime = acceptTime;
+        }
+
+        public String getShipping_name() {
+            return shipping_name == null ? "" : shipping_name;
+        }
+
+        public void setShipping_name(String shipping_name) {
+            this.shipping_name = shipping_name;
+        }
+
+        public String getCourier_number() {
+            return courier_number == null ? "" : courier_number;
+        }
+
+        public void setCourier_number(String courier_number) {
+            this.courier_number = courier_number;
+        }
+
+        public String getState() {
+            return state == null ? "" : state;
+        }
+
+        public void setState(String state) {
+            this.state = state;
+        }
+
+        public String getAcceptStation() {
+            return AcceptStation == null ? "" : AcceptStation;
+        }
+
+        public void setAcceptStation(String acceptStation) {
+            AcceptStation = acceptStation;
+        }
+
+
     }
 }

@@ -95,6 +95,25 @@ public class MineBuyerBean implements Serializable {
          */
         private int return_status;
 
+        private String buyer_mobile;
+        private String seller_mobile;
+
+        public String getBuyer_mobile() {
+            return buyer_mobile == null ? "" : buyer_mobile;
+        }
+
+        public void setBuyer_mobile(String buyer_mobile) {
+            this.buyer_mobile = buyer_mobile;
+        }
+
+        public String getSeller_mobile() {
+            return seller_mobile == null ? "" : seller_mobile;
+        }
+
+        public void setSeller_mobile(String seller_mobile) {
+            this.seller_mobile = seller_mobile;
+        }
+
         public int getReturn_status() {
             return return_status;
         }
