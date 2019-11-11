@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/item_img_commodity"
+        android:layout_width="71dp"
+        android:layout_marginRight="10dp"
+        android:layout_height="71dp"/>
+
+    <TextView
+        android:layout_marginTop="4dp"
+        android:id="@+id/item_tv_commodity_title"
+        android:text="久速猫粮,布偶猫粮"
+        android:layout_toRightOf="@id/item_img_commodity"
+        android:layout_width="wrap_content"
+        android:textSize="13sp"
+        android:textColor="@color/text_black33"
+        android:layout_height="wrap_content"/>
+
+
+    <TextView
+        android:id="@+id/item_tv_toast"
+        android:layout_width="wrap_content"
+        android:padding="2dp"
+        android:text="积分享6折"
+        android:background="@drawable/bg_orange_solid"
+        android:textColor="@color/white"
+        android:textSize="11sp"
+        android:layout_toRightOf="@id/item_img_commodity"
+        android:layout_marginTop="3dp"
+        android:layout_alignBottom="@id/item_img_commodity"
+        android:layout_marginBottom="3dp"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/item_tv_new_money"
+        android:layout_width="wrap_content"
+        android:text="￥60"
+        android:layout_above="@id/item_tv_toast"
+        android:layout_toRightOf="@id/item_img_commodity"
+        android:layout_marginTop="3dp"
+        android:textColor="@color/red_fe8977"
+        android:textSize="@dimen/font_12sp"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/item_tv_old_money"
+        android:layout_width="wrap_content"
+        android:text="￥100"
+        android:layout_marginLeft="5dp"
+        android:layout_above="@id/item_tv_toast"
+        android:layout_toRightOf="@id/item_tv_new_money"
+        android:textColor="#c1c0c0"
+        android:textSize="@dimen/font_12sp"
+        android:layout_marginTop="3dp"
+        android:layout_height="wrap_content"/>
+
+
+</RelativeLayout>

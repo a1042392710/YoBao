@@ -56,8 +56,6 @@ public class MineFansFragment extends BaseFragment<MineLikeAndFansPresenter> imp
      */
     private int selectPosition;
 
-
-
     @Override
     protected void initView() {
         rvList.setLayoutManager(new LinearLayoutManager(mContext));

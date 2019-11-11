@@ -10,6 +10,12 @@ import com.baidu.ocr.sdk.utils.LogUtil;
 import com.blankj.utilcode.util.ToastUtils;
 import com.jjz.energy.base.Constant;
 import com.jjz.energy.ui.MainActivity;
+import com.jjz.energy.ui.home.commodity.CommodityDetailActivity;
+import com.jjz.energy.ui.jiusu_shop.shop_order.EvaluateDetailsActivity;
+import com.jjz.energy.ui.jiusu_shop.shop_order.ExpressDetailsActivity;
+import com.jjz.energy.ui.jiusu_shop.shop_order.OrderDetailsActivity;
+import com.jjz.energy.ui.jiusu_shop.shop_order.refund_order.BuyerRefundDetailsActivity;
+import com.jjz.energy.ui.jiusu_shop.shop_order.refund_order.SellerRefundDetailsActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -29,7 +35,7 @@ public class MyReceiver extends BroadcastReceiver {
 
     private static final String TAG = "陈大帅的推送";
     /**
-     * 通知类型
+     * 通知类型 1 订单 2 物流  3.留言评论 4系统通知
      */
     public static final String NOTICE_TYPE = "type";
     /**
@@ -37,31 +43,27 @@ public class MyReceiver extends BroadcastReceiver {
      */
     public static final String VALUE_ID = "id";
     /**
-     * 通知的主键Id
+     * 用户类型 买家 还是 卖家
      */
-    public static final String N_ID = "nid";
+    public static final String USER_TYPE = "user_type";
 
     @Override
     public void onReceive(Context context, Intent intent) {
+
         try {
             Bundle bundle = intent.getExtras();
             LogUtil.d(TAG, "[MyReceiver]  " + intent.getAction() + ", extras: " + printBundle(bundle));
             //通知类型
-            String type= "";
+            int type ;
             //查询Id
             String id = "";
-            //通知的主键 nId
-            String nid = "";
+            //用户类型
+            String user_type = "";
             //循环取出消息里面的数据
             JSONObject json = new JSONObject(bundle.getString(JPushInterface.EXTRA_EXTRA));
-            type = json.getString(NOTICE_TYPE);
+            type = json.getInt(NOTICE_TYPE);
             id = json.getString(VALUE_ID);
-            try {
-                nid = json.getString(N_ID);
-            }catch (Exception e){
-                nid="";
-            }
-
+            user_type = json.getString(USER_TYPE);
 
             LogUtil.e("通知类型", type+"id："+id);
 
@@ -80,17 +82,58 @@ public class MyReceiver extends BroadcastReceiver {
 
                 // 用户点击打开了通知
             } else if (JPushInterface.ACTION_NOTIFICATION_OPENED.equals(intent.getAction())) {
-
-                ToastUtils.showShort("这是一个通知");
+                ToastUtils.showShort("用户打开了一个通知");
+                goActivity(context,type,id,user_type);
 
             } else {
                 LogUtil.e(TAG, "Unhandled intent - " + intent.getAction());
             }
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
-
     }
+    private void goActivity(Context context, int type,String id,String user_type) {
+        Intent i ;
+        switch (type) {
+            //推送类型 订单
+            case Constant.NOTICE_ORDER:
+                i = new Intent(context, OrderDetailsActivity.class).putExtra(Constant.ORDER_SN,id);
+                break;
+            //推送类型 售后
+            case Constant.NOTICE_REFUND:
+                if (user_type.equals("buyer")){
+                    i = new Intent(context, BuyerRefundDetailsActivity.class).putExtra(Constant.RETURN_ID,id);
+                }else{
+                    i = new Intent(context, SellerRefundDetailsActivity.class).putExtra(Constant.RETURN_ID,id);
+                }
+                break;
+            //推送类型 物流
+            case Constant.NOTICE_LOGISTICE:
+                i = new Intent(context, ExpressDetailsActivity.class).putExtra("shipping_no",id);
+                break;
+            //推送类型 留言
+            case Constant.NOTICE_MESSAGE:
+                i = new Intent(context, CommodityDetailActivity.class).putExtra(Constant.GOODS_ID,id);
+                break;
+
+            //推送类型 查看评价
+            case Constant.NOTICE_COMMENT:
+                i = new Intent(context, EvaluateDetailsActivity.class).putExtra(Constant.ORDER_SN, id);
+                break;
+
+            //推送类型 系统消息 暂定其点击事件
+//            case Constant.NOTICE_SYSTEM:
+////                i = new Intent(context, EvaluateDetailsActivity.class).putExtra(Constant.ORDER_SN, id);
+//                break;
+            default:
+                //不清楚通知类型的全跳首页
+                i = new Intent(context, MainActivity.class);
+                break;
+        }
+        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        context.startActivity(i);
+    }
+
 
     // 打印所有的 intent extra 数据
     private static String printBundle(Bundle bundle) {
@@ -124,24 +167,6 @@ public class MyReceiver extends BroadcastReceiver {
             }
         }
         return sb.toString();
-    }
-
-    private void goActivity(Context context, int type,String id,String nid ,String view_type) {
-        Intent i ;
-
-        switch (type) {
-            //推送类型
-            case Constant.NOTICE_ONE:
-                LogUtil.d("推送的消息1","" );
-                i = new Intent(context, MainActivity.class);
-                break;
-
-            default:
-                //不清楚通知类型的全跳首页
-                i = new Intent(context, MainActivity.class);
-                break;
-        }
-        context.startActivity(i);
     }
 
 }

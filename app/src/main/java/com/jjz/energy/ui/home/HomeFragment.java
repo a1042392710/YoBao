@@ -26,10 +26,10 @@ import com.jjz.energy.ui.home.charitable.CharitableActivity;
 import com.jjz.energy.ui.home.commodity.HomeCommodityFragment;
 import com.jjz.energy.ui.home.education.EducationActivity;
 import com.jjz.energy.ui.home.insurance.InsuranceActivity;
-import com.jjz.energy.ui.home.jiusu_shop.JiuSuShopActivity;
+import com.jjz.energy.ui.jiusu_shop.JiuSuShopActivity;
 import com.jjz.energy.ui.home.logistics.LogisticsActivity;
 import com.jjz.energy.ui.home.pension.PensionActivity;
-import com.jjz.energy.ui.notice.SystemNoticeActivity;
+import com.jjz.energy.ui.notice.NoticeListActivity;
 import com.jjz.energy.util.StringUtil;
 import com.jjz.energy.util.glide.GlideImageLoader;
 import com.jjz.energy.util.networkUtil.PacketUtil;
@@ -191,7 +191,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements IHomeVi
                 break;
             //通知
             case R.id.img_notice:
-                startActivity(new Intent(mContext, SystemNoticeActivity.class));
+                startActivity(new Intent(mContext, NoticeListActivity.class));
                 break;
             //物流
             case R.id.ll_logistics:

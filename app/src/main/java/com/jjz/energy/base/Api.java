@@ -24,11 +24,14 @@ import com.jjz.energy.entry.jiusu.ShareInfoBean;
 import com.jjz.energy.entry.jiusu.ShopMarkerBean;
 import com.jjz.energy.entry.jiusu.VipListInfo;
 import com.jjz.energy.entry.jiusu.WithdrawListBean;
+import com.jjz.energy.entry.jiusu_shop.JiuSuShopBean;
+import com.jjz.energy.entry.jiusu_shop.ShopHomePageBean;
 import com.jjz.energy.entry.mine.AddressBean;
 import com.jjz.energy.entry.mine.BindOwnerInfoBean;
 import com.jjz.energy.entry.mine.LikeGoodsBean;
 import com.jjz.energy.entry.mine.MineBuyerBean;
 import com.jjz.energy.entry.mine.MineLikeAndFansBean;
+import com.jjz.energy.entry.mine.OrderNoticeBean;
 import com.jjz.energy.entry.mine.RefundHistroyBean;
 import com.jjz.energy.entry.mine.UserPageInfo;
 import com.jjz.energy.entry.order.ApplicationRefundBean;
@@ -70,7 +73,7 @@ public interface Api {
      String PACK_NO = "params";
 
 
-     //================================================== 用户
+     //-------------------------------------------------- 用户
 
     //登录
     @FormUrlEncoded
@@ -186,7 +189,7 @@ public interface Api {
     Flowable<ResponseData<BindBean>> getBindInfo(@Field(PACK_NO) String pack_no);
 
 
-    //=================================================== 收货地址
+    //--------------------------------------------------= 收货地址
 
     //获取久速商城基本信息
     @FormUrlEncoded
@@ -194,28 +197,28 @@ public interface Api {
     Flowable<ResponseData<LoginBean>> getJiuSuInfo(@Field(PACK_NO) String pack_no);
 
     /**
-     * 我的 == 添加收货地址
+     * 我的 -- 添加收货地址
      */
     @FormUrlEncoded
     @POST("user/addressSave")
     Flowable<ResponseData<AddressBean>> addAddress(@Field(PACK_NO) String pack_no);
 
     /**
-     * 我的 == 删除收货地址
+     * 我的 -- 删除收货地址
      */
     @FormUrlEncoded
     @POST("user/delAddress")
     Flowable<ResponseData<AddressBean>> deleteAddress(@Field(PACK_NO) String pack_no);
 
     /**
-     * 我的 == 设为默认收货地址
+     * 我的 -- 设为默认收货地址
      */
     @FormUrlEncoded
     @POST("user/myAddress")
     Flowable<ResponseData<AddressBean>> defaultAddress(@Field(PACK_NO) String pack_no);
 
     /**
-     * 我的 == 收货地址列表
+     * 我的 -- 收货地址列表
      */
     @FormUrlEncoded
     @POST("user/myAddress")
@@ -225,7 +228,7 @@ public interface Api {
 
 
 
-    //======================================================== 发布 帖子 / 物流 / 商品
+    //-------------------------------------------------------- 发布 帖子 / 物流 / 商品
 
 
     //发布商品
@@ -307,7 +310,7 @@ public interface Api {
     @POST("order/orderComment")
     Flowable<ResponseData<EvaluateDetailsBean>> getEvaluateDetails(@Field(PACK_NO) String pack_no);
 
-    // ==========================================================  订单
+    // ----------------------------------------------------------  订单
 
     //确认订单页面获取商品信息
     @FormUrlEncoded
@@ -398,13 +401,49 @@ public interface Api {
     Flowable<ResponseData<String>> sellerRefuseApplication(@Part MultipartBody.Part prams, @PartMap Map<String, RequestBody> imgs);
 
     /**
-     * 退货 == 协商历史
+     * 退货 -- 协商历史
      */
     @FormUrlEncoded
     @POST("return_goods/returnGoodsLog")
     Flowable<ResponseData<RefundHistroyBean>> getRefundHistoryList(@Field(PACK_NO) String pack_no);
+    
+    
+    // -------------------------------------------------------------------- 订单消息
+    /**
+     * 订单消息
+     */
+    @FormUrlEncoded
+    @POST("return_goods/returnGoodsLog")
+    Flowable<ResponseData<OrderNoticeBean>> getOrderNoticeList(@Field(PACK_NO) String pack_no);
 
-    //======================================================== 以下是 久速接口
+
+    // -------------------------------------------------------------------- 久速商家
+
+    /**
+     * 获取推荐商家列表 和 商家分类信息
+     */
+    @FormUrlEncoded
+    @POST("return_goods/returnGoodsLog")
+    Flowable<ResponseData<JiuSuShopBean>> getShopList(@Field(PACK_NO) String pack_no);
+
+    /**
+     * 获取推荐商家列表 和 商家分类信息
+     */
+    @FormUrlEncoded
+    @POST("user/setUserinfo")
+    Flowable<ResponseData<String>> submitRegistrationId(@Field(PACK_NO) String pack_no);
+
+
+    /**
+     * 获取商家个人主页的信息
+     */
+    @FormUrlEncoded
+    @POST("user/setUserinfo")
+    Flowable<ResponseData<ShopHomePageBean>> getShopHomePage(@Field(PACK_NO) String pack_no);
+
+
+
+    //-------------------------------------------------------- 以下是 久速接口
 
     //查询下级代理
     @FormUrlEncoded

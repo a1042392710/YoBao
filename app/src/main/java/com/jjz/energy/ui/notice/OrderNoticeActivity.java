@@ -29,10 +29,10 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
- * @Features: 系统消息
+ * @Features:
  * @author: create by chenhao on 2019/11/9
  */
-public class SystemNoticeActivity extends BaseActivity<NoticePresenter> implements INoticeView,OnLoadMoreListener {
+public class OrderNoticeActivity extends BaseActivity<NoticePresenter> implements INoticeView,OnLoadMoreListener {
     @BindView(R.id.ll_toolbar_left)
     LinearLayout llToolbarLeft;
     @BindView(R.id.tv_toolbar_title)
@@ -57,7 +57,7 @@ public class SystemNoticeActivity extends BaseActivity<NoticePresenter> implemen
 
     @Override
     protected void initView() {
-        tvToolbarTitle.setText("系统消息");
+        tvToolbarTitle.setText("订单消息");
         smartRefresh.setOnLoadMoreListener(this);
         rvNoticeList.setLayoutManager(new LinearLayoutManager(this));
         mNoticeAdapter = new NoticeAdapter(R.layout.item_order_notice, new ArrayList<>());
@@ -93,7 +93,7 @@ public class SystemNoticeActivity extends BaseActivity<NoticePresenter> implemen
         } else {
             // 新数据为空时 显示空数据页面
             if (!mNoticeAdapter.notifyChangeData(data.getList())) {
-                mNoticeAdapter.setEmptyView(getLoadSirView(R.mipmap.ic_none_list_data, "您还没有系统消息", false,
+                mNoticeAdapter.setEmptyView(getLoadSirView(R.mipmap.ic_none_list_data, "您还没有订单消息", false,
                         null));
                 smartRefresh.setEnableLoadMore(false);
             } else {
@@ -153,8 +153,8 @@ public class SystemNoticeActivity extends BaseActivity<NoticePresenter> implemen
         protected void convert(BaseViewHolder helper, OrderNoticeBean.ListBean item) {
             ImageView imgCommodity = helper.getView(R.id.item_img_commondity);
             GlideUtils.loadRoundCircleImage(mContext,"",imgCommodity);
-            helper.setText(R.id.item_tv_notice_title,"关注商品下架 ");
-            helper.setText(R.id.item_tv_notice_content,"你关注的久速燃料已降价");
+            helper.setText(R.id.item_tv_notice_title,"订单已发货 ");
+            helper.setText(R.id.item_tv_notice_content,"你购买的大碗宽面已经发货了");
         }
     }
 }

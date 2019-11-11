@@ -75,11 +75,17 @@
         android:layout_marginTop="1dp"
         android:background="@color/white" />
 
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/smart_refresh"
+        android:layout_width="match_parent"
+        app:srlEnableRefresh="false"
+        android:layout_height="match_parent">
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_shop_list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_marginTop="10dp"
         android:background="@color/white" />
-
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 </LinearLayout>

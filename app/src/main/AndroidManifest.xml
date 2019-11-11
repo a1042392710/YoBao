@@ -95,7 +95,7 @@
 
         <!--久速商家-->
         <activity
-            android:name="com.jjz.energy.ui.home.jiusu_shop.JiuSuShopActivity"
+            android:name="com.jjz.energy.ui.jiusu_shop.JiuSuShopActivity"
             android:configChanges="orientation|screenSize"/>
 
         <!--聊天页面-->
@@ -120,7 +120,7 @@
 
         <!--确认购买页面-->
         <activity
-            android:name=".ui.mine.shop_order.SureBuyActivity"
+            android:name=".ui.jiusu_shop.shop_order.SureBuyActivity"
             android:configChanges="orientation|screenSize"/>
 
         <!--通用网页-->
@@ -237,20 +237,20 @@
             android:configChanges="orientation|screenSize"/>
 
         <!--订单详情-->
-        <activity android:name="com.jjz.energy.ui.mine.shop_order.OrderDetailsActivity"
+        <activity android:name=".ui.jiusu_shop.shop_order.OrderDetailsActivity"
             android:configChanges="orientation|screenSize"/>
 
         <!--我要发货-->
-        <activity android:name="com.jjz.energy.ui.mine.shop_order.DeliverGoodsActivity"
+        <activity android:name=".ui.jiusu_shop.shop_order.DeliverGoodsActivity"
             android:configChanges="orientation|screenSize"/>
 
 
         <!--选择物流公司-->
-        <activity android:name="com.jjz.energy.ui.mine.shop_order.ExpressCompanyActivity"
+        <activity android:name=".ui.jiusu_shop.shop_order.ExpressCompanyActivity"
             android:configChanges="orientation|screenSize"/>
 
         <!--物流详情-->
-        <activity android:name="com.jjz.energy.ui.mine.shop_order.ExpressDetailsActivity"
+        <activity android:name=".ui.jiusu_shop.shop_order.ExpressDetailsActivity"
             android:configChanges="orientation|screenSize"/>
 
 
@@ -310,47 +310,67 @@
                   android:configChanges="orientation|screenSize"/>
 
         <!--评价一下-->
-        <activity android:name="com.jjz.energy.ui.mine.shop_order.EvaluateActivity"
+        <activity android:name=".ui.jiusu_shop.shop_order.EvaluateActivity"
                   android:configChanges="orientation|screenSize"/>
 
         <!--评价详情-->
-        <activity android:name="com.jjz.energy.ui.mine.shop_order.EvaluateDetailsActivity"
+        <activity android:name=".ui.jiusu_shop.shop_order.EvaluateDetailsActivity"
                   android:configChanges="orientation|screenSize"/>
 
         <!--选择退货还是退款-->
-        <activity android:name="com.jjz.energy.ui.mine.shop_order.refund_order.RefundTypeSelectActivity"
+        <activity android:name=".ui.jiusu_shop.shop_order.refund_order.RefundTypeSelectActivity"
             android:configChanges="orientation|screenSize"/>
 
         <!--申请退款-->
-        <activity android:name="com.jjz.energy.ui.mine.shop_order.refund_order.ApplicationRefundActivity"
+        <activity android:name=".ui.jiusu_shop.shop_order.refund_order.ApplicationRefundActivity"
             android:configChanges="orientation|screenSize"/>
 
         <!--买家查看退货退款详情页面-->
-        <activity android:name="com.jjz.energy.ui.mine.shop_order.refund_order.BuyerRefundDetailsActivity"
+        <activity android:name=".ui.jiusu_shop.shop_order.refund_order.BuyerRefundDetailsActivity"
             android:configChanges="orientation|screenSize"/>
 
         <!--卖家查看退货退款详情页面-->
-        <activity android:name="com.jjz.energy.ui.mine.shop_order.refund_order.SellerRefundDetailsActivity"
+        <activity android:name=".ui.jiusu_shop.shop_order.refund_order.SellerRefundDetailsActivity"
             android:configChanges="orientation|screenSize"/>
 
         <!--卖家同意退货-->
-        <activity android:name="com.jjz.energy.ui.mine.shop_order.refund_order.SellerAgreeReturnActivity"
+        <activity android:name=".ui.jiusu_shop.shop_order.refund_order.SellerAgreeReturnActivity"
             android:configChanges="orientation|screenSize"/>
 
         <!--卖家拒绝申请-->
-        <activity android:name="com.jjz.energy.ui.mine.shop_order.refund_order.SellerRefuseApplicationActivity"
+        <activity android:name=".ui.jiusu_shop.shop_order.refund_order.SellerRefuseApplicationActivity"
             android:configChanges="orientation|screenSize"/>
 
         <!--买家填写退货物流-->
-        <activity android:name="com.jjz.energy.ui.mine.shop_order.refund_order.ReturnLogisticsActivity"
+        <activity android:name=".ui.jiusu_shop.shop_order.refund_order.ReturnLogisticsActivity"
             android:configChanges="orientation|screenSize"/>
 
         <!--退款 协商历史-->
-        <activity android:name="com.jjz.energy.ui.mine.shop_order.refund_order.RefundHistoryActivity"
+        <activity android:name=".ui.jiusu_shop.shop_order.refund_order.RefundHistoryActivity"
             android:configChanges="orientation|screenSize"/>
 
         <!--消息列表-->
+        <activity android:name="com.jjz.energy.ui.notice.NoticeListActivity"
+            android:configChanges="orientation|screenSize"/>
+
+        <!--订单消息-->
+        <activity android:name="com.jjz.energy.ui.notice.OrderNoticeActivity"
+            android:configChanges="orientation|screenSize"/>
+
+        <!--系统消息-->
         <activity android:name="com.jjz.energy.ui.notice.SystemNoticeActivity"
+            android:configChanges="orientation|screenSize"/>
+
+        <!--物流消息-->
+        <activity android:name="com.jjz.energy.ui.notice.LogisticsNoticeActivity"
+            android:configChanges="orientation|screenSize"/>
+
+        <!--留言消息-->
+        <activity android:name="com.jjz.energy.ui.notice.CommentNoticeActivity"
+            android:configChanges="orientation|screenSize"/>
+
+        <!--久速商家个人主页-->
+        <activity android:name="com.jjz.energy.ui.jiusu_shop.JiuSuShopHomePageActivity"
             android:configChanges="orientation|screenSize"/>
 
 

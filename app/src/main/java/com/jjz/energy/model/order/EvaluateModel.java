@@ -37,7 +37,7 @@ public class EvaluateModel extends BaseModel {
     }
 
 
-    //发货
+    //查看评价
     public Flowable<EvaluateDetailsBean> getEvaluateDetails(String requestData) {
         return RetrofitFactory.getRetrofit().create(Api.class).getEvaluateDetails(requestData).compose(RxSchedulerHepler.handleMyResult());
     }

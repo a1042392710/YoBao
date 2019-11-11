@@ -1,4 +1,4 @@
-package com.jjz.energy.ui.mine.shop_order;
+package com.jjz.energy.ui.jiusu_shop.shop_order;
 
 import android.Manifest;
 import android.content.Intent;
@@ -6,7 +6,6 @@ import android.net.Uri;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -116,6 +115,7 @@ public class EvaluateActivity extends BaseActivity<EvaluatePresenter> implements
      * 上传头像
      */
     private void compressPhotos() {
+        if (fileUri!=null){
         //压缩图片
         Luban.with(this)
                 .load( FileUtil.getRealFilePath(mContext,fileUri ))
@@ -124,13 +124,11 @@ public class EvaluateActivity extends BaseActivity<EvaluatePresenter> implements
                 .setCompressListener(new OnCompressListener() {
                     @Override
                     public void onStart() {
-                        Log.e("久速","开始压缩头像");
                         showLoading();
                     }
 
                     @Override
                     public void onSuccess(File file) {
-                        Log.e("久速","压缩成功，开始上传");
                         stopLoading();
                         //开始提交
                         putEvaluate(file.getPath());
@@ -144,6 +142,9 @@ public class EvaluateActivity extends BaseActivity<EvaluatePresenter> implements
                     }
                 }).launch();
 
+        } else {
+            putEvaluate("");
+        }
     }
 
 

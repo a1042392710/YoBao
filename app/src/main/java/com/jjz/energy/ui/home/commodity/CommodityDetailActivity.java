@@ -28,7 +28,7 @@ import com.jjz.energy.presenter.home.CommodityDetailsPresenter;
 import com.jjz.energy.ui.ImagePagerActivity;
 import com.jjz.energy.ui.mine.MineLikeCommodityActivity;
 import com.jjz.energy.ui.mine.information.HomePageActivity;
-import com.jjz.energy.ui.mine.shop_order.SureBuyActivity;
+import com.jjz.energy.ui.jiusu_shop.shop_order.SureBuyActivity;
 import com.jjz.energy.ui.notice.IMActivity;
 import com.jjz.energy.util.StringUtil;
 import com.jjz.energy.util.Utils;

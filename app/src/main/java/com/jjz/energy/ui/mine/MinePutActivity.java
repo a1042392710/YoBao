@@ -70,6 +70,7 @@ public class MinePutActivity extends BaseActivity <MinePutPresenter>implements I
     @Override
     protected void initView() {
         tvToolbarTitle.setText("我发布的");
+        llToolbarLeft.setOnClickListener(v -> finish());
         mAdapter = new MineListAdapter(R.layout.item_mine_put,new ArrayList<>());
         rvMinePut.setLayoutManager(new LinearLayoutManager(mContext));
         rvMinePut.setAdapter(mAdapter);

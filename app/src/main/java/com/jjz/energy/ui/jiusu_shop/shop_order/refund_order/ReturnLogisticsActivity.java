@@ -1,4 +1,4 @@
-package com.jjz.energy.ui.mine.shop_order.refund_order;
+package com.jjz.energy.ui.jiusu_shop.shop_order.refund_order;
 
 import android.Manifest;
 import android.content.Intent;
@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -18,9 +19,12 @@ import com.jjz.energy.R;
 import com.jjz.energy.adapter.CommonSelectPhotoAdapter;
 import com.jjz.energy.base.BaseActivity;
 import com.jjz.energy.base.Constant;
+import com.jjz.energy.entry.order.ExpressCompanyBean;
 import com.jjz.energy.presenter.order.RefundPresenter;
+import com.jjz.energy.ui.jiusu_shop.shop_order.ExpressCompanyActivity;
 import com.jjz.energy.util.StringUtil;
 import com.jjz.energy.util.file.FileUtil;
+import com.jjz.energy.util.glide.GlideUtils;
 import com.jjz.energy.util.glide.MyGlideEngine;
 import com.jjz.energy.util.networkUtil.PacketUtil;
 import com.jjz.energy.util.system.PopWindowUtil;
@@ -49,12 +53,11 @@ import top.zibin.luban.Luban;
 import top.zibin.luban.OnCompressListener;
 
 /**
- * @Features: 卖家拒绝退货申请
+ * @Features: 填写退货物流
  * @author: create by chenhao on 2019/11/4
  */
 @RuntimePermissions
-public class SellerRefuseApplicationActivity extends BaseActivity<RefundPresenter> implements IRefundView {
-
+public class ReturnLogisticsActivity extends BaseActivity <RefundPresenter> implements IRefundView {
 
     @BindView(R.id.ll_toolbar_left)
     LinearLayout llToolbarLeft;
@@ -62,22 +65,43 @@ public class SellerRefuseApplicationActivity extends BaseActivity<RefundPresente
     TextView tvToolbarTitle;
     @BindView(R.id.tv_toolbar_right)
     TextView tvToolbarRight;
-    @BindView(R.id.et_refuse)
-    EditText etRefuse;
+    @BindView(R.id.img_commodity)
+    ImageView imgCommodity;
+    @BindView(R.id.tv_commodity_title)
+    TextView tvCommodityTitle;
+    @BindView(R.id.tv_text_one)
+    TextView tvTextOne;
+    @BindView(R.id.tv_text_two)
+    TextView tvTextTwo;
+    @BindView(R.id.view_line_two)
+    View viewLineTwo;
+    @BindView(R.id.tv_text_three)
+    TextView tvTextThree;
+    @BindView(R.id.et_express_number)
+    EditText etExpressNumber;
+    @BindView(R.id.view_line_three)
+    View viewLineThree;
+    @BindView(R.id.tv_text_four)
+    TextView tvTextFour;
+    @BindView(R.id.tv_express_company)
+    TextView tvExpressCompany;
     @BindView(R.id.rv_select_photo)
     RecyclerView rvSelectPhoto;
-    @BindView(R.id.tv_refuse_submit)
-    TextView tvRefuseSubmit;
+    @BindView(R.id.tv_sure)
+    TextView tvSure;
 
     /**
      * 选择图片 recyclerView的适配器
      */
     private CommonSelectPhotoAdapter mSelectPhotoAdapter;
-
     /**
      * 选中的所有图片
      */
     private LinkedList<Uri> mSelectPhotos;
+    /*
+     * 存下物流公司的信息
+     */
+    private ExpressCompanyBean mExpressCompanyBean ;
     /**
      * 售后id
      */
@@ -85,7 +109,9 @@ public class SellerRefuseApplicationActivity extends BaseActivity<RefundPresente
 
     @Override
     protected void initView() {
-        tvToolbarTitle.setText("拒绝申请");
+        tvToolbarTitle.setText("填写退货物流");
+        GlideUtils.loadRoundCircleImage(mContext,getIntent().getStringExtra("img"),imgCommodity);
+        tvCommodityTitle.setText(getIntent().getStringExtra("name"));
         return_id = getIntent().getStringExtra(Constant.RETURN_ID);
         setData();
     }
@@ -104,6 +130,38 @@ public class SellerRefuseApplicationActivity extends BaseActivity<RefundPresente
         //适配器实例化 最多选三张
         mSelectPhotoAdapter = new CommonSelectPhotoAdapter(R.layout.item_put_commodity_select_photo, mSelectPhotos, 3);
         rvSelectPhoto.setAdapter(mSelectPhotoAdapter);
+    }
+
+    //买家提交退货信息成功
+    @Override
+    public void isBuyerPutExpressInfoSuccess(String data) {
+        showToast("提交成功");
+        finish();
+    }
+
+    @OnClick({R.id.ll_toolbar_left, R.id.tv_express_company, R.id.tv_sure})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.ll_toolbar_left:
+                finish();
+                break;
+                //选择物流公司
+            case R.id.tv_express_company:
+                startActivityForResult(new Intent(mContext, ExpressCompanyActivity.class), Constant.SELECT_COMPANY_CODE);
+                break;
+            //提交
+            case R.id.tv_sure:
+                if (StringUtil.isEmpty(etExpressNumber.getText().toString())){
+                    showToast("请填写物流单号");
+                    return;
+                }
+                if (mExpressCompanyBean==null){
+                    showToast("请选择物流公司");
+                    return;
+                }
+                compressPhotos();
+                break;
+        }
     }
 
     // ============================================ 数据提交
@@ -155,22 +213,29 @@ public class SellerRefuseApplicationActivity extends BaseActivity<RefundPresente
     }
 
     /**
-     * 提交数据  卖家拒绝退货/退款
+     * 提交数据
      */
     private void submit(){
         //提交
         HashMap<String, String> map = new HashMap<>();
         map.put("id",return_id);
-        map.put("status","-1");
-        map.put("reject_reason",etRefuse.getText().toString());
-        mPresenter.sellerRefuseApplication(PacketUtil.getRequestPacket(map),mFileList);
+        // 2 已退货
+        map.put("status",2+"");
+        map.put("shipping_id",mExpressCompanyBean.getId());
+        map.put("courier_number",etExpressNumber.getText().toString());
+        mPresenter.buyerPutExpressInfo(PacketUtil.getRequestPacket(map),mFileList);
     }
 
 
+
     @Override
-    public void isSellerRefuseReturnMoneySuccess(String data) {
-        showToast("操作成功");
-        finish();
+    protected RefundPresenter getPresenter() {
+        return new RefundPresenter(this);
+    }
+
+    @Override
+    protected int layoutId() {
+        return R.layout.act_return_logistics;
     }
 
     @Override
@@ -183,33 +248,6 @@ public class SellerRefuseApplicationActivity extends BaseActivity<RefundPresente
         stopProgressDialog();
     }
 
-    @Override
-    protected RefundPresenter getPresenter() {
-        return new RefundPresenter(this);
-    }
-
-    @Override
-    protected int layoutId() {
-        return R.layout.act_seller_refuse_application;
-    }
-
-
-    @OnClick({R.id.ll_toolbar_left, R.id.tv_refuse_submit})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.ll_toolbar_left:
-                finish();
-                break;
-                //拒绝申请
-            case R.id.tv_refuse_submit:
-                if (StringUtil.isEmpty(etRefuse.getText().toString())){
-                    showToast("请填写拒绝说明");
-                    return;
-                }
-                compressPhotos();
-                break;
-        }
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -224,6 +262,10 @@ public class SellerRefuseApplicationActivity extends BaseActivity<RefundPresente
                 }
                 //刷新数据
                 mSelectPhotoAdapter.notifyDataSetChanged();
+            }else if (requestCode == Constant.SELECT_COMPANY_CODE){
+                //写入物流公司
+                mExpressCompanyBean = (ExpressCompanyBean) data.getSerializableExtra(Constant.INTENT_KEY_OBJECT);
+                tvExpressCompany.setText(mExpressCompanyBean.getName());
             }
         }
     }
@@ -234,7 +276,6 @@ public class SellerRefuseApplicationActivity extends BaseActivity<RefundPresente
         //注销EventBus
         EventBus.getDefault().unregister(this);
     }
-
 
     // ================================================  权限相关
 
@@ -252,7 +293,7 @@ public class SellerRefuseApplicationActivity extends BaseActivity<RefundPresente
             //去除拍照按钮，最多可选择3张图片
             maxPhoto = 4 - mSelectPhotos.size();
             //读取权限成功后 ，开启照片选择器
-            SellerRefuseApplicationActivityPermissionsDispatcher.takePhotoWithCheck(this);
+            ReturnLogisticsActivityPermissionsDispatcher.takePhotoWithCheck(this);
         }
     }
 
@@ -260,9 +301,9 @@ public class SellerRefuseApplicationActivity extends BaseActivity<RefundPresente
     @NeedsPermission({Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA})
     void takePhoto() {
         Matisse.from(this)
-                .choose(EnumSet.of(MimeType.JPEG, MimeType.PNG, MimeType.BMP, MimeType.WEBP))//照片全部显示
+                .choose(EnumSet.of(MimeType.JPEG, MimeType.PNG, MimeType.BMP, MimeType.WEBP))//照片视频全部显示
                 .countable(true)//有序选择图片
-                .maxSelectable(maxPhoto)//最大3张
+                .maxSelectable(maxPhoto)//最大5张
                 .thumbnailScale(0.85f)//缩放比例
                 .theme(R.style.Matisse_Zhihu)//主题  暗色主题R.style.Matisse_Dracula
                 .imageEngine(new MyGlideEngine())//加载方式 glide
@@ -286,13 +327,12 @@ public class SellerRefuseApplicationActivity extends BaseActivity<RefundPresente
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        SellerRefuseApplicationActivityPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
+       ReturnLogisticsActivityPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
     }
-
-
 
     @Override
     public void isFail(String msg) {
         showToast(msg);
     }
+
 }

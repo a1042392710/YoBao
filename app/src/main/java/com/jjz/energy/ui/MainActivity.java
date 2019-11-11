@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
@@ -21,18 +22,22 @@ import com.baidu.location.BDAbstractLocationListener;
 import com.baidu.location.BDLocation;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
+import com.blankj.utilcode.util.StringUtils;
 import com.jjz.energy.R;
 import com.jjz.energy.adapter.ViewPagerAdapter;
 import com.jjz.energy.base.BaseActivity;
-import com.jjz.energy.base.BasePresenter;
 import com.jjz.energy.entry.event.LocationEvent;
+import com.jjz.energy.presenter.MainPresenter;
 import com.jjz.energy.ui.community.PutCommunityActivity;
 import com.jjz.energy.ui.home.commodity.PutCommodityActivity;
 import com.jjz.energy.ui.home.login.LoginActivity;
 import com.jjz.energy.ui.home.logistics.ReleaseLogisticsActivity;
+import com.jjz.energy.util.Utils;
+import com.jjz.energy.util.networkUtil.PacketUtil;
 import com.jjz.energy.util.networkUtil.UserLoginBiz;
 import com.jjz.energy.util.system.PopWindowUtil;
 import com.jjz.energy.util.system.SpUtil;
+import com.jjz.energy.view.IMainView;
 import com.jjz.energy.widgets.NoScrollViewPager;
 import com.jude.swipbackhelper.SwipeBackHelper;
 
@@ -42,6 +47,7 @@ import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import cn.jpush.android.api.JPushInterface;
 import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.OnNeverAskAgain;
 import permissions.dispatcher.RuntimePermissions;
@@ -51,7 +57,7 @@ import permissions.dispatcher.RuntimePermissions;
  * @author: create by chenhao on 2019/3/21
  */
 @RuntimePermissions
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity<MainPresenter> implements IMainView {
     @BindView(R.id.vp_main)
     NoScrollViewPager vpMain;
     @BindView(R.id.rb_home)
@@ -72,7 +78,6 @@ public class MainActivity extends BaseActivity {
      */
     private int selectIndex = 0;
 
-
     //定位
     public LocationClient mLocationClient = null;
     //定位监听
@@ -81,8 +86,8 @@ public class MainActivity extends BaseActivity {
     private LocationClientOption option = new LocationClientOption();
 
     @Override
-    protected BasePresenter getPresenter() {
-        return null;
+    protected MainPresenter getPresenter() {
+        return new MainPresenter(this);
     }
 
     @Override
@@ -99,6 +104,11 @@ public class MainActivity extends BaseActivity {
         initLocation();
         vpMain.setAdapter(new ViewPagerAdapter(getSupportFragmentManager()));
         vpMain.setOffscreenPageLimit(3);
+        //获取推送Id
+        String rid = JPushInterface.getRegistrationID(this);
+        if (!StringUtils.isEmpty(rid)){
+            mPresenter.submitRegistrationId(PacketUtil.getRequestPacket(Utils.stringToMap("push_id",rid)));
+        }
     }
 
 
@@ -229,6 +239,14 @@ public class MainActivity extends BaseActivity {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         MainActivityPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
+    }
+
+    @Override
+    public void isSuccess(String data) {}
+
+    @Override
+    public void isFail(String msg) {
+        Log.e("久速:上传rid失败",msg);
     }
 
 

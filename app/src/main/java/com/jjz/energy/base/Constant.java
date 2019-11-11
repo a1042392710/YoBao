@@ -54,9 +54,29 @@ public class Constant {
      */
     public static final int REQUEST_CODE_SCAN = 30;
     /**
-     * 推送的消息类型
+     * 推送的消息类型 订单
      */
-    public  static  final int NOTICE_ONE = 100;
+    public  static  final int NOTICE_ORDER = 1;
+    /**
+     * 推送的消息类型 售后
+     */
+    public  static  final int NOTICE_REFUND = 2;
+    /**
+     * 推送的消息类型 物流
+     */
+    public  static  final int NOTICE_LOGISTICE= 3;
+    /**
+     * 推送的消息类型 留言
+     */
+    public  static  final int NOTICE_MESSAGE = 4;
+    /**
+     * 推送的消息类型 评论
+     */
+    public  static  final int NOTICE_COMMENT= 5;
+    /**
+     * 推送的消息类型  系统
+     */
+    public  static  final int NOTICE_SYSTEM = 6;
 
     //------------------------------- 用户
 

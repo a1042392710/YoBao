@@ -2,12 +2,12 @@ package com.jjz.energy.adapter;
 
 import android.support.annotation.Nullable;
 import android.widget.ImageView;
-import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jjz.energy.R;
 import com.jjz.energy.base.BaseRecycleNewAdapter;
+import com.jjz.energy.entry.jiusu_shop.JiuSuShopBean;
 import com.jjz.energy.util.glide.GlideUtils;
 
 import java.util.List;
@@ -16,20 +16,20 @@ import java.util.List;
  * @Features: 商户列表
  * @author: create by chenhao on 2019/10/8
  */
-public class JiuSuShopListAdapter extends BaseRecycleNewAdapter<String> {
+public class JiuSuShopListAdapter extends BaseRecycleNewAdapter<JiuSuShopBean.ListBean> {
 
-    public JiuSuShopListAdapter(int layoutResId, @Nullable List<String> data) {
+    public JiuSuShopListAdapter(int layoutResId, @Nullable List<JiuSuShopBean.ListBean> data) {
         super(layoutResId, data);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, String item) {
+    protected void convert(BaseViewHolder helper, JiuSuShopBean.ListBean item) {
         //商户图片
         ImageView itemImgShop = helper.getView(R.id.item_img_shop);
         //商户名称
         TextView itemTvShopName = helper.getView(R.id.item_tv_shop_name);
-        //商户评分
-        RatingBar itemRatingbar = helper.getView(R.id.item_ratingbar);
+        //商户好评率
+        TextView itemTvFavorableRate = helper.getView(R.id.item_tv_favorable_rate);
         //人均消费
         TextView itemTvConsume = helper.getView(R.id.item_tv_consume);
         //商户与你的距离

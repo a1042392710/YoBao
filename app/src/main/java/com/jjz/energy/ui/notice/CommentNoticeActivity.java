@@ -29,10 +29,10 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
- * @Features: 系统消息
+ * @Features: 留言消息
  * @author: create by chenhao on 2019/11/9
  */
-public class SystemNoticeActivity extends BaseActivity<NoticePresenter> implements INoticeView,OnLoadMoreListener {
+public class CommentNoticeActivity extends BaseActivity<NoticePresenter> implements INoticeView,OnLoadMoreListener {
     @BindView(R.id.ll_toolbar_left)
     LinearLayout llToolbarLeft;
     @BindView(R.id.tv_toolbar_title)
@@ -57,10 +57,10 @@ public class SystemNoticeActivity extends BaseActivity<NoticePresenter> implemen
 
     @Override
     protected void initView() {
-        tvToolbarTitle.setText("系统消息");
+        tvToolbarTitle.setText("留言消息");
         smartRefresh.setOnLoadMoreListener(this);
         rvNoticeList.setLayoutManager(new LinearLayoutManager(this));
-        mNoticeAdapter = new NoticeAdapter(R.layout.item_order_notice, new ArrayList<>());
+        mNoticeAdapter = new NoticeAdapter(R.layout.item_comment_notice, new ArrayList<>());
         rvNoticeList.setAdapter(mNoticeAdapter);
         //点击进入各个详情页面
         mNoticeAdapter.setOnItemClickListener((adapter, view, position) -> {
@@ -93,7 +93,7 @@ public class SystemNoticeActivity extends BaseActivity<NoticePresenter> implemen
         } else {
             // 新数据为空时 显示空数据页面
             if (!mNoticeAdapter.notifyChangeData(data.getList())) {
-                mNoticeAdapter.setEmptyView(getLoadSirView(R.mipmap.ic_none_list_data, "您还没有系统消息", false,
+                mNoticeAdapter.setEmptyView(getLoadSirView(R.mipmap.ic_none_list_data, "您还没有留言消息", false,
                         null));
                 smartRefresh.setEnableLoadMore(false);
             } else {
@@ -151,10 +151,12 @@ public class SystemNoticeActivity extends BaseActivity<NoticePresenter> implemen
 
         @Override
         protected void convert(BaseViewHolder helper, OrderNoticeBean.ListBean item) {
+            ImageView imgHead = helper.getView(R.id.item_img_head);
             ImageView imgCommodity = helper.getView(R.id.item_img_commondity);
+            GlideUtils.loadRoundCircleImage(mContext,"",imgHead);
             GlideUtils.loadRoundCircleImage(mContext,"",imgCommodity);
-            helper.setText(R.id.item_tv_notice_title,"关注商品下架 ");
-            helper.setText(R.id.item_tv_notice_content,"你关注的久速燃料已降价");
+            helper.setText(R.id.item_tv_notice_title,"彭于晏"+" 给您留言了");
+            helper.setText(R.id.item_tv_notice_content,"这个面又长又宽");
         }
     }
 }
