@@ -126,6 +126,10 @@ public class Constant {
      * 商品id
      */
     public static final String GOODS_ID = "goods_id";
+    /**
+     * 物流单号
+     */
+    public static final String SHIPPING_NO = "shipping_no";
 
     /**
      * 订单编号

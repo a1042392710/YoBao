@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.ActivityUtils;
 import com.jjz.energy.R;
 import com.jjz.energy.adapter.HomeCommondityPagerAdapter;
 import com.jjz.energy.base.BaseFragment;
@@ -26,13 +27,15 @@ import com.jjz.energy.ui.home.charitable.CharitableActivity;
 import com.jjz.energy.ui.home.commodity.HomeCommodityFragment;
 import com.jjz.energy.ui.home.education.EducationActivity;
 import com.jjz.energy.ui.home.insurance.InsuranceActivity;
-import com.jjz.energy.ui.jiusu_shop.JiuSuShopActivity;
+import com.jjz.energy.ui.home.login.LoginActivity;
 import com.jjz.energy.ui.home.logistics.LogisticsActivity;
 import com.jjz.energy.ui.home.pension.PensionActivity;
+import com.jjz.energy.ui.jiusu_shop.JiuSuShopActivity;
 import com.jjz.energy.ui.notice.NoticeListActivity;
 import com.jjz.energy.util.StringUtil;
 import com.jjz.energy.util.glide.GlideImageLoader;
 import com.jjz.energy.util.networkUtil.PacketUtil;
+import com.jjz.energy.util.networkUtil.UserLoginBiz;
 import com.jjz.energy.view.home.IHomeView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.youth.banner.Banner;
@@ -191,7 +194,8 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements IHomeVi
                 break;
             //通知
             case R.id.img_notice:
-                startActivity(new Intent(mContext, NoticeListActivity.class));
+                //需要验证登录
+                ActivityUtils.startActivity(!UserLoginBiz.getInstance(mContext).detectUserLoginStatus() ? LoginActivity.class : NoticeListActivity.class);
                 break;
             //物流
             case R.id.ll_logistics:

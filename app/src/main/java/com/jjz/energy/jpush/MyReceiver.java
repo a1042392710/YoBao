@@ -58,11 +58,12 @@ public class MyReceiver extends BroadcastReceiver {
             //查询Id
             String id = "";
             //用户类型
-            String user_type = "";
+            String user_type ;
             //循环取出消息里面的数据
             JSONObject json = new JSONObject(bundle.getString(JPushInterface.EXTRA_EXTRA));
             type = json.getInt(NOTICE_TYPE);
             id = json.getString(VALUE_ID);
+
             user_type = json.getString(USER_TYPE);
 
             LogUtil.e("通知类型", type+"id："+id);
@@ -92,24 +93,24 @@ public class MyReceiver extends BroadcastReceiver {
             e.printStackTrace();
         }
     }
-    private void goActivity(Context context, int type,String id,String user_type) {
-        Intent i ;
+
+    private void goActivity(Context context, int type, String id, String user_type) {
+        Intent i;
         switch (type) {
             //推送类型 订单
             case Constant.NOTICE_ORDER:
-                i = new Intent(context, OrderDetailsActivity.class).putExtra(Constant.ORDER_SN,id);
+                // 0 买家 1卖家
+                i = new Intent(context, OrderDetailsActivity.class).putExtra(Constant.ORDER_SN,
+                        id).putExtra(Constant.USER_TYPE, user_type.equals("buyer") ? 0 : 1);
                 break;
             //推送类型 售后
             case Constant.NOTICE_REFUND:
-                if (user_type.equals("buyer")){
-                    i = new Intent(context, BuyerRefundDetailsActivity.class).putExtra(Constant.RETURN_ID,id);
-                }else{
-                    i = new Intent(context, SellerRefundDetailsActivity.class).putExtra(Constant.RETURN_ID,id);
-                }
+                i = new Intent(context, user_type.equals("buyer") ?
+                        BuyerRefundDetailsActivity.class : SellerRefundDetailsActivity.class).putExtra(Constant.RETURN_ID, id);
                 break;
             //推送类型 物流
             case Constant.NOTICE_LOGISTICE:
-                i = new Intent(context, ExpressDetailsActivity.class).putExtra("shipping_no",id);
+                i = new Intent(context, ExpressDetailsActivity.class).putExtra(Constant.SHIPPING_NO,id);
                 break;
             //推送类型 留言
             case Constant.NOTICE_MESSAGE:
@@ -121,10 +122,10 @@ public class MyReceiver extends BroadcastReceiver {
                 i = new Intent(context, EvaluateDetailsActivity.class).putExtra(Constant.ORDER_SN, id);
                 break;
 
-            //推送类型 系统消息 暂定其点击事件
-//            case Constant.NOTICE_SYSTEM:
-////                i = new Intent(context, EvaluateDetailsActivity.class).putExtra(Constant.ORDER_SN, id);
-//                break;
+            //推送类型 系统消息
+            case Constant.NOTICE_SYSTEM:
+                i = new Intent(context, CommodityDetailActivity.class).putExtra(Constant.GOODS_ID, id);
+                break;
             default:
                 //不清楚通知类型的全跳首页
                 i = new Intent(context, MainActivity.class);

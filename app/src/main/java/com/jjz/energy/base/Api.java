@@ -1,5 +1,6 @@
 package com.jjz.energy.base;
 
+import com.jjz.energy.entry.NoticeListInfo;
 import com.jjz.energy.entry.UserInfo;
 import com.jjz.energy.entry.commodity.CommentBean;
 import com.jjz.energy.entry.commodity.GoodsBean;
@@ -409,12 +410,20 @@ public interface Api {
     
     
     // -------------------------------------------------------------------- 订单消息
+
     /**
-     * 订单消息
+     * 获取指定类型的消息
      */
     @FormUrlEncoded
-    @POST("return_goods/returnGoodsLog")
+    @POST("tiding/tidingList")
     Flowable<ResponseData<OrderNoticeBean>> getOrderNoticeList(@Field(PACK_NO) String pack_no);
+
+    /**
+     * 获取所有消息类型的最新数据
+     */
+    @FormUrlEncoded
+    @POST("tiding/index")
+    Flowable<ResponseData<NoticeListInfo>> getNoticeListInfo(@Field(PACK_NO) String pack_no);
 
 
     // -------------------------------------------------------------------- 久速商家

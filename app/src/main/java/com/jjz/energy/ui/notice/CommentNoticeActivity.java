@@ -1,5 +1,6 @@
 package com.jjz.energy.ui.notice;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,9 +13,11 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.jjz.energy.R;
 import com.jjz.energy.base.BaseActivity;
 import com.jjz.energy.base.BaseRecycleNewAdapter;
+import com.jjz.energy.base.Constant;
 import com.jjz.energy.entry.mine.OrderNoticeBean;
 import com.jjz.energy.presenter.home.NoticePresenter;
-import com.jjz.energy.util.Utils;
+import com.jjz.energy.ui.home.commodity.CommodityDetailActivity;
+import com.jjz.energy.util.DateUtil;
 import com.jjz.energy.util.glide.GlideUtils;
 import com.jjz.energy.util.networkUtil.PacketUtil;
 import com.jjz.energy.view.home.INoticeView;
@@ -23,6 +26,7 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
@@ -64,8 +68,13 @@ public class CommentNoticeActivity extends BaseActivity<NoticePresenter> impleme
         rvNoticeList.setAdapter(mNoticeAdapter);
         //点击进入各个详情页面
         mNoticeAdapter.setOnItemClickListener((adapter, view, position) -> {
-
+            OrderNoticeBean.ListBean listBean = mNoticeAdapter.getData().get(position);
+            if (listBean.getType()== Constant.NOTICE_MESSAGE){
+                //留言
+                startActivity( new Intent(mContext, CommodityDetailActivity.class).putExtra(Constant.GOODS_ID,listBean.getGoods_id()));
+            }
         });
+        getData(false);
     }
 
     /**
@@ -73,7 +82,10 @@ public class CommentNoticeActivity extends BaseActivity<NoticePresenter> impleme
      */
     private void getData(boolean isLoadMore){
         this.isLoadMore = isLoadMore;
-        mPresenter.getOrderNoticeList(PacketUtil.getRequestPacket(Utils.stringToMap("page",mPage+"")),isLoadMore);
+        HashMap<String,String> map = new HashMap<>();
+        map.put("enum","messages");
+        map.put("page",mPage+"");
+        mPresenter.getOrderNoticeList(PacketUtil.getRequestPacket(map),isLoadMore);
     }
 
     @Override
@@ -153,10 +165,13 @@ public class CommentNoticeActivity extends BaseActivity<NoticePresenter> impleme
         protected void convert(BaseViewHolder helper, OrderNoticeBean.ListBean item) {
             ImageView imgHead = helper.getView(R.id.item_img_head);
             ImageView imgCommodity = helper.getView(R.id.item_img_commondity);
-            GlideUtils.loadRoundCircleImage(mContext,"",imgHead);
-            GlideUtils.loadRoundCircleImage(mContext,"",imgCommodity);
-            helper.setText(R.id.item_tv_notice_title,"彭于晏"+" 给您留言了");
-            helper.setText(R.id.item_tv_notice_content,"这个面又长又宽");
+            GlideUtils.loadRoundCircleImage(mContext,item.getHead_pic(),imgHead);
+            GlideUtils.loadRoundCircleImage(mContext,item.getImg_url(),imgCommodity);
+            helper.setText(R.id.item_tv_notice_title,item.getNickname()+" 给您留言了");
+            helper.setText(R.id.item_tv_notice_content,item.getContent());
+            helper.setText(R.id.item_tv_time_title, DateUtil.longToDate(item.getAdd_time(),null));
+
+
         }
     }
 }

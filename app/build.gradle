@@ -173,5 +173,6 @@ dependencies {
 
     //图片压缩，仿微信朋友圈
     implementation 'top.zibin:Luban:1.1.8'
-
+    //小红点
+    implementation 'q.rorbin:badgeview:1.1.3'
 }

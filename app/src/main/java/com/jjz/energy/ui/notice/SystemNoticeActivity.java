@@ -1,5 +1,6 @@
 package com.jjz.energy.ui.notice;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,9 +13,11 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.jjz.energy.R;
 import com.jjz.energy.base.BaseActivity;
 import com.jjz.energy.base.BaseRecycleNewAdapter;
+import com.jjz.energy.base.Constant;
 import com.jjz.energy.entry.mine.OrderNoticeBean;
 import com.jjz.energy.presenter.home.NoticePresenter;
-import com.jjz.energy.util.Utils;
+import com.jjz.energy.ui.home.commodity.CommodityDetailActivity;
+import com.jjz.energy.util.DateUtil;
 import com.jjz.energy.util.glide.GlideUtils;
 import com.jjz.energy.util.networkUtil.PacketUtil;
 import com.jjz.energy.view.home.INoticeView;
@@ -23,6 +26,7 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
@@ -64,8 +68,10 @@ public class SystemNoticeActivity extends BaseActivity<NoticePresenter> implemen
         rvNoticeList.setAdapter(mNoticeAdapter);
         //点击进入各个详情页面
         mNoticeAdapter.setOnItemClickListener((adapter, view, position) -> {
-
+            //进入商品详情页面
+            startActivity(new Intent(mContext, CommodityDetailActivity.class).putExtra(Constant.ORDER_SN, mNoticeAdapter.getData().get(position).getOrder_sn()));
         });
+        getData(false);
     }
 
     /**
@@ -73,7 +79,10 @@ public class SystemNoticeActivity extends BaseActivity<NoticePresenter> implemen
      */
     private void getData(boolean isLoadMore){
         this.isLoadMore = isLoadMore;
-        mPresenter.getOrderNoticeList(PacketUtil.getRequestPacket(Utils.stringToMap("page",mPage+"")),isLoadMore);
+        HashMap<String,String> map = new HashMap<>();
+        map.put("enum","system");
+        map.put("page",mPage+"");
+        mPresenter.getOrderNoticeList(PacketUtil.getRequestPacket(map),isLoadMore);
     }
 
     @Override
@@ -152,9 +161,10 @@ public class SystemNoticeActivity extends BaseActivity<NoticePresenter> implemen
         @Override
         protected void convert(BaseViewHolder helper, OrderNoticeBean.ListBean item) {
             ImageView imgCommodity = helper.getView(R.id.item_img_commondity);
-            GlideUtils.loadRoundCircleImage(mContext,"",imgCommodity);
-            helper.setText(R.id.item_tv_notice_title,"关注商品下架 ");
-            helper.setText(R.id.item_tv_notice_content,"你关注的久速燃料已降价");
+            GlideUtils.loadRoundCircleImage(mContext,item.getImg_url(),imgCommodity);
+            helper.setText(R.id.item_tv_notice_title,item.getTitle());
+            helper.setText(R.id.item_tv_notice_content,item.getContent());
+            helper.setText(R.id.item_tv_time_title, DateUtil.longToDate(item.getAdd_time(),null));
         }
     }
 }

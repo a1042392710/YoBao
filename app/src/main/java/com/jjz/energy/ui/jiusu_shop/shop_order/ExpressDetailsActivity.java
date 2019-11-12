@@ -65,7 +65,7 @@ public class ExpressDetailsActivity extends BaseActivity <ExpressPresenter> impl
     @Override
     protected void initView() {
         tvToolbarTitle.setText("物流详情");
-        shipping_no  = getIntent().getStringExtra("shipping_no");
+        shipping_no  = getIntent().getStringExtra(Constant.SHIPPING_NO);
         return_id  = getIntent().getStringExtra(Constant.RETURN_ID);
         rvExpress.setLayoutManager(new LinearLayoutManager(this));
         mAdapter = new ExpressAdapter(R.layout.item_express_details, new ArrayList<>());

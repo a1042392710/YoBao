@@ -1,31 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:layout_height="wrap_content">
-
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="20dp"
+    android:orientation="vertical">
 
 
     <android.support.v7.widget.CardView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:cardBackgroundColor="@color/text_black99"
-        app:cardElevation="0dp"
         android:layout_gravity="center_horizontal"
-        app:cardCornerRadius="12dp">
+        app:cardBackgroundColor="@color/text_black99"
+        app:cardCornerRadius="12dp"
+        android:layout_marginBottom="10dp"
+        app:cardElevation="0dp">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:text="星期三 09:08"
-        android:paddingTop="6dp"
-        android:paddingBottom="6dp"
-        android:paddingLeft="17dp"
-        android:paddingRight="17dp"
-        android:textSize="13sp"
-        android:textColor="@color/white"
-        android:id="@+id/item_tv_time_title"
-        android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/item_tv_time_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="17dp"
+            android:paddingTop="6dp"
+            android:paddingRight="17dp"
+            android:paddingBottom="6dp"
+            android:text="星期三 09:08"
+            android:textColor="@color/white"
+            android:textSize="13sp" />
 
     </android.support.v7.widget.CardView>
 
@@ -35,51 +36,51 @@
         android:layout_height="116dp"
         android:layout_marginLeft="14dp"
         android:layout_marginTop="10dp"
-        android:padding="10dp"
         android:layout_marginRight="14dp"
         android:layout_marginBottom="15dp"
-        android:background="@drawable/bg_white_radius">
+        android:background="@drawable/bg_white_radius"
+        android:padding="10dp">
 
         <TextView
             android:id="@+id/item_tv_notice_title"
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="彭于晏 给您留言了"
             android:textColor="@color/text_black28"
-            android:textSize="15sp"
-            android:layout_height="wrap_content" />
+            android:textSize="15sp" />
 
         <ImageView
             android:id="@+id/item_img_head"
-            android:layout_below="@id/item_tv_notice_title"
             android:layout_width="77dp"
+            android:layout_height="77dp"
+            android:layout_below="@id/item_tv_notice_title"
             android:layout_marginTop="5dp"
-            android:src="@color/color_primary_f5"
-            android:layout_height="77dp" />
+            android:layout_marginRight="10dp"
+            android:src="@color/color_primary_f5" />
 
         <ImageView
             android:id="@+id/item_img_commondity"
-            android:layout_below="@id/item_tv_notice_title"
             android:layout_width="77dp"
-            android:layout_marginTop="5dp"
-            android:src="@color/color_primary_f5"
+            android:layout_height="77dp"
+            android:layout_below="@id/item_tv_notice_title"
             android:layout_alignParentRight="true"
-            android:layout_height="77dp" />
+            android:layout_marginTop="5dp"
+            android:src="@color/color_primary_f5" />
 
         <TextView
             android:id="@+id/item_tv_notice_content"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/item_tv_notice_title"
+            android:layout_marginTop="12.5dp"
+            android:layout_marginRight="10dp"
+            android:layout_toLeftOf="@id/item_img_commondity"
             android:layout_toRightOf="@id/item_img_head"
             android:paddingLeft="5dp"
-            android:textSize="13sp"
-            android:layout_marginTop="12.5dp"
-            android:textColor="@color/text_black75"
-            android:layout_toLeftOf="@id/item_img_commondity"
-            android:text="您已成功下单"
             android:paddingRight="8dp"
-            android:layout_marginRight="10dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/item_tv_notice_title"/>
-
+            android:text="您已成功下单"
+            android:textColor="@color/text_black75"
+            android:textSize="13sp" />
 
 
     </RelativeLayout>

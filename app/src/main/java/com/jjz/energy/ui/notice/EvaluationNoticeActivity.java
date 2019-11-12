@@ -16,9 +16,7 @@ import com.jjz.energy.base.BaseRecycleNewAdapter;
 import com.jjz.energy.base.Constant;
 import com.jjz.energy.entry.mine.OrderNoticeBean;
 import com.jjz.energy.presenter.home.NoticePresenter;
-import com.jjz.energy.ui.jiusu_shop.shop_order.OrderDetailsActivity;
-import com.jjz.energy.ui.jiusu_shop.shop_order.refund_order.BuyerRefundDetailsActivity;
-import com.jjz.energy.ui.jiusu_shop.shop_order.refund_order.SellerRefundDetailsActivity;
+import com.jjz.energy.ui.jiusu_shop.shop_order.EvaluateDetailsActivity;
 import com.jjz.energy.util.DateUtil;
 import com.jjz.energy.util.glide.GlideUtils;
 import com.jjz.energy.util.networkUtil.PacketUtil;
@@ -35,10 +33,10 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
- * @Features:
+ * @Features: 评价消息
  * @author: create by chenhao on 2019/11/9
  */
-public class OrderNoticeActivity extends BaseActivity<NoticePresenter> implements INoticeView,OnLoadMoreListener {
+public class EvaluationNoticeActivity extends BaseActivity<NoticePresenter> implements INoticeView,OnLoadMoreListener {
     @BindView(R.id.ll_toolbar_left)
     LinearLayout llToolbarLeft;
     @BindView(R.id.tv_toolbar_title)
@@ -63,24 +61,17 @@ public class OrderNoticeActivity extends BaseActivity<NoticePresenter> implement
 
     @Override
     protected void initView() {
-        tvToolbarTitle.setText("订单消息");
+        tvToolbarTitle.setText("评价消息");
         smartRefresh.setOnLoadMoreListener(this);
         rvNoticeList.setLayoutManager(new LinearLayoutManager(this));
-        mNoticeAdapter = new NoticeAdapter(R.layout.item_order_notice, new ArrayList<>());
+        mNoticeAdapter = new NoticeAdapter(R.layout.item_comment_notice, new ArrayList<>());
         rvNoticeList.setAdapter(mNoticeAdapter);
         //点击进入各个详情页面
         mNoticeAdapter.setOnItemClickListener((adapter, view, position) -> {
             OrderNoticeBean.ListBean listBean = mNoticeAdapter.getData().get(position);
-
-            if (listBean.getType() == Constant.NOTICE_ORDER){
-                //进入订单详情
-                startActivity(new Intent(mContext, OrderDetailsActivity.class)
-                        .putExtra(Constant.ORDER_SN,listBean.getOrder_sn()).putExtra(Constant.USER_TYPE,listBean.getUser_type().equals("buyer")?0:1));
-
-            }else if (listBean.getType() == Constant.NOTICE_REFUND){
-                //进入售后详情
-                startActivity( new Intent(mContext, listBean.getUser_type().equals("buyer") ?
-                        BuyerRefundDetailsActivity.class : SellerRefundDetailsActivity.class).putExtra(Constant.RETURN_ID, listBean.getReturn_id()));
+            if (listBean.getType() == Constant.NOTICE_COMMENT) {
+                //评价
+                startActivity(new Intent(mContext, EvaluateDetailsActivity.class).putExtra(Constant.ORDER_SN, listBean.getOrder_sn()));
             }
         });
         getData(false);
@@ -92,7 +83,7 @@ public class OrderNoticeActivity extends BaseActivity<NoticePresenter> implement
     private void getData(boolean isLoadMore){
         this.isLoadMore = isLoadMore;
         HashMap<String,String> map = new HashMap<>();
-        map.put("enum","order");
+        map.put("enum","evaluation");
         map.put("page",mPage+"");
         mPresenter.getOrderNoticeList(PacketUtil.getRequestPacket(map),isLoadMore);
     }
@@ -114,7 +105,7 @@ public class OrderNoticeActivity extends BaseActivity<NoticePresenter> implement
         } else {
             // 新数据为空时 显示空数据页面
             if (!mNoticeAdapter.notifyChangeData(data.getList())) {
-                mNoticeAdapter.setEmptyView(getLoadSirView(R.mipmap.ic_none_list_data, "您还没有订单消息", false,
+                mNoticeAdapter.setEmptyView(getLoadSirView(R.mipmap.ic_none_list_data, "您还没有评价消息", false,
                         null));
                 smartRefresh.setEnableLoadMore(false);
             } else {
@@ -172,11 +163,14 @@ public class OrderNoticeActivity extends BaseActivity<NoticePresenter> implement
 
         @Override
         protected void convert(BaseViewHolder helper, OrderNoticeBean.ListBean item) {
+            ImageView imgHead = helper.getView(R.id.item_img_head);
             ImageView imgCommodity = helper.getView(R.id.item_img_commondity);
+            GlideUtils.loadRoundCircleImage(mContext,item.getHead_pic(),imgHead);
             GlideUtils.loadRoundCircleImage(mContext,item.getImg_url(),imgCommodity);
-            helper.setText(R.id.item_tv_notice_title,item.getTitle());
+            helper.setText(R.id.item_tv_notice_title,item.getNickname()+" 给您评价了");
             helper.setText(R.id.item_tv_notice_content,item.getContent());
             helper.setText(R.id.item_tv_time_title, DateUtil.longToDate(item.getAdd_time(),null));
+
         }
     }
 }

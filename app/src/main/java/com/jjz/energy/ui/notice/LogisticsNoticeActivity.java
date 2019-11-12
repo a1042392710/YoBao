@@ -1,5 +1,6 @@
 package com.jjz.energy.ui.notice;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,9 +13,11 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.jjz.energy.R;
 import com.jjz.energy.base.BaseActivity;
 import com.jjz.energy.base.BaseRecycleNewAdapter;
+import com.jjz.energy.base.Constant;
 import com.jjz.energy.entry.mine.OrderNoticeBean;
 import com.jjz.energy.presenter.home.NoticePresenter;
-import com.jjz.energy.util.Utils;
+import com.jjz.energy.ui.jiusu_shop.shop_order.ExpressDetailsActivity;
+import com.jjz.energy.util.DateUtil;
 import com.jjz.energy.util.glide.GlideUtils;
 import com.jjz.energy.util.networkUtil.PacketUtil;
 import com.jjz.energy.view.home.INoticeView;
@@ -23,6 +26,7 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
@@ -62,10 +66,15 @@ public class LogisticsNoticeActivity extends BaseActivity<NoticePresenter> imple
         rvNoticeList.setLayoutManager(new LinearLayoutManager(this));
         mNoticeAdapter = new NoticeAdapter(R.layout.item_order_notice, new ArrayList<>());
         rvNoticeList.setAdapter(mNoticeAdapter);
-        //点击进入各个详情页面
+        //点击进入物流详情
         mNoticeAdapter.setOnItemClickListener((adapter, view, position) -> {
-
+            if (mNoticeAdapter.getItem(position).getType() == Constant.NOTICE_LOGISTICE) {
+                startActivity(new Intent(mContext, ExpressDetailsActivity.class)
+                        .putExtra(Constant.SHIPPING_NO,
+                                mNoticeAdapter.getData().get(position).getShipping_no()));
+            }
         });
+        getData(false);
     }
 
     /**
@@ -73,7 +82,10 @@ public class LogisticsNoticeActivity extends BaseActivity<NoticePresenter> imple
      */
     private void getData(boolean isLoadMore){
         this.isLoadMore = isLoadMore;
-        mPresenter.getOrderNoticeList(PacketUtil.getRequestPacket(Utils.stringToMap("page",mPage+"")),isLoadMore);
+        HashMap<String,String> map = new HashMap<>();
+        map.put("enum","shipping");
+        map.put("page",mPage+"");
+        mPresenter.getOrderNoticeList(PacketUtil.getRequestPacket(map),isLoadMore);
     }
 
     @Override
@@ -152,9 +164,10 @@ public class LogisticsNoticeActivity extends BaseActivity<NoticePresenter> imple
         @Override
         protected void convert(BaseViewHolder helper, OrderNoticeBean.ListBean item) {
             ImageView imgCommodity = helper.getView(R.id.item_img_commondity);
-            GlideUtils.loadRoundCircleImage(mContext,"",imgCommodity);
-            helper.setText(R.id.item_tv_notice_title,"订单运输过程中 ");
-            helper.setText(R.id.item_tv_notice_content,"您的大碗宽面正在南昌运输中");
+            GlideUtils.loadRoundCircleImage(mContext,item.getImg_url(),imgCommodity);
+            helper.setText(R.id.item_tv_notice_title,item.getTitle());
+            helper.setText(R.id.item_tv_notice_content,item.getContent());
+            helper.setText(R.id.item_tv_time_title, DateUtil.longToDate(item.getAdd_time(),null));
         }
     }
 }
