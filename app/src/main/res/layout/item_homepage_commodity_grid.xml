@@ -13,13 +13,15 @@
         android:layout_width="155dp"
         android:layout_margin="5dp"
         android:layout_height="wrap_content"
-        android:padding="2dp"
         android:background="@drawable/bg_gray_broke"
         android:orientation="vertical">
 
         <ImageView
             android:id="@+id/item_img_commodity"
             android:layout_width="match_parent"
+            android:layout_marginLeft="2dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginRight="2dp"
             android:src="@color/zhihu_capture"
             android:layout_height="155dp"
             tools:background="@drawable/bg_gray_broke_child"/>

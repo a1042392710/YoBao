@@ -9,6 +9,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.CardView;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -50,6 +51,8 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import q.rorbin.badgeview.Badge;
+import q.rorbin.badgeview.QBadgeView;
 
 /**
  * @Features: 首页
@@ -156,9 +159,17 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements IHomeVi
         }
     }
 
-
+    private Badge mNoticeUnRead;
     @Override
     public void isGetClassificationSuc(HomeDetailBean data) {
+        //首页小红点
+        if (mNoticeUnRead != null) {
+            mNoticeUnRead.setBadgeNumber(data.getUnread_num());
+        } else {
+            mNoticeUnRead = new QBadgeView(mContext).bindTarget(imgNotice)
+                    .setBadgeGravity(Gravity.TOP | Gravity.END).setBadgeTextSize(8, true)
+                    .setBadgeNumber(data.getUnread_num()).setGravityOffset(2, 0, true);
+        }
         if (mHomeDetail == null) {
             //将商品分类存下来
             mHomeDetail = data;

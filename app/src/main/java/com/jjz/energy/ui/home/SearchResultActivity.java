@@ -64,24 +64,17 @@ public class SearchResultActivity extends BaseActivity {
     EditText etLowestPrice;
     @BindView(R.id.et_highest_price)
     EditText etHighestPrice;
-    @BindView(R.id.tf_price_range)
-    TagFlowLayout tfPriceRange;
     @BindView(R.id.tf_release_time)
     TagFlowLayout tfReleaseTime;
-    @BindView(R.id.tv_reset_filter)
-    TextView tvResetFilter;
     @BindView(R.id.tv_submit_filter)
     TextView tvSubmitFilter;
 
     private String[] mVals = {"同城", "包邮", "全新"};
+    private String[] mTimeVals = {"24小时", "7天", "30天"};
     /**
      * 快捷筛选的选中下标
      */
     private int quickScreeningIndex  =0;
-    /**
-     * 价格区间的选中下标
-     */
-    private int priceIndex  =0;
     /**
      * 发布时间的选中下标
      */
@@ -110,7 +103,6 @@ public class SearchResultActivity extends BaseActivity {
         initTf();
         // 绑定监听
         initListener();
-
     }
 
 
@@ -136,25 +128,9 @@ public class SearchResultActivity extends BaseActivity {
             quickScreeningIndex = position;
             return true;
         });
-        //价格区间
-        tfPriceRange.setAdapter(new TagAdapter<String>(mVals) {
 
-            @Override
-            public View getView(FlowLayout parent, int position, String s) {
-                TextView tv = (TextView) LayoutInflater.from(mContext).inflate(R.layout.item_filter_flowlayout,
-                        tfPriceRange, false);
-                tv.setText(s);
-                return tv;
-            }
-        });
-        //点击事件
-        tfPriceRange.setOnTagClickListener((view, position, parent) -> {
-            //记录选中的下标
-            priceIndex = position;
-            return true;
-        });
         //发布时间
-        tfReleaseTime.setAdapter(new TagAdapter<String>(mVals) {
+        tfReleaseTime.setAdapter(new TagAdapter<String>(mTimeVals) {
 
             @Override
             public View getView(FlowLayout parent, int position, String s) {
@@ -264,7 +240,7 @@ public class SearchResultActivity extends BaseActivity {
         stopProgressDialog();
     }
 
-    @OnClick({R.id.img_finish, R.id.img_notice,R.id.tv_reset_filter, R.id.tv_submit_filter})
+    @OnClick({R.id.img_finish, R.id.img_notice, R.id.tv_submit_filter})
     public void onViewClicked(View view) {
         switch (view.getId()) {
 
@@ -274,9 +250,7 @@ public class SearchResultActivity extends BaseActivity {
             case R.id.img_notice:
                 //通知
                 break;
-                //重置筛选
-            case R.id.tv_reset_filter:
-                break;
+
                 //提交筛选
             case R.id.tv_submit_filter:
                 //关闭侧滑
@@ -284,6 +258,7 @@ public class SearchResultActivity extends BaseActivity {
                 break;
         }
     }
+
 
 
 }

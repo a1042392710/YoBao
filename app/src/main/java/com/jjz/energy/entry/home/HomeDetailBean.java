@@ -12,6 +12,8 @@ import java.util.List;
  */
 public class HomeDetailBean implements Serializable {
 
+    private int unread_num;
+
 
     private List<Banner> bannerList;
     private List<GoodsClassificationBean> cateList;
@@ -21,6 +23,14 @@ public class HomeDetailBean implements Serializable {
             return new ArrayList<>();
         }
         return bannerList;
+    }
+
+    public int getUnread_num() {
+        return unread_num;
+    }
+
+    public void setUnread_num(int unread_num) {
+        this.unread_num = unread_num;
     }
 
     public void setBannerList(List<Banner> bannerList) {
