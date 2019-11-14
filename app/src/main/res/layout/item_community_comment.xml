@@ -24,19 +24,6 @@
 
 
     <TextView
-        android:id="@+id/item_tv_like"
-        android:layout_width="wrap_content"
-        android:text="629"
-        android:textColor="#a9a9a9"
-        android:drawablePadding="5dp"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="5dp"
-        android:padding="5dp"
-        android:drawableLeft="@mipmap/ic_unchecked_like_two"
-        android:textSize="12sp"
-        android:layout_height="wrap_content"/>
-
-    <TextView
         android:id="@+id/item_tv_comment"
         android:layout_width="match_parent"
         android:text="确实是大自然的搬运工"
@@ -57,7 +44,7 @@
         android:includeFontPadding="false"
         android:layout_alignLeft="@id/item_tv_user_name"
         android:layout_below="@id/item_tv_comment"
-        android:layout_marginTop="13dp"
+        android:layout_marginTop="10dp"
         android:layout_height="wrap_content"/>
 
 

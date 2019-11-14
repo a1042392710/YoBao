@@ -245,19 +245,19 @@ public class CommodityDetailActivity extends BaseActivity <CommodityDetailsPrese
     //获取评论列表成功
     @Override
     public void isGetCommentSuc(CommentBean data) {
-        if (isLoadMore) {
-            //没有更多数据的时候，关闭加载更多
-            if (!mCommentAdapter.addChangeData(data.getList()))
-                smartRefresh.setEnableLoadMore(false);
+        //有够长的数据就开启加载更多
+        if (!StringUtil.isListEmpty(data.getList()) && data.getList().size() > 8) {
+            smartRefresh.setEnableLoadMore(true);
         } else {
-            //刷新数据
-            if (mCommentAdapter.notifyChangeData(data.getList())){
-                //有数据就开启加载更多
-                smartRefresh.setEnableLoadMore(true);
-            }
+            smartRefresh.setEnableLoadMore(false);     //否则关闭
+        }
+        if (isLoadMore) {
+            mCommentAdapter.addChangeData(data.getList());
+        } else {
+            mCommentAdapter.notifyChangeData(data.getList());
         }
         //全部展开
-        for(int i = 0; i < mCommentAdapter.getCommentBeanList().size(); i++) {
+        for (int i = 0; i < mCommentAdapter.getCommentBeanList().size(); i++) {
             expandableListView.expandGroup(i);
         }
         closeRefresh(smartRefresh);
@@ -321,8 +321,6 @@ public class CommodityDetailActivity extends BaseActivity <CommodityDetailsPrese
             tvCommodityIsNew.setVisibility(View.GONE);
             tvCommodityTitle.setText(data.getGoods_info().getGoods_name());
         }
-
-
 
         //刷新商品图片
         mPhotoAdapter.setNewData(Arrays.asList(data.getGoods_info().getGoods_images().split(",")));

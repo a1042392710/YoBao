@@ -9,6 +9,7 @@ import com.jjz.energy.entry.commodity.GoodsDetailsBean;
 import com.jjz.energy.entry.commodity.GoodsListBean;
 import com.jjz.energy.entry.commodity.HomePageCommentBean;
 import com.jjz.energy.entry.community.CommunityBean;
+import com.jjz.energy.entry.community.CommunityCommentBean;
 import com.jjz.energy.entry.home.BindBean;
 import com.jjz.energy.entry.home.HomeDetailBean;
 import com.jjz.energy.entry.jiusu.AgencyBean;
@@ -326,13 +327,13 @@ public interface Api {
 
     //查询帖子列表
     @FormUrlEncoded
-    @POST("order/orderComment")
+    @POST("time_line/index")
     Flowable<ResponseData<CommunityBean>> getPostList(@Field(PACK_NO) String pack_no);
 
-    //查看帖子详情
+    //查看帖子中的评论
     @FormUrlEncoded
-    @POST("order/orderComment")
-    Flowable<ResponseData<String>> getPostDeatails(@Field(PACK_NO) String pack_no);
+    @POST("time_line/timeLineComments")
+    Flowable<ResponseData<CommunityCommentBean>> getPostComment(@Field(PACK_NO) String pack_no);
 
     //点赞帖子
     @FormUrlEncoded
@@ -443,9 +444,6 @@ public interface Api {
     @FormUrlEncoded
     @POST("return_goods/returnGoodsLog")
     Flowable<ResponseData<RefundHistroyBean>> getRefundHistoryList(@Field(PACK_NO) String pack_no);
-    
-    
-    // -------------------------------------------------------------------- 订单消息
 
     /**
      * 获取指定类型的消息

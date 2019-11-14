@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 
 import com.jjz.energy.base.BasePresenter;
 import com.jjz.energy.entry.community.CommunityBean;
+import com.jjz.energy.entry.community.CommunityCommentBean;
 import com.jjz.energy.model.home.CommunityModel;
 import com.jjz.energy.util.networkUtil.CommonSubscriber;
 import com.jjz.energy.view.home.ICommunityView;
@@ -88,24 +89,26 @@ public class CommunityPresenter extends BasePresenter<CommunityModel, ICommunity
 
 
     /**
-     * 获取帖子详情
+     * 获取帖子评论
      * @param map
      */
     @SuppressLint("CheckResult")
-    public void getPostDeatails(String map) {
+    public void getPostComment(String map , boolean isLoadMore) {
 
-        addSubscribe(mModel.getPostDeatails(map)
-                .subscribeWith(new CommonSubscriber<String>() {
+        addSubscribe(mModel.getPostComment(map)
+                .subscribeWith(new CommonSubscriber<CommunityCommentBean>() {
 
                     @Override
                     protected void startLoading() {
-                        mView.showLoading();
+                        if (isLoadMore) {
+                            mView.showLoading();
+                        }
                     }
 
                     @Override
-                    protected void onSuccess(String response) {
+                    protected void onSuccess(CommunityCommentBean response) {
                         mView.stopLoading();
-                        mView.isGetPostDetailsSuc(response);
+                        mView.isGetPostCommentSuc(response);
                     }
 
                     @Override

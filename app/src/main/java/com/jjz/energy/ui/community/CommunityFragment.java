@@ -11,20 +11,27 @@ import android.widget.ImageView;
 
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jjz.energy.R;
-import com.jjz.energy.base.BaseFragment;
+import com.jjz.energy.adapter.PhotoAdapter;
+import com.jjz.energy.base.BaseLazyFragment;
 import com.jjz.energy.base.BaseRecycleNewAdapter;
+import com.jjz.energy.base.Constant;
 import com.jjz.energy.entry.community.CommunityBean;
 import com.jjz.energy.presenter.community.CommunityPresenter;
+import com.jjz.energy.ui.home.login.LoginActivity;
+import com.jjz.energy.util.DateUtil;
 import com.jjz.energy.util.StringUtil;
 import com.jjz.energy.util.Utils;
 import com.jjz.energy.util.glide.GlideUtils;
 import com.jjz.energy.util.networkUtil.PacketUtil;
+import com.jjz.energy.util.networkUtil.UserLoginBiz;
 import com.jjz.energy.view.home.ICommunityView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -34,7 +41,7 @@ import butterknife.OnClick;
  * @Features: 社区
  * @author: create by chenhao on 2019/8/14
  */
-public class CommunityFragment extends BaseFragment <CommunityPresenter>implements ICommunityView, OnRefreshLoadMoreListener {
+public class CommunityFragment extends BaseLazyFragment<CommunityPresenter> implements ICommunityView, OnRefreshLoadMoreListener {
 
     @BindView(R.id.img_search)
     ImageView imgSearch;
@@ -44,19 +51,21 @@ public class CommunityFragment extends BaseFragment <CommunityPresenter>implemen
     RecyclerView rvCommunity;
     @BindView(R.id.smart_refresh)
     SmartRefreshLayout smartRefresh;
+
     /**
      * 帖子列表
      */
     private CommunityAdapter mAdapter ;
+
     /**
      * 页码
      */
     private int mPage = 1;
+
     /*
      * 是否加载更多
      */
     private boolean isLoadMore;
-
 
     @Override
     protected void initView() {
@@ -66,7 +75,11 @@ public class CommunityFragment extends BaseFragment <CommunityPresenter>implemen
         rvCommunity.setAdapter(mAdapter);
         //进入详情
         mAdapter.setOnItemClickListener((adapter, view, position) -> {
-            startActivity(new Intent(mContext,CommunityDetailActivity.class));
+            if (UserLoginBiz.getInstance(mContext).detectUserLoginStatus()){
+                startActivity(new Intent(mContext,CommunityDetailActivity.class).putExtra("id",mAdapter.getItem(position).getId()).putExtra(Constant.INTENT_KEY_OBJECT,mAdapter.getItem(position)));
+            }else{
+                startActivity(new Intent(mContext,LoginActivity.class));
+            }
         });
         getData(false);
     }
@@ -79,8 +92,6 @@ public class CommunityFragment extends BaseFragment <CommunityPresenter>implemen
         mPresenter.getPostList(PacketUtil.getRequestPacket(Utils.stringToMap("page",mPage+"")),isLoadMore);
     }
 
-
-
     @Override
     public void isGetPostListSuc(CommunityBean data) {
         if (!StringUtil.isListEmpty(data.getList()) && data.getList().size()>8){
@@ -90,13 +101,13 @@ public class CommunityFragment extends BaseFragment <CommunityPresenter>implemen
         }
         //加载更多
         if (isLoadMore) {
-            //没有更多数据的时候，关闭加载更多
            mAdapter.addNewData(data.getList());
         } else {
             //刷新数据，无数据显示空页面
             if (!mAdapter.notifyChangeData(data.getList())) {
-                mAdapter.setEmptyView(getLoadSirView(R.mipmap.ic_none_list_data, "社区还没有帖子", false,
-                        null));
+                mAdapter.setEmptyView(getLoadSirView(R.mipmap.ic_none_list_data, "社区还没有帖子", true, v -> {
+                            getData(true);
+                        }));
             }
         }
         closeRefresh(smartRefresh);
@@ -110,14 +121,9 @@ public class CommunityFragment extends BaseFragment <CommunityPresenter>implemen
             mAdapter.setEmptyView(getLoadSirView(R.mipmap.ic_none_timeout, "网络发生错误",true, v -> {
                 getData(false);
             }));
-        } else {
-            showToast(msg);
         }
+        closeRefresh(smartRefresh);
     }
-
-
-
-
 
     @OnClick({ R.id.img_postings})
     public void onViewClicked(View view) {
@@ -161,7 +167,6 @@ public class CommunityFragment extends BaseFragment <CommunityPresenter>implemen
         getData(false);
     }
 
-
     /**
      * 社区列表
      */
@@ -174,18 +179,29 @@ public class CommunityFragment extends BaseFragment <CommunityPresenter>implemen
         @Override
         protected void convert(BaseViewHolder helper, CommunityBean.ListBean item) {
             ImageView imgHead = helper.getView(R.id.item_img_user_head);
-            GlideUtils.loadCircleImage(mContext,"http://b-ssl.duitang.com/uploads/item/201809/26/20180926162125_vjbwi.jpg",imgHead);
             RecyclerView rv_photo = helper.getView(R.id.item_rv_photo);
-            rv_photo.setLayoutManager(new GridLayoutManager(mContext,2));
-//            rv_photo.setAdapter(new PhotoAdapter(R.layout.item_photo,list));
-            imgHead.setOnClickListener(v -> {
-                //查看大图
-//                    ImagePagerActivity.ImageSize imageSize =
-//                            new ImagePagerActivity.ImageSize(v.getMeasuredWidth(),
-//                                    v.getMeasuredHeight());
-//                    ImagePagerActivity.startImagePagerActivity(BaseApplication.AppContext, mData,0
-//                            , imageSize);
-            });
+            //内容
+            helper.setText(R.id.item_tv_content,item.getContent());
+            helper.setText(R.id.item_tv_like,item.getTop_num());
+            helper.setText(R.id.item_tv_comment,item.getMsg_num());
+            //头像
+            GlideUtils.loadCircleImage(mContext, item.getHead_pic(), imgHead);
+            helper.setText(R.id.item_tv_user_name,item.getNickname());
+            helper.setText(R.id.item_tv_put_time, DateUtil.getTimeFormatText(new Date(item.getAdd_time())));
+
+            //如果有图片则加载rv
+            if (!StringUtil.isEmpty(item.getImages())) {
+                List<String> list = Arrays.asList(item.getImages().split(","));
+                rv_photo.setVisibility(View.VISIBLE);
+                rv_photo.setLayoutManager(new GridLayoutManager(mContext, 2));
+                //放入图片的数据
+                rv_photo.setAdapter(new PhotoAdapter(R.layout.item_photo ,list));
+            } else {
+                rv_photo.setVisibility(View.GONE);
+            }
+
+
+
         }
     }
 

@@ -3,6 +3,7 @@ package com.jjz.energy.model.home;
 import com.jjz.energy.base.Api;
 import com.jjz.energy.base.BaseModel;
 import com.jjz.energy.entry.community.CommunityBean;
+import com.jjz.energy.entry.community.CommunityCommentBean;
 import com.jjz.energy.util.networkUtil.RetrofitFactory;
 import com.jjz.energy.util.networkUtil.RxSchedulerHepler;
 
@@ -41,14 +42,17 @@ public class CommunityModel extends BaseModel {
     public Flowable<CommunityBean> getPostList(String requestData) {
         return RetrofitFactory.getRetrofit().create(Api.class).getPostList(requestData).compose(RxSchedulerHepler.handleMyResult());
     }
-    //获取帖子详情
-    public Flowable<String> getPostDeatails(String requestData) {
-        return RetrofitFactory.getRetrofit().create(Api.class).getPostDeatails(requestData).compose(RxSchedulerHepler.handleMyResult());
+
+    //获取帖子中的评论
+    public Flowable<CommunityCommentBean> getPostComment(String requestData) {
+        return RetrofitFactory.getRetrofit().create(Api.class).getPostComment(requestData).compose(RxSchedulerHepler.handleMyResult());
     }
+
     //点赞
     public Flowable<String> putLike(String requestData) {
         return RetrofitFactory.getRetrofit().create(Api.class).putPostLike(requestData).compose(RxSchedulerHepler.handleMyResult());
     }
+
     //评论
     public Flowable<String> putComment(String requestData) {
         return RetrofitFactory.getRetrofit().create(Api.class).putPostComment(requestData).compose(RxSchedulerHepler.handleMyResult());
