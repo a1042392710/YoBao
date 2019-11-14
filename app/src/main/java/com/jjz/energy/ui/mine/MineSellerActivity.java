@@ -159,6 +159,10 @@ public class MineSellerActivity extends BaseActivity <MineBuyerPresenter>impleme
 
     @Override
     public void isFail(String msg, boolean isNetAndServiceError) {
+        if (isLoadMore){
+            mPage--;
+        }
+        closeRefresh(smartRefresh);
         showToast(msg);
     }
 

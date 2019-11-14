@@ -2,6 +2,7 @@ package com.jjz.energy.view;
 
 
 import com.jjz.energy.base.IBaseView;
+import com.jjz.energy.entry.mine.LikeGoodsBean;
 
 /**
  * @author chenhao 2018/9/30
@@ -9,7 +10,13 @@ import com.jjz.energy.base.IBaseView;
  */
 public interface IMainView extends IBaseView {
     //提交推送RId
-    void isSuccess(String data);
+    default  void isSuccess(String data){}
+
+    //获取搜索结果
+    default void isGetSearchGoodsResultSuccess(LikeGoodsBean data){}
+
+
+
     void isFail(String msg);
 
 }

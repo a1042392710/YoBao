@@ -102,6 +102,7 @@
                 android:id="@+id/item_img_share"
                 android:layout_width="wrap_content"
                 android:padding="5dp"
+                android:visibility="invisible"
                 android:src="@mipmap/ic_more_black"
                 android:layout_height="wrap_content"/>
 

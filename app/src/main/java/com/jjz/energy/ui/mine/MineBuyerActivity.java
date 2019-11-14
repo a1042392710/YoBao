@@ -78,6 +78,7 @@ public class MineBuyerActivity extends BaseActivity <MineBuyerPresenter>implemen
      */
     private MineListAdapter mAdapter;
 
+
     @Override
     protected void initView() {
         tvToolbarTitle.setText("我买到的");
@@ -159,6 +160,10 @@ public class MineBuyerActivity extends BaseActivity <MineBuyerPresenter>implemen
 
     @Override
     public void isFail(String msg, boolean isNetAndServiceError) {
+        if (isLoadMore){
+            mPage--;
+        }
+        closeRefresh(smartRefresh);
         showToast(msg);
     }
 

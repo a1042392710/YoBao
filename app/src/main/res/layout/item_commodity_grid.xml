@@ -22,7 +22,7 @@
             android:layout_marginLeft="2dp"
             android:layout_marginTop="3dp"
             android:layout_marginRight="2dp"
-            android:src="@color/zhihu_capture"
+            tools:src="@color/zhihu_capture"
             android:layout_height="155dp"
             tools:background="@drawable/bg_gray_broke_child"/>
 

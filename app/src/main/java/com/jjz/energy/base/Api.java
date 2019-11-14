@@ -8,6 +8,7 @@ import com.jjz.energy.entry.commodity.GoodsClassificationBean;
 import com.jjz.energy.entry.commodity.GoodsDetailsBean;
 import com.jjz.energy.entry.commodity.GoodsListBean;
 import com.jjz.energy.entry.commodity.HomePageCommentBean;
+import com.jjz.energy.entry.community.CommunityBean;
 import com.jjz.energy.entry.home.BindBean;
 import com.jjz.energy.entry.home.HomeDetailBean;
 import com.jjz.energy.entry.jiusu.AgencyBean;
@@ -311,6 +312,41 @@ public interface Api {
     @POST("order/orderComment")
     Flowable<ResponseData<EvaluateDetailsBean>> getEvaluateDetails(@Field(PACK_NO) String pack_no);
 
+
+    // ----------------------------------------------------------  社区
+
+    //发布商品
+    @Multipart
+    @POST("goods/save")
+    Flowable<ResponseData<String>> putPost(
+            @Part MultipartBody.Part params,  @PartMap Map<String, RequestBody> imgFiles
+    );
+
+
+
+    //查询帖子列表
+    @FormUrlEncoded
+    @POST("order/orderComment")
+    Flowable<ResponseData<CommunityBean>> getPostList(@Field(PACK_NO) String pack_no);
+
+    //查看帖子详情
+    @FormUrlEncoded
+    @POST("order/orderComment")
+    Flowable<ResponseData<String>> getPostDeatails(@Field(PACK_NO) String pack_no);
+
+    //点赞帖子
+    @FormUrlEncoded
+    @POST("order/orderComment")
+    Flowable<ResponseData<String>> putPostLike(@Field(PACK_NO) String pack_no);
+
+
+    //帖子评价
+    @FormUrlEncoded
+    @POST("order/orderComment")
+    Flowable<ResponseData<String>> putPostComment(@Field(PACK_NO) String pack_no);
+
+
+
     // ----------------------------------------------------------  订单
 
     //确认订单页面获取商品信息
@@ -442,13 +478,19 @@ public interface Api {
     @POST("user/setUserinfo")
     Flowable<ResponseData<String>> submitRegistrationId(@Field(PACK_NO) String pack_no);
 
-
     /**
      * 获取商家个人主页的信息
      */
     @FormUrlEncoded
     @POST("user/setUserinfo")
     Flowable<ResponseData<ShopHomePageBean>> getShopHomePage(@Field(PACK_NO) String pack_no);
+
+    /**
+     * 搜索商品
+     */
+    @FormUrlEncoded
+    @POST("goods/search")
+    Flowable<ResponseData<LikeGoodsBean>> getSearchGoodsResult(@Field(PACK_NO) String pack_no);
 
 
 

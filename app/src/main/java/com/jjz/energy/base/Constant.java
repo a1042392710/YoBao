@@ -30,6 +30,11 @@ public class Constant {
     public static final String SCAN_TYPE_SHARE = "share";
     public static final String SCAN_TYPE_ORDER = "order";
 
+    /**
+     * 存储用户定位
+     */
+    public static final String LOCATION_ADDRESS = "locationAddress";
+
 
     //微信相关数据
     public static final String WX_APP_ID = "wx1a49cbcab5a4c41c";

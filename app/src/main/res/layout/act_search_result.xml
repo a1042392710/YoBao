@@ -43,17 +43,9 @@
                 android:drawablePadding="5dp"
                 android:hint="搜索"
                 android:paddingLeft="17dp"
+                android:layout_marginRight="15dp"
                 android:textColor="@color/text_black33"
                 android:textSize="13sp" />
-
-            <ImageView
-                android:id="@+id/img_notice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="13dp"
-                android:layout_marginRight="10dp"
-                android:padding="10dp"
-                android:src="@mipmap/ic_notice" />
 
         </LinearLayout>
 
@@ -128,7 +120,7 @@
             android:layout_height="0.7dp"
             android:background="@color/color_bg_f7" />
 
-        <android.support.v4.widget.SwipeRefreshLayout
+        <com.scwang.smartrefresh.layout.SmartRefreshLayout
             android:id="@+id/smart_refresh"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -137,11 +129,11 @@
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_search_result"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginLeft="3dp"
                 android:layout_marginRight="15dp" />
 
-        </android.support.v4.widget.SwipeRefreshLayout>
+        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
 
     </LinearLayout>
@@ -174,8 +166,7 @@
             android:id="@+id/tf_quick_screening"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            app:max_select="1" />
+            android:layout_marginBottom="10dp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -197,7 +188,7 @@
 
             <EditText
                 android:id="@+id/et_lowest_price"
-                android:layout_width="108dp"
+                android:layout_width="80dp"
                 android:layout_height="32dp"
                 android:background="@drawable/bg_stoke_gray5"
                 android:gravity="center"
@@ -215,7 +206,7 @@
 
             <EditText
                 android:id="@+id/et_highest_price"
-                android:layout_width="108dp"
+                android:layout_width="80dp"
                 android:layout_height="32dp"
                 android:background="@drawable/bg_stoke_gray5"
                 android:gravity="center"
@@ -241,19 +232,36 @@
             android:layout_marginBottom="10dp"
             app:max_select="1" />
 
-        <TextView
-            android:id="@+id/tv_submit_filter"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="800dp"
-            android:layout_marginRight="10dp"
             android:layout_marginBottom="10dp"
-            android:background="@drawable/bg_orange_solid"
-            android:gravity="center"
-            android:text="确定"
-            android:textColor="@color/white"
-            android:textSize="13sp" />
+            android:layout_marginTop="60dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_reset_filter"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/bg_gray_solid_f7"
+                android:gravity="center"
+                android:text="重置"
+                android:textColor="@color/text_black75"
+                android:textSize="13sp"/>
+
+            <TextView
+                android:id="@+id/tv_submit_filter"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="13dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_orange_solid"
+                android:gravity="center"
+                android:text="确定"
+                android:textColor="@color/white"
+                android:textSize="13sp"/>
+        </LinearLayout>
 
     </LinearLayout>
 

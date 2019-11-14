@@ -297,7 +297,6 @@ public class CommodityDetailActivity extends BaseActivity <CommodityDetailsPrese
     public void isGetGoodsDetailsSuc(GoodsDetailsBean data) {
         //获取商品留言
         getCommentData(false);
-
         //当卖家查看自己的详情时，隐藏掉聊一聊和我想要
         if (data.getSeller_info().getUser_id()==data.getBuyer_info().getUser_id()){
             llBuyer.setVisibility(View.GONE);

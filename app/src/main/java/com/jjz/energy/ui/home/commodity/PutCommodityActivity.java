@@ -131,7 +131,7 @@ public class PutCommodityActivity extends BaseActivity <PutCommodityPresenter>im
         tvToolbarRight.setText("发布");
         EventBus.getDefault().register(this);
         //地区
-        address = SpUtil.init(mContext).readString("locationAddress");
+        address = SpUtil.init(mContext).readString(Constant.LOCATION_ADDRESS);
         tvLocationAddress.setText(address.replace("/", " "));
         initSingerPicker();
         initRv();

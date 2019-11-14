@@ -26,6 +26,7 @@ import com.blankj.utilcode.util.StringUtils;
 import com.jjz.energy.R;
 import com.jjz.energy.adapter.ViewPagerAdapter;
 import com.jjz.energy.base.BaseActivity;
+import com.jjz.energy.base.Constant;
 import com.jjz.energy.entry.event.LocationEvent;
 import com.jjz.energy.presenter.MainPresenter;
 import com.jjz.energy.ui.community.PutCommunityActivity;
@@ -262,7 +263,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IMainVi
                 String locationDescribe = location.getLocationDescribe();
                 //将省市区存入本地
                 String locationAddress = location.getProvince()+"/"+location.getCity()+"/"+location.getDistrict();
-                SpUtil.init(mContext).commit("locationAddress",locationAddress);
+                SpUtil.init(mContext).commit(Constant.LOCATION_ADDRESS,locationAddress);
                 //发送一个包含市区信息的消息
                 EventBus.getDefault().post(new LocationEvent(location.getCity()));
                 //获取到地址后取消定位
