@@ -223,7 +223,7 @@ public class SearchResultActivity extends BaseActivity<MainPresenter> implements
             drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
             rbSortList.setCompoundDrawables(null, null, drawable, null);
             Drawable drawable2 = mContext.getResources().getDrawable(R.mipmap.ic_down_unchecked);
-            drawable2.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
+            drawable2.setBounds(0, 0, drawable2.getMinimumWidth(), drawable2.getMinimumHeight());
             rbSortRegion.setCompoundDrawables(null, null, drawable2, null);
             //选中后图标变红
             switch (checkedId) {
@@ -246,8 +246,8 @@ public class SearchResultActivity extends BaseActivity<MainPresenter> implements
                 //区域排序
                 case R.id.rb_sort_region:
                     Drawable checkedDrawable2 = mContext.getResources().getDrawable(R.mipmap.ic_down_checked);
-                    checkedDrawable2.setBounds(0, 0, drawable.getMinimumWidth(),
-                            drawable.getMinimumHeight());
+                    checkedDrawable2.setBounds(0, 0, checkedDrawable2.getMinimumWidth(),
+                            checkedDrawable2.getMinimumHeight());
                     rbSortRegion.setCompoundDrawables(null, null, checkedDrawable2, null);
                     break;
             }

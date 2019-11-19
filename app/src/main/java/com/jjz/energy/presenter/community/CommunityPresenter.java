@@ -3,6 +3,7 @@ package com.jjz.energy.presenter.community;
 import android.annotation.SuppressLint;
 
 import com.jjz.energy.base.BasePresenter;
+import com.jjz.energy.entry.community.Community;
 import com.jjz.energy.entry.community.CommunityBean;
 import com.jjz.energy.entry.community.CommunityCommentBean;
 import com.jjz.energy.model.home.CommunityModel;
@@ -33,7 +34,7 @@ public class CommunityPresenter extends BasePresenter<CommunityModel, ICommunity
     public void putPost(String map, List<File> files) {
 
         addSubscribe(mModel.putPost(map,files)
-                .subscribeWith(new CommonSubscriber<String>() {
+                .subscribeWith(new CommonSubscriber<Community>() {
 
                     @Override
                     protected void startLoading() {
@@ -41,7 +42,7 @@ public class CommunityPresenter extends BasePresenter<CommunityModel, ICommunity
                     }
 
                     @Override
-                    protected void onSuccess(String response) {
+                    protected void onSuccess(Community response) {
                         mView.isPutPostSuc(response);
                         mView.stopLoading();
                     }
@@ -87,6 +88,37 @@ public class CommunityPresenter extends BasePresenter<CommunityModel, ICommunity
 
     }
 
+    /**
+     * 获取指定用户的帖子列表
+     * @param map
+     */
+    @SuppressLint("CheckResult")
+    public void getUserPostList(String map ,boolean isLoadMore) {
+
+        addSubscribe(mModel.getUserPostList(map)
+                .subscribeWith(new CommonSubscriber<CommunityBean>() {
+
+                    @Override
+                    protected void startLoading() {
+                        if (!isLoadMore){
+                            mView.showLoading();
+                        }
+                    }
+
+                    @Override
+                    protected void onSuccess(CommunityBean response) {
+                        mView.isGetPostListSuc(response);
+                        mView.stopLoading();
+                    }
+
+                    @Override
+                    protected void onFail(String errorMsg ,boolean isNetAndSeriveError) {
+                        mView.isFail(errorMsg,isNetAndSeriveError);
+                        mView.stopLoading();
+                    }
+                }));
+
+    }
 
     /**
      * 获取帖子评论
@@ -100,7 +132,7 @@ public class CommunityPresenter extends BasePresenter<CommunityModel, ICommunity
 
                     @Override
                     protected void startLoading() {
-                        if (isLoadMore) {
+                        if (!isLoadMore) {
                             mView.showLoading();
                         }
                     }
@@ -136,8 +168,8 @@ public class CommunityPresenter extends BasePresenter<CommunityModel, ICommunity
 
                     @Override
                     protected void onSuccess(String response) {
-                        mView.stopLoading();
                         mView.isPutPostLikeSuc(response);
+                        mView.stopLoading();
                     }
 
                     @Override
@@ -165,8 +197,8 @@ public class CommunityPresenter extends BasePresenter<CommunityModel, ICommunity
 
                     @Override
                     protected void onSuccess(String response) {
-                        mView.stopLoading();
                         mView.isPutPostCommentSuc(response);
+                        mView.stopLoading();
                     }
 
                     @Override

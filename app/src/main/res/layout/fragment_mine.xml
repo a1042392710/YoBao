@@ -260,6 +260,25 @@
                     android:textSize="12sp"/>
 
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.8dp"
+                    android:background="#f7f7f7"/>
+
+
+                <TextView
+                    android:id="@+id/tv_shop_go"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:drawableRight="@mipmap/ic_right_arrow"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="18dp"
+                    android:paddingRight="18dp"
+                    android:text="商家入驻"
+                    android:textColor="#9d9d9e"
+                    android:textSize="12sp"/>
+
+
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

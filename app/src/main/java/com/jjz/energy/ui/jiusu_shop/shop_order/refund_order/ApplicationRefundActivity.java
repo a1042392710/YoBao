@@ -158,7 +158,7 @@ public class ApplicationRefundActivity extends BaseActivity<ApplicationRefundPre
         mSelectPhotos.add(Uri.parse("d"));
         //设置网格布局
         rvRefundPhoto.setLayoutManager(new GridLayoutManager(mContext, 4));
-        //适配器实例化 最多选三张
+        //适配器实例化 最多选5张
         mSelectPhotoAdapter = new CommonSelectPhotoAdapter(R.layout.item_put_commodity_select_photo, mSelectPhotos, 5);
         rvRefundPhoto.setAdapter(mSelectPhotoAdapter);
         mResonAdapter = new RefundTypeAdapter(R.layout.item_refund_type,new ArrayList<>());
@@ -442,7 +442,7 @@ public class ApplicationRefundActivity extends BaseActivity<ApplicationRefundPre
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEventMainThread(String str) {
         if (str.equals("selectPhoto")) {
-            //去除拍照按钮，最多可选择3张图片
+            //去除拍照按钮，最多可选择5张图片
             maxPhoto = 6 - mSelectPhotos.size();
             //读取权限成功后 ，开启照片选择器
             ApplicationRefundActivityPermissionsDispatcher.takePhotoWithCheck(this);

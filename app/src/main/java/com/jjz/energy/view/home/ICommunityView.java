@@ -1,6 +1,7 @@
 package com.jjz.energy.view.home;
 
 import com.jjz.energy.base.IBaseView;
+import com.jjz.energy.entry.community.Community;
 import com.jjz.energy.entry.community.CommunityBean;
 import com.jjz.energy.entry.community.CommunityCommentBean;
 
@@ -11,8 +12,7 @@ import com.jjz.energy.entry.community.CommunityCommentBean;
 public interface ICommunityView extends IBaseView {
 
     //发布帖子
-    default void isPutPostSuc(String data) {}
-
+    default void isPutPostSuc(Community data) {}
 
     //获取帖子列表
     default void isGetPostListSuc(CommunityBean data) {}

@@ -18,8 +18,8 @@ import com.jjz.energy.R;
 import com.jjz.energy.adapter.CommonSelectPhotoAdapter;
 import com.jjz.energy.base.BaseActivity;
 import com.jjz.energy.base.Constant;
+import com.jjz.energy.entry.community.Community;
 import com.jjz.energy.presenter.community.CommunityPresenter;
-import com.jjz.energy.ui.home.commodity.CommodityDetailActivity;
 import com.jjz.energy.util.StringUtil;
 import com.jjz.energy.util.file.FileUtil;
 import com.jjz.energy.util.glide.MyGlideEngine;
@@ -90,8 +90,8 @@ public class PutCommunityActivity extends BaseActivity<CommunityPresenter> imple
         mSelectPhotos.add(Uri.parse("d"));
         //设置网格布局
         rvSelectPhoto.setLayoutManager(new GridLayoutManager(mContext, 4));
-        //适配器实例化 最多选三张
-        mSelectPhotoAdapter = new CommonSelectPhotoAdapter(R.layout.item_put_commodity_select_photo, mSelectPhotos, 3);
+        //适配器实例化 最多选4张
+        mSelectPhotoAdapter = new CommonSelectPhotoAdapter(R.layout.item_put_commodity_select_photo, mSelectPhotos, 4);
         rvSelectPhoto.setAdapter(mSelectPhotoAdapter);
     }
 
@@ -156,10 +156,9 @@ public class PutCommunityActivity extends BaseActivity<CommunityPresenter> imple
 
 
     @Override
-    public void isPutPostSuc(String data) {
+    public void isPutPostSuc(Community data) {
         showToast("发布成功");
-        //todo  跳转到详情页面
-        startActivity(new Intent(mContext, CommodityDetailActivity.class));
+        startActivity(new Intent(mContext, CommunityDetailActivity.class).putExtra(Constant.INTENT_KEY_OBJECT,data));
     }
 
     @OnClick({R.id.img_close, R.id.tv_submit})
@@ -248,7 +247,14 @@ public class PutCommunityActivity extends BaseActivity<CommunityPresenter> imple
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        PutCommunityActivityPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
+        PutCommunityActivityPermissionsDispatcher.onRequestPermissionsResult(this, requestCode,
+                grantResults);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 
     @Override

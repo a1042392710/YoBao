@@ -34,14 +34,13 @@ public class PacketUtil {
         JSONObject rows = new JSONObject();
         try {
             long date = System.currentTimeMillis();/*当前系统时间*/
-            if (!StringUtils.isEmpty(SpUtil.init(BaseApplication.getAppContext()).readString(Constant.LOGIN_ID))) {//用户ID
+            if (!StringUtils.isEmpty(SpUtil.init(BaseApplication.getAppContext()).readString(Constant.LOGIN_ID))) {
                 decode_token = SpUtil.init(BaseApplication.getAppContext()).readString(Constant.LOGIN_ID);
             }
 
 
             // 请求时间
             rows.put("time", date + "");
-
             String uuid = UUID.randomUUID().toString();
             //随机字符串
             rows.put("nonce_str", uuid);

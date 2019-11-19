@@ -7,7 +7,7 @@ import android.support.v7.widget.RecyclerView;
 
 import com.jjz.energy.R;
 import com.jjz.energy.adapter.HomePageCommodityAdapter;
-import com.jjz.energy.base.BaseFragment;
+import com.jjz.energy.base.BaseLazyFragment;
 import com.jjz.energy.base.Constant;
 import com.jjz.energy.entry.commodity.GoodsListBean;
 import com.jjz.energy.presenter.mine.HomePagePresenter;
@@ -25,7 +25,7 @@ import butterknife.BindView;
  * @Features: 个人主页 商品列表
  * @author: create by chenhao on 2019/8/6
  */
-public class HomePageCommodityFragment extends BaseFragment <HomePagePresenter> implements IHomePageView {
+public class HomePageCommodityFragment extends BaseLazyFragment<HomePagePresenter> implements IHomePageView {
     @BindView(R.id.rv_list)
     RecyclerView rvList;
     @BindView(R.id.smart_refresh)

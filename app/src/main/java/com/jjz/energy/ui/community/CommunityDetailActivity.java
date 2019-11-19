@@ -1,6 +1,7 @@
 package com.jjz.energy.ui.community;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.NestedScrollView;
@@ -20,7 +21,7 @@ import com.jjz.energy.adapter.PhotoAdapter;
 import com.jjz.energy.base.BaseActivity;
 import com.jjz.energy.base.BaseRecycleNewAdapter;
 import com.jjz.energy.base.Constant;
-import com.jjz.energy.entry.community.CommunityBean;
+import com.jjz.energy.entry.community.Community;
 import com.jjz.energy.entry.community.CommunityCommentBean;
 import com.jjz.energy.presenter.community.CommunityPresenter;
 import com.jjz.energy.ui.mine.information.HomePageActivity;
@@ -82,11 +83,9 @@ public class CommunityDetailActivity extends BaseActivity<CommunityPresenter> im
     EditText etComment;
     @BindView(R.id.tv_comment_num)
     TextView tvCommentNum;
+    @BindView(R.id.ll_comment)
+    LinearLayout llComment;
 
-    /**
-     * 图片
-     */
-    private PhotoAdapter mPhotoAdapter;
     /**
      * 页码
      */
@@ -95,12 +94,6 @@ public class CommunityDetailActivity extends BaseActivity<CommunityPresenter> im
      * 是否加载更多
      */
     private boolean isLoadMore;
-
-    /**
-     * 这条帖子的 id
-     */
-    private int id;
-
     /**
      * 评论的适配器
      */
@@ -108,16 +101,30 @@ public class CommunityDetailActivity extends BaseActivity<CommunityPresenter> im
     /**
      * 列表页面传过来的数据
      */
-    private CommunityBean.ListBean mListBean;
+    private Community mListBean;
+    /**
+     * 评论数量
+     */
+    private int comment_num;
+    /**
+     * 提交回复的对象
+     */
+    private String  reply_id;
+    /**
+     * 选中的那一条评论的下标
+     */
+    private int selectIndex = -1;
 
     @Override
     protected void initView() {
         tvToolbarTitle.setText("详情");
-        id = getIntent().getIntExtra("id",0);
-        mListBean = (CommunityBean.ListBean) getIntent().getSerializableExtra(Constant.INTENT_KEY_OBJECT);
-        initRv();
+        mListBean = (Community) getIntent().getSerializableExtra(Constant.INTENT_KEY_OBJECT);
+        if (mListBean ==null){
+            mListBean = new Community();
+        }
         initData();
-        initEditHight();
+        initRv();
+        initListener();
         //获取评论数据
         getCommentData(false);
     }
@@ -126,29 +133,69 @@ public class CommunityDetailActivity extends BaseActivity<CommunityPresenter> im
      * 初始化数据
      */
     private void initData() {
-        if (mListBean!=null){
+            //头像
             GlideUtils.loadHead( mContext,mListBean.getHead_pic(),imgUserHead);
+            //帖子内容
             tvContent.setText(mListBean.getContent());
-            tvLike.setText(mListBean.getTop_num());
-            tvLike.setText(mListBean.getTop_num());
+            //点赞数量和是否点赞
+            tvLike.setText(mListBean.getTop_num()+"");
+            if (mListBean.getIs_like()==0){
+                Drawable drawable = mContext.getResources().getDrawable(R.mipmap.ic_unchecked_like_two);
+                drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
+                tvLike.setCompoundDrawables(null, null, drawable, null);
+            }else{
+                //点赞了
+                Drawable drawable2 = mContext.getResources().getDrawable(R.mipmap.ic_checked_like_two);
+                drawable2.setBounds(0, 0, drawable2.getMinimumWidth(), drawable2.getMinimumHeight());
+                tvLike.setCompoundDrawables(null, null, drawable2, null);
+            }
+            //用户名
             tvUserName.setText(mListBean.getNickname());
+            //发布时间
             tvPutTime.setText(DateUtil.getTimeFormatText(new Date(mListBean.getAdd_time()*1000L)));
+            //是否有图片
             if (!StringUtil.isEmpty(mListBean.getImages())){
                 List<String> list = Arrays.asList(mListBean.getImages().split(","));
-                //放入图片的数据
-                mPhotoAdapter.notifyChangeData(list);
+                rvPhoto.setAdapter(new PhotoAdapter(R.layout.item_photo_two,list));
             }
-            if (!StringUtil.isEmpty(mListBean.getMsg_num())&&0<Integer.valueOf(mListBean.getMsg_num())){
-                tvCommentNum.setText("全部评论("+mListBean.getMsg_num()+")");
-            }
-        }
     }
 
     /**
-     * 使键盘能够弹起
+     * 初始化图片和评论列表
      */
-    private void initEditHight() {
-        //监听软键盘弹出，并获取软键盘高度
+    private void initRv() {
+        smartRefresh.setOnLoadMoreListener(this);
+        mCommentAdapter = new CommentAdapter(R.layout.item_community_comment, new ArrayList<>());
+        rvComment.setLayoutManager(new LinearLayoutManager(this));
+        rvComment.setAdapter(mCommentAdapter);
+    }
+
+    /**
+     * 初始化监听
+     */
+    private void initListener() {
+        //滑动的时候，将软键盘隐藏
+        scrollView.setOnScrollChangeListener((NestedScrollView.OnScrollChangeListener)
+                (nestedScrollView, i, i1, i2, i3) -> {
+                    disMissSoftKeyboard(); });
+
+        //点击子项 弹出回复窗口
+         mCommentAdapter.setOnItemClickListener((adapter, view, position) -> {
+            //记录选中的评论index
+            selectIndex = position;
+            showReplyView(1,mCommentAdapter.getItem(position).getReply_id() + "",
+                    mCommentAdapter.getItem(position).getFrom_username());
+        });
+
+        //取消图片的滑动
+        rvPhoto.setLayoutManager(new GridLayoutManager(mContext,3){
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+        });
+
+        //监听软键盘的 收回和弹出事件
         SoftKeyBoardListener.setListener(this,
                 new SoftKeyBoardListener.OnSoftKeyBoardChangeListener() {
                     @Override
@@ -161,6 +208,11 @@ public class CommunityDetailActivity extends BaseActivity<CommunityPresenter> im
 
                     @Override
                     public void keyBoardHide(int height) {
+                        llComment .setVisibility(View.GONE);
+                        //回到初始状态
+                        etComment.setHint("说点什么吧");
+                        reply_id="";
+                        selectIndex=-1;
                         LinearLayout.LayoutParams layoutParams =
                                 (LinearLayout.LayoutParams) view_keybord.getLayoutParams();
                         layoutParams.height = 0;
@@ -169,29 +221,26 @@ public class CommunityDetailActivity extends BaseActivity<CommunityPresenter> im
                 });
     }
 
+
     /**
-     * 初始化列表
+     * 展示回复的View  0 评论  1 回复
      */
-    private void initRv() {
-        smartRefresh.setOnLoadMoreListener(this);
-        mPhotoAdapter =new PhotoAdapter(R.layout.item_photo,new ArrayList<>());
-        rvPhoto.setLayoutManager(new GridLayoutManager(mContext,3){
-            @Override
-            public boolean canScrollVertically() {
-                return false;
-            }
-        });
-        rvPhoto.setAdapter(mPhotoAdapter);
-        mCommentAdapter = new CommentAdapter(R.layout.item_community_comment,new ArrayList<>());
-        rvComment.setLayoutManager(new LinearLayoutManager(this));
-        rvComment.setAdapter(mCommentAdapter);
-        //评论
-        mCommentAdapter.setOnItemClickListener((adapter, view, position) -> showReplyView("",""));
-        //滑动的时候，将软键盘隐藏
-        scrollView.setOnScrollChangeListener((NestedScrollView.OnScrollChangeListener)
-                (nestedScrollView, i, i1, i2, i3) -> {
-                    disMissSoftKeyboard(); });
+    private void  showReplyView(int commentType ,String reply_id,String toName){
+        this.reply_id = reply_id ;
+        //显示输入框和软键盘
+        llComment.setVisibility(View.VISIBLE);
+        etComment .requestFocus();
+        if (commentType==0){
+            etComment.setHint("说点什么吧");
+        }else{
+            etComment.setHint("回复@"+toName+"");
+        }
+        //展示软键盘
+        InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+        imm.showSoftInput(etComment, InputMethodManager.SHOW_IMPLICIT);
     }
+
+
 
     /**
      * 获取评论列表
@@ -200,12 +249,20 @@ public class CommunityDetailActivity extends BaseActivity<CommunityPresenter> im
         this.isLoadMore = isLoadMore;
         HashMap<String,String> map = new HashMap<>();
         map.put("page",mPage+"");
-        map.put("timeline_id",id+"");
+        map.put("timeline_id",mListBean.getId()+"");
         mPresenter.getPostComment(PacketUtil.getRequestPacket(map),isLoadMore);
     }
 
+    /**
+     * 获取评论列表成功
+     */
     @Override
     public void isGetPostCommentSuc(CommunityCommentBean data) {
+        if (data.getCount()>0){
+            comment_num = data.getCount();
+            tvCommentNum.setText("全部评论("+comment_num+")");
+        }
+        //获取评论数据
         if (!StringUtil.isListEmpty(data.getList()) && data.getList().size()>8){
             smartRefresh.setEnableLoadMore(true);     //有够长的数据就开启加载更多
         }else{
@@ -223,62 +280,51 @@ public class CommunityDetailActivity extends BaseActivity<CommunityPresenter> im
         closeRefresh(smartRefresh);
     }
 
-
-    @Override
-    public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
-        mPage++;
-        getCommentData(true);
-    }
-
     /**
-     * 提交的键值对
+     * 提交评论
      */
-    private String reply_key , reply_value;
-
-    /**
-     * 展示回复的View  Type 1 comment_id  2 reply_id
-     */
-    private void  showReplyView(String reply_key ,String reply_value ){
-        this.reply_key = reply_key ;
-        this.reply_value = reply_value ;
-        //显示输入框和软键盘
-        etComment .requestFocus();
-        InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-        imm.showSoftInput(etComment, InputMethodManager.SHOW_IMPLICIT);
-    }
-
-    @Override
-    public void isFail(String msg, boolean isNetAndServiceError) {
-        if (isLoadMore){
-            mPage--;
+    private void putComment() {
+        HashMap<String,String> map = new HashMap<>();
+        map.put("content",etComment.getText().toString());
+        map.put("timeline_id",mListBean.getId()+"");
+        if (!StringUtil.isEmpty(reply_id)){
+            map.put("reply_id",reply_id);
         }
-        closeRefresh(smartRefresh);
-        //还需要控制评论列表的数据
-        showToast(msg);
+        mPresenter.putComment(PacketUtil.getRequestPacket(map));
     }
-
+    /**
+     * 提交评论成功
+     */
     @Override
-    protected CommunityPresenter getPresenter() {
-        return new CommunityPresenter(this);
+    public void isPutPostCommentSuc(String data) {
+        comment_num ++;
+        tvCommentNum.setText("全部评论("+comment_num+")");
+        //如果当前页面不满10条，则队尾插入一条静态数据，否则不插入
+        if (mCommentAdapter.getData().size()%10!=0) {
+            CommunityCommentBean.ListBean listBean = new CommunityCommentBean.ListBean();
+            listBean.setContent(etComment.getText().toString());
+            listBean.setFrom_pic(mListBean.getHead_pic());
+            listBean.setFrom_username(mListBean.getNickname());
+            //回复时间
+            listBean.setReply_time(System.currentTimeMillis()/1000L);
+            //reply_id
+            listBean.setReply_id(Integer.valueOf(data));
+            if (selectIndex!=-1){
+                listBean.setTo_pic(mCommentAdapter.getData().get(selectIndex).getFrom_pic());
+                listBean.setTo_username(mCommentAdapter.getData().get(selectIndex).getFrom_username());
+            }
+            mCommentAdapter.addData(listBean);
+            rvComment.smoothScrollToPosition(mCommentAdapter.getData().size()-1);
+        }
+        etComment.setText("");
     }
 
-    @Override
-    protected int layoutId() {
-        return R.layout.act_community_detail;
-    }
+    /**
+     * 防止多次点击
+     */
+    private long mLastClickTime;
 
-    @Override
-    public void showLoading() {
-        startProgressDialog();
-    }
-
-    @Override
-    public void stopLoading() {
-        stopProgressDialog();
-    }
-
-
-    @OnClick({R.id.ll_toolbar_left, R.id.img_user_head, R.id.tv_put_comment})
+    @OnClick({R.id.ll_toolbar_left, R.id.img_user_head, R.id.tv_put_comment, R.id.tv_comment, R.id.ll_all_click})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ll_toolbar_left:
@@ -290,7 +336,24 @@ public class CommunityDetailActivity extends BaseActivity<CommunityPresenter> im
                 break;
             //发布评论
             case R.id.tv_put_comment:
+                if (StringUtil.isEmpty(etComment.getText().toString())){
+                    return;
+                }
+                long nowTime = System.currentTimeMillis();
+                if (nowTime - mLastClickTime > 1000L) {
+                    putComment();
+                    mLastClickTime = nowTime;
+                }
                 break;
+                //点击评论
+            case R.id.tv_comment:
+                showReplyView(0,"","");
+                break;
+                //点击屏幕外边，隐藏键盘
+            case R.id.ll_all_click:
+                disMissSoftKeyboard();
+                break;
+
         }
     }
 
@@ -318,6 +381,41 @@ public class CommunityDetailActivity extends BaseActivity<CommunityPresenter> im
                 //todo 进用户主页/分个人和商家
             });
         }
+    }
+
+    @Override
+    public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+        mPage++;
+        getCommentData(true);
+    }
+
+    @Override
+    public void isFail(String msg, boolean isNetAndServiceError) {
+        if (isLoadMore){
+            mPage--;
+        }
+        closeRefresh(smartRefresh);
+        showToast(msg);
+    }
+
+    @Override
+    protected CommunityPresenter getPresenter() {
+        return new CommunityPresenter(this);
+    }
+
+    @Override
+    protected int layoutId() {
+        return R.layout.act_community_detail;
+    }
+
+    @Override
+    public void showLoading() {
+        startProgressDialog();
+    }
+
+    @Override
+    public void stopLoading() {
+        stopProgressDialog();
     }
 
 }

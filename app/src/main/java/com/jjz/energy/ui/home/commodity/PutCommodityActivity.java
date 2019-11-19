@@ -171,7 +171,7 @@ public class PutCommodityActivity extends BaseActivity <PutCommodityPresenter>im
         });
         //适配器实例化 最多选三张
         mSelectPhotoAdapter = new CommonSelectPhotoAdapter(R.layout.item_put_commodity_select_photo,
-                        mSelectPhotos, 5);
+                        mSelectPhotos, 6);
         rvPhoto.setAdapter(mSelectPhotoAdapter);
     }
 
@@ -640,7 +640,6 @@ public class PutCommodityActivity extends BaseActivity <PutCommodityPresenter>im
         PutCommodityActivityPermissionsDispatcher.onRequestPermissionsResult(this, requestCode,
                 grantResults);
     }
-
 
     // =================================== 生命周期和方法重写
 

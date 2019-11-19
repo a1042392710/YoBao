@@ -7,7 +7,7 @@ package com.jjz.energy.entry.enums;
 public enum VipLevelEnum {
 
     //0 无会员
-    NOVIP("普通会员", 1), VIP_ONE("VIP", 2), VIP_TWO("经销商", 3), VIP_THREE("市场经销商",4), VIP_FOUR("代理服务商", 5);
+    NOVIP("普通会员", 1), VIP_ONE("VIP1", 2), VIP_TWO("VIP2", 3), VIP_THREE("VIP3",4), VIP_FOUR("代理服务商", 5);
 
     // 成员变量
     private String name;

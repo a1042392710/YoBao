@@ -8,6 +8,7 @@ import com.jjz.energy.entry.commodity.GoodsClassificationBean;
 import com.jjz.energy.entry.commodity.GoodsDetailsBean;
 import com.jjz.energy.entry.commodity.GoodsListBean;
 import com.jjz.energy.entry.commodity.HomePageCommentBean;
+import com.jjz.energy.entry.community.Community;
 import com.jjz.energy.entry.community.CommunityBean;
 import com.jjz.energy.entry.community.CommunityCommentBean;
 import com.jjz.energy.entry.home.BindBean;
@@ -33,6 +34,7 @@ import com.jjz.energy.entry.mine.AddressBean;
 import com.jjz.energy.entry.mine.BindOwnerInfoBean;
 import com.jjz.energy.entry.mine.LikeGoodsBean;
 import com.jjz.energy.entry.mine.MineBuyerBean;
+import com.jjz.energy.entry.mine.MineIntegralBean;
 import com.jjz.energy.entry.mine.MineLikeAndFansBean;
 import com.jjz.energy.entry.mine.OrderNoticeBean;
 import com.jjz.energy.entry.mine.RefundHistroyBean;
@@ -77,6 +79,11 @@ public interface Api {
 
 
      //-------------------------------------------------- 用户
+
+    //我的积分
+    @FormUrlEncoded
+    @POST("user/myPointsList")
+    Flowable<ResponseData<MineIntegralBean>> getIntegralList(@Field(PACK_NO) String pack_no);
 
     //登录
     @FormUrlEncoded
@@ -162,9 +169,6 @@ public interface Api {
     @FormUrlEncoded
     @POST("user/fansList")
     Flowable<ResponseData<MineLikeAndFansBean>> getFansList(@Field(PACK_NO) String pack_no);
-
-
-
 
     //提交车主信息
     @FormUrlEncoded
@@ -316,19 +320,22 @@ public interface Api {
 
     // ----------------------------------------------------------  社区
 
-    //发布商品
+    //发布帖子
     @Multipart
-    @POST("goods/save")
-    Flowable<ResponseData<String>> putPost(
+    @POST("time_line/createTimeLine")
+    Flowable<ResponseData<Community>> putPost(
             @Part MultipartBody.Part params,  @PartMap Map<String, RequestBody> imgFiles
     );
-
-
 
     //查询帖子列表
     @FormUrlEncoded
     @POST("time_line/index")
     Flowable<ResponseData<CommunityBean>> getPostList(@Field(PACK_NO) String pack_no);
+
+    //查询指定用户的帖子列表
+    @FormUrlEncoded
+    @POST("time_line/myTimeLine")
+    Flowable<ResponseData<CommunityBean>> getUserPostList(@Field(PACK_NO) String pack_no);
 
     //查看帖子中的评论
     @FormUrlEncoded
@@ -337,14 +344,15 @@ public interface Api {
 
     //点赞帖子
     @FormUrlEncoded
-    @POST("order/orderComment")
+    @POST("time_line/topThis")
     Flowable<ResponseData<String>> putPostLike(@Field(PACK_NO) String pack_no);
 
 
     //帖子评价
     @FormUrlEncoded
-    @POST("order/orderComment")
+    @POST("time_line/sendComment")
     Flowable<ResponseData<String>> putPostComment(@Field(PACK_NO) String pack_no);
+
 
 
 

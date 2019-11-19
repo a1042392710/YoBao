@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jjz.energy.R;
-import com.jjz.energy.base.BaseFragment;
+import com.jjz.energy.base.BaseLazyFragment;
 import com.jjz.energy.base.BaseRecycleNewAdapter;
 import com.jjz.energy.entry.mine.MineLikeAndFansBean;
 import com.jjz.energy.presenter.mine.MineLikeAndFansPresenter;
@@ -34,7 +34,7 @@ import butterknife.BindView;
  * @Features: 我的粉丝
  * @author: create by chenhao on 2019/8/6
  */
-public class MineFansFragment extends BaseFragment<MineLikeAndFansPresenter> implements IMineLikeAndFansView {
+public class MineFansFragment extends BaseLazyFragment<MineLikeAndFansPresenter> implements IMineLikeAndFansView {
 
     @BindView(R.id.rv_list)
     RecyclerView rvList;

@@ -9,8 +9,17 @@ import java.util.List;
  */
 public class CommunityCommentBean {
 
+    private int count;
+
     private List<ListBean> list;
 
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
 
     public List<ListBean> getList() {
         if (list == null) {
@@ -23,7 +32,7 @@ public class CommunityCommentBean {
         this.list = list;
     }
 
-    public class ListBean {
+    public static class ListBean {
 
         /**
          * content : 你瞅啥

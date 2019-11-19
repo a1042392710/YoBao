@@ -8,10 +8,11 @@ import android.widget.RadioGroup;
 
 import com.jjz.energy.R;
 import com.jjz.energy.adapter.HomePageCommentAdapter;
-import com.jjz.energy.base.BaseFragment;
+import com.jjz.energy.base.BaseLazyFragment;
 import com.jjz.energy.base.Constant;
 import com.jjz.energy.entry.commodity.HomePageCommentBean;
 import com.jjz.energy.presenter.mine.HomePagePresenter;
+import com.jjz.energy.util.StringUtil;
 import com.jjz.energy.util.networkUtil.AesUtils;
 import com.jjz.energy.util.networkUtil.PacketUtil;
 import com.jjz.energy.view.mine.IHomePageView;
@@ -26,7 +27,7 @@ import butterknife.BindView;
  * @Features: 评价列表
  * @author: create by chenhao on 2019/8/6
  */
-public class HomePageCommentFragment extends BaseFragment<HomePagePresenter> implements IHomePageView {
+public class HomePageCommentFragment extends BaseLazyFragment<HomePagePresenter> implements IHomePageView {
 
     @BindView(R.id.rv_list)
     RecyclerView rvList;
@@ -129,25 +130,23 @@ public class HomePageCommentFragment extends BaseFragment<HomePagePresenter> imp
         rbCommentAll.setText("全部 "+ data.getTotal_num());
         rbCommentGood.setText("很棒 "+ data.getGood_num());
         rbCommentHavePhoto.setText("有图 "+ data.getHave_img_num());
-
+        if (!StringUtil.isListEmpty(data.getList()) && data.getList().size() > 8) {
+            smartRefresh.setEnableLoadMore(true);     //有够长的数据就开启加载更多
+        } else {
+            smartRefresh.setEnableLoadMore(false);     //否则关闭
+        }
         //加载更多
         if (isLoadMore) {
-            //没有更多数据的时候，关闭加载更多
-            if (!mAdapter.addNewData(data.getList()))
-                smartRefresh.setEnableLoadMore(false);
+            mAdapter.addNewData(data.getList());
         } else {
-            // 新数据为空时 显示空数据页面
+            //刷新数据，无数据显示空页面
             if (!mAdapter.notifyChangeData(data.getList())) {
                 mAdapter.setEmptyView(getLoadSirView(R.mipmap.ic_none_list_data, "还没有对你的评论", false,null));
-                smartRefresh.setEnableLoadMore(false);
-            } else {
-                //有数据就开启加载更多
-                if (mAdapter.getData().size() > 8) {
-                    smartRefresh.setEnableLoadMore(true);
-                }
             }
         }
+
         closeRefresh(smartRefresh);
+//        stopLoading();
     }
 
     @Override

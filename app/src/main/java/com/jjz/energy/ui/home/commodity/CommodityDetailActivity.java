@@ -426,8 +426,10 @@ public class CommodityDetailActivity extends BaseActivity <CommodityDetailsPrese
                 if (StringUtil.isEmpty(etReplyContent.getText().toString())){
                     return;
                 }
-                sendComment(Utils.stringToMap(reply_key, reply_value),
-                        etReplyContent.getText().toString());
+                HashMap<String,String> map = new HashMap<>();
+                map.put(GOODS_ID ,mGoodsInfo.getGoods_info().getGoods_id()+"");
+                map.put(reply_key, reply_value);
+                sendComment(map, etReplyContent.getText().toString());
                 break;
             //想要
             case R.id.tv_like:

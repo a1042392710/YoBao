@@ -9,15 +9,20 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.StringUtils;
 import com.jjz.energy.R;
 import com.jjz.energy.adapter.MineAdapter;
+import com.jjz.energy.base.BaseApplication;
 import com.jjz.energy.base.BaseLazyFragment;
+import com.jjz.energy.base.BaseWebActivity;
+import com.jjz.energy.base.Constant;
 import com.jjz.energy.entry.jiusu.MineBean;
 import com.jjz.energy.entry.jiusu.MineInfoBean;
 import com.jjz.energy.presenter.mine.MinePresenter;
 import com.jjz.energy.ui.mine.information.HomePageActivity;
 import com.jjz.energy.util.StringUtil;
 import com.jjz.energy.util.glide.GlideUtils;
+import com.jjz.energy.util.networkUtil.AesUtils;
 import com.jjz.energy.util.networkUtil.PacketUtil;
 import com.jjz.energy.util.networkUtil.UserLoginBiz;
 import com.jjz.energy.util.system.PopWindowUtil;
@@ -62,6 +67,9 @@ public class MineFragment  extends BaseLazyFragment<MinePresenter> implements IM
     TextView tvFansSum;
     @BindView(R.id.tv_like_sum)
     TextView tvLikeSum;
+    @BindView(R.id.tv_shop_go)
+    TextView tvShopGo;
+
     /**
      * 我的菜单列表数据
      */
@@ -100,7 +108,6 @@ public class MineFragment  extends BaseLazyFragment<MinePresenter> implements IM
     }
 
 
-
     /**
      * 初始化我的菜单网格数据
      */
@@ -108,48 +115,41 @@ public class MineFragment  extends BaseLazyFragment<MinePresenter> implements IM
         rvMine.setLayoutManager(new GridLayoutManager(mContext, 4));
         mList = new ArrayList<>();
         mList.add(new MineBean("我的帖子", R.mipmap.ic_mine_post));
-        mList.add(new MineBean("我的公益", R.mipmap.ic_mine_charity));
-        mList.add(new MineBean("我的物流", R.mipmap.ic_mine_logistics));
-        mList.add(new MineBean("我的保险", R.mipmap.ic_mine_insurance));
-        mList.add(new MineBean("我的养老", R.mipmap.ic_mine_pension));
-        mList.add(new MineBean("我的教育",R.mipmap.ic_mine_education));
-        mList.add(new MineBean("我的评价",R.mipmap.ic_mine_comment));
+//        mList.add(new MineBean("我的评价",R.mipmap.ic_mine_comment));
         mList.add(new MineBean("我的积分",R.mipmap.ic_mine_integral));
+//        mList.add(new MineBean("我的公益", R.mipmap.ic_mine_charity));
+//        mList.add(new MineBean("我的物流", R.mipmap.ic_mine_logistics));
+//        mList.add(new MineBean("我的保险", R.mipmap.ic_mine_insurance));
+//        mList.add(new MineBean("我的养老", R.mipmap.ic_mine_pension));
+//        mList.add(new MineBean("我的教育",R.mipmap.ic_mine_education));
         MineAdapter mineAdapter = new MineAdapter(R.layout.item_mine_type,mList);
         rvMine.setAdapter(mineAdapter);
         mineAdapter.setOnItemClickListener((adapter, view, position) -> {
-            switch (position){
-                //我的帖子
-                case 0:
+            switch (mineAdapter.getItem(position).getTitle()){
+                case "我的帖子":
                     startActivity(new Intent(mContext,MinePostActivity.class));
                     break;
-                    //我的物流
-                case 1:
+                case "我的评价":
                     break;
-                    //我的保险
-                case 2:
+                case "我的积分":
+                    startActivity(new Intent(mContext,MineIntegralActivity.class));
                     break;
-                    //我的养老
-                case 3:
+                case "我的公益":
                     break;
-                    //我的公益
-                case 4:
+                case "我的物流":
                     break;
-                    //我的教育
-                case 5:
+                case "我的保险":
                     break;
-                    //我的评价
-                case 6:
+                case "我的养老":
                     break;
-                    //我的客服
-                case 7:
+                case "我的教育":
                     break;
             }
         });
 
     }
 
-    @OnClick({R.id.img_setting, R.id.ll_mine_release, R.id.ll_mine_seller, R.id.ll_mine_buyer,
+    @OnClick({R.id.img_setting, R.id.ll_mine_release, R.id.ll_mine_seller, R.id.ll_mine_buyer,R.id.tv_shop_go,
             R.id.ll_mine_like, R.id.tv_feedback, R.id.tv_about_us ,R.id.img_head  ,R.id.tv_like_sum ,R.id.tv_fans_sum  })
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -192,6 +192,26 @@ public class MineFragment  extends BaseLazyFragment<MinePresenter> implements IM
                 //关于我们
             case R.id.tv_about_us:
                 startActivity(new Intent(mContext,AboutUsActivity.class));
+                break;
+                //商家入驻
+            case R.id.tv_shop_go:
+                //获取时间
+                long time  = System.currentTimeMillis();
+                String token = "" ;
+                String decode_token = "";
+                if (!StringUtils.isEmpty(SpUtil.init(BaseApplication.getAppContext()).readString(Constant.LOGIN_ID))) {
+                    decode_token = SpUtil.init(BaseApplication.getAppContext()).readString(Constant.LOGIN_ID);
+                }
+                //用户 token
+                if (!StringUtils.isEmpty(decode_token)) {//解密后的token 再次加密
+                    token = AesUtils.encrypt(decode_token + time, AesUtils.KEY, AesUtils.IV);
+                }
+                //手机号
+               String  phone =  UserLoginBiz.getInstance(mContext).readUserInfo().getMobile();
+                //完整的带参数 进 商家入驻页面
+                String url = Constant.SHOP_GO + "?time="+time+"&&token="+token +"&&username="+phone;
+                //跳转
+                startActivity(new Intent(mContext, BaseWebActivity.class).putExtra(BaseWebActivity.WEB_TITLE,"商家入驻").putExtra(BaseWebActivity.WEB_URL,url));
                 break;
         }
     }

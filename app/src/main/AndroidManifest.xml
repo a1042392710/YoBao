@@ -377,6 +377,10 @@
         <activity android:name="com.jjz.energy.ui.jiusu_shop.JiuSuShopHomePageActivity"
             android:configChanges="orientation|screenSize"/>
 
+        <!--我的积分-->
+        <activity android:name="com.jjz.energy.ui.mine.MineIntegralActivity"
+            android:configChanges="orientation|screenSize"/>
+
 
         <!--****************** 支付****************** -->
 
