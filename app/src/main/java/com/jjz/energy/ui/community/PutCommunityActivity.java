@@ -159,6 +159,7 @@ public class PutCommunityActivity extends BaseActivity<CommunityPresenter> imple
     public void isPutPostSuc(Community data) {
         showToast("发布成功");
         startActivity(new Intent(mContext, CommunityDetailActivity.class).putExtra(Constant.INTENT_KEY_OBJECT,data));
+        finish();
     }
 
     @OnClick({R.id.img_close, R.id.tv_submit})

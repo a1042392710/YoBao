@@ -24,6 +24,7 @@ import com.jjz.energy.presenter.community.CommunityPresenter;
 import com.jjz.energy.util.DateUtil;
 import com.jjz.energy.util.StringUtil;
 import com.jjz.energy.util.glide.GlideUtils;
+import com.jjz.energy.util.networkUtil.AesUtils;
 import com.jjz.energy.util.networkUtil.PacketUtil;
 import com.jjz.energy.view.home.ICommunityView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -97,7 +98,7 @@ public class PostFragment extends BaseLazyFragment<CommunityPresenter> implement
         this.isLoadMore = isLoadMore;
         HashMap<String,String> map = new HashMap<>();
         map.put("page",mPage+"");
-        map.put(Constant.USER_ID,user_id+"");
+        map.put(Constant.USER_ID, AesUtils.encrypt(String.valueOf(user_id), AesUtils.KEY, AesUtils.IV));
         mPresenter.getUserPostList(PacketUtil.getRequestPacket(map), isLoadMore);
     }
 
@@ -189,7 +190,7 @@ public class PostFragment extends BaseLazyFragment<CommunityPresenter> implement
             GlideUtils.loadCircleImage(mContext, item.getHead_pic(), imgHead);
             helper.setText(R.id.item_tv_user_name, item.getNickname());
             helper.setText(R.id.item_tv_put_time,
-                    DateUtil.getTimeFormatText(new Date(item.getAdd_time())));
+                    DateUtil.getTimeFormatText(new Date(item.getAdd_time()*1000L)));
             //如果有图片则加载rv
             if (!StringUtil.isEmpty(item.getImages())) {
                 List<String> list = Arrays.asList(item.getImages().split(","));

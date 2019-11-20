@@ -270,7 +270,7 @@
                     android:layout_width="50dp"
                     android:paddingRight="7dp"
                     android:layout_height="50dp"
-                    android:src="@mipmap/ic_notice_evaluation" />
+                    android:src="@mipmap/ic_notice_community" />
 
                 <TextView
                     android:id="@+id/tv_evaluation_title"
@@ -278,7 +278,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="11dp"
                     android:layout_toRightOf="@id/img_evaluation_notice"
-                    android:text="评价消息"
+                    android:text="社区消息"
                     android:textColor="@color/text_black28"
                     android:textSize="14sp" />
 
@@ -291,7 +291,7 @@
                     android:layout_marginTop="6dp"
                     android:singleLine="true"
                     android:ellipsize="end"
-                    android:text="暂无评价消息"
+                    android:text="暂无社区消息"
                     android:textColor="@color/text_black75"
                     android:textSize="11sp" />
 

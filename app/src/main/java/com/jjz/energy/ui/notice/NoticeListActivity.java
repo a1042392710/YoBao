@@ -142,10 +142,10 @@ public class NoticeListActivity extends BaseActivity<NoticePresenter> implements
             tvSystemContent.setText("暂无新消息");
         }
         //设置各项数据
-        if (data.getEvaluation() != null) {
-            setRedMark(mEvaluationRed, data.getEvaluation().getUnread_num(), imgEvaluationNotice);
-            tvEvaluationContent.setText(data.getEvaluation().getMessage());
-            tvEvaluationTime.setText(DateUtil.longToDate(data.getEvaluation().getLast_time(), null));
+        if (data.getCommunity() != null) {
+            setRedMark(mEvaluationRed, data.getCommunity().getUnread_num(), imgEvaluationNotice);
+            tvEvaluationContent.setText(data.getCommunity().getMessage());
+            tvEvaluationTime.setText(DateUtil.longToDate(data.getCommunity().getLast_time(), null));
         } else {
             tvEvaluationTime.setText("");
             tvEvaluationContent.setText("暂无新消息");
@@ -191,9 +191,9 @@ public class NoticeListActivity extends BaseActivity<NoticePresenter> implements
             case R.id.rl_message:
                 startActivity(new Intent(mContext, CommentNoticeActivity.class));
                 break;
-            //评论消息
+            //社区消息
             case R.id.rl_evaluation:
-                startActivity(new Intent(mContext, EvaluationNoticeActivity.class));
+                startActivity(new Intent(mContext, CommunityNoticeActivity.class));
                 break;
         }
     }

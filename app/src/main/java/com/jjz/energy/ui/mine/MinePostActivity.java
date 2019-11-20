@@ -198,7 +198,7 @@ public class MinePostActivity extends BaseActivity<CommunityPresenter> implement
             GlideUtils.loadCircleImage(mContext, item.getHead_pic(), imgHead);
             helper.setText(R.id.item_tv_user_name, item.getNickname());
             helper.setText(R.id.item_tv_put_time,
-                    DateUtil.getTimeFormatText(new Date(item.getAdd_time())));
+                    DateUtil.getTimeFormatText(new Date(item.getAdd_time()*1000L)));
             //如果有图片则加载rv
             if (!StringUtil.isEmpty(item.getImages())) {
                 List<String> list = Arrays.asList(item.getImages().split(","));

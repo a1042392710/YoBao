@@ -20,6 +20,9 @@ public interface ICommunityView extends IBaseView {
     //获取帖子中的评论
     default void isGetPostCommentSuc(CommunityCommentBean data) {}
 
+    //获取帖子详情
+    default void isGetPostDetailsSuc(Community data) {}
+
     //点赞
     default void isPutPostLikeSuc(String data) {}
 

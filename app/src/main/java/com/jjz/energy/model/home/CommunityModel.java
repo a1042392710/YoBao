@@ -49,6 +49,11 @@ public class CommunityModel extends BaseModel {
         return RetrofitFactory.getRetrofit().create(Api.class).getUserPostList(requestData).compose(RxSchedulerHepler.handleMyResult());
     }
 
+    //获取指定用户的帖子详情
+    public Flowable<Community> getPostDetails(String requestData) {
+        return RetrofitFactory.getRetrofit().create(Api.class).getPostDetails(requestData).compose(RxSchedulerHepler.handleMyResult());
+    }
+
     //获取帖子中的评论
     public Flowable<CommunityCommentBean> getPostComment(String requestData) {
         return RetrofitFactory.getRetrofit().create(Api.class).getPostComment(requestData).compose(RxSchedulerHepler.handleMyResult());

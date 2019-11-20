@@ -121,6 +121,37 @@ public class CommunityPresenter extends BasePresenter<CommunityModel, ICommunity
     }
 
     /**
+     * 获取帖子数据 （除了评论）
+     * @param map
+     */
+    @SuppressLint("CheckResult")
+    public void getPostDetails(String map) {
+
+        addSubscribe(mModel.getPostDetails(map)
+                .subscribeWith(new CommonSubscriber<Community>() {
+
+                    @Override
+                    protected void startLoading() {
+                            mView.showLoading();
+                    }
+
+                    @Override
+                    protected void onSuccess(Community response) {
+//                        mView.stopLoading();
+                        mView.isGetPostDetailsSuc(response);
+                    }
+
+                    @Override
+                    protected void onFail(String errorMsg ,boolean isNetAndSeriveError) {
+                        mView.isFail(errorMsg,isNetAndSeriveError);
+                        mView.stopLoading();
+                    }
+                }));
+
+    }
+
+
+    /**
      * 获取帖子评论
      * @param map
      */

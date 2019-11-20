@@ -91,6 +91,11 @@ public class Constant {
      */
     public  static  final int NOTICE_SYSTEM = 6;
 
+    /**
+     * 推送的消息类型  社区
+     */
+    public  static  final int NOTICE_COMMUNITY = 7;
+
     //------------------------------- 用户
 
     /**

@@ -4,12 +4,12 @@
               android:layout_width="match_parent"
               android:paddingLeft="18dp"
               android:paddingRight="18dp"
-              android:paddingTop="20dp"
+              android:paddingTop="10dp"
               android:layout_height="wrap_content">
 
     <ImageView
         android:id="@+id/item_img_user_head"
-        android:layout_width="44dp"
+        android:layout_width="38dp"
         android:src="@mipmap/ic_default_head"
         android:layout_marginRight="5dp"
         android:layout_height="44dp"/>
@@ -41,7 +41,7 @@
 
         <TextView
             android:id="@+id/item_tv_content"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="10dp"
             android:text="金玖洲新能源给全国各地带来了不一样的便利，让生活变得多姿多彩。"
             android:layout_width="match_parent"
             android:textSize="13sp"
@@ -61,7 +61,7 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/item_rv_photo"
             android:layout_width="wrap_content"
-            android:paddingTop="15dp"
+            android:paddingTop="10dp"
             android:layout_height="wrap_content"/>
 
         <LinearLayout
@@ -74,7 +74,7 @@
             <TextView
                 android:id="@+id/item_tv_like"
                 android:layout_width="wrap_content"
-                android:text="629"
+                android:text="0"
                 android:textColor="#a9a9a9"
                 android:drawablePadding="5dp"
                 android:padding="5dp"
@@ -89,7 +89,7 @@
                 android:drawableLeft="@mipmap/ic_comment"
                 android:drawablePadding="5dp"
                 android:padding="5dp"
-                android:text="29"
+                android:text="0"
                 android:textColor="#a9a9a9"
                 android:textSize="12sp"
                 android:layout_height="wrap_content"/>

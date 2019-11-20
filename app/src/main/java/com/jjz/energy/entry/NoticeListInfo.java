@@ -11,10 +11,14 @@ public class NoticeListInfo {
     private Notice system;
     private Notice messages;
     private Notice shipping;
-    private Notice evaluation;
+    private Notice timeline;
 
-    public Notice getEvaluation() {
-        return evaluation;
+    public Notice getCommunity() {
+        return timeline;
+    }
+
+    public void setCommunity(Notice timeline) {
+        this.timeline = timeline;
     }
 
     public Notice getMessages() {
@@ -25,9 +29,6 @@ public class NoticeListInfo {
         this.messages = messages;
     }
 
-    public void setEvaluation(Notice evaluation) {
-        this.evaluation = evaluation;
-    }
 
     public Notice getOrder() {
         return order;

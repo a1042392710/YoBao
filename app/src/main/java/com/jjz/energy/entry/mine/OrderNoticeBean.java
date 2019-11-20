@@ -42,6 +42,15 @@ public class OrderNoticeBean implements Serializable {
         private String shipping_no;
         private String nickname;
         private String head_pic;
+        private int timeline_id;
+
+        public int getTimeline_id() {
+            return timeline_id;
+        }
+
+        public void setTimeline_id(int timeline_id) {
+            this.timeline_id = timeline_id;
+        }
 
         public String getNickname() {
             return nickname == null ? "" : nickname;

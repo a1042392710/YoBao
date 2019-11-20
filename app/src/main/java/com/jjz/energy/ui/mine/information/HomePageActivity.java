@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.jjz.energy.R;
 import com.jjz.energy.base.BaseActivity;
+import com.jjz.energy.base.Constant;
 import com.jjz.energy.entry.mine.UserPageInfo;
 import com.jjz.energy.presenter.mine.HomePagePresenter;
 import com.jjz.energy.ui.community.PostFragment;
@@ -145,7 +146,7 @@ public class HomePageActivity extends BaseActivity<HomePagePresenter> implements
         //粉丝数 关注数
         tvUserLikeAndFans.setText("关注 "+data.getFocus_num()+" 粉丝 "+data.getFans_num());
         //上次上线时间
-        tvUserTime.setText(DateUtil.getTimeFormatText(new Date(data.getLast_time()*1000))+"来过");
+        tvUserTime.setText(DateUtil.getTimeFormatText(new Date(data.getLast_time()*1000L))+"来过");
         //用户简介
         tvUserDesc.setText(data.getDesc());
         //是否已经关注了
@@ -182,7 +183,7 @@ public class HomePageActivity extends BaseActivity<HomePagePresenter> implements
             //关注
             case R.id.tv_like_user:
                 HashMap<String,String> map = new HashMap<>();
-                map.put("user_id",AesUtils.encrypt(String.valueOf(user_id), AesUtils.KEY, AesUtils.IV));
+                map.put(Constant.USER_ID,AesUtils.encrypt(String.valueOf(user_id), AesUtils.KEY, AesUtils.IV));
                 map.put("act",isFocus==0?"focus":"cancel");
                 mPresenter.setFocusUser(PacketUtil.getRequestPacket(map));
                 break;

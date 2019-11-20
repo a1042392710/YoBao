@@ -5,7 +5,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -16,9 +15,8 @@ import com.jjz.energy.base.BaseRecycleNewAdapter;
 import com.jjz.energy.base.Constant;
 import com.jjz.energy.entry.mine.OrderNoticeBean;
 import com.jjz.energy.presenter.home.NoticePresenter;
-import com.jjz.energy.ui.jiusu_shop.shop_order.EvaluateDetailsActivity;
+import com.jjz.energy.ui.community.CommunityDetailActivity;
 import com.jjz.energy.util.DateUtil;
-import com.jjz.energy.util.glide.GlideUtils;
 import com.jjz.energy.util.networkUtil.PacketUtil;
 import com.jjz.energy.view.home.INoticeView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -33,10 +31,11 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
- * @Features: 评价消息
+ * @Features: 社区消息
  * @author: create by chenhao on 2019/11/9
  */
-public class EvaluationNoticeActivity extends BaseActivity<NoticePresenter> implements INoticeView,OnLoadMoreListener {
+public class CommunityNoticeActivity extends BaseActivity<NoticePresenter> implements INoticeView,OnLoadMoreListener {
+
     @BindView(R.id.ll_toolbar_left)
     LinearLayout llToolbarLeft;
     @BindView(R.id.tv_toolbar_title)
@@ -61,17 +60,17 @@ public class EvaluationNoticeActivity extends BaseActivity<NoticePresenter> impl
 
     @Override
     protected void initView() {
-        tvToolbarTitle.setText("评价消息");
+        tvToolbarTitle.setText("社区消息");
         smartRefresh.setOnLoadMoreListener(this);
         rvNoticeList.setLayoutManager(new LinearLayoutManager(this));
-        mNoticeAdapter = new NoticeAdapter(R.layout.item_comment_notice, new ArrayList<>());
+        mNoticeAdapter = new NoticeAdapter(R.layout.item_community_notice, new ArrayList<>());
         rvNoticeList.setAdapter(mNoticeAdapter);
         //点击进入各个详情页面
         mNoticeAdapter.setOnItemClickListener((adapter, view, position) -> {
             OrderNoticeBean.ListBean listBean = mNoticeAdapter.getData().get(position);
-            if (listBean.getType() == Constant.NOTICE_COMMENT) {
+            if (listBean.getType() == Constant.NOTICE_COMMUNITY) {
                 //评价
-                startActivity(new Intent(mContext, EvaluateDetailsActivity.class).putExtra(Constant.ORDER_SN, listBean.getOrder_sn()));
+                startActivity(new Intent(mContext, CommunityDetailActivity.class).putExtra("id", listBean.getTimeline_id()));
             }
         });
         getData(false);
@@ -83,7 +82,7 @@ public class EvaluationNoticeActivity extends BaseActivity<NoticePresenter> impl
     private void getData(boolean isLoadMore){
         this.isLoadMore = isLoadMore;
         HashMap<String,String> map = new HashMap<>();
-        map.put("enum","evaluation");
+        map.put("enum","timeline");
         map.put("page",mPage+"");
         mPresenter.getOrderNoticeList(PacketUtil.getRequestPacket(map),isLoadMore);
     }
@@ -104,12 +103,12 @@ public class EvaluationNoticeActivity extends BaseActivity<NoticePresenter> impl
                 smartRefresh.setEnableLoadMore(false);
         } else {
             // 新数据为空时 显示空数据页面
-            if (!mNoticeAdapter.notifyChangeData(data.getList())) {
-                mNoticeAdapter.setEmptyView(getLoadSirView(R.mipmap.ic_none_list_data, "您还没有评价消息", false,
+              if (!mNoticeAdapter.notifyChangeData(data.getList())) {
+                mNoticeAdapter.setEmptyView(getLoadSirView(R.mipmap.ic_none_list_data, "您还没有社区消息", false,
                         null));
                 smartRefresh.setEnableLoadMore(false);
             } else {
-                if (data.getList().size()>6){
+                if (data.getList().size()>8){
                     //有数据就开启加载更多
                     smartRefresh.setEnableLoadMore(true);
                 }else{
@@ -163,12 +162,7 @@ public class EvaluationNoticeActivity extends BaseActivity<NoticePresenter> impl
 
         @Override
         protected void convert(BaseViewHolder helper, OrderNoticeBean.ListBean item) {
-            ImageView imgHead = helper.getView(R.id.item_img_head);
-            ImageView imgCommodity = helper.getView(R.id.item_img_commondity);
-            GlideUtils.loadRoundCircleImage(mContext,item.getHead_pic(),imgHead);
-            GlideUtils.loadRoundCircleImage(mContext,item.getImg_url(),imgCommodity);
-            helper.setText(R.id.item_tv_notice_title,item.getNickname()+" 给您评价了");
-            helper.setText(R.id.item_tv_notice_content,item.getContent());
+            helper.setText(R.id.item_tv_notice_title,item.getContent());
             helper.setText(R.id.item_tv_time_title, DateUtil.longToDate(item.getAdd_time(),null));
 
         }

@@ -21,14 +21,17 @@ import com.jjz.energy.adapter.PhotoAdapter;
 import com.jjz.energy.base.BaseActivity;
 import com.jjz.energy.base.BaseRecycleNewAdapter;
 import com.jjz.energy.base.Constant;
+import com.jjz.energy.entry.UserInfo;
 import com.jjz.energy.entry.community.Community;
 import com.jjz.energy.entry.community.CommunityCommentBean;
 import com.jjz.energy.presenter.community.CommunityPresenter;
 import com.jjz.energy.ui.mine.information.HomePageActivity;
 import com.jjz.energy.util.DateUtil;
 import com.jjz.energy.util.StringUtil;
+import com.jjz.energy.util.Utils;
 import com.jjz.energy.util.glide.GlideUtils;
 import com.jjz.energy.util.networkUtil.PacketUtil;
+import com.jjz.energy.util.networkUtil.UserLoginBiz;
 import com.jjz.energy.util.system.SoftKeyBoardListener;
 import com.jjz.energy.view.home.ICommunityView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -114,15 +117,21 @@ public class CommunityDetailActivity extends BaseActivity<CommunityPresenter> im
      * 选中的那一条评论的下标
      */
     private int selectIndex = -1;
+    /**
+     * 当没有数据的时候 ，通过 id 查询数据
+     */
+    private int id;
 
     @Override
     protected void initView() {
         tvToolbarTitle.setText("详情");
+        id = getIntent().getIntExtra("id", 0);
         mListBean = (Community) getIntent().getSerializableExtra(Constant.INTENT_KEY_OBJECT);
-        if (mListBean ==null){
-            mListBean = new Community();
+        if (mListBean == null) {
+            mPresenter.getPostDetails(PacketUtil.getRequestPacket(Utils.stringToMap("timeline_id", id + "")));
+        } else {
+            initData();
         }
-        initData();
         initRv();
         initListener();
         //获取评论数据
@@ -241,6 +250,11 @@ public class CommunityDetailActivity extends BaseActivity<CommunityPresenter> im
     }
 
 
+    @Override
+    public void isGetPostDetailsSuc(Community data) {
+        mListBean = data;
+        initData();
+    }
 
     /**
      * 获取评论列表
@@ -249,7 +263,8 @@ public class CommunityDetailActivity extends BaseActivity<CommunityPresenter> im
         this.isLoadMore = isLoadMore;
         HashMap<String,String> map = new HashMap<>();
         map.put("page",mPage+"");
-        map.put("timeline_id",mListBean.getId()+"");
+        int timeline_id  = mListBean!=null?mListBean.getId():id;
+        map.put("timeline_id",timeline_id+"");
         mPresenter.getPostComment(PacketUtil.getRequestPacket(map),isLoadMore);
     }
 
@@ -262,11 +277,9 @@ public class CommunityDetailActivity extends BaseActivity<CommunityPresenter> im
             comment_num = data.getCount();
             tvCommentNum.setText("全部评论("+comment_num+")");
         }
-        //获取评论数据
-        if (!StringUtil.isListEmpty(data.getList()) && data.getList().size()>8){
-            smartRefresh.setEnableLoadMore(true);     //有够长的数据就开启加载更多
-        }else{
-            smartRefresh.setEnableLoadMore(false);     //否则关闭
+        //如果加载更多没有数据的话，就将页码回置
+        if (isLoadMore&&StringUtil.isListEmpty(data.getList())){
+            mPage--;
         }
         //加载更多
         if (isLoadMore) {
@@ -287,7 +300,7 @@ public class CommunityDetailActivity extends BaseActivity<CommunityPresenter> im
         HashMap<String,String> map = new HashMap<>();
         map.put("content",etComment.getText().toString());
         map.put("timeline_id",mListBean.getId()+"");
-        if (!StringUtil.isEmpty(reply_id)){
+        if (!etComment.getHint().toString().contains("@")&&!StringUtil.isEmpty(reply_id)){
             map.put("reply_id",reply_id);
         }
         mPresenter.putComment(PacketUtil.getRequestPacket(map));
@@ -297,14 +310,16 @@ public class CommunityDetailActivity extends BaseActivity<CommunityPresenter> im
      */
     @Override
     public void isPutPostCommentSuc(String data) {
+        showToast("评论成功");
         comment_num ++;
         tvCommentNum.setText("全部评论("+comment_num+")");
         //如果当前页面不满10条，则队尾插入一条静态数据，否则不插入
-        if (mCommentAdapter.getData().size()%10!=0) {
+        if (10 > mCommentAdapter.getData().size() || mCommentAdapter.getData().size()%10!=0) {
+            UserInfo userInfo = UserLoginBiz.getInstance(mContext).readUserInfo();
             CommunityCommentBean.ListBean listBean = new CommunityCommentBean.ListBean();
             listBean.setContent(etComment.getText().toString());
-            listBean.setFrom_pic(mListBean.getHead_pic());
-            listBean.setFrom_username(mListBean.getNickname());
+            listBean.setFrom_pic(userInfo.getHead_pic());
+            listBean.setFrom_username(userInfo.getNickname());
             //回复时间
             listBean.setReply_time(System.currentTimeMillis()/1000L);
             //reply_id
@@ -347,6 +362,7 @@ public class CommunityDetailActivity extends BaseActivity<CommunityPresenter> im
                 break;
                 //点击评论
             case R.id.tv_comment:
+                selectIndex=-1;
                 showReplyView(0,"","");
                 break;
                 //点击屏幕外边，隐藏键盘
@@ -379,6 +395,7 @@ public class CommunityDetailActivity extends BaseActivity<CommunityPresenter> im
             helper.setText(R.id.item_tv_time,DateUtil.getTimeFormatText(new Date(item.getReply_time()*1000L)));
             img.setOnClickListener(v -> {
                 //todo 进用户主页/分个人和商家
+//                startActivity(new Intent(mContext,HomePageActivity.class).putExtra(Constant.USER_ID,item.getus));
             });
         }
     }

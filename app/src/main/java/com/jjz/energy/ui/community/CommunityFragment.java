@@ -111,17 +111,17 @@ public class CommunityFragment extends BaseLazyFragment<CommunityPresenter> impl
 
     @Override
     public void isPutPostLikeSuc(String data) {
-        //指定操作类型  点赞  /  还是取消点赞
+        //指定操作类型  1 点赞  /  还是 0 取消点赞
         int is_like = mAdapter.getData().get(selectIndex).getIs_like();
         mAdapter.getData().get(selectIndex).setIs_like( is_like == 0?1:0);
         //点赞数量
         int num =  mAdapter.getData().get(selectIndex).getTop_num();
         if (is_like==0){
             //点赞
-           mAdapter.getData().get(selectIndex).setTop_num(num++);
+           mAdapter.getData().get(selectIndex).setTop_num(num+1);
         }else{
             //取消点赞
-            mAdapter.getData().get(selectIndex).setTop_num(num--);
+            mAdapter.getData().get(selectIndex).setTop_num(num-1);
         }
 
         mAdapter.notifyItemChanged(selectIndex);
@@ -232,7 +232,7 @@ public class CommunityFragment extends BaseLazyFragment<CommunityPresenter> impl
             //头像
             GlideUtils.loadCircleImage(mContext, item.getHead_pic(), imgHead);
             helper.setText(R.id.item_tv_user_name,item.getNickname());
-            helper.setText(R.id.item_tv_put_time, DateUtil.getTimeFormatText(new Date(item.getAdd_time())));
+            helper.setText(R.id.item_tv_put_time, DateUtil.getTimeFormatText(new Date(item.getAdd_time()*1000L)));
             //如果有图片则加载rv
             if (!StringUtil.isEmpty(item.getImages())) {
                 List<String> list = Arrays.asList(item.getImages().split(","));

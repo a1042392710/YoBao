@@ -45,7 +45,7 @@
             android:id="@+id/item_tv_notice_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="彭于晏 给您留言了"
+            android:text="彭于晏 评论了你"
             android:textColor="@color/text_black28"
             android:textSize="15sp" />
 
@@ -78,7 +78,7 @@
             android:layout_toRightOf="@id/item_img_head"
             android:paddingLeft="5dp"
             android:paddingRight="8dp"
-            android:text="您已成功下单"
+            android:text="你发的帖子真好看"
             android:textColor="@color/text_black75"
             android:textSize="13sp" />
 

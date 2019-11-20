@@ -11,12 +11,14 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.jjz.energy.R;
 import com.jjz.energy.base.BaseLazyFragment;
 import com.jjz.energy.base.BaseRecycleNewAdapter;
+import com.jjz.energy.base.Constant;
 import com.jjz.energy.entry.mine.MineLikeAndFansBean;
 import com.jjz.energy.presenter.mine.MineLikeAndFansPresenter;
 import com.jjz.energy.ui.mine.information.HomePageActivity;
 import com.jjz.energy.util.StringUtil;
 import com.jjz.energy.util.Utils;
 import com.jjz.energy.util.glide.GlideUtils;
+import com.jjz.energy.util.networkUtil.AesUtils;
 import com.jjz.energy.util.networkUtil.PacketUtil;
 import com.jjz.energy.view.mine.IMineLikeAndFansView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -30,7 +32,7 @@ import java.util.List;
 import butterknife.BindView;
 
 /**
- * @Features: 我的粉丝
+ * @Features: 我的关注
  * @author: create by chenhao on 2019/8/6
  */
 public class MineLikeFragment extends BaseLazyFragment<MineLikeAndFansPresenter> implements IMineLikeAndFansView {
@@ -94,7 +96,7 @@ public class MineLikeFragment extends BaseLazyFragment<MineLikeAndFansPresenter>
      */
     private void cancleFocus(int user_id){
         HashMap<String, String> map = new HashMap<>();
-        map.put("user_id",user_id+"");
+        map.put(Constant.USER_ID, AesUtils.encrypt(String.valueOf(user_id), AesUtils.KEY, AesUtils.IV));
         //取消关注
         map.put("act","cancel");
         mPresenter.setFocusUser(PacketUtil.getRequestPacket(map));

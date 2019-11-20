@@ -337,6 +337,11 @@ public interface Api {
     @POST("time_line/myTimeLine")
     Flowable<ResponseData<CommunityBean>> getUserPostList(@Field(PACK_NO) String pack_no);
 
+    //查询指定用户的帖子详情
+    @FormUrlEncoded
+    @POST("time_line/timeLineInfo")
+    Flowable<ResponseData<Community>> getPostDetails(@Field(PACK_NO) String pack_no);
+
     //查看帖子中的评论
     @FormUrlEncoded
     @POST("time_line/timeLineComments")

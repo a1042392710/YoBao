@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/item_rl_notice_item_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="14dp"
+        android:layout_marginRight="14dp"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/bg_white_radius"
+        android:padding="10dp">
+
+
+        <TextView
+            android:id="@+id/item_tv_notice_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="您发布的大金链子...有新的评论"
+            android:textColor="@color/text_black28"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/item_tv_time_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/item_tv_notice_title"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="7dp"
+            android:layout_marginRight="5dp"
+            android:includeFontPadding="false"
+            android:text="09:08"
+            android:textColor="@color/text_black33"
+            android:textSize="13sp" />
+
+    </RelativeLayout>
+</LinearLayout>

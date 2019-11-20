@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/white"
     android:orientation="vertical">
 
@@ -52,7 +53,7 @@
                             android:id="@+id/tv_user_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="南昌彭于晏"
+                            tools:text="南昌彭于晏"
                             android:textColor="@color/text_black33"
                             android:textSize="13sp" />
 
@@ -75,7 +76,7 @@
                         android:layout_marginLeft="25dp"
                         android:layout_marginTop="22dp"
                         android:layout_marginRight="50dp"
-                        android:text="金玖洲新能源给全国各地带来了不一样的便利，让生活变得多姿多彩。"
+                        tools:text="金玖洲新能源给全国各地带来了不一样的便利，让生活变得多姿多彩。"
                         android:textColor="@color/text_black33"
                         android:textSize="13sp" />
 
@@ -105,7 +106,7 @@
                         android:drawableLeft="@mipmap/ic_unchecked_like_two"
                         android:drawablePadding="5dp"
                         android:padding="5dp"
-                        android:text="29"
+                        android:text="0"
                         android:textColor="#a9a9a9"
                         android:textSize="14sp" />
 

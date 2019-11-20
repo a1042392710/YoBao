@@ -381,6 +381,10 @@
         <activity android:name="com.jjz.energy.ui.mine.MineIntegralActivity"
             android:configChanges="orientation|screenSize"/>
 
+        <!--我的积分-->
+        <activity android:name="com.jjz.energy.ui.notice.CommunityNoticeActivity"
+            android:configChanges="orientation|screenSize"/>
+
 
         <!--****************** 支付****************** -->
 

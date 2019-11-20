@@ -205,6 +205,9 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements IHomeVi
                 break;
             //通知
             case R.id.img_notice:
+                if (mNoticeUnRead!=null) {
+                    mNoticeUnRead.setBadgeNumber(0);
+                }
                 //需要验证登录
                 ActivityUtils.startActivity(!UserLoginBiz.getInstance(mContext).detectUserLoginStatus() ? LoginActivity.class : NoticeListActivity.class);
                 break;

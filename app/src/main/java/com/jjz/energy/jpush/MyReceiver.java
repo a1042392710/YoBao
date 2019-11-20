@@ -7,9 +7,9 @@ import android.os.Bundle;
 import android.text.TextUtils;
 
 import com.baidu.ocr.sdk.utils.LogUtil;
-import com.blankj.utilcode.util.ToastUtils;
 import com.jjz.energy.base.Constant;
 import com.jjz.energy.ui.MainActivity;
+import com.jjz.energy.ui.community.CommunityDetailActivity;
 import com.jjz.energy.ui.home.commodity.CommodityDetailActivity;
 import com.jjz.energy.ui.jiusu_shop.shop_order.EvaluateDetailsActivity;
 import com.jjz.energy.ui.jiusu_shop.shop_order.ExpressDetailsActivity;
@@ -83,7 +83,7 @@ public class MyReceiver extends BroadcastReceiver {
 
                 // 用户点击打开了通知
             } else if (JPushInterface.ACTION_NOTIFICATION_OPENED.equals(intent.getAction())) {
-                ToastUtils.showShort("用户打开了一个通知");
+                LogUtil.e(TAG,"用户打开了一个通知");
                 goActivity(context,type,id,user_type);
 
             } else {
@@ -120,6 +120,11 @@ public class MyReceiver extends BroadcastReceiver {
             //推送类型 查看评价
             case Constant.NOTICE_COMMENT:
                 i = new Intent(context, EvaluateDetailsActivity.class).putExtra(Constant.ORDER_SN, id);
+                break;
+
+            //推送类型 查看社区消息
+            case Constant.NOTICE_COMMUNITY:
+                i = new Intent(context, CommunityDetailActivity.class).putExtra("id", Integer.valueOf(id));
                 break;
 
             //推送类型 系统消息
