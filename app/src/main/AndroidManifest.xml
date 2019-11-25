@@ -385,6 +385,15 @@
         <activity android:name="com.jjz.energy.ui.notice.CommunityNoticeActivity"
             android:configChanges="orientation|screenSize"/>
 
+        <!--店内消费记录-->
+        <activity android:name="com.jjz.energy.ui.mine.MineJiuSuShoppingListActivity"
+            android:configChanges="orientation|screenSize"/>
+
+
+        <!--店内消费记录-->
+        <activity android:name="com.jjz.energy.ui.mine.MineJiuSuShoppingDetailsActivity"
+            android:configChanges="orientation|screenSize"/>
+
 
         <!--****************** 支付****************** -->
 

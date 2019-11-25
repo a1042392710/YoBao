@@ -75,6 +75,8 @@ public class SearchResultActivity extends BaseActivity<MainPresenter> implements
     TagFlowLayout tfReleaseTime;
     @BindView(R.id.tv_submit_filter)
     TextView tvSubmitFilter;
+    @BindView(R.id.tv_search)
+    TextView tvSearch;
 
     private String[] mVals = {"同城", "包邮", "全新"};
     private String[] mTimeVals = {"24小时", "7天", "30天"};
@@ -382,14 +384,18 @@ public class SearchResultActivity extends BaseActivity<MainPresenter> implements
         stopProgressDialog();
     }
 
-    @OnClick({R.id.img_finish, R.id.tv_submit_filter ,R.id.tv_reset_filter})
+    @OnClick({R.id.img_finish, R.id.tv_submit_filter ,R.id.tv_reset_filter ,R.id.tv_search})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-
             case R.id.img_finish:
                 finish();
                 break;
-                //提交筛选
+            //搜索
+            case R.id.tv_search:
+                mPage = 1;
+                getData(false);
+                break;
+            //提交筛选
             case R.id.tv_submit_filter:
                 disMissSoftKeyboard();
                 //关闭侧滑

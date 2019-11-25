@@ -29,6 +29,8 @@ import com.jjz.energy.entry.jiusu.ShopMarkerBean;
 import com.jjz.energy.entry.jiusu.VipListInfo;
 import com.jjz.energy.entry.jiusu.WithdrawListBean;
 import com.jjz.energy.entry.jiusu_shop.JiuSuShopBean;
+import com.jjz.energy.entry.jiusu_shop.JiuSuShoppingBean;
+import com.jjz.energy.entry.jiusu_shop.JiuSuShoppingDetailsBean;
 import com.jjz.energy.entry.jiusu_shop.ShopHomePageBean;
 import com.jjz.energy.entry.mine.AddressBean;
 import com.jjz.energy.entry.mine.BindOwnerInfoBean;
@@ -481,6 +483,20 @@ public interface Api {
     @FormUrlEncoded
     @POST("return_goods/returnGoodsLog")
     Flowable<ResponseData<JiuSuShopBean>> getShopList(@Field(PACK_NO) String pack_no);
+
+    /**
+     * 获取久速商家店内消费记录
+     */
+    @FormUrlEncoded
+    @POST("return_goods/returnGoodsLog")
+    Flowable<ResponseData<JiuSuShoppingBean>> getJiuSuShoppingList(@Field(PACK_NO) String pack_no);
+
+    /**
+     * 获取久速商家店内消费记录 详情
+     */
+    @FormUrlEncoded
+    @POST("return_goods/returnGoodsLog")
+    Flowable<ResponseData<JiuSuShoppingDetailsBean>> getJiuSuShoppingDetails(@Field(PACK_NO) String pack_no);
 
     /**
      * 获取推荐商家列表 和 商家分类信息

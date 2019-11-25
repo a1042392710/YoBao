@@ -4,6 +4,8 @@ import android.annotation.SuppressLint;
 
 import com.jjz.energy.base.BasePresenter;
 import com.jjz.energy.entry.jiusu_shop.JiuSuShopBean;
+import com.jjz.energy.entry.jiusu_shop.JiuSuShoppingBean;
+import com.jjz.energy.entry.jiusu_shop.JiuSuShoppingDetailsBean;
 import com.jjz.energy.entry.jiusu_shop.ShopHomePageBean;
 import com.jjz.energy.model.jiusu_shop.JiuSuShopModel;
 import com.jjz.energy.util.networkUtil.CommonSubscriber;
@@ -54,6 +56,37 @@ public class JiuSuShopPresenter extends BasePresenter<JiuSuShopModel, IJiuSuShop
     }
 
     /**
+     * 获取店内消费记录
+     * @param map
+     */
+    @SuppressLint("CheckResult")
+    public void getJiuSuShoppingList(String map,boolean isLoadMore) {
+
+        addSubscribe(mModel.getJiuSuShoppingList(map)
+                .subscribeWith(new CommonSubscriber<JiuSuShoppingBean>() {
+
+                    @Override
+                    protected void startLoading() {
+                        if (!isLoadMore){
+                            mView.showLoading();
+                        }
+                    }
+
+                    @Override
+                    protected void onSuccess(JiuSuShoppingBean response) {
+                        mView.stopLoading();
+                        mView.isGetJiusuShoppingListSuc(response);
+                    }
+
+                    @Override
+                    protected void onFail(String errorMsg ,boolean isNetAndSeriveError) {
+                        mView.isFail(errorMsg,isNetAndSeriveError);
+                        mView.stopLoading();
+                    }
+                }));
+
+    }
+    /**
      * 获取商家个人主页信息
      * @param map
      */
@@ -85,6 +118,35 @@ public class JiuSuShopPresenter extends BasePresenter<JiuSuShopModel, IJiuSuShop
 
     }
 
+    /**
+     * 获取商家个人主页信息
+     * @param map
+     */
+    @SuppressLint("CheckResult")
+    public void getJiuSuShoppingDetails(String map) {
+
+        addSubscribe(mModel.getJiuSuShoppingDetails(map)
+                .subscribeWith(new CommonSubscriber<JiuSuShoppingDetailsBean>() {
+
+                    @Override
+                    protected void startLoading() {
+                            mView.showLoading();
+                    }
+
+                    @Override
+                    protected void onSuccess(JiuSuShoppingDetailsBean response) {
+                        mView.stopLoading();
+                        mView.isGetJiusuShoppingDetailsSuc(response);
+                    }
+
+                    @Override
+                    protected void onFail(String errorMsg ,boolean isNetAndSeriveError) {
+                        mView.isFail(errorMsg,isNetAndSeriveError);
+                        mView.stopLoading();
+                    }
+                }));
+
+    }
     @Override
     protected JiuSuShopModel createModel() {
         return new JiuSuShopModel();

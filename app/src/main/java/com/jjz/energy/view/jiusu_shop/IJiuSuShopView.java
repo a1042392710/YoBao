@@ -2,6 +2,8 @@ package com.jjz.energy.view.jiusu_shop;
 
 import com.jjz.energy.base.IBaseView;
 import com.jjz.energy.entry.jiusu_shop.JiuSuShopBean;
+import com.jjz.energy.entry.jiusu_shop.JiuSuShoppingBean;
+import com.jjz.energy.entry.jiusu_shop.JiuSuShoppingDetailsBean;
 import com.jjz.energy.entry.jiusu_shop.ShopHomePageBean;
 
 /**
@@ -14,9 +16,16 @@ public interface IJiuSuShopView extends IBaseView {
     default void isGetClassAndShopListSuccess(JiuSuShopBean data) {
 
     }
-
     //获取商家个人主页信息
     default void isGetShopHomePageSuccess(ShopHomePageBean data) {
+
+    }
+    //在久速商家的消费记录
+    default void isGetJiusuShoppingListSuc(JiuSuShoppingBean data) {
+
+    }
+    //在久速商家的消费记录 详情
+    default void isGetJiusuShoppingDetailsSuc(JiuSuShoppingDetailsBean data) {
 
     }
 

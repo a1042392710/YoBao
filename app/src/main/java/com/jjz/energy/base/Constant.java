@@ -47,7 +47,7 @@ public class Constant {
     //金玖洲隐私协议
     public static final String PRIVACY_POLICY_URL = "http://api.jjznewenergy.com/index/user/userDeal";
     //商家入驻
-    public static final String SHOP_GO = "http://api.jjznewenergy.com/web";
+    public static final String SHOP_GO = "http://apit.jjznewenergy.com/web";
 
     //积分规则
     public static final String INTEGRAL_RULE = "http://api.jjznewenergy.com/web/rule";
