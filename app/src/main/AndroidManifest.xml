@@ -389,9 +389,24 @@
         <activity android:name="com.jjz.energy.ui.mine.MineJiuSuShoppingListActivity"
             android:configChanges="orientation|screenSize"/>
 
-
         <!--店内消费记录-->
         <activity android:name="com.jjz.energy.ui.mine.MineJiuSuShoppingDetailsActivity"
+            android:configChanges="orientation|screenSize"/>
+
+        <!--指定分类的久速商家-->
+        <activity android:name="com.jjz.energy.ui.jiusu_shop.ShopCateListActivity"
+            android:configChanges="orientation|screenSize"/>
+
+        <!--搜索商家-->
+        <activity android:name="com.jjz.energy.ui.jiusu_shop.SearchShopActivity"
+            android:configChanges="orientation|screenSize"/>
+
+        <!--搜索商家结果-->
+        <activity android:name="com.jjz.energy.ui.jiusu_shop.SearchShopResultActivity"
+            android:configChanges="orientation|screenSize"/>
+
+        <!--商家全部分类-->
+        <activity android:name="com.jjz.energy.ui.jiusu_shop.ShopClassificationActivity"
             android:configChanges="orientation|screenSize"/>
 
 

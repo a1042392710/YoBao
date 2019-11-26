@@ -200,8 +200,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements IHomeVi
                 break;
             //搜索
             case R.id.card_search:
-                startActivity(new Intent(mContext, SearchActivity.class).putExtra(SearchActivity.SEARCH_TYPE,SearchActivity.SEARCH_COMMODITY)
-                        , ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
+                startActivity(new Intent(mContext, SearchActivity.class),ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
                 break;
             //通知
             case R.id.img_notice:

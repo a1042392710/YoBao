@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 
 import com.jjz.energy.base.BasePresenter;
 import com.jjz.energy.entry.jiusu_shop.JiuSuShopBean;
+import com.jjz.energy.entry.jiusu_shop.JiuSuShopClassBean;
 import com.jjz.energy.entry.jiusu_shop.JiuSuShoppingBean;
 import com.jjz.energy.entry.jiusu_shop.JiuSuShoppingDetailsBean;
 import com.jjz.energy.entry.jiusu_shop.ShopHomePageBean;
@@ -24,7 +25,7 @@ public class JiuSuShopPresenter extends BasePresenter<JiuSuShopModel, IJiuSuShop
 
 
     /**
-     * 获取推荐商家 和 商家分类
+     * 获取推荐商家
      * @param map
      */
     @SuppressLint("CheckResult")
@@ -48,6 +49,66 @@ public class JiuSuShopPresenter extends BasePresenter<JiuSuShopModel, IJiuSuShop
 
                     @Override
                    protected void onFail(String errorMsg ,boolean isNetAndSeriveError) {
+                        mView.isFail(errorMsg,isNetAndSeriveError);
+                        mView.stopLoading();
+                    }
+                }));
+
+    }
+
+    /**
+     * 搜索商家
+     * @param map
+     */
+    @SuppressLint("CheckResult")
+    public void getSearchShopList(String map,boolean isLoadMore) {
+
+        addSubscribe(mModel.getSearchShopList(map)
+                .subscribeWith(new CommonSubscriber<JiuSuShopBean>() {
+
+                    @Override
+                    protected void startLoading() {
+                        if (!isLoadMore){
+                            mView.showLoading();
+                        }
+                    }
+
+                    @Override
+                    protected void onSuccess(JiuSuShopBean response) {
+                        mView.stopLoading();
+                        mView.isGetClassAndShopListSuccess(response);
+                    }
+
+                    @Override
+                    protected void onFail(String errorMsg ,boolean isNetAndSeriveError) {
+                        mView.isFail(errorMsg,isNetAndSeriveError);
+                        mView.stopLoading();
+                    }
+                }));
+
+    }
+
+    /**
+     * 商家分类
+     * @param map
+     */
+    @SuppressLint("CheckResult")
+    public void getShopClass(String map) {
+
+        addSubscribe(mModel.getShopClass(map)
+                .subscribeWith(new CommonSubscriber<JiuSuShopClassBean>() {
+
+                    @Override
+                    protected void startLoading() {}
+
+                    @Override
+                    protected void onSuccess(JiuSuShopClassBean response) {
+                        mView.stopLoading();
+                        mView.isGetShopClassSuccess(response);
+                    }
+
+                    @Override
+                    protected void onFail(String errorMsg ,boolean isNetAndSeriveError) {
                         mView.isFail(errorMsg,isNetAndSeriveError);
                         mView.stopLoading();
                     }
@@ -119,7 +180,7 @@ public class JiuSuShopPresenter extends BasePresenter<JiuSuShopModel, IJiuSuShop
     }
 
     /**
-     * 获取商家个人主页信息
+     * 商家消费详情
      * @param map
      */
     @SuppressLint("CheckResult")

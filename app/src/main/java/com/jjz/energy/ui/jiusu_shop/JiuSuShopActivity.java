@@ -20,8 +20,8 @@ import com.jjz.energy.adapter.JiuSuShopListAdapter;
 import com.jjz.energy.base.BaseActivity;
 import com.jjz.energy.base.BaseRecycleNewAdapter;
 import com.jjz.energy.entry.jiusu_shop.JiuSuShopBean;
+import com.jjz.energy.entry.jiusu_shop.JiuSuShopClassBean;
 import com.jjz.energy.presenter.jiusu_shop.JiuSuShopPresenter;
-import com.jjz.energy.ui.home.SearchActivity;
 import com.jjz.energy.util.StringUtil;
 import com.jjz.energy.util.Utils;
 import com.jjz.energy.util.glide.GlideUtils;
@@ -84,10 +84,24 @@ public class JiuSuShopActivity extends BaseActivity <JiuSuShopPresenter> impleme
         rvShopType.setLayoutManager(new GridLayoutManager(this, 5));
         mShopTypeAdapter = new JiuSuShopTypeAdapter(R.layout.item_jius_shop_type, new ArrayList<>());
         rvShopType.setAdapter(mShopTypeAdapter);
+        mShopTypeAdapter.setOnItemClickListener((adapter, view, position) -> {
+         JiuSuShopClassBean.ClassListBean  classListBean =  mShopTypeAdapter.getItem(position);
+         //全部分类 进分类列表
+         if (classListBean.getId()==999){
+             startActivity(new Intent(mContext, ShopClassificationActivity.class));
+         }else{
+             startActivity(new Intent(mContext,ShopCateListActivity.class).putExtra("title",classListBean.getMobile_name()).putExtra("cate_id",classListBean.getId()));
+         }
+
+        });
         //商户列表  显示一些推荐商户
         rvShopList.setLayoutManager(new LinearLayoutManager(this));
         mShopListAdapter = new JiuSuShopListAdapter(R.layout.item_jiusu_shop_list, new ArrayList<>());
         rvShopList.setAdapter(mShopListAdapter);
+        // todo  跳转商家个人主页
+        mShopListAdapter.setOnItemClickListener((adapter, view, position) ->
+                startActivity(new Intent(mContext,JiuSuShopHomePageActivity.class)));
+        mPresenter.getShopClass(PacketUtil.getRequestPacket(Utils.stringToMap("limit",9+"")));
         getData(false);
     }
 
@@ -106,30 +120,33 @@ public class JiuSuShopActivity extends BaseActivity <JiuSuShopPresenter> impleme
     }
 
     @Override
-    public void isGetClassAndShopListSuccess(JiuSuShopBean data) {
+    public void isGetShopClassSuccess(JiuSuShopClassBean data) {
+        JiuSuShopClassBean jiuSuShopClassBean = new JiuSuShopClassBean();
+        JiuSuShopClassBean.ClassListBean classListBean = jiuSuShopClassBean.new ClassListBean();
+        classListBean.setId(999);
+        classListBean.setMobile_name("全部分类");
+        data.getList().add(classListBean);
         //绑定分类信息
-        if (StringUtil.isListEmpty(mShopTypeAdapter.getData())){
-            mShopTypeAdapter.addNewData(data.getClass_list());
+        mShopTypeAdapter.notifyChangeData(data.getList());
+
+    }
+
+    @Override
+    public void isGetClassAndShopListSuccess(JiuSuShopBean data) {
+        if (!StringUtil.isListEmpty(data.getList()) && data.getList().size()>8){
+            smartRefresh.setEnableLoadMore(true);     //有够长的数据就开启加载更多
+        }else{
+            smartRefresh.setEnableLoadMore(false);     //否则关闭
         }
-        //商家列表数据
+        //加载更多
         if (isLoadMore) {
-            //没有更多数据的时候，关闭加载更多
-            if (!mShopListAdapter.addNewData(data.getShop_list()))
-                smartRefresh.setEnableLoadMore(false);
+            mShopListAdapter.addNewData(data.getList());
         } else {
-            // 新数据为空时 显示空数据页面
-            if (!mShopListAdapter.notifyChangeData(data.getShop_list())) {
-                mShopListAdapter.setEmptyView(getLoadSirView(R.mipmap.ic_none_list_data, "您还没有物流消息", false,
-                        null));
-                smartRefresh.setEnableLoadMore(false);
-            } else {
-                if (data.getShop_list().size()>6){
-                    //有数据就开启加载更多
-                    smartRefresh.setEnableLoadMore(true);
-                }else{
-                    //有数据就开启加载更多
-                    smartRefresh.setEnableLoadMore(false);
-                }
+            //刷新数据，无数据显示空页面
+            if (!mShopListAdapter.notifyChangeData(data.getList())) {
+                mShopListAdapter.setEmptyView(getLoadSirView(R.mipmap.ic_none_list_data, "还没有入驻的商家", true, v -> {
+                    getData(false);
+                }));
             }
         }
         closeRefresh(smartRefresh);
@@ -144,8 +161,7 @@ public class JiuSuShopActivity extends BaseActivity <JiuSuShopPresenter> impleme
                 break;
                 //搜索 进入搜索页面
             case R.id.card_search:
-                startActivity(new Intent(mContext, SearchActivity.class).putExtra(SearchActivity.SEARCH_TYPE,SearchActivity.SEARCH_SHOP)
-                        , ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+                startActivity(new Intent(mContext, SearchShopActivity.class),ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
                 break;
         }
     }
@@ -171,17 +187,22 @@ public class JiuSuShopActivity extends BaseActivity <JiuSuShopPresenter> impleme
     /**
      * 商户类型
      */
-    class JiuSuShopTypeAdapter extends BaseRecycleNewAdapter<JiuSuShopBean.ClassListBean> {
+    class JiuSuShopTypeAdapter extends BaseRecycleNewAdapter<JiuSuShopClassBean.ClassListBean> {
 
-        public JiuSuShopTypeAdapter(int layoutResId, @Nullable List<JiuSuShopBean.ClassListBean> data) {
+        public JiuSuShopTypeAdapter(int layoutResId, @Nullable List<JiuSuShopClassBean.ClassListBean> data) {
             super(layoutResId, data);
         }
 
         @Override
-        protected void convert(BaseViewHolder helper, JiuSuShopBean.ClassListBean item) {
-            helper.setText(R.id.item_tv_shop_type_name, item.getType());
+        protected void convert(BaseViewHolder helper, JiuSuShopClassBean.ClassListBean item) {
+            helper.setText(R.id.item_tv_shop_type_name, item.getMobile_name());
             ImageView img = helper.getView(R.id.item_img_shop_type);
-            GlideUtils.loadImage(mContext,item.getImg(),img);
+            if (item.getId()==999){
+                img.setImageResource(R.mipmap.ic_shop_class_all);
+            }else{
+                GlideUtils.loadImage(mContext,item.getImage(),img);
+            }
+
         }
     }
 }

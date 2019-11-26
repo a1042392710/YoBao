@@ -1,4 +1,4 @@
-package com.jjz.energy.ui.home;
+package com.jjz.energy.ui.jiusu_shop;
 
 import android.content.Intent;
 import android.os.Build;
@@ -15,6 +15,7 @@ import com.jjz.energy.R;
 import com.jjz.energy.base.BaseActivity;
 import com.jjz.energy.base.BasePresenter;
 import com.jjz.energy.base.Constant;
+import com.jjz.energy.ui.home.SearchResultActivity;
 import com.jjz.energy.util.StringUtil;
 import com.jjz.energy.util.flowlayout.FlowLayout;
 import com.jjz.energy.util.flowlayout.TagAdapter;
@@ -26,10 +27,10 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
- * @Features: 搜索
+ * @Features: 搜索商铺
  * @author: create by chenhao on 2019/6/20
  */
-public class SearchActivity extends BaseActivity {
+public class SearchShopActivity extends BaseActivity {
     @BindView(R.id.img_back)
     ImageView imgBack;
     @BindView(R.id.tv_search)
@@ -40,6 +41,7 @@ public class SearchActivity extends BaseActivity {
     TagFlowLayout tlSearch;
     @BindView(R.id.img_search_clear)
     ImageView imgSearchClear;
+
 
     @Override
     protected BasePresenter getPresenter() {
@@ -53,7 +55,7 @@ public class SearchActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        etSearch.setHint("搜索热门商品");
+        etSearch.setHint("搜索热门店铺");
         //给TagFlowLayout 赋值
         initFlowLayout();
     }
@@ -73,8 +75,8 @@ public class SearchActivity extends BaseActivity {
      */
     private void initFlowLayout() {
         //从本地获取历史记录
-        String historyStr = SpUtil.init(mContext).readString(Constant.SEARCH_HISTORY);
-        if (StringUtil.isEmpty(historyStr)){
+        String historyStr = SpUtil.init(mContext).readString(Constant.SEARCH_HISTORY_SHOP);
+        if (StringUtil.isEmpty(historyStr)) {
             return;
         }
         String[] mVals = historyStr.split(",");
@@ -93,7 +95,8 @@ public class SearchActivity extends BaseActivity {
         tlSearch.setOnTagClickListener((view, position, parent) -> {
             //记录选中的意见下标
 //            seleteFeedPosition = String.valueOf(position + 1);
-            startActivity(new Intent(mContext,SearchResultActivity.class).putExtra("search_data",mVals[position]));
+            startActivity(new Intent(mContext, SearchShopResultActivity.class).putExtra("search_data"
+                    , mVals[position]));
             finish();
             return true;
         });
@@ -101,12 +104,12 @@ public class SearchActivity extends BaseActivity {
 
     @Override
     public void showLoading() {
-    startProgressDialog();
+        startProgressDialog();
     }
 
     @Override
     public void stopLoading() {
-    stopProgressDialog();
+        stopProgressDialog();
     }
 
 
@@ -116,28 +119,29 @@ public class SearchActivity extends BaseActivity {
             case R.id.img_back:
                 finish();
                 break;
-                //搜索
+            //搜索
             case R.id.tv_search:
-                String searchStr =  etSearch.getText().toString();
-                if (StringUtil.isEmpty(searchStr)){
+                String searchStr = etSearch.getText().toString();
+                if (StringUtil.isEmpty(searchStr)) {
                     return;
                 }
                 //将本次搜索记录存到本地
                 String history =
-                        SpUtil.init(mContext).readString(Constant.SEARCH_HISTORY) + (searchStr + ",");
-                SpUtil.init(mContext).commit(Constant.SEARCH_HISTORY,history);
-                startActivity(new Intent(mContext,SearchResultActivity.class).putExtra("search_data",searchStr));
+                        SpUtil.init(mContext).readString(Constant.SEARCH_HISTORY_SHOP) + (searchStr + ",");
+                SpUtil.init(mContext).commit(Constant.SEARCH_HISTORY_SHOP, history);
+                startActivity(new Intent(mContext, SearchResultActivity.class).putExtra(
+                        "search_data", searchStr));
                 finish();
                 break;
-                //清除历史记录
+            //清除历史记录
             case R.id.img_search_clear:
                 PopWindowUtil.getInstance().showPopupWindow(mContext, "您是否要清除全部历史搜索记录", () -> {
-                    SpUtil.init(mContext).commit(Constant.SEARCH_HISTORY,"");
+                    SpUtil.init(mContext).commit(Constant.SEARCH_HISTORY_SHOP, "");
                     tlSearch.setVisibility(View.GONE);
                 });
                 break;
             default:
-              break;
+                break;
         }
     }
 }

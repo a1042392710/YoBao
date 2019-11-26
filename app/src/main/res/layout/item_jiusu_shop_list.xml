@@ -46,7 +46,7 @@
             android:id="@+id/item_tv_favorable_rate"
             android:layout_marginStart="4dp"
             android:layout_width="wrap_content"
-            android:text="89%好评率"
+            android:text="100%好评率"
             android:textStyle="bold"
             android:textSize="13sp"
             android:textColor="@color/red_fe8977"

@@ -7,8 +7,12 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jjz.energy.R;
 import com.jjz.energy.base.BaseRecycleNewAdapter;
+import com.jjz.energy.base.Constant;
 import com.jjz.energy.entry.jiusu_shop.JiuSuShopBean;
+import com.jjz.energy.util.StringUtil;
+import com.jjz.energy.util.Utils;
 import com.jjz.energy.util.glide.GlideUtils;
+import com.jjz.energy.util.system.SpUtil;
 
 import java.util.List;
 
@@ -18,8 +22,15 @@ import java.util.List;
  */
 public class JiuSuShopListAdapter extends BaseRecycleNewAdapter<JiuSuShopBean.ListBean> {
 
+    private double mLng,mLat;
+
     public JiuSuShopListAdapter(int layoutResId, @Nullable List<JiuSuShopBean.ListBean> data) {
         super(layoutResId, data);
+        String lng =SpUtil.init(mContext).readString(Constant.LOCATION_LNG);
+        String lat = SpUtil.init(mContext).readString(Constant.LOCATION_LAT);
+
+       mLng =  StringUtil.isEmpty(lng)?0 :Double.valueOf(lng);
+       mLat =  StringUtil.isEmpty(lat)?0 :Double.valueOf(lat);
     }
 
     @Override
@@ -36,7 +47,14 @@ public class JiuSuShopListAdapter extends BaseRecycleNewAdapter<JiuSuShopBean.Li
         TextView itemTvDistance = helper.getView(R.id.item_tv_distance);
         //所在区域与商户类型
         TextView itemTvAreaAndType = helper.getView(R.id.item_tv_area_and_type);
-        GlideUtils.loadRoundCircleImage(mContext,"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1570528215677&di=18f480c83a3558750cc7168e64d42c39&imgtype=0&src=http%3A%2F%2Fpic15.nipic.com%2F20110619%2F1626751_151450468356_2.jpg",itemImgShop);
+        GlideUtils.loadRoundCircleImage(mContext,"",itemImgShop);
+
+        itemTvShopName.setText(item.getShop_name());
+        itemTvFavorableRate.setText(item.getApplause_rate()+"%好评率");
+        itemTvConsume.setText(item.getAvg_tax()+"元/人");
+        itemTvAreaAndType.setText(item.getDistrictName()+" | "+ item.getCateName());
+        itemTvDistance.setText(Utils.getDistance(mLng,mLat,item.getLng(),item.getLat())+"km");
+
 
 
     }

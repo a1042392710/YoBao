@@ -10,55 +10,96 @@ import java.util.List;
  */
 public class JiuSuShopBean implements Serializable {
 
-    private List<ListBean> shop_list;
+    private List<ListBean> list;
 
-    private List<ClassListBean> class_list;
-
-    public List<ListBean> getShop_list() {
-        if (shop_list == null) {
+    public List<ListBean> getList() {
+        if (list == null) {
             return new ArrayList<>();
         }
-        return shop_list;
+        return list;
     }
 
-    public void setShop_list(List<ListBean> shop_list) {
-        this.shop_list = shop_list;
-    }
 
-    public List<ClassListBean> getClass_list() {
-        if (class_list == null) {
-            return new ArrayList<>();
-        }
-        return class_list;
-    }
 
-    public void setClass_list(List<ClassListBean> class_list) {
-        this.class_list = class_list;
+    public void setList(List<ListBean> list) {
+        this.list = list;
     }
 
     public  class  ListBean implements Serializable{
 
-    }
 
-    public  class  ClassListBean implements Serializable{
+            /**
+             * shop_name : 水果店
+             * avg_tax : 30  人均消费
+             * cateName : 服装
+             * lng : 112.577306
+             * lat : 26.924344
+             * applause_rate : 好评率
+             * districtName :  区名
+             */
 
-        private String img;
-        private String type;
+            private String shop_name;
+            private int avg_tax;
+            private String cateName;
+            private double lng;
+            private double lat;
+            private String  applause_rate;
+            private String districtName;
 
-        public String getType() {
-            return type == null ? "" : type;
+        public String getShop_name() {
+            return shop_name == null ? "" : shop_name;
         }
 
-        public void setType(String type) {
-            this.type = type;
+        public void setShop_name(String shop_name) {
+            this.shop_name = shop_name;
         }
 
-        public String getImg() {
-            return img == null ? "" : img;
+        public int getAvg_tax() {
+            return avg_tax;
         }
 
-        public void setImg(String img) {
-            this.img = img;
+        public void setAvg_tax(int avg_tax) {
+            this.avg_tax = avg_tax;
+        }
+
+        public String getCateName() {
+            return cateName == null ? "" : cateName;
+        }
+
+        public void setCateName(String cateName) {
+            this.cateName = cateName;
+        }
+
+        public double getLng() {
+            return lng;
+        }
+
+        public void setLng(double lng) {
+            this.lng = lng;
+        }
+
+        public double getLat() {
+            return lat;
+        }
+
+        public void setLat(double lat) {
+            this.lat = lat;
+        }
+
+        public String getApplause_rate() {
+            return applause_rate == null ? "" : applause_rate;
+        }
+
+        public void setApplause_rate(String applause_rate) {
+            this.applause_rate = applause_rate;
+        }
+
+        public String getDistrictName() {
+            return districtName == null ? "" : districtName;
+        }
+
+        public void setDistrictName(String districtName) {
+            this.districtName = districtName;
         }
     }
 }

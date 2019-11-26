@@ -31,9 +31,11 @@ public class Constant {
     public static final String SCAN_TYPE_ORDER = "order";
 
     /**
-     * 存储用户定位
+     * 存储用户定位 和经纬度
      */
     public static final String LOCATION_ADDRESS = "locationAddress";
+    public static final String LOCATION_LAT= "lat";
+    public static final String LOCATION_LNG= "lng";
 
     //微信相关数据
     public static final String WX_APP_ID = "wx1a49cbcab5a4c41c";
@@ -108,9 +110,13 @@ public class Constant {
     public static final String USER_ID= "user_id";
 
     /**
-     * 搜索的历史记录
+     * 搜索的历史记录 商品
      */
     public static final String SEARCH_HISTORY= "search_history";
+    /**
+     * 搜索的历史记录 商家
+     */
+    public static final String SEARCH_HISTORY_SHOP= "search_history_shop";
 
 
     // ----------------------------------------------- 支付

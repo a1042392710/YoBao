@@ -117,7 +117,7 @@ public class MineFragment  extends BaseLazyFragment<MinePresenter> implements IM
         mList.add(new MineBean("我的帖子", R.mipmap.ic_mine_post));
 //        mList.add(new MineBean("我的评价",R.mipmap.ic_mine_comment));
         mList.add(new MineBean("我的积分",R.mipmap.ic_mine_integral));
-        mList.add(new MineBean("消费记录",R.mipmap.ic_mine_integral));
+        mList.add(new MineBean("消费记录",R.mipmap.ic_mine_shopping_list));
 //        mList.add(new MineBean("我的公益", R.mipmap.ic_mine_charity));
 //        mList.add(new MineBean("我的物流", R.mipmap.ic_mine_logistics));
 //        mList.add(new MineBean("我的保险", R.mipmap.ic_mine_insurance));
@@ -146,7 +146,7 @@ public class MineFragment  extends BaseLazyFragment<MinePresenter> implements IM
                 case "我的教育":
                     break;
                 case "消费记录":
-                    startActivity(new Intent(mContext,MineJiusuShippingListActivity.class));
+                    startActivity(new Intent(mContext,MineJiuSuShoppingListActivity.class));
                     break;
             }
         });

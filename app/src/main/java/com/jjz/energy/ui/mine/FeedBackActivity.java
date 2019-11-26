@@ -19,6 +19,7 @@ import com.jjz.energy.adapter.CommonSelectPhotoAdapter;
 import com.jjz.energy.base.BaseActivity;
 import com.jjz.energy.base.BasePresenter;
 import com.jjz.energy.base.Constant;
+import com.jjz.energy.util.StringUtil;
 import com.jjz.energy.util.flowlayout.FlowLayout;
 import com.jjz.energy.util.flowlayout.TagAdapter;
 import com.jjz.energy.util.flowlayout.TagFlowLayout;
@@ -226,7 +227,17 @@ public class FeedBackActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.tv_submit:
+                if (StringUtil.isEmpty(etFeedBackPhone.getText().toString())){
+                    showToast("请填写手机号码");
+                    return;
+                }
+                if (StringUtil.isEmpty(etFeedBackContent.getText().toString())){
+                    showToast("请填写反馈内容");
+                    return;
+                }
                 //提交
+                showToast("提交成功");
+                finish();
                 break;
         }
     }
