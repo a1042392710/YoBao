@@ -1,6 +1,6 @@
 package com.jjz.energy.ui.jiusu_shop;
 
-import android.support.annotation.Nullable;
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -11,21 +11,26 @@ import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.chad.library.adapter.base.BaseViewHolder;
 import com.jjz.energy.R;
 import com.jjz.energy.adapter.HomePageCommentAdapter;
+import com.jjz.energy.adapter.ShopHomePageCommodityAdapter;
 import com.jjz.energy.base.BaseActivity;
-import com.jjz.energy.base.BaseRecycleNewAdapter;
 import com.jjz.energy.base.Constant;
+import com.jjz.energy.entry.commodity.HomePageCommentBean;
 import com.jjz.energy.entry.jiusu_shop.ShopHomePageBean;
 import com.jjz.energy.presenter.jiusu_shop.JiuSuShopPresenter;
+import com.jjz.energy.util.StringUtil;
+import com.jjz.energy.util.Utils;
+import com.jjz.energy.util.glide.GlideImageLoader;
 import com.jjz.energy.util.networkUtil.AesUtils;
 import com.jjz.energy.util.networkUtil.PacketUtil;
 import com.jjz.energy.view.jiusu_shop.IJiuSuShopView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.youth.banner.Banner;
+import com.youth.banner.BannerConfig;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -99,7 +104,7 @@ public class JiuSuShopHomePageActivity extends BaseActivity <JiuSuShopPresenter>
     SmartRefreshLayout smartRefresh;
 
     private HomePageCommentAdapter mCommentAdapter;
-    private CommodityAdapter mCommodityAdapter;
+    private ShopHomePageCommodityAdapter mCommodityAdapter;
     /**
      * 页码
      */
@@ -115,28 +120,20 @@ public class JiuSuShopHomePageActivity extends BaseActivity <JiuSuShopPresenter>
      * 筛选类型 0 全部  1 很棒    2 有图  3差
      */
     private int filter_type = 0;
-
-
-    @Override
-    protected JiuSuShopPresenter getPresenter() {
-        return new JiuSuShopPresenter(this);
-    }
-
-    @Override
-    protected int layoutId() {
-        return R.layout.act_jiusu_shop_homepage;
-    }
-
     /**
-     * 用户id
+     * 商家id
      */
-    private int user_id;
+    private int shop_id;
 
     @Override
     protected void initView() {
-        user_id = getIntent().getIntExtra(Constant.USER_ID,0);
-        tvToolbarTitle.setText(getIntent().getStringExtra("title"));
+        shop_id = getIntent().getIntExtra(Constant.SHOP_ID,0);
+        tvToolbarTitle.setText("商家主页");
         initRv();
+        //获取商家基础信息
+        mPresenter.getShopHomePageInfo(PacketUtil.getRequestPacket(Utils.stringToMap(Constant.SHOP_ID,AesUtils.encrypt(String.valueOf(shop_id), AesUtils.KEY, AesUtils.IV))));
+        //获取商家评价
+        getCommentData(false);
     }
 
     /**
@@ -144,20 +141,30 @@ public class JiuSuShopHomePageActivity extends BaseActivity <JiuSuShopPresenter>
      */
     private void initRv() {
         //评价
-        rvComentlist.setLayoutManager(new LinearLayoutManager(this));
+        rvComentlist.setLayoutManager(new LinearLayoutManager(this){
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+        });
         mCommentAdapter = new HomePageCommentAdapter(R.layout.item_homepage_comment,
                 new ArrayList<>());
         rvComentlist.setAdapter(mCommentAdapter);
         //推荐商品
-        rvCommodity.setLayoutManager(new LinearLayoutManager(this));
-        mCommodityAdapter = new CommodityAdapter(R.layout.item_shop_commodity,
+        rvCommodity.setLayoutManager(new LinearLayoutManager(this){
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+        });
+        mCommodityAdapter = new ShopHomePageCommodityAdapter(R.layout.item_shop_commodity,
                 new ArrayList<>());
         rvCommodity.setAdapter(mCommodityAdapter);
         //上拉加载
         smartRefresh.setOnLoadMoreListener(refreshLayout -> {
             mPage++;
-            //获取指定类别的商品
-            getData(true);
+            //获取评价
+            getCommentData(true);
         });
         //选中的时候
         rgComment.setOnCheckedChangeListener((group, checkedId) -> {
@@ -171,7 +178,7 @@ public class JiuSuShopHomePageActivity extends BaseActivity <JiuSuShopPresenter>
                 filter_type=3;
             }
             mPage=1;
-            getData(false);
+            getCommentData(false);
         });
     }
     /**
@@ -179,11 +186,11 @@ public class JiuSuShopHomePageActivity extends BaseActivity <JiuSuShopPresenter>
      *
      * @param isLoadMore 是否加载更多
      */
-    private void getData(boolean isLoadMore) {
+    private void getCommentData(boolean isLoadMore) {
         this.isLoadMore = isLoadMore;
         HashMap<String, String> map = new HashMap<>();
         map.put("page", mPage + "");
-        map.put(Constant.USER_ID, AesUtils.encrypt(String.valueOf(user_id), AesUtils.KEY, AesUtils.IV));
+        map.put("shop_id", AesUtils.encrypt(String.valueOf(shop_id), AesUtils.KEY, AesUtils.IV));
         if (filter_type==1){
             //查询很棒的评价
             map.put("start","3");
@@ -192,32 +199,70 @@ public class JiuSuShopHomePageActivity extends BaseActivity <JiuSuShopPresenter>
             map.put("is_set_img","1");
         }else if (filter_type==3){
             //查询差评
-            map.put("is_set_img","2");
+            map.put("start","1");
         }
-        mPresenter.getShopHomePageInfo(PacketUtil.getRequestPacket(map), isLoadMore);
+        mPresenter.getShopCommentList(PacketUtil.getRequestPacket(map), isLoadMore);
     }
+
+    /**
+     * 将数据存下来
+     */
+    private ShopHomePageBean mShopHomePageBean;
 
     @Override
     public void isGetShopHomePageSuccess(ShopHomePageBean data) {
+        mShopHomePageBean = data;
+        //轮播图
+        List<String> list = Arrays.asList(data.getHeader_img().split(","));
+        initBanner(list);
+        //展示商家信息
+        tvShopName.setText(data.getShop_name());
+        tvDesc.setText(data.getShop_desc());
+        tvLocationContent.setText(data.getPoiaddress());
+        tvLocationContentDesc.setText(data.getPoiname());
+        tvGoShopBuy.setText("到店享受积分抵扣"+(data.getRebate()*10)+"折优惠");
+        tvDiscount.setText((data.getRebate()*10)+"折起 | 人均："+data.getAvg_tax()+"元");
+        //显示推荐商品列表
+        if (mCommodityAdapter.notifyChangeData(data.getCommodityList())){
+            mCommodityAdapter.setEmptyView(getLoadSirView(R.mipmap.ic_none_data, "商家还没有发布商品", false,null));
+        }
+    }
+
+    /**
+     * 初始化banner
+     */
+    private void initBanner(List<String> homeBeans) {
+        if (StringUtil.isListEmpty(homeBeans)){
+            return;
+        }
+        //设置图片加载器
+        banner.setImageLoader(new GlideImageLoader());
+        //设置图片集合
+        banner.setImages(homeBeans);
+        //设置轮播时间
+        banner.setDelayTime(3000);
+        //设置指示器位置（当banner模式中有指示器时）
+        banner.setIndicatorGravity(BannerConfig.RIGHT);
+        //轮播点击事件
+        banner.setOnBannerListener(position -> {
+        });
+        banner.start();
+    }
+    @Override
+    public void isGetShopHomePageCommentSuccess(HomePageCommentBean data) {
         //展示数量
         rbCommentAll.setText("全部 "+ data.getTotal_num());
         rbCommentGood.setText("好评 "+ data.getGood_num());
         rbCommentBad.setText("差评 "+ data.getBad_num());
         rbCommentHavePhoto.setText("有图 "+ data.getHave_img_num());
-
-        //显示推荐商品列表
-        if (mCommodityAdapter.notifyChangeData(data.getCommodityList())){
-            mCommentAdapter.setEmptyView(getLoadSirView(R.mipmap.ic_none_data, "你还没有发布商品", false,null));
-        }
         //加载更多
         if (isLoadMore) {
             //没有更多数据的时候，关闭加载更多
-            if (!mCommentAdapter.addNewData(data.getCommentList()))
+            if (!mCommentAdapter.addNewData(data.getList()))
                 smartRefresh.setEnableLoadMore(false);
         } else {
             // 新数据为空时 显示空数据页面
-            if (!mCommentAdapter.notifyChangeData(data.getCommentList())) {
-                mCommentAdapter.setEmptyView(getLoadSirView(R.mipmap.ic_none_list_data, "还没有对你的评论", false,null));
+            if (!mCommentAdapter.notifyChangeData(data.getList())) {
                 smartRefresh.setEnableLoadMore(false);
             } else {
                 //有数据就开启加载更多
@@ -240,7 +285,7 @@ public class JiuSuShopHomePageActivity extends BaseActivity <JiuSuShopPresenter>
     }
 
 
-    @OnClick({R.id.ll_toolbar_left, R.id.img_call_phone, R.id.rl_location, R.id.tv_go_shop_buy})
+    @OnClick({R.id.ll_toolbar_left, R.id.img_call_phone, R.id.rl_location, R.id.tv_go_shop_buy, R.id.tv_all_commodity ,R.id.tv_go_pay})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ll_toolbar_left:
@@ -253,7 +298,18 @@ public class JiuSuShopHomePageActivity extends BaseActivity <JiuSuShopPresenter>
             case R.id.rl_location:
                 break;
                 //到店支付
-            case R.id.tv_go_shop_buy:
+            case R.id.tv_go_pay:
+                if (mShopHomePageBean==null){
+                    return;
+                }
+                startActivity(new Intent(mContext,ShopSureBuyActivity.class).putExtra(Constant.INTENT_KEY_OBJECT,mShopHomePageBean));
+                break;
+                //全部商品
+            case R.id.tv_all_commodity:
+                if (mShopHomePageBean==null){
+                    return;
+                }
+                startActivity(new Intent(mContext,JiuSuShopAllGoodsActivity.class).putExtra(Constant.SHOP_ID,mShopHomePageBean.getId()));
                 break;
         }
     }
@@ -269,20 +325,14 @@ public class JiuSuShopHomePageActivity extends BaseActivity <JiuSuShopPresenter>
     }
 
 
-    /**
-     * 推荐商品
-     */
-    class CommodityAdapter extends BaseRecycleNewAdapter<ShopHomePageBean.CommodityListBean>{
-
-
-        public CommodityAdapter(int layoutResId, @Nullable List<ShopHomePageBean.CommodityListBean> data) {
-            super(layoutResId, data);
-        }
-
-        @Override
-        protected void convert(BaseViewHolder helper, ShopHomePageBean.CommodityListBean item) {
-
-
-        }
+    @Override
+    protected JiuSuShopPresenter getPresenter() {
+        return new JiuSuShopPresenter(this);
     }
+
+    @Override
+    protected int layoutId() {
+        return R.layout.act_jiusu_shop_homepage;
+    }
+
 }

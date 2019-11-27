@@ -35,6 +35,7 @@
             <EditText
                 android:id="@+id/et_search"
                 android:layout_width="0dp"
+                android:singleLine="true"
                 android:layout_height="30dp"
                 android:layout_marginLeft="15dp"
                 android:layout_weight="1"
@@ -78,37 +79,25 @@
             <RadioButton
                 android:id="@+id/rb_sort_comprehensive"
                 style="@style/radio_button_style_sort"
-                android:layout_marginLeft="15dp"
+                android:layout_weight="0.7"
                 android:checked="true"
                 android:text="综合排序" />
 
-            <View
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_weight="0.5" />
 
             <RadioButton
                 android:id="@+id/rb_sort_credit"
+                android:layout_weight="1.5"
                 style="@style/radio_button_style_sort"
                 android:text="好评优先" />
 
 
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_weight="0.5" />
-
             <CheckBox
                 android:id="@+id/cb_on_city"
+                android:layout_weight="1.5"
                 style="@style/radio_button_style_sort"
                 android:drawablePadding="4dp"
                 android:text="同城" />
 
-            <View
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_weight="0.5" />
 
         </RadioGroup>
 
@@ -120,6 +109,7 @@
         <com.scwang.smartrefresh.layout.SmartRefreshLayout
             android:id="@+id/smart_refresh"
             android:layout_width="match_parent"
+            app:srlEnableRefresh="false"
             android:layout_height="match_parent"
             android:paddingTop="10dp">
 

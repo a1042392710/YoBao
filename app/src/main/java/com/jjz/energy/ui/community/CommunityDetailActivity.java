@@ -25,6 +25,7 @@ import com.jjz.energy.entry.UserInfo;
 import com.jjz.energy.entry.community.Community;
 import com.jjz.energy.entry.community.CommunityCommentBean;
 import com.jjz.energy.presenter.community.CommunityPresenter;
+import com.jjz.energy.ui.jiusu_shop.JiuSuShopHomePageActivity;
 import com.jjz.energy.ui.mine.information.HomePageActivity;
 import com.jjz.energy.util.DateUtil;
 import com.jjz.energy.util.StringUtil;
@@ -347,7 +348,12 @@ public class CommunityDetailActivity extends BaseActivity<CommunityPresenter> im
                 break;
             //个人主页
             case R.id.img_user_head:
-                startActivity(new Intent(mContext, HomePageActivity.class));
+                // 进用户主页/分个人和商家
+                if (!StringUtil.isEmpty(mListBean.getShop_id())) {
+                    startActivity(new Intent(mContext, JiuSuShopHomePageActivity.class).putExtra(Constant.SHOP_ID, mListBean.getShop_id()));
+                } else {
+                    startActivity(new Intent(mContext, HomePageActivity.class).putExtra(Constant.USER_ID, mListBean.getUser_id()));
+                }
                 break;
             //发布评论
             case R.id.tv_put_comment:
@@ -387,15 +393,20 @@ public class CommunityDetailActivity extends BaseActivity<CommunityPresenter> im
             if (!StringUtil.isEmpty(item.getTo_username())){
                 helper.setText(R.id.item_tv_comment,"@"+item.getTo_username()+" : "+item.getContent());
             }else{
-                helper.setText(R.id.item_tv_comment,item.getContent());
+                helper.setText(R.id.item_tv_comment, item.getContent());
             }
             //头像
-            GlideUtils.loadHead(mContext,item.getFrom_pic(),img);
+            GlideUtils.loadHead(mContext, item.getFrom_pic(), img);
             //时间
-            helper.setText(R.id.item_tv_time,DateUtil.getTimeFormatText(new Date(item.getReply_time()*1000L)));
+            helper.setText(R.id.item_tv_time,
+                    DateUtil.getTimeFormatText(new Date(item.getReply_time() * 1000L)));
             img.setOnClickListener(v -> {
-                //todo 进用户主页/分个人和商家
-//                startActivity(new Intent(mContext,HomePageActivity.class).putExtra(Constant.USER_ID,item.getus));
+                // 进用户主页/分个人和商家
+                if (!StringUtil.isEmpty(item.getFrom_shop_id())) {
+                    startActivity(new Intent(mContext, JiuSuShopHomePageActivity.class).putExtra(Constant.SHOP_ID, item.getFrom_shop_id()));
+                } else {
+                    startActivity(new Intent(mContext, HomePageActivity.class).putExtra(Constant.USER_ID, item.getFrom_uid()));
+                }
             });
         }
     }

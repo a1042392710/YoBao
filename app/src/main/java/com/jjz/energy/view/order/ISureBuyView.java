@@ -11,10 +11,10 @@ import com.jjz.energy.wxapi.OrderPayTypeBean;
 public interface ISureBuyView extends IBaseView {
 
     //获取商品信息
-    void isGetGoodsInfoSuc(GoodsBean data);
+  default   void isGetGoodsInfoSuc(GoodsBean data){};
     
     //获取支付信息
-      void isGetBuyInfoSuccess(OrderPayTypeBean data);
+     default void isGetBuyInfoSuccess(OrderPayTypeBean data){};
 
     void isFail(String msg, boolean isNetAndServiceError);
 

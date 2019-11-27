@@ -1,9 +1,10 @@
 package com.jjz.energy.view.mine;
 
 import com.jjz.energy.base.IBaseView;
-import com.jjz.energy.entry.commodity.HomePageCommentBean;
-import com.jjz.energy.entry.mine.UserPageInfo;
 import com.jjz.energy.entry.commodity.GoodsListBean;
+import com.jjz.energy.entry.commodity.HomePageCommentBean;
+import com.jjz.energy.entry.jiusu_shop.ShopHomePageBean;
+import com.jjz.energy.entry.mine.UserPageInfo;
 
 /**
  * create 个人主页
@@ -22,6 +23,10 @@ public interface IHomePageView extends IBaseView {
     };
     //获取用户所有的商品
     default  void isGetUserAllGoods(GoodsListBean data){
+
+    };
+    //获取商家所有的商品
+    default  void isGetShopAllGoods(ShopHomePageBean data){
 
     };
     //获取用户所有的评价

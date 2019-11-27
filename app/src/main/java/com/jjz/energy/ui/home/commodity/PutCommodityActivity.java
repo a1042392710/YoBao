@@ -133,6 +133,11 @@ public class PutCommodityActivity extends BaseActivity <PutCommodityPresenter>im
         //地区
         address = SpUtil.init(mContext).readString(Constant.LOCATION_ADDRESS);
         tvLocationAddress.setText(address.replace("/", " "));
+        //如果是商家，则显示折扣
+        String shop_id = SpUtil.init(mContext).readString(Constant.SHOP_ID);
+        if (!StringUtil.isEmpty(shop_id)){
+            llPointDiscount.setVisibility(View.VISIBLE);
+        }
         initSingerPicker();
         initRv();
         //如果是编辑 查询数据后刷新当前页面

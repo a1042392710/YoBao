@@ -18,7 +18,6 @@ import com.jjz.energy.base.BasePresenter;
 import com.jjz.energy.base.LoginEventBean;
 import com.jjz.energy.ui.jiusu_shop.shop_order.SureBuyActivity;
 import com.jjz.energy.util.StringUtil;
-import com.jjz.energy.util.glide.GlideUtils;
 import com.jjz.energy.util.system.SoftKeyBoardListener;
 
 import org.greenrobot.eventbus.EventBus;
@@ -78,23 +77,12 @@ public class IMActivity extends BaseActivity {
      */
     private String userName;
 
-    @Override
-    protected BasePresenter getPresenter() {
-        return null;
-    }
-
-    @Override
-    protected int layoutId() {
-        return R.layout.act_im;
-    }
 
     @Override
     protected void initView() {
         //聊天对象的UserName 必传
         userName = getIntent().getStringExtra("userName");
         tvImTitle.setText(userName);
-        //展示商品图片
-        GlideUtils.loadImage(mContext,"http://img004.hc360.cn/k2/M0F/4D/EE/wKhQxFmx8rCEEGuwAAAAAIeZn9k905.jpg",imgCommodity);
         initImRv();
         initEditHight();
         initImData();
@@ -136,6 +124,7 @@ public class IMActivity extends BaseActivity {
             //设置用户id
             if (!StringUtil.isEmpty(info.getAddress())){
                 mImAdapter.setUser_id(info.getAddress());
+                mImAdapter.setShop_id(info.getRegion());
             }
             userName = info.getUserName();
             //刷新聊天数据并且滚动到底部
@@ -290,5 +279,15 @@ public class IMActivity extends BaseActivity {
                 startActivity(new Intent(mContext, SureBuyActivity.class));
                 break;
         }
+    }
+
+    @Override
+    protected BasePresenter getPresenter() {
+        return null;
+    }
+
+    @Override
+    protected int layoutId() {
+        return R.layout.act_im;
     }
 }

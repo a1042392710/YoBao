@@ -2,9 +2,10 @@ package com.jjz.energy.model.mine;
 
 import com.jjz.energy.base.Api;
 import com.jjz.energy.base.BaseModel;
-import com.jjz.energy.entry.commodity.HomePageCommentBean;
-import com.jjz.energy.entry.mine.UserPageInfo;
 import com.jjz.energy.entry.commodity.GoodsListBean;
+import com.jjz.energy.entry.commodity.HomePageCommentBean;
+import com.jjz.energy.entry.jiusu_shop.ShopHomePageBean;
+import com.jjz.energy.entry.mine.UserPageInfo;
 import com.jjz.energy.util.networkUtil.RetrofitFactory;
 import com.jjz.energy.util.networkUtil.RxSchedulerHepler;
 
@@ -29,6 +30,11 @@ public class HomePageModel extends BaseModel {
     //获取用户的所有商品
     public Flowable<GoodsListBean> getUserAllGoods(String requestData) {
         return RetrofitFactory.getRetrofit().create(Api.class).getUserAllGoods(requestData).compose(RxSchedulerHepler.handleMyResult());
+    }
+
+    //获取商家的所有商品
+    public Flowable<ShopHomePageBean> getShopAllGoods(String requestData) {
+        return RetrofitFactory.getRetrofit().create(Api.class).getShopAllGoods(requestData).compose(RxSchedulerHepler.handleMyResult());
     }
 
     //获取用户的所有评价

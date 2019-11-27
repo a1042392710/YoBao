@@ -219,6 +219,7 @@ public class SearchResultActivity extends BaseActivity<MainPresenter> implements
 
         //管理筛选条件
         rgSort.setOnCheckedChangeListener((group, checkedId) -> {
+            mPage=1;
             search_type = 0;
             //让图标都变灰色
             Drawable drawable = mContext.getResources().getDrawable(R.mipmap.ic_filter_unchecked);
@@ -322,7 +323,7 @@ public class SearchResultActivity extends BaseActivity<MainPresenter> implements
         if (!StringUtil.isEmpty(etHighestPrice.getText().toString())){
             map.put("top_price",etHighestPrice.getText().toString());
         }
-        //搜索 todo 排序条件
+        //搜索
         if (search_type!=0){
             map.put("sort_type",search_type+"");
         }

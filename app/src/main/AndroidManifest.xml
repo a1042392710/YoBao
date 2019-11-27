@@ -369,10 +369,6 @@
         <activity android:name="com.jjz.energy.ui.notice.CommentNoticeActivity"
             android:configChanges="orientation|screenSize"/>
 
-        <!--评价消息-->
-        <activity android:name="com.jjz.energy.ui.notice.EvaluationNoticeActivity"
-            android:configChanges="orientation|screenSize"/>
-
         <!--久速商家个人主页-->
         <activity android:name="com.jjz.energy.ui.jiusu_shop.JiuSuShopHomePageActivity"
             android:configChanges="orientation|screenSize"/>
@@ -407,6 +403,14 @@
 
         <!--商家全部分类-->
         <activity android:name="com.jjz.energy.ui.jiusu_shop.ShopClassificationActivity"
+            android:configChanges="orientation|screenSize"/>
+
+        <!--商家全部商品-->
+        <activity android:name="com.jjz.energy.ui.jiusu_shop.JiuSuShopAllGoodsActivity"
+            android:configChanges="orientation|screenSize"/>
+
+        <!--店内消费支付页面-->
+        <activity android:name="com.jjz.energy.ui.jiusu_shop.ShopSureBuyActivity"
             android:configChanges="orientation|screenSize"/>
 
 

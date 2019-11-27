@@ -44,21 +44,20 @@
 
         <TextView
             android:id="@+id/item_tv_favorable_rate"
-            android:layout_marginStart="4dp"
             android:layout_width="wrap_content"
             android:text="100%好评率"
             android:textStyle="bold"
-            android:textSize="13sp"
+            android:textSize="12sp"
             android:textColor="@color/red_fe8977"
             android:layout_height="wrap_content"
             tools:ignore="HardcodedText" />
 
         <TextView
             android:id="@+id/item_tv_consume"
-            android:layout_marginLeft="14dp"
+            android:layout_marginLeft="12dp"
             android:layout_width="wrap_content"
             android:text="30/人"
-            android:textSize="13sp"
+            android:textSize="11sp"
             android:textColor="@color/text_blackA6"
             android:layout_height="wrap_content"/>
     </LinearLayout>

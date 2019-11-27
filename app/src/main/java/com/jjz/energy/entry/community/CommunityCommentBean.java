@@ -55,6 +55,15 @@ public class CommunityCommentBean {
         private String to_pic;
         private int to_uid;
         private String to_username;
+        private String from_shop_id;
+
+        public String getFrom_shop_id() {
+            return from_shop_id == null ? "" : from_shop_id;
+        }
+
+        public void setFrom_shop_id(String from_shop_id) {
+            this.from_shop_id = from_shop_id;
+        }
 
         public String getContent() {
             return content == null ? "" : content;

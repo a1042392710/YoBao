@@ -25,26 +25,51 @@ public class JiuSuShopBean implements Serializable {
         this.list = list;
     }
 
-    public  class  ListBean implements Serializable{
+    public  class ListBean implements Serializable {
 
 
-            /**
-             * shop_name : 水果店
-             * avg_tax : 30  人均消费
-             * cateName : 服装
-             * lng : 112.577306
-             * lat : 26.924344
-             * applause_rate : 好评率
-             * districtName :  区名
-             */
+        /**
+         * shop_name : 水果店
+         * avg_tax : 30  人均消费
+         * cateName : 服装
+         * lng : 112.577306
+         * lat : 26.924344
+         * applause_rate : 好评率
+         * districtName :  区名
+         */
+        private String shop_img;
+        private String shop_name;
+        private int avg_tax;
+        private int id;
+        private String cateName;
+        private double lng;
+        private double lat;
+        private String applause_rate;
+        private String district;
 
-            private String shop_name;
-            private int avg_tax;
-            private String cateName;
-            private double lng;
-            private double lat;
-            private String  applause_rate;
-            private String districtName;
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
+
+        public String getDistrict() {
+            return district == null ? "" : district;
+        }
+
+        public void setDistrict(String district) {
+            this.district = district;
+        }
+
+        public String getShop_img() {
+            return shop_img == null ? "" : shop_img;
+        }
+
+        public void setShop_img(String shop_img) {
+            this.shop_img = shop_img;
+        }
 
         public String getShop_name() {
             return shop_name == null ? "" : shop_name;
@@ -94,12 +119,5 @@ public class JiuSuShopBean implements Serializable {
             this.applause_rate = applause_rate;
         }
 
-        public String getDistrictName() {
-            return districtName == null ? "" : districtName;
-        }
-
-        public void setDistrictName(String districtName) {
-            this.districtName = districtName;
-        }
     }
 }

@@ -19,6 +19,7 @@ import com.jjz.energy.base.Constant;
 import com.jjz.energy.entry.jiusu.MineBean;
 import com.jjz.energy.entry.jiusu.MineInfoBean;
 import com.jjz.energy.presenter.mine.MinePresenter;
+import com.jjz.energy.ui.jiusu_shop.JiuSuShopHomePageActivity;
 import com.jjz.energy.ui.mine.information.HomePageActivity;
 import com.jjz.energy.util.StringUtil;
 import com.jjz.energy.util.glide.GlideUtils;
@@ -91,6 +92,8 @@ public class MineFragment  extends BaseLazyFragment<MinePresenter> implements IM
     @Override
     public void isGetInfoSuccess(MineInfoBean data) {
         mMineInfoBean = data;
+        SpUtil.init(mContext).commit(Constant.SHOP_ID,data.getShop_id());
+        SpUtil.init(mContext).commit(Constant.PAY_POINTS,data.getPay_points()+"");
         //推送公告
         String push_message = mMineInfoBean.getPush_message();
         //显示文本
@@ -163,7 +166,11 @@ public class MineFragment  extends BaseLazyFragment<MinePresenter> implements IM
                 break;
             //头像
             case R.id.img_head:
-                startActivity(new Intent(mContext, HomePageActivity.class).putExtra("user_id",mMineInfoBean.getUser_id()));
+                if (StringUtil.isEmpty(mMineInfoBean.getShop_id())){
+                    startActivity(new Intent(mContext, JiuSuShopHomePageActivity.class).putExtra(Constant.SHOP_ID,mMineInfoBean.getShop_id()));
+                }else {
+                    startActivity(new Intent(mContext, HomePageActivity.class).putExtra(Constant.USER_ID, mMineInfoBean.getUser_id()));
+                }
                 break;
                 //我发布的
             case R.id.ll_mine_release:
@@ -220,8 +227,7 @@ public class MineFragment  extends BaseLazyFragment<MinePresenter> implements IM
         }
     }
     @Override
-    public void isFail(String msg ,boolean isNetAndServiceError) {
-    }
+    public void isFail(String msg ,boolean isNetAndServiceError) {}
 
     //=========================================================================== 方法重写和生命周期
 

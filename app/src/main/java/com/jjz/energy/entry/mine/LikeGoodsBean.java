@@ -83,6 +83,10 @@ public class LikeGoodsBean implements Serializable {
          * 头像
          */
         private String head_pic;
+        /**
+         * 折扣
+         */
+        private float rebate;
         /*
          * 昵称
          */
@@ -91,6 +95,14 @@ public class LikeGoodsBean implements Serializable {
          * 商品图片
          */
         private String goods_images;
+
+        public float getRebate() {
+            return rebate;
+        }
+
+        public void setRebate(float rebate) {
+            this.rebate = rebate;
+        }
 
         public String getGoods_images() {
             return goods_images == null ? "" : goods_images;

@@ -10,6 +10,8 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jjz.energy.R;
 import com.jjz.energy.base.BaseRecycleNewAdapter;
+import com.jjz.energy.base.Constant;
+import com.jjz.energy.ui.jiusu_shop.JiuSuShopHomePageActivity;
 import com.jjz.energy.ui.mine.information.HomePageActivity;
 import com.jjz.energy.ui.notice.IMActivity;
 import com.jjz.energy.util.DateUtil;
@@ -35,6 +37,7 @@ public class ImAdapter extends BaseRecycleNewAdapter<Message> {
     private IMActivity mIMActivity;
 
     private String user_id;
+    private String shop_id;
 
 
 
@@ -49,6 +52,12 @@ public class ImAdapter extends BaseRecycleNewAdapter<Message> {
      */
     public void setUser_id(String user_id){
         this.user_id = user_id;
+    }
+    /**
+     * 设置用户id
+     */
+    public void setShop_id(String shop_id){
+        this.shop_id = shop_id;
     }
 
     @Override
@@ -176,8 +185,14 @@ public class ImAdapter extends BaseRecycleNewAdapter<Message> {
 
         //点头像进入主页
         if (!StringUtil.isEmpty(user_id)){
-            imgHerHead.setOnClickListener(v -> mContext.startActivity(new Intent(mContext,
-                    HomePageActivity.class).putExtra("user_id",Integer.valueOf(user_id))));
+            if (!StringUtil.isEmpty(shop_id)){
+                imgHerHead.setOnClickListener(v -> mContext.startActivity(new Intent(mContext,
+                        JiuSuShopHomePageActivity.class).putExtra(Constant.SHOP_ID,shop_id)));
+            }else{
+                imgHerHead.setOnClickListener(v -> mContext.startActivity(new Intent(mContext,
+                        HomePageActivity.class).putExtra(Constant.USER_ID,Integer.valueOf(user_id))));
+            }
+
         }
 
 

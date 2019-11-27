@@ -47,12 +47,15 @@ public class JiuSuShopListAdapter extends BaseRecycleNewAdapter<JiuSuShopBean.Li
         TextView itemTvDistance = helper.getView(R.id.item_tv_distance);
         //所在区域与商户类型
         TextView itemTvAreaAndType = helper.getView(R.id.item_tv_area_and_type);
-        GlideUtils.loadRoundCircleImage(mContext,"",itemImgShop);
-
+        //防止图片闪烁
+        if (!item.getShop_img().equals(itemImgShop.getTag(R.id.item_img_commodity))) {
+            GlideUtils.loadRoundCircleImage(mContext,item.getShop_img(),itemImgShop);
+            itemImgShop.setTag(R.id.item_img_commodity, item.getShop_img());
+        }
         itemTvShopName.setText(item.getShop_name());
         itemTvFavorableRate.setText(item.getApplause_rate()+"%好评率");
         itemTvConsume.setText(item.getAvg_tax()+"元/人");
-        itemTvAreaAndType.setText(item.getDistrictName()+" | "+ item.getCateName());
+        itemTvAreaAndType.setText(item.getDistrict()+" | "+ item.getCateName());
         itemTvDistance.setText(Utils.getDistance(mLng,mLat,item.getLng(),item.getLat())+"km");
 
 

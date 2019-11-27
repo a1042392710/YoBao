@@ -46,6 +46,8 @@ public class HomeGoodsAdapter extends BaseRecycleNewAdapter<GoodsBean> {
         TextView tvGoodsPrice = helper.getView(R.id.item_tv_commodity_money);
         //多少人想要
         TextView tvWantNum = helper.getView(R.id.item_tv_want_num);
+        //是否打折
+        ImageView item_img_integral = helper.getView(R.id.item_img_integral);
 
         //指定上方圆角
         RoundedCornersTransform transform = new RoundedCornersTransform(mContext,8f);
@@ -57,6 +59,8 @@ public class HomeGoodsAdapter extends BaseRecycleNewAdapter<GoodsBean> {
                     .apply(new RequestOptions().placeholder(R.color.color_primary_f5).transform(transform)).into(imgGoods);
          imgGoods.setTag(R.id.item_img_commodity, item.getGoods_images());
         }
+        // 判断该商品 是否有折扣
+        item_img_integral.setVisibility(item.getRebate() < 1 && item.getRebate()!=0 ? View.VISIBLE:View.GONE);
         //加载用户头像
         GlideUtils.loadCircleImage(mContext,item.getHead_pic(),imgHead);
         tvGoodsTitle.setText(item.getGoods_name());

@@ -82,6 +82,7 @@
                         android:layout_marginLeft="10dp"
                         android:background="@drawable/bg_orange_solid"
                         android:paddingLeft="10dp"
+                        android:visibility="gone"
                         android:paddingTop="1dp"
                         android:paddingRight="10dp"
                         android:paddingBottom="2dp"

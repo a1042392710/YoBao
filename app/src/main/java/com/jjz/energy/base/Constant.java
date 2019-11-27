@@ -108,6 +108,14 @@ public class Constant {
      * 用户id
      */
     public static final String USER_ID= "user_id";
+    /**
+     * 商家id
+     */
+    public static final String SHOP_ID= "shop_id";
+    /**
+     * 用户 积分
+     */
+    public static final String PAY_POINTS= "pay_points";
 
     /**
      * 搜索的历史记录 商品

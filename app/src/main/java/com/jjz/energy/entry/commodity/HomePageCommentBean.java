@@ -13,6 +13,15 @@ public class HomePageCommentBean implements Serializable {
         private int total_num;
         private int have_img_num;
         private int good_num;
+        private int bad_num;
+
+    public int getBad_num() {
+        return bad_num;
+    }
+
+    public void setBad_num(int bad_num) {
+        this.bad_num = bad_num;
+    }
 
     public int getTotal_num() {
         return total_num;

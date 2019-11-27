@@ -1,6 +1,6 @@
 package com.jjz.energy.entry.jiusu_shop;
 
-import com.jjz.energy.entry.commodity.HomePageCommentBean;
+import com.jjz.energy.entry.commodity.ShopCommodityListBean;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -12,74 +12,143 @@ import java.util.List;
  */
 public class ShopHomePageBean implements Serializable {
 
-    private int total_num;
-    private int have_img_num;
-    private int good_num;
-    private int bad_num;
+    private List<ShopCommodityListBean> commodityList;
+    /**
+     * shop_name : 水果店
+     * shop_phone : 17318418966
+     * shop_desc : 周一至周日 07:00-次日
+     * poiname : 乡滋味住家菜
+     * poiaddress : 湖南省衡阳市蒸湘区长丰大道蒸湘雅郡4-5号门面
+     * house_number : 231
+     * lng : 112.577306
+     * lat : 26.924344
+     * avg_tax : 30
+     * applause_rate : 90
+     * header_img : http://qiniu.jjznewenergy.com/2019_11_16_5dcfc8f492d3e,http://qiniu
+     * .jjznewenergy.com/2019_11_16_5dcfc91b4b9a3,http://qiniu.jjznewenergy
+     * .com/2019_11_16_5dcfc9155b7d0
+     * discount : 0.90
+     * enabled : 1
+     */
 
-    public int getTotal_num() {
-        return total_num;
+    private String shop_name;
+    private String shop_phone;
+    private String shop_desc;
+    private String poiname;
+    private String poiaddress;
+    private String lng;
+    private String lat;
+    private int avg_tax;
+    private int applause_rate;
+    private int id;
+    private String header_img;
+    private float rebate;
+
+
+    public int getId() {
+        return id;
     }
 
-    public void setTotal_num(int total_num) {
-        this.total_num = total_num;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public int getHave_img_num() {
-        return have_img_num;
-    }
-
-    public void setHave_img_num(int have_img_num) {
-        this.have_img_num = have_img_num;
-    }
-
-    public int getGood_num() {
-        return good_num;
-    }
-
-    public void setGood_num(int good_num) {
-        this.good_num = good_num;
-    }
-
-    public int getBad_num() {
-        return bad_num;
-    }
-
-    public void setBad_num(int bad_num) {
-        this.bad_num = bad_num;
-    }
-
-    private List<HomePageCommentBean.ListBean> commentList;
-
-    private List<CommodityListBean> commodityList;
-
-    public List<CommodityListBean> getCommodityList() {
+    public List<ShopCommodityListBean> getCommodityList() {
         if (commodityList == null) {
             return new ArrayList<>();
         }
         return commodityList;
     }
 
-    public void setCommodityList(List<CommodityListBean> commodityList) {
+    public void setCommodityList(List<ShopCommodityListBean> commodityList) {
         this.commodityList = commodityList;
     }
 
-    public List<HomePageCommentBean.ListBean> getCommentList() {
-        if (commentList == null) {
-            return new ArrayList<>();
-        }
-        return commentList;
+    public String getShop_name() {
+        return shop_name == null ? "" : shop_name;
     }
 
-    public void setCommentList(List<HomePageCommentBean.ListBean> commentList) {
-        this.commentList = commentList;
+    public void setShop_name(String shop_name) {
+        this.shop_name = shop_name;
     }
 
-    /**
-     * 商品
-     */
-  public   class CommodityListBean implements Serializable{
-
+    public String getShop_phone() {
+        return shop_phone == null ? "" : shop_phone;
     }
 
+    public void setShop_phone(String shop_phone) {
+        this.shop_phone = shop_phone;
+    }
+
+    public String getShop_desc() {
+        return shop_desc == null ? "" : shop_desc;
+    }
+
+    public void setShop_desc(String shop_desc) {
+        this.shop_desc = shop_desc;
+    }
+
+    public String getPoiname() {
+        return poiname == null ? "" : poiname;
+    }
+
+    public void setPoiname(String poiname) {
+        this.poiname = poiname;
+    }
+
+    public String getPoiaddress() {
+        return poiaddress == null ? "" : poiaddress;
+    }
+
+    public void setPoiaddress(String poiaddress) {
+        this.poiaddress = poiaddress;
+    }
+
+    public String getLng() {
+        return lng == null ? "" : lng;
+    }
+
+    public void setLng(String lng) {
+        this.lng = lng;
+    }
+
+    public String getLat() {
+        return lat == null ? "" : lat;
+    }
+
+    public void setLat(String lat) {
+        this.lat = lat;
+    }
+
+    public int getAvg_tax() {
+        return avg_tax;
+    }
+
+    public void setAvg_tax(int avg_tax) {
+        this.avg_tax = avg_tax;
+    }
+
+    public int getApplause_rate() {
+        return applause_rate;
+    }
+
+    public void setApplause_rate(int applause_rate) {
+        this.applause_rate = applause_rate;
+    }
+
+    public String getHeader_img() {
+        return header_img == null ? "" : header_img;
+    }
+
+    public void setHeader_img(String header_img) {
+        this.header_img = header_img;
+    }
+
+    public float getRebate() {
+        return rebate;
+    }
+
+    public void setRebate(float rebate) {
+        this.rebate = rebate;
+    }
 }

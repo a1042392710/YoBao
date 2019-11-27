@@ -139,7 +139,7 @@ public class ShopCateListActivity extends BaseActivity<JiuSuShopPresenter> imple
     public void stopLoading() { stopProgressDialog();
     }
     @Override
-    protected int layoutId() {return R.layout.act_jiusu_shopping_list;
+    protected int layoutId() {return R.layout.act_jiusu_cate_shop_list;
     }
     @Override
     protected JiuSuShopPresenter getPresenter() {return new JiuSuShopPresenter(this);

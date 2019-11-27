@@ -3,6 +3,7 @@ package com.jjz.energy.presenter.jiusu_shop;
 import android.annotation.SuppressLint;
 
 import com.jjz.energy.base.BasePresenter;
+import com.jjz.energy.entry.commodity.HomePageCommentBean;
 import com.jjz.energy.entry.jiusu_shop.JiuSuShopBean;
 import com.jjz.energy.entry.jiusu_shop.JiuSuShopClassBean;
 import com.jjz.energy.entry.jiusu_shop.JiuSuShoppingBean;
@@ -152,10 +153,39 @@ public class JiuSuShopPresenter extends BasePresenter<JiuSuShopModel, IJiuSuShop
      * @param map
      */
     @SuppressLint("CheckResult")
-    public void getShopHomePageInfo(String map,boolean isLoadMore) {
+    public void getShopHomePageInfo(String map) {
 
         addSubscribe(mModel.getShopHomePage(map)
                 .subscribeWith(new CommonSubscriber<ShopHomePageBean>() {
+
+                    @Override
+                    protected void startLoading() {
+                    }
+
+                    @Override
+                    protected void onSuccess(ShopHomePageBean response) {
+                        mView.stopLoading();
+                        mView.isGetShopHomePageSuccess(response);
+                    }
+
+                    @Override
+                    protected void onFail(String errorMsg ,boolean isNetAndSeriveError) {
+                        mView.isFail(errorMsg,isNetAndSeriveError);
+                        mView.stopLoading();
+                    }
+                }));
+
+    }
+
+    /**
+     * 获取商家的评价
+     * @param map
+     */
+    @SuppressLint("CheckResult")
+    public void getShopCommentList(String map ,boolean isLoadMore) {
+
+        addSubscribe(mModel.getShopCommentList(map)
+                .subscribeWith(new CommonSubscriber<HomePageCommentBean>() {
 
                     @Override
                     protected void startLoading() {
@@ -165,9 +195,9 @@ public class JiuSuShopPresenter extends BasePresenter<JiuSuShopModel, IJiuSuShop
                     }
 
                     @Override
-                    protected void onSuccess(ShopHomePageBean response) {
+                    protected void onSuccess(HomePageCommentBean response) {
                         mView.stopLoading();
-                        mView.isGetShopHomePageSuccess(response);
+                        mView.isGetShopHomePageCommentSuccess(response);
                     }
 
                     @Override

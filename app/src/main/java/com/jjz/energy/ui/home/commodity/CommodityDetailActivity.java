@@ -26,6 +26,7 @@ import com.jjz.energy.entry.commodity.CommentBean;
 import com.jjz.energy.entry.commodity.GoodsDetailsBean;
 import com.jjz.energy.presenter.home.CommodityDetailsPresenter;
 import com.jjz.energy.ui.ImagePagerActivity;
+import com.jjz.energy.ui.jiusu_shop.JiuSuShopHomePageActivity;
 import com.jjz.energy.ui.mine.MineLikeCommodityActivity;
 import com.jjz.energy.ui.mine.information.HomePageActivity;
 import com.jjz.energy.ui.jiusu_shop.shop_order.SureBuyActivity;
@@ -122,19 +123,24 @@ public class CommodityDetailActivity extends BaseActivity <CommodityDetailsPrese
     TextView tvCommodityLocation;
     @BindView(R.id.scrollView)
     NestedScrollView scrollView;
+    @BindView(R.id.tv_discount)
+    TextView tvDiscount;
 
     /**
      * 该商品的id
      */
     private int goods_id;
+
     /**
      * 商品详情的图片
      */
     private   CommdityPhotoAdapter mPhotoAdapter;
+
     /**
      * 商品详情的数据
      */
     private GoodsDetailsBean mGoodsInfo ;
+
     /**
      * 评论的适配器
      */
@@ -302,6 +308,9 @@ public class CommodityDetailActivity extends BaseActivity <CommodityDetailsPrese
             llBuyer.setVisibility(View.GONE);
             tvTalk.setVisibility(View.GONE);
         }
+        //显示折扣
+        tvDiscount.setVisibility(data.getGoods_info().getRebate() < 1 &&data.getGoods_info().getRebate()!=0 ? View.VISIBLE:View.GONE);
+        tvDiscount.setText("积分享"+(data.getGoods_info().getRebate()*10)+"折");
         //商品所有信息存下来  写入数据
         mGoodsInfo = data;
         //发布于哪里
@@ -411,8 +420,17 @@ public class CommodityDetailActivity extends BaseActivity <CommodityDetailsPrese
                     showToast("获取卖家信息失败");
                     return;
                 }
-                startActivity(new Intent(mContext, HomePageActivity.class).putExtra("user_id"
-                        , mGoodsInfo.getSeller_info().getUser_id()));
+                //为商家 就进入商家页面
+                if (!StringUtil.isEmpty(mGoodsInfo.getGoods_info().getShop_id())){
+                    //否则进入个人用户页面
+                    startActivity(new Intent(mContext, JiuSuShopHomePageActivity.class).putExtra(Constant.SHOP_ID
+                            ,Integer.valueOf(mGoodsInfo.getGoods_info().getShop_id()) ));
+                }else{
+                    //否则进入个人用户页面
+                    startActivity(new Intent(mContext, HomePageActivity.class).putExtra(Constant.USER_ID
+                            , mGoodsInfo.getSeller_info().getUser_id()));
+                }
+
                 break;
                 //发表评论
             case R.id.tv_comment_send:

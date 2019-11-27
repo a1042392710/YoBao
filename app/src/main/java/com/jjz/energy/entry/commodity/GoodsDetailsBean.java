@@ -87,6 +87,10 @@ public class GoodsDetailsBean implements Serializable {
          */
         private int cat_id;
         /**
+         *  商家 id
+         */
+        private String shop_id;
+        /**
          * 分类名
          */
         private String cat_name;
@@ -123,9 +127,29 @@ public class GoodsDetailsBean implements Serializable {
          */
         private int is_collect;
         /**
+         * 折扣
+         */
+        private float rebate;
+        /**
          * 发布于 城市
          */
         private String city;
+
+        public float getRebate() {
+            return rebate;
+        }
+
+        public String getShop_id() {
+            return shop_id == null ? "" : shop_id;
+        }
+
+        public void setShop_id(String shop_id) {
+            this.shop_id = shop_id;
+        }
+
+        public void setRebate(float rebate) {
+            this.rebate = rebate;
+        }
 
         public String getCity() {
             return city == null ? "" : city;

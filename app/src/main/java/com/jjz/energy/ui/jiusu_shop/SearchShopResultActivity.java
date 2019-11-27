@@ -133,9 +133,12 @@ public class SearchShopResultActivity extends BaseActivity<JiuSuShopPresenter> i
             }else{
                 is_my_city = "1";
             }
+            mPage= 1 ;
+            getData(false);
         });
         //管理筛选条件
         rgSort.setOnCheckedChangeListener((group, checkedId) -> {
+            mPage=1;
             search_type = 0;
             //选中后图标变红
             switch (checkedId) {
@@ -152,9 +155,9 @@ public class SearchShopResultActivity extends BaseActivity<JiuSuShopPresenter> i
             }
         });
 
-        // todo  跳转商家个人主页
+        // 跳转商家个人主页
         mAdapter.setOnItemClickListener((adapter, view, position) ->
-                startActivity(new Intent(mContext,JiuSuShopHomePageActivity.class)));
+                startActivity(new Intent(mContext,JiuSuShopHomePageActivity.class).putExtra("id",mAdapter.getItem(position).getId())));
         //上拉加载
         smartRefresh.setOnLoadMoreListener(refreshLayout -> {
             mPage++;
@@ -171,7 +174,7 @@ public class SearchShopResultActivity extends BaseActivity<JiuSuShopPresenter> i
         HashMap<String, String> map = new HashMap<>();
         map.put("page", mPage + "");
         map.put("keyword", etSearch.getText().toString());
-        //搜索 todo 排序条件
+        //搜索
         if (search_type != 0) {
             map.put("sort_type", search_type + "");
         }

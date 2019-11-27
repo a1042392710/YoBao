@@ -2,7 +2,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white"
     xmlns:tools="http://schemas.android.com/tools">
 
     <ImageView
@@ -27,11 +26,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@id/item_img_commodity"
-        android:layout_marginTop="3dp"
+        android:layout_marginTop="5dp"
         android:layout_marginBottom="3dp"
         android:layout_toRightOf="@id/item_img_commodity"
         android:background="@drawable/bg_orange_solid"
-        android:padding="3dp"
+        android:padding="2dp"
         android:text="积分享6折"
         android:textColor="@color/white"
         android:textSize="9sp" />
@@ -41,7 +40,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@id/item_tv_toast"
-        android:layout_marginTop="3dp"
         android:layout_toRightOf="@id/item_img_commodity"
         android:text="￥60"
         android:textColor="@color/red_fe8977"
@@ -53,7 +51,6 @@
         android:layout_height="wrap_content"
         android:layout_above="@id/item_tv_toast"
         android:layout_marginLeft="5dp"
-        android:layout_marginTop="3dp"
         android:layout_toRightOf="@id/item_tv_new_money"
         android:text="￥100"
         android:textColor="#c1c0c0"
@@ -78,6 +75,7 @@
         android:layout_marginTop="3dp"
         android:layout_marginBottom="3dp"
         android:layout_width="match_parent"
+        android:background="@color/color_bg_f7"
         android:layout_height="1dp"/>
 
 

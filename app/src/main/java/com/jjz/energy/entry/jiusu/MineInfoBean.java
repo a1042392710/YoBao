@@ -33,6 +33,30 @@ public class MineInfoBean  implements Serializable {
      * 关注数量
      */
     private int fans_num;
+    /**
+     * 剩余积分数量
+     */
+    private float pay_points;
+    /**
+     * 商家Id
+     */
+    private String shop_id;
+
+    public float getPay_points() {
+        return pay_points;
+    }
+
+    public void setPay_points(float pay_points) {
+        this.pay_points = pay_points;
+    }
+
+    public String getShop_id() {
+        return shop_id == null ? "" : shop_id;
+    }
+
+    public void setShop_id(String shop_id) {
+        this.shop_id = shop_id;
+    }
 
     public int getFocus_num() {
         return focus_num;

@@ -76,7 +76,7 @@ import retrofit2.http.Url;
  * Date: 2018/10/25 上午8:45
  */
 public interface Api {
-     String BASE_URL = "http://172.16.32.3/shop/";
+     String BASE_URL = "http://172.16.32.7/shop/";
 //        String BASE_URL = "http://apit.jjznewenergy.com/app/";
      String PACK_NO = "params";
 
@@ -150,11 +150,15 @@ public interface Api {
     @POST("user/setFocusUser")
     Flowable<ResponseData<String>> setFocusUser(@Field(PACK_NO) String pack_no);
 
-
     //获取用户的所有商品
     @FormUrlEncoded
     @POST("user/userPageGoodsList")
     Flowable<ResponseData<GoodsListBean>> getUserAllGoods(@Field(PACK_NO) String pack_no);
+
+    //获取商家的所有商品
+    @FormUrlEncoded
+    @POST("shop/shopGoods")
+    Flowable<ResponseData<ShopHomePageBean>> getShopAllGoods(@Field(PACK_NO) String pack_no);
 
     //获取用户的所有评价
     @FormUrlEncoded
@@ -524,8 +528,15 @@ public interface Api {
      * 获取商家个人主页的信息
      */
     @FormUrlEncoded
-    @POST("user/setUserinfo")
+    @POST("shop/shopIndex")
     Flowable<ResponseData<ShopHomePageBean>> getShopHomePage(@Field(PACK_NO) String pack_no);
+
+    /**
+     * 获取商家个人主页的评价信息
+     */
+    @FormUrlEncoded
+    @POST("shop/shopComment")
+    Flowable<ResponseData<HomePageCommentBean>> getShopCommentList(@Field(PACK_NO) String pack_no);
 
     /**
      * 搜索商品

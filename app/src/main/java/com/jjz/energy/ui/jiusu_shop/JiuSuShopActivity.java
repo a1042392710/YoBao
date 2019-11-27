@@ -19,6 +19,7 @@ import com.jjz.energy.R;
 import com.jjz.energy.adapter.JiuSuShopListAdapter;
 import com.jjz.energy.base.BaseActivity;
 import com.jjz.energy.base.BaseRecycleNewAdapter;
+import com.jjz.energy.base.Constant;
 import com.jjz.energy.entry.jiusu_shop.JiuSuShopBean;
 import com.jjz.energy.entry.jiusu_shop.JiuSuShopClassBean;
 import com.jjz.energy.presenter.jiusu_shop.JiuSuShopPresenter;
@@ -98,9 +99,8 @@ public class JiuSuShopActivity extends BaseActivity <JiuSuShopPresenter> impleme
         rvShopList.setLayoutManager(new LinearLayoutManager(this));
         mShopListAdapter = new JiuSuShopListAdapter(R.layout.item_jiusu_shop_list, new ArrayList<>());
         rvShopList.setAdapter(mShopListAdapter);
-        // todo  跳转商家个人主页
         mShopListAdapter.setOnItemClickListener((adapter, view, position) ->
-                startActivity(new Intent(mContext,JiuSuShopHomePageActivity.class)));
+                startActivity(new Intent(mContext,JiuSuShopHomePageActivity.class).putExtra(Constant.SHOP_ID,mShopListAdapter.getItem(position).getId())));
         mPresenter.getShopClass(PacketUtil.getRequestPacket(Utils.stringToMap("limit",9+"")));
         getData(false);
     }

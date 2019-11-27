@@ -46,6 +46,18 @@ public class GoodsBean implements Serializable {
 
     //收货地址
     private String full_address;
+    /**
+     * 折扣
+     */
+    private float rebate;
+
+    public float getRebate() {
+        return rebate;
+    }
+
+    public void setRebate(float rebate) {
+        this.rebate = rebate;
+    }
 
     public int getAddress_id() {
         return address_id;

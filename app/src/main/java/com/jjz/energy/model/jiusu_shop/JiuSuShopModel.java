@@ -2,6 +2,7 @@ package com.jjz.energy.model.jiusu_shop;
 
 import com.jjz.energy.base.Api;
 import com.jjz.energy.base.BaseModel;
+import com.jjz.energy.entry.commodity.HomePageCommentBean;
 import com.jjz.energy.entry.jiusu_shop.JiuSuShopBean;
 import com.jjz.energy.entry.jiusu_shop.JiuSuShopClassBean;
 import com.jjz.energy.entry.jiusu_shop.JiuSuShoppingBean;
@@ -38,10 +39,14 @@ public class JiuSuShopModel extends BaseModel {
         return RetrofitFactory.getRetrofit().create(Api.class).getJiuSuShoppingList(requestData).compose(RxSchedulerHepler.handleMyResult());
     }
 
-
     //获取商家个人主页的数据
     public Flowable<ShopHomePageBean> getShopHomePage(String requestData) {
         return RetrofitFactory.getRetrofit().create(Api.class).getShopHomePage(requestData).compose(RxSchedulerHepler.handleMyResult());
+    }
+
+    //获取商家个人主页的评价数据
+    public Flowable<HomePageCommentBean> getShopCommentList(String requestData) {
+        return RetrofitFactory.getRetrofit().create(Api.class).getShopCommentList(requestData).compose(RxSchedulerHepler.handleMyResult());
     }
 
     //获取商家个人主页的数据
