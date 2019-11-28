@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="#f7f7f7"
+              android:orientation="vertical">
+
+    <include layout="@layout/view_tool_bar"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="51dp"
+                android:layout_marginLeft="9dp"
+                android:layout_marginTop="9dp"
+                android:layout_marginRight="9dp"
+                android:background="@drawable/bg_round_white_top"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="15dp"
+                android:paddingRight="50dp">
+
+                <TextView
+                    android:layout_width="85dp"
+                    android:layout_height="wrap_content"
+                    android:text="发票抬头"
+                    android:textColor="#a4a4a4"
+                    android:textSize="13sp"/>
+
+                <TextView
+                    android:id="@+id/tv_bill_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/text_black33"
+                    android:textSize="13sp"
+                    tools:text="金玖州新能源有限公司"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="51dp"
+                android:layout_marginLeft="9dp"
+                android:layout_marginTop="0.8dp"
+                android:layout_marginRight="9dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="15dp"
+                android:paddingRight="50dp">
+
+                <TextView
+                    android:layout_width="85dp"
+                    android:layout_height="wrap_content"
+                    android:text="发票类型"
+                    android:textColor="#a4a4a4"
+                    android:textSize="13sp"/>
+
+                <TextView
+                    android:id="@+id/tv_bill_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/text_black33"
+                    android:textSize="13sp"
+                    tools:text="电子发票"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="51dp"
+                android:layout_marginLeft="9dp"
+                android:layout_marginTop="0.8dp"
+                android:layout_marginRight="9dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="15dp"
+                android:paddingRight="50dp">
+
+                <TextView
+                    android:layout_width="85dp"
+                    android:layout_height="wrap_content"
+                    android:text="发票内容"
+                    android:textColor="#a4a4a4"
+                    android:textSize="13sp"/>
+
+                <TextView
+                    android:id="@+id/tv_bill_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/text_black33"
+                    android:textSize="13sp"
+                    tools:text="汽车用品"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="51dp"
+                android:layout_marginLeft="9dp"
+                android:layout_marginTop="0.8dp"
+                android:layout_marginRight="9dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="15dp"
+                android:paddingRight="50dp">
+
+                <TextView
+                    android:layout_width="85dp"
+                    android:layout_height="wrap_content"
+                    android:text="发票金额"
+                    android:textColor="#a4a4a4"
+                    android:textSize="13sp"/>
+
+                <TextView
+                    android:id="@+id/tv_bill_money"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/text_black33"
+                    android:textSize="13sp"
+                    tools:text="￥200"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="51dp"
+                android:layout_marginLeft="9dp"
+                android:layout_marginTop="0.8dp"
+                android:layout_marginRight="9dp"
+                android:background="@drawable/bg_round_white_bottom"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="15dp"
+                android:paddingRight="50dp">
+
+                <TextView
+                    android:layout_width="85dp"
+                    android:layout_height="wrap_content"
+                    android:text="申请时间"
+                    android:textColor="#a4a4a4"
+                    android:textSize="13sp"/>
+
+                <TextView
+                    android:id="@+id/tv_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/text_black33"
+                    android:textSize="13sp"
+                    tools:text="2019-07-02"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="51dp"
+                android:layout_marginLeft="9dp"
+                android:layout_marginTop="9dp"
+                android:layout_marginRight="9dp"
+                android:background="@drawable/bg_round_white_top"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="15dp"
+                android:paddingRight="50dp">
+
+                <TextView
+                    android:layout_width="85dp"
+                    android:layout_height="wrap_content"
+                    android:text="纳税识别号"
+                    android:textColor="#a4a4a4"
+                    android:textSize="13sp"/>
+
+                <TextView
+                    android:id="@+id/tv_identifier"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/text_black33"
+                    android:textSize="13sp"
+                    tools:text="88888888888888888888"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="51dp"
+                android:layout_marginLeft="9dp"
+                android:layout_marginTop="0.8dp"
+                android:layout_marginRight="9dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="15dp"
+                android:paddingRight="50dp">
+
+                <TextView
+                    android:layout_width="85dp"
+                    android:layout_height="wrap_content"
+                    android:text="地址"
+                    android:textColor="#a4a4a4"
+                    android:textSize="13sp"/>
+
+                <TextView
+                    android:id="@+id/tv_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/text_black33"
+                    android:textSize="13sp"
+                    tools:text="红谷滩新区双子塔A1 3405"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="51dp"
+                android:layout_marginLeft="9dp"
+                android:layout_marginTop="0.8dp"
+                android:layout_marginRight="9dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="15dp"
+                android:paddingRight="50dp">
+
+                <TextView
+                    android:layout_width="85dp"
+                    android:layout_height="wrap_content"
+                    android:text="电话"
+                    android:textColor="#a4a4a4"
+                    android:textSize="13sp"/>
+
+                <TextView
+                    android:id="@+id/tv_phone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/text_black33"
+                    android:textSize="13sp"
+                    tools:text="4001070400"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="51dp"
+                android:layout_marginLeft="9dp"
+                android:layout_marginTop="0.8dp"
+                android:layout_marginRight="9dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="15dp"
+                android:paddingRight="50dp">
+
+                <TextView
+                    android:layout_width="85dp"
+                    android:layout_height="wrap_content"
+                    android:text="开户银行"
+                    android:textColor="#a4a4a4"
+                    android:textSize="13sp"/>
+
+                <TextView
+                    android:id="@+id/tv_bank"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/text_black33"
+                    android:textSize="13sp"
+                    tools:text="中国工商"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="51dp"
+                android:layout_marginLeft="9dp"
+                android:layout_marginTop="0.8dp"
+                android:layout_marginRight="9dp"
+                android:background="@drawable/bg_round_white_bottom"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="15dp"
+                android:paddingRight="50dp">
+
+                <TextView
+                    android:layout_width="85dp"
+                    android:layout_height="wrap_content"
+                    android:text="银行账号"
+                    android:textColor="#a4a4a4"
+                    android:textSize="13sp"/>
+
+                <TextView
+                    android:id="@+id/tv_bank_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/text_black33"
+                    android:textSize="13sp"
+                    tools:text="88888888888888"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_submi"
+                android:layout_width="match_parent"
+                android:layout_height="46dp"
+                android:layout_marginLeft="9dp"
+                android:layout_marginTop="41dp"
+                android:layout_marginBottom="15dp"
+                android:layout_marginRight="9dp"
+                android:background="@drawable/bg_btn_phone_login"
+                android:gravity="center"
+                android:text="提交申请"
+                android:textColor="@color/white"
+                android:textSize="15sp"/>
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

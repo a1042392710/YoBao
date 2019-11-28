@@ -14,27 +14,29 @@ import com.jjz.energy.entry.community.CommunityCommentBean;
 import com.jjz.energy.entry.home.BindBean;
 import com.jjz.energy.entry.home.HomeDetailBean;
 import com.jjz.energy.entry.jiusu.AgencyBean;
-import com.jjz.energy.entry.jiusu.HotBean;
-import com.jjz.energy.entry.jiusu.HotDetailBean;
+import com.jjz.energy.entry.jiusu.BillEntry;
+import com.jjz.energy.entry.jiusu.BindOwnerInfoBean;
+import com.jjz.energy.entry.jiusu.CommissionDetailBean;
+import com.jjz.energy.entry.jiusu.JiuSuOrderBean;
 import com.jjz.energy.entry.jiusu.LoginBean;
 import com.jjz.energy.entry.jiusu.MapMarkerBean;
 import com.jjz.energy.entry.jiusu.MineAccountBean;
 import com.jjz.energy.entry.jiusu.MineInfoBean;
 import com.jjz.energy.entry.jiusu.MineWalletBean;
 import com.jjz.energy.entry.jiusu.MineWalletListBean;
-import com.jjz.energy.entry.jiusu.OrderBean;
 import com.jjz.energy.entry.jiusu.OrderDetailBean;
 import com.jjz.energy.entry.jiusu.ShareInfoBean;
 import com.jjz.energy.entry.jiusu.ShopMarkerBean;
 import com.jjz.energy.entry.jiusu.VipListInfo;
+import com.jjz.energy.entry.jiusu.WithdrawInfoBean;
 import com.jjz.energy.entry.jiusu.WithdrawListBean;
+import com.jjz.energy.entry.jiusu.YoCardReceiveListBean;
 import com.jjz.energy.entry.jiusu_shop.JiuSuShopBean;
 import com.jjz.energy.entry.jiusu_shop.JiuSuShopClassBean;
 import com.jjz.energy.entry.jiusu_shop.JiuSuShoppingBean;
 import com.jjz.energy.entry.jiusu_shop.JiuSuShoppingDetailsBean;
 import com.jjz.energy.entry.jiusu_shop.ShopHomePageBean;
 import com.jjz.energy.entry.mine.AddressBean;
-import com.jjz.energy.entry.mine.BindOwnerInfoBean;
 import com.jjz.energy.entry.mine.LikeGoodsBean;
 import com.jjz.energy.entry.mine.MineBuyerBean;
 import com.jjz.energy.entry.mine.MineIntegralBean;
@@ -82,11 +84,6 @@ public interface Api {
 
 
      //-------------------------------------------------- 用户
-
-    //我的积分
-    @FormUrlEncoded
-    @POST("shop/user/myPointsList")
-    Flowable<ResponseData<MineIntegralBean>> getIntegralList(@Field(PACK_NO) String pack_no);
 
     //登录
     @FormUrlEncoded
@@ -177,16 +174,6 @@ public interface Api {
     @POST("shop/user/fansList")
     Flowable<ResponseData<MineLikeAndFansBean>> getFansList(@Field(PACK_NO) String pack_no);
 
-    //提交车主信息
-    @FormUrlEncoded
-    @POST("shop/user/setUserinfo")
-    Flowable<ResponseData<String>> putBindOwnerInfo(@Field(PACK_NO) String pack_no);
-
-    //获取车主信息
-    @FormUrlEncoded
-    @POST("shop/user/getUserinfo")
-    Flowable<ResponseData<BindOwnerInfoBean>> getBindOwnernfo(@Field(PACK_NO) String pack_no);
-
     //获取我的收款账户信息
     @FormUrlEncoded
     @POST("shop/user/getUserPayee")
@@ -205,10 +192,6 @@ public interface Api {
 
     //--------------------------------------------------= 收货地址
 
-    //获取久速商城基本信息
-    @FormUrlEncoded
-    @POST("shop/user/getUserinfo")
-    Flowable<ResponseData<LoginBean>> getJiuSuInfo(@Field(PACK_NO) String pack_no);
 
     /**
      * 我的 -- 添加收货地址
@@ -549,6 +532,12 @@ public interface Api {
 
     //-------------------------------------------------------- 以下是 久速接口
 
+    //获取久速专区基本信息
+    @FormUrlEncoded
+    @POST("app/user/getUserinfo")
+    Flowable<ResponseData<LoginBean>> getJiuSuInfo(@Field(PACK_NO) String pack_no);
+
+
     //查询下级代理
     @FormUrlEncoded
     @POST("app/user/agentsMembers")
@@ -564,26 +553,15 @@ public interface Api {
     @POST("app/index/getShopInfo")
     Flowable<ResponseData<ShopMarkerBean>> getShopInfo(@Field(PACK_NO) String pack_no);
 
-    //热点 新闻列表
-    @FormUrlEncoded
-    @POST("app/news/index")
-    Flowable<ResponseData<List<HotBean>>> getHotList(@Field(PACK_NO) String pack_no);
-
-    //热点 新闻详情
-    @FormUrlEncoded
-    @POST("app/news/getNewsInfo")
-    Flowable<ResponseData<HotDetailBean>> getHotDetail(@Field(PACK_NO) String pack_no);
-
-
     //获取买家订单列表
     @FormUrlEncoded
     @POST("app/order/buyerOrderList")
-    Flowable<ResponseData<List<OrderBean>>> getOrderList(@Field(PACK_NO) String pack_no);
+    Flowable<ResponseData<JiuSuOrderBean>> getOrderList(@Field(PACK_NO) String pack_no);
 
     //获取卖家订单列表
     @FormUrlEncoded
     @POST("app/order/sellerOrderList")
-    Flowable<ResponseData<List<OrderBean>>> getSellerOrderList(@Field(PACK_NO) String pack_no);
+    Flowable<ResponseData<JiuSuOrderBean>> getSellerOrderList(@Field(PACK_NO) String pack_no);
 
     //卖家接受订单
     @FormUrlEncoded
@@ -639,6 +617,11 @@ public interface Api {
     @POST("app/user/share ")
     Flowable<ResponseData<ShareInfoBean>> getShareInfo(@Field(PACK_NO) String pack_no);
 
+    //密码登录
+    @FormUrlEncoded
+    @POST("app/user/pwdLogin ")
+    Flowable<ResponseData<LoginBean>> pwdLogin(@Field(PACK_NO) String pack_no);
+
     //我的佣金
     @FormUrlEncoded
     @POST("app/commission/myCommissions")
@@ -649,15 +632,55 @@ public interface Api {
     @POST("app/commission/commissionsList")
     Flowable<ResponseData<List<MineWalletListBean>>> getBalanceList(@Field(PACK_NO) String pack_no);
 
-    //提现记录c
+    //提现记录
     @FormUrlEncoded
     @POST("app/commission/insufficientList")
     Flowable<ResponseData<List<WithdrawListBean>>> getWithdrawList(@Field(PACK_NO) String pack_no);
 
-    //提现信息
+    //佣金详情
     @FormUrlEncoded
+    @POST("app/commission/commissionsSecondList")
+    Flowable<ResponseData<CommissionDetailBean>> getCommissionDetail(@Field(PACK_NO) String pack_no);
+
+    //查询上次提现银行卡的记录
+    @FormUrlEncoded
+    @POST("app/commission/lastApply")
+    Flowable<ResponseData<WithdrawInfoBean>> getWithdrawInfo(@Field(PACK_NO) String pack_no);
+
+    //提现信息
     @POST("app/commission/commissionApplying")
+    @FormUrlEncoded
     Flowable<ResponseData<String>> putWithdrawInfo(@Field(PACK_NO) String pack_no);
+
+    //我的订单 提交发票
+    @FormUrlEncoded
+    @POST("app/order/createInvoice")
+    Flowable<ResponseData<String>> getBillSubmit(@Field(PACK_NO) String pack_no);
+
+    //查看发票
+    @FormUrlEncoded
+    @POST("app/order/getOrderInvoice")
+    Flowable<ResponseData<BillEntry>> getBill(@Field(PACK_NO) String pack_no);
+
+    //获取赠品领取记录
+    @FormUrlEncoded
+    @POST("app/user/consumptionRecord")
+    Flowable<ResponseData<List<YoCardReceiveListBean>>> getYoGiftList(@Field(PACK_NO) String pack_no);
+
+    //我的积分
+    @FormUrlEncoded
+    @POST("app/user/myPointsList")
+    Flowable<ResponseData<MineIntegralBean>> getIntegralList(@Field(PACK_NO) String pack_no);
+
+    @Multipart
+    @POST("app/user/setUserinfo")
+    Flowable<ResponseData<String>> putBindOwnerInfo(
+            @Part MultipartBody.Part params, @PartMap Map<String, RequestBody> imgFiles
+    );
+    //获取车主信息
+    @FormUrlEncoded
+    @POST("app/user/getUserinfo")
+    Flowable<ResponseData<BindOwnerInfoBean>> getBindOwnernfo(@Field(PACK_NO) String pack_no);
 
 
     /**

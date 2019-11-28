@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="#f7f7f7"
+              android:orientation="vertical">
+
+    <include layout="@layout/view_tool_bar"/>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="9dp"
+                android:layout_marginTop="9dp"
+                android:layout_marginRight="9dp"
+                android:background="@drawable/bg_white_radius"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="51dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:layout_weight="1"
+                        android:text="发票内容"
+                        android:textColor="@color/text_black33"
+                        android:textSize="13sp"/>
+
+                    <TextView
+                        android:id="@+id/tv_bill_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="9dp"
+                        android:text="汽车用品"/>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="#e9e9e9"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="51dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:layout_weight="1"
+                        android:text="发票金额"
+                        android:textColor="@color/text_black33"
+                        android:textSize="13sp"/>
+
+                    <TextView
+                        android:id="@+id/tv_bill_money"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="9dp"
+                        tools:text="100元"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <RadioGroup
+                android:id="@+id/rg_bill_type"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="9dp"
+                android:layout_marginTop="9dp"
+                android:layout_marginRight="9dp"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/rb_bill_person"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_rb_bill"
+                    android:button="@null"
+                    android:checked="true"
+                    android:gravity="center"
+                    android:text="个人"
+                    android:textColor="@drawable/setlect_text_bill"
+                    android:textSize="13sp"/>
+
+                <RadioButton
+                    android:id="@+id/rb_bill_unit"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_rb_bill_two"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:text="企业"
+                    android:textColor="@drawable/setlect_text_bill"
+                    android:textSize="13sp"/>
+
+            </RadioGroup>
+
+            <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/ll_unit_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="9dp"
+                android:layout_marginRight="9dp"
+                android:background="@drawable/bg_round_white_bottom"
+                android:orientation="vertical"
+                android:paddingLeft="15dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:drawableRight="@mipmap/ic_mast_set"
+                    android:gravity="center"
+                    android:text="发票抬头"
+                    android:textColor="@color/text_black33"
+                    android:textSize="13sp"/>
+
+                <EditText
+                    android:id="@+id/et_bill_unit_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_marginTop="4dp"
+                    android:singleLine="true"
+                    android:background="@color/white"
+                    android:hint="请输入单位名称 (必填)"
+                    android:textColor="#a4a4a4"
+                    android:textColorHint="#dfdfdf"
+                    android:textSize="13sp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:drawableRight="@mipmap/ic_mast_set"
+                    android:gravity="center"
+                    android:text="纳税人识别号"
+                    android:textColor="@color/text_black33"
+                    android:textSize="13sp"/>
+
+                <EditText
+                    android:id="@+id/et_bill_unit_identifier"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_marginTop="4dp"
+                    android:background="@color/white"
+                    android:singleLine="true"
+                    android:hint="请输入识别号码 (必填)"
+                    android:textColor="#a4a4a4"
+                    android:textColorHint="#dfdfdf"
+                    android:textSize="13sp"/>
+
+                <LinearLayout
+                    android:id="@+id/ll_look_all"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center"
+                        android:text="地址"
+                        android:textColor="@color/text_black33"
+                        android:textSize="13sp"/>
+
+                    <EditText
+                        android:id="@+id/et_unit_address"
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:layout_marginTop="4dp"
+                        android:singleLine="true"
+                        android:background="@color/white"
+                        android:hint="请输入单位地址"
+                        android:textColor="#a4a4a4"
+                        android:textColorHint="#dfdfdf"
+                        android:textSize="13sp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center"
+                        android:text="电话"
+                        android:textColor="@color/text_black33"
+                        android:textSize="13sp"/>
+
+                    <EditText
+                        android:id="@+id/et_unit_phone"
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:layout_marginTop="4dp"
+                        android:background="@color/white"
+                        android:hint="请输入电话号码"
+                        android:singleLine="true"
+                        android:inputType="number"
+                        android:textColor="#a4a4a4"
+                        android:textColorHint="#dfdfdf"
+                        android:textSize="13sp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center"
+                        android:text="开户银行"
+                        android:textColor="@color/text_black33"
+                        android:textSize="13sp"/>
+
+                    <EditText
+                        android:id="@+id/et_unit_bank"
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:layout_marginTop="4dp"
+                        android:background="@color/white"
+                        android:hint="请输入开户银行所在地"
+                        android:singleLine="true"
+                        android:textColor="#a4a4a4"
+                        android:textColorHint="#dfdfdf"
+                        android:textSize="13sp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center"
+                        android:text="银行账号"
+                        android:textColor="@color/text_black33"
+                        android:textSize="13sp"/>
+
+                    <EditText
+                        android:id="@+id/et_unit_bank_card"
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:layout_marginTop="4dp"
+                        android:background="@color/white"
+                        android:singleLine="true"
+                        android:layout_marginBottom="5dp"
+                        android:hint="请输入银行账号"
+                        android:inputType="number"
+                        android:textColor="#a4a4a4"
+                        android:textColorHint="#dfdfdf"
+                        android:textSize="13sp"/>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.7dp"
+                    android:background="#f7f7f7"/>
+
+                <LinearLayout
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp">
+
+                    <CheckBox
+                        android:button="@null"
+                        android:gravity="center"
+                        android:id="@+id/cb_look_all"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="20dp"
+                        android:drawablePadding="5dp"
+                        android:textColor="#a4a4a4"
+                        android:checked="false"
+                        android:textSize="13sp"
+                        android:drawableRight="@drawable/bg_bill_rb_checked"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:text="填写更多"/>
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_person_info"
+            android:layout_width="match_parent"
+            android:visibility="visible"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="9dp"
+            android:layout_marginRight="9dp"
+            android:background="@drawable/bg_round_white_bottom"
+            android:orientation="vertical"
+            android:paddingLeft="15dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:drawableRight="@mipmap/ic_mast_set"
+                android:gravity="center"
+                android:text="姓名"
+                android:textColor="@color/text_black33"
+                android:textSize="13sp"/>
+
+            <EditText
+                android:id="@+id/et_bill_person_title"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginTop="4dp"
+                android:singleLine="true"
+                android:background="@color/white"
+                android:hint="请输入姓名"
+                android:textColor="#a4a4a4"
+                android:textColorHint="#dfdfdf"
+                android:textSize="13sp"/>
+
+        </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/tv_next"
+                android:background="@drawable/bg_orange_solid"
+                android:text="下一步"
+                android:layout_marginLeft="9dp"
+                android:layout_marginRight="9dp"
+                android:layout_marginTop="50dp"
+                android:layout_marginBottom="40dp"
+                android:textSize="15sp"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"/>
+
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

@@ -1,5 +1,9 @@
 package com.jjz.energy.base;
 
+import com.jjz.energy.widgets.idcardcamera.utils.FileUtils;
+
+import java.io.File;
+
 /**
  * create by: CH
  * Date: 2018/9/13 下午2:13
@@ -50,9 +54,10 @@ public class Constant {
     public static final String PRIVACY_POLICY_URL = "http://api.jjznewenergy.com/index/user/userDeal";
     //商家入驻
     public static final String SHOP_GO = "http://apit.jjznewenergy.com/web";
-
     //积分规则
     public static final String INTEGRAL_RULE = "http://api.jjznewenergy.com/web/rule";
+    //三久官网
+    public static final String SANJIU_WEB = "www.sanjiutech.com";
 
     //--------------------------------------- Intent 请求码
 
@@ -116,6 +121,10 @@ public class Constant {
      * 用户 积分
      */
     public static final String PAY_POINTS= "pay_points";
+    /**
+     * 用户 积分
+     */
+    public static final String IS_SET_IDCARD= "is_set_idcard";
 
     /**
      * 搜索的历史记录 商品
@@ -185,7 +194,10 @@ public class Constant {
     public static final int RETURN_SALES = 1;
 
 
-
+    //身份证识别
+    public static final String APP_NAME = "JiuSu";//app名称
+    public static final String BASE_DIR = APP_NAME + File.separator;//JiuSu/
+    public static final String DIR_ROOT = FileUtils.getRootPath() + File.separator + BASE_DIR;//文件夹根目录 /storage/emulated/0/WildmaIDCardCamera/
 
 
 

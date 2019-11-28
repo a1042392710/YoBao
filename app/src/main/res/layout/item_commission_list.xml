@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:paddingTop="8dp">
+
+    <TextView
+        android:id="@+id/item_tv_title"
+        android:layout_width="wrap_content"
+        android:textColor="@color/text_black33"
+        android:paddingLeft="18dp"
+        android:textSize="14sp"
+        android:layout_height="wrap_content"
+        tools:text="直推用户 南昌彭于晏 纯收益" />
+
+    <TextView
+        android:id="@+id/item_tv_time"
+        android:layout_width="wrap_content"
+        android:textColor="#979797"
+        android:textSize="13sp"
+        android:paddingLeft="18dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/item_tv_title"
+        android:layout_marginTop="16dp"
+        android:text="2018年11月16日16:55:41" />
+
+
+
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:orientation="vertical"
+        android:gravity="right"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="18dp"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/itme_tv_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/itme_tv_price"
+            android:text="+100.00"
+            android:textColor="@color/red_fe8977"
+            android:textSize="15sp"/>
+
+        <TextView
+            android:id="@+id/itme_tv_state"
+            android:layout_marginTop="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="未提现"
+            android:textColor="@color/text_blackA6"
+            android:textSize="15sp"/>
+
+
+
+    </LinearLayout>
+
+    <View
+        android:layout_below="@id/item_tv_time"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/baseBackGround"/>
+</RelativeLayout>

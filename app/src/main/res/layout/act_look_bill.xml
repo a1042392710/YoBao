@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:background="@color/baseBackGround"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/view_tool_bar"/>
+    
+    <ImageView
+        android:id="@+id/img_bill"
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="243dp"
+        tools:src="@color/color_primary_f5"/>
+
+
+
+</LinearLayout>

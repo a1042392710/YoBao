@@ -14,6 +14,12 @@
     <color name="color_ff4800">#fe8977</color>
     <!--输入验证码-->
     <color name="lightGrey">#d3d3d3</color>
+    <color name="bg_bf">#bfbfbf</color>
+    <color name="bg_ffc2a7">#ffca27</color>
+
+    <color name="text_red_f76060">#f76060</color>
+    <color name="text_red_f04f4f">#f04f4f</color>
+    <color name="text_orange_f7bc2e">#f7bc2e</color>
 
     <!--时间选择器-->
     <color name="date_picker_text_one">#282828</color>
@@ -36,6 +42,11 @@
     <color name="text_orange">#ffad0b</color>
     <color name="bg_66000000">#66000000</color>
 
+
+    <!--身份证识别-->
+    <color name="color_000000">#000000</color>
+    <color name="color_afff">#afff</color>
+    <color name="preview_mock">#9a000000</color>
 
     <!--zxing-->
     <color name="possible_result_points">#ffbd21</color>

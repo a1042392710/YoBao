@@ -84,7 +84,7 @@
                 android:resource="@xml/filepaths" />
         </provider>
 
-        <!--********************* Activ-ity *********************-->
+        <!--********************* Activity *********************-->
 
         <!--主页-->
         <activity
@@ -414,6 +414,102 @@
             android:configChanges="orientation|screenSize"/>
 
 
+        <!--****************** 久速1.0 ****************** -->
+
+        <!--首页-->
+        <activity android:name="com.jjz.energy.ui.home.jiusu.JiuSuHomeActivity"
+            android:configChanges="orientation|screenSize"/>
+
+        <!--我的代理-->
+        <activity android:name="com.jjz.energy.ui.home.jiusu.JiuSuMineAgencyActivity"
+            android:configChanges="orientation|screenSize"/>
+
+        <!--会员中心-->
+        <activity android:name="com.jjz.energy.ui.home.jiusu.JiuSuMineActivity"
+            android:configChanges="orientation|screenSize"/>
+
+        <!--升级会员-->
+        <activity android:name="com.jjz.energy.ui.home.jiusu.JiuSuUpVipActivity"
+            android:configChanges="orientation|screenSize"/>
+
+        <!--分享邀请-->
+        <activity android:name="com.jjz.energy.ui.home.jiusu.JiuSuShareActivity"
+            android:configChanges="orientation|screenSize"/>
+
+        <!--我的会员-->
+        <activity android:name="com.jjz.energy.ui.home.jiusu.JiuSuMineVipActivity"
+            android:configChanges="orientation|screenSize"/>
+
+        <!--会员福利-->
+        <activity android:name="com.jjz.energy.ui.home.jiusu.JiuSuVipWelfareActivity"
+            android:configChanges="orientation|screenSize"/>
+
+        <!--赠品使用记录-->
+        <activity android:name="com.jjz.energy.ui.home.jiusu.JiuSuYoCardReceiveListActivity"
+            android:configChanges="orientation|screenSize"/>
+
+        <!--卖家订单管理-->
+        <activity android:name="com.jjz.energy.ui.home.jiusu.JiuSuMineSellerOrderActivity"
+            android:configChanges="orientation|screenSize"/>
+
+        <!--卖家订单详情-->
+        <activity android:name="com.jjz.energy.ui.home.jiusu.JiuSuMineSellerOrderDetailActvity"
+            android:configChanges="orientation|screenSize"/>
+
+        <!--买家订单管理-->
+        <activity android:name="com.jjz.energy.ui.home.jiusu.JiuSuMineOrderActivity"
+            android:configChanges="orientation|screenSize"/>
+
+        <!--买家订单详情-->
+        <activity android:name="com.jjz.energy.ui.home.jiusu.JiuSuMineOrderDetailActvity"
+            android:configChanges="orientation|screenSize"/>
+
+        <!--查看发票-->
+        <activity android:name="com.jjz.energy.ui.home.jiusu.JiuSuLookBillActivity"
+            android:configChanges="orientation|screenSize"/>
+
+        <!--发票申请-->
+        <activity android:name="com.jjz.energy.ui.home.jiusu.JiuSuBillApplicationActivity"
+            android:configChanges="orientation|screenSize"/>
+
+        <!--检查发票-->
+        <activity android:name="com.jjz.energy.ui.home.jiusu.JiuSuCheckBillActivity"
+            android:configChanges="orientation|screenSize"/>
+
+        <!--我的佣金-->
+        <activity android:name="com.jjz.energy.ui.home.jiusu.JiuSuMineWalletActivity"
+            android:configChanges="orientation|screenSize"/>
+
+        <!--提现-->
+        <activity android:name="com.jjz.energy.ui.home.jiusu.JiuSuWithdrawDepositActivity"
+            android:configChanges="orientation|screenSize"/>
+
+        <!--提现申请-->
+        <activity android:name="com.jjz.energy.ui.home.jiusu.JiuSuWithdrawDepositApplicationActivity"
+            android:configChanges="orientation|screenSize"/>
+
+        <!--提现记录-->
+        <activity android:name="com.jjz.energy.ui.home.jiusu.JiuSuWithdrawDepositListActivity"
+            android:configChanges="orientation|screenSize"/>
+
+        <!--提现结果-->
+        <activity android:name="com.jjz.energy.ui.home.jiusu.JiuSuWithdrawDepositResultActivity"
+            android:configChanges="orientation|screenSize"/>
+
+        <!--提现月详情-->
+        <activity android:name="com.jjz.energy.ui.home.jiusu.JiuSuCommissionDetailActivity"
+            android:configChanges="orientation|screenSize"/>
+
+        <!--佣金记录-->
+        <activity android:name="com.jjz.energy.ui.home.jiusu.JiuSuCommissionRecordActivity"
+            android:configChanges="orientation|screenSize"/>
+
+        <!--支付成功-->
+        <activity android:name="com.jjz.energy.ui.home.jiusu.JiuSuPaySucActivity"
+            android:configChanges="orientation|screenSize"/>
+
+
+
         <!--****************** 支付****************** -->
 
         <!--微信-->
@@ -442,6 +538,11 @@
             android:required="false" />
 
         <!--******************************** 第三方********************* -->
+
+        <activity
+            android:name=".widgets.idcardcamera.camera.CameraActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:configChanges="orientation|screenSize" />
 
         <!--zxing-->
         <activity

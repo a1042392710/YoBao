@@ -1,12 +1,14 @@
 package com.jjz.energy.util;
 
 import android.annotation.SuppressLint;
+import android.graphics.Bitmap;
 import android.os.Build;
 
 import com.alibaba.fastjson.JSON;
 import com.blankj.utilcode.util.LogUtils;
 import com.jjz.energy.base.Constant;
 
+import java.io.ByteArrayOutputStream;
 import java.security.MessageDigest;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -49,6 +51,27 @@ public class Utils {
         return s;
     }
 
+    public static String buildTransaction(final String type) {
+        return (type == null) ? String.valueOf(System.currentTimeMillis()) : type + System.currentTimeMillis();
+    }
+
+    /**
+     * Bitmap --> 字节数组
+     */
+    public static byte[] bmpToByteArray(final Bitmap bmp, final boolean needRecycle) {
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        bmp.compress(Bitmap.CompressFormat.PNG, 100, output);
+        if (needRecycle) {
+            bmp.recycle();
+        }
+        byte[] result = output.toByteArray();
+        try {
+            output.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
 
 
     @SuppressLint("MissingPermission")

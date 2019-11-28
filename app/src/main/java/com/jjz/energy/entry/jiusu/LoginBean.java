@@ -224,7 +224,10 @@ public class LoginBean implements Serializable {
 
 
     public Member getMember() {
-        return member;
+        if (member==null){
+            member = new Member();
+        }
+        return  member;
     }
 
     public void setMember(Member member) {

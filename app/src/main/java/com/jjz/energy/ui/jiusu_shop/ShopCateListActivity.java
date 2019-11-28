@@ -7,7 +7,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.jjz.energy.R;
-import com.jjz.energy.adapter.JiuSuShopListAdapter;
+import com.jjz.energy.adapter.jiusu.JiuSuShopListAdapter;
 import com.jjz.energy.base.BaseActivity;
 import com.jjz.energy.entry.jiusu_shop.JiuSuShopBean;
 import com.jjz.energy.presenter.jiusu_shop.JiuSuShopPresenter;

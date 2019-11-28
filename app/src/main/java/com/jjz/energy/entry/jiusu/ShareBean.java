@@ -7,7 +7,7 @@ import java.io.Serializable;
  * @date 2017/10/18  11:01
  * @fuction 分享
  */
-public class ShareBean implements Serializable{
+public class ShareBean implements Serializable {
     //图片
     private int img;
     //title

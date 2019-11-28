@@ -16,7 +16,7 @@ import android.widget.LinearLayout;
 
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jjz.energy.R;
-import com.jjz.energy.adapter.JiuSuShopListAdapter;
+import com.jjz.energy.adapter.jiusu.JiuSuShopListAdapter;
 import com.jjz.energy.base.BaseActivity;
 import com.jjz.energy.base.BaseRecycleNewAdapter;
 import com.jjz.energy.base.Constant;

@@ -28,6 +28,7 @@ import com.jjz.energy.ui.home.charitable.CharitableActivity;
 import com.jjz.energy.ui.home.commodity.HomeCommodityFragment;
 import com.jjz.energy.ui.home.education.EducationActivity;
 import com.jjz.energy.ui.home.insurance.InsuranceActivity;
+import com.jjz.energy.ui.home.jiusu.JiuSuHomeActivity;
 import com.jjz.energy.ui.home.login.LoginActivity;
 import com.jjz.energy.ui.home.logistics.LogisticsActivity;
 import com.jjz.energy.ui.home.pension.PensionActivity;
@@ -232,6 +233,8 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements IHomeVi
                 break;
             //久速专区
             case R.id.ll_jiusu:
+                //需要验证登录
+                ActivityUtils.startActivity(!UserLoginBiz.getInstance(mContext).detectUserLoginStatus() ? LoginActivity.class : JiuSuHomeActivity.class);
                 break;
             //久速商家
             case R.id.ll_shop_discount:

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/white"
+              android:orientation="vertical">
+
+
+    <include layout="@layout/view_tool_bar"/>
+
+
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="98dp"
+                android:src="@mipmap/ic_wallet_money"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="30dp"
+                android:orientation="vertical">
+            <TextView
+                android:id="@+id/tv_banlance_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="当前佣金余额"
+                android:textStyle="bold"
+                android:textColor="@color/text_black33"
+                android:textSize="15sp"/>
+              <View
+                  android:id="@+id/view_moeny_line"
+                  android:visibility="gone"
+                  android:layout_width="match_parent"
+                  android:layout_height="1dp"
+                  android:background="@color/text_red_f76060"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:orientation="horizontal"
+                android:layout_marginTop="25dp">
+
+                <TextView
+                    android:id="@+id/tv_money_symbol"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_height="wrap_content"
+                    android:text="¥"
+                    android:textColor="@color/text_black33"
+                    android:textSize="18sp"/>
+
+                <TextView
+                    android:id="@+id/tv_banlance"
+                    android:layout_marginLeft="7dp"
+                    android:includeFontPadding="false"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0.00"
+                    android:textColor="@color/text_black33"
+                    android:textSize="45sp"
+                    android:textStyle="bold"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:visibility="invisible"
+                    android:layout_gravity="center_vertical"
+                    android:layout_height="wrap_content"
+                    android:text="¥"
+                    android:textColor="@color/text_black33"
+                    android:textSize="18sp"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="80dp"/>
+
+            <TextView
+                android:id="@+id/tv_withdraw_deposit"
+                android:layout_width="157dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/bg_orange_solid"
+                android:gravity="center"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:text="提现"
+                android:textColor="@color/white"
+                android:textSize="13sp"/>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:gravity="bottom"
+        android:paddingBottom="20dp"
+        android:text="如有疑问，请拨打客服电话:400-1070-400"
+        android:textColor="#999999"
+        android:textSize="12sp"/>
+
+
+</LinearLayout>

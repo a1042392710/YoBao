@@ -27,6 +27,31 @@ public class ShopMarkerBean implements Serializable {
     private String goods_name ;
     //剩余可领取的油
     private double oil_balance ;
+    /**
+     * 折扣
+     */
+    private float rate = 1;
+    /**
+     * 剩余积分
+     */
+    private double pay_points ;
+
+    public double getPay_points() {
+        return pay_points;
+    }
+
+    public void setPay_points(double pay_points) {
+        this.pay_points = pay_points;
+    }
+
+    public float getRate() {
+        return rate;
+    }
+
+    public void setRate(float rate) {
+        this.rate = rate;
+    }
+
 
     public double getOil_balance() {
         return oil_balance;

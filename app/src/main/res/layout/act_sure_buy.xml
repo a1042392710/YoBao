@@ -234,7 +234,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginBottom="50dp"
                 android:background="@color/white"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
@@ -271,7 +270,21 @@
 
             </LinearLayout>
 
+
+            <TextView
+                android:id="@+id/tv_integral_toast"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="15dp"
+                android:paddingTop="10dp"
+                android:visibility="visible"
+                android:paddingBottom="5dp"
+                tools:text="该订单已用20积分抵扣20元,剩余积分500"
+                android:textColor="@color/red_fe8977"
+                android:textSize="12sp" />
+
             <View
+                android:layout_marginTop="50dp"
                 android:layout_width="1dp"
                 android:layout_height="0dp"
                 android:layout_weight="1" />

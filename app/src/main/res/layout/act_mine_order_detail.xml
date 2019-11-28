@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/white"
+              android:orientation="vertical">
+
+    <include layout="@layout/view_tool_bar"/>
+
+ <ScrollView
+     android:layout_width="match_parent"
+     android:layout_height="match_parent"
+     android:scrollbars="none">
+     <LinearLayout
+         android:layout_width="match_parent"
+         android:orientation="vertical"
+         android:layout_height="match_parent">
+         <LinearLayout
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:layout_marginLeft="23dp"
+             android:layout_marginTop="25dp"
+             android:layout_marginRight="25dp"
+             android:background="@color/white"
+             android:orientation="horizontal">
+
+             <TextView
+                 android:layout_width="60dp"
+                 android:layout_height="wrap_content"
+                 android:layout_marginRight="35dp"
+                 android:text="交易状态"
+                 android:textColor="@color/text_black33"
+                 android:textSize="13sp"/>
+
+             <TextView
+                 android:id="@+id/tv_status"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:textColor="@color/red_fe8977"
+                 android:textSize="13sp"
+                 tools:text="交易完成"/>
+         </LinearLayout>
+
+         <LinearLayout
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:layout_marginLeft="23dp"
+             android:layout_marginTop="16dp"
+             android:layout_marginRight="25dp"
+             android:background="@color/white"
+             android:orientation="horizontal">
+
+             <TextView
+                 android:layout_width="60dp"
+                 android:layout_height="wrap_content"
+                 android:layout_marginRight="35dp"
+                 android:text="卖家网点"
+                 android:textColor="@color/text_black33"
+                 android:textSize="13sp"/>
+
+             <TextView
+                 android:id="@+id/tv_service_point_name"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:textColor="@color/text_blackA6"
+                 android:textSize="13sp"
+                 tools:text="红谷滩网点"/>
+         </LinearLayout>
+
+         <LinearLayout
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:layout_marginLeft="23dp"
+             android:layout_marginTop="16dp"
+             android:layout_marginRight="25dp"
+             android:background="@color/white"
+             android:orientation="horizontal">
+
+             <TextView
+                 android:layout_width="60dp"
+                 android:layout_height="wrap_content"
+                 android:layout_marginRight="35dp"
+                 android:text="网点地址"
+                 android:textColor="@color/text_black33"
+                 android:textSize="13sp"/>
+
+             <TextView
+                 android:id="@+id/tv_service_point_address"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:textColor="@color/text_blackA6"
+                 android:textSize="13sp"
+                 tools:text="北京澳大利亚区"/>
+         </LinearLayout>
+
+         <LinearLayout
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:layout_marginLeft="23dp"
+             android:layout_marginTop="16dp"
+             android:layout_marginRight="25dp"
+             android:background="@color/white"
+             android:orientation="horizontal">
+
+             <TextView
+                 android:layout_width="60dp"
+                 android:layout_height="wrap_content"
+                 android:layout_marginRight="35dp"
+                 android:text="卖家电话"
+                 android:textColor="@color/text_black33"
+                 android:textSize="13sp"/>
+
+             <TextView
+                 android:id="@+id/tv_service_point_phone"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:textColor="@color/text_blackA6"
+                 android:textSize="13sp"
+                 tools:text="18611151515"/>
+         </LinearLayout>
+
+         <LinearLayout
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:layout_marginLeft="23dp"
+             android:layout_marginTop="16dp"
+             android:layout_marginRight="25dp"
+             android:background="@color/white"
+             >
+
+             <TextView
+                 android:layout_width="60dp"
+                 android:layout_height="wrap_content"
+                 android:layout_marginRight="35dp"
+                 android:text="订单号"
+                 android:textColor="@color/text_black33"
+                 android:textSize="13sp"/>
+
+             <TextView
+                 android:id="@+id/tv_order_id"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:textColor="@color/text_blackA6"
+                 android:textSize="13sp"
+                 tools:text="11565162315861261"/>
+         </LinearLayout>
+
+         <LinearLayout
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:layout_marginLeft="23dp"
+             android:layout_marginTop="16dp"
+             android:layout_marginRight="25dp"
+             android:background="@color/white"
+             android:orientation="horizontal">
+
+             <TextView
+                 android:layout_width="60dp"
+                 android:layout_height="wrap_content"
+                 android:layout_marginRight="35dp"
+                 android:text="下单时间"
+                 android:textColor="@color/text_black33"
+                 android:textSize="13sp"/>
+
+             <TextView
+                 android:id="@+id/tv_time"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:textColor="@color/text_blackA6"
+                 android:textSize="13sp"
+                 tools:text="2019-04-11 12:10:44"/>
+         </LinearLayout>
+
+         <LinearLayout
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:layout_marginLeft="23dp"
+             android:layout_marginTop="16dp"
+             android:layout_marginRight="25dp"
+             android:background="@color/white"
+             android:orientation="horizontal">
+
+             <TextView
+                 android:layout_width="60dp"
+                 android:layout_height="wrap_content"
+                 android:layout_marginRight="35dp"
+                 android:text="油价"
+                 android:textColor="@color/text_black33"
+                 android:textSize="13sp"/>
+
+             <TextView
+                 android:id="@+id/tv_oil_price"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:textColor="@color/text_blackA6"
+                 android:textSize="13sp"
+                 tools:text="4.7元/升"/>
+         </LinearLayout>
+
+         <LinearLayout
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:layout_marginLeft="23dp"
+             android:layout_marginTop="16dp"
+             android:layout_marginRight="25dp"
+             android:background="@color/white"
+             android:orientation="horizontal">
+
+             <TextView
+                 android:layout_width="60dp"
+                 android:layout_height="wrap_content"
+                 android:layout_marginRight="35dp"
+                 android:text="数量"
+                 android:textColor="@color/text_black33"
+                 android:textSize="13sp"/>
+
+             <TextView
+                 android:id="@+id/tv_sum"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:textColor="@color/text_blackA6"
+                 android:textSize="13sp"
+                 tools:text="44"/>
+         </LinearLayout>
+
+         <LinearLayout
+             android:id="@+id/ll_integral"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:layout_marginLeft="23dp"
+             android:visibility="gone"
+             android:layout_marginTop="16dp"
+             android:layout_marginRight="25dp"
+             android:background="@color/white"
+             android:orientation="horizontal">
+
+             <TextView
+                 android:layout_width="60dp"
+                 android:layout_height="wrap_content"
+                 android:layout_marginRight="35dp"
+                 android:text="积分抵扣"
+                 android:textColor="@color/text_black33"
+                 android:textSize="13sp"/>
+
+             <TextView
+                 android:id="@+id/tv_integral"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:textColor="@color/text_blackA6"
+                 android:textSize="13sp"
+                 tools:text="¥20"/>
+         </LinearLayout>
+
+         <LinearLayout
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:layout_marginLeft="23dp"
+             android:layout_marginTop="16dp"
+             android:layout_marginRight="25dp"
+             android:background="@color/white"
+             android:orientation="horizontal">
+
+             <TextView
+                 android:layout_width="60dp"
+                 android:layout_height="wrap_content"
+                 android:layout_marginRight="35dp"
+                 android:text="总计"
+                 android:textColor="@color/text_black33"
+                 android:textSize="13sp"/>
+
+             <TextView
+                 android:id="@+id/tv_total"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:textColor="@color/text_blackA6"
+                 android:textSize="13sp"
+                 tools:text="¥916.00"/>
+         </LinearLayout>
+
+
+
+         <LinearLayout
+             android:id="@+id/ll_vcode"
+             android:visibility="visible"
+             android:paddingBottom="30dp"
+             android:layout_width="wrap_content"
+             android:orientation="vertical"
+             android:layout_marginTop="50dp"
+             android:layout_gravity="center_horizontal"
+             android:layout_height="wrap_content">
+
+             <TextView
+                 android:layout_width="wrap_content"
+                 android:text="券码："
+                 android:layout_gravity="left"
+                 android:layout_height="wrap_content"/>
+
+             <LinearLayout
+                 android:layout_marginTop="8dp"
+                 android:layout_width="164dp"
+                 android:orientation="vertical"
+                 android:background="@drawable/bg_order_detail_vcode"
+                 android:layout_height="184dp">
+
+                 <ImageView
+                     android:id="@+id/img_vcode"
+                     android:layout_gravity="center_horizontal"
+                     android:layout_width="130dp"
+                     android:src="@mipmap/ic_share_vcode"
+                     android:layout_marginTop="16dp"
+                     android:layout_height="130dp"/>
+
+                 <TextView
+                     android:layout_width="wrap_content"
+                     android:text="请妥善保管你的自提码"
+                     android:layout_gravity="center_horizontal"
+                     android:layout_marginTop="10dp"
+                     android:textSize="12sp"
+                     android:layout_marginBottom="10dp"
+                     android:textColor="@color/red_fe8977"
+                     android:layout_height="wrap_content"/>
+
+             </LinearLayout>
+         </LinearLayout>
+
+         <TextView
+             android:id="@+id/tv_cancle_order"
+             android:layout_marginTop="50dp"
+             android:layout_marginBottom="50dp"
+             android:layout_width="match_parent"
+             android:textSize="15sp"
+             android:text="取消订单"
+             android:layout_marginLeft="18dp"
+             android:layout_marginRight="18dp"
+             android:visibility="gone"
+             android:gravity="center"
+             android:background="@drawable/bg_orange_solid"
+             android:textColor="@color/white"
+             android:layout_height="45dp"/>
+         
+     </LinearLayout>
+ </ScrollView>
+
+
+
+</LinearLayout>

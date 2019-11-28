@@ -3,10 +3,13 @@ package com.jjz.energy.presenter.mine;
 import android.annotation.SuppressLint;
 
 import com.jjz.energy.base.BasePresenter;
-import com.jjz.energy.entry.mine.BindOwnerInfoBean;
+import com.jjz.energy.entry.jiusu.BindOwnerInfoBean;
 import com.jjz.energy.model.mine.BindOwnerInfoModel;
+import com.jjz.energy.ui.mine.information.OwnerInfoActivity;
 import com.jjz.energy.util.networkUtil.CommonSubscriber;
 import com.jjz.energy.view.mine.IBindOwnerInfoView;
+
+import java.util.List;
 
 /**
  * create by: ch 车主信息
@@ -24,9 +27,9 @@ public class BindOwnerInfoPresenter extends BasePresenter<BindOwnerInfoModel, IB
      * 提交车主信息
      */
     @SuppressLint("CheckResult")
-    public void putBindInfo(String map) {
+    public void putBindInfo(String map, List<OwnerInfoActivity.SubmitIdCardBean> files) {
 
-        addSubscribe(mModel.putBindInfo(map)
+        addSubscribe(mModel.putBindInfo(map,files)
                 .subscribeWith(new CommonSubscriber<String>() {
 
                     @Override
@@ -41,8 +44,8 @@ public class BindOwnerInfoPresenter extends BasePresenter<BindOwnerInfoModel, IB
                     }
 
                     @Override
-                   protected void onFail(String errorMsg ,boolean isNetAndSeriveError) {
-                        mView.isFail(errorMsg,isNetAndSeriveError);
+                    protected void onFail(String errorMsg,boolean e) {
+                        mView.isFail(errorMsg);
                         mView.stopLoading();
                     }
                 }));
@@ -71,8 +74,8 @@ public class BindOwnerInfoPresenter extends BasePresenter<BindOwnerInfoModel, IB
                     }
 
                     @Override
-                   protected void onFail(String errorMsg ,boolean isNetAndSeriveError) {
-                        mView.isFail(errorMsg,isNetAndSeriveError);
+                    protected void onFail(String errorMsg ,boolean e) {
+                        mView.isFail(errorMsg);
                         mView.stopLoading();
                     }
                 }));

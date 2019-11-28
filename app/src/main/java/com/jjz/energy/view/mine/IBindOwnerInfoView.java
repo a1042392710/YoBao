@@ -1,7 +1,7 @@
 package com.jjz.energy.view.mine;
 
 import com.jjz.energy.base.IBaseView;
-import com.jjz.energy.entry.mine.BindOwnerInfoBean;
+import com.jjz.energy.entry.jiusu.BindOwnerInfoBean;
 
 /**
  * create 车主信息
@@ -13,7 +13,7 @@ public interface IBindOwnerInfoView extends IBaseView {
     //获取数据成功
     void isGetSuccess(BindOwnerInfoBean data);
 
-    void isFail(String msg,boolean isNetAndServiceError);
+    void isFail(String msg);
 
 
 }

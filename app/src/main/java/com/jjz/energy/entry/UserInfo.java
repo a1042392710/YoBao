@@ -74,6 +74,20 @@ public class UserInfo implements Serializable {
      */
     private int  completion;
 
+    /**
+     * 实名认证 的身份证图片
+     */
+    private int is_set_idcard;
+
+    public int getIs_set_idcard() {
+        return is_set_idcard;
+    }
+
+    public void setIs_set_idcard(int is_set_idcard) {
+        this.is_set_idcard = is_set_idcard;
+    }
+
+
     public int getUser_id() {
         return user_id;
     }

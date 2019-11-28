@@ -136,6 +136,7 @@ public class PutCommodityActivity extends BaseActivity <PutCommodityPresenter>im
         //如果是商家，则显示折扣
         String shop_id = SpUtil.init(mContext).readString(Constant.SHOP_ID);
         if (!StringUtil.isEmpty(shop_id)){
+            tvPointDiscountText.setVisibility(View.VISIBLE);
             llPointDiscount.setVisibility(View.VISIBLE);
         }
         initSingerPicker();

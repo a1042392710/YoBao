@@ -27,7 +27,7 @@ public class OrderDetailBean implements Serializable {
     private String pay_name;    //支付名称 alipay wxpay
     private String pay_no;    //支付序列号
     private String pay_code;    //支付类型代码
-    private String add_time;    //下单时间
+    private long add_time;    //下单时间
     private String pay_time;    //支付时间
     private String shipping_time;    //商家确定时间 发货时间
     private String confirm_time;    //确认收货时间
@@ -36,6 +36,23 @@ public class OrderDetailBean implements Serializable {
     private String qr_code;    //二维码字符串
     private String nickname;    //买家昵称
     private String mobile;    //买家电话
+    private String integral_money;    //折扣金额
+
+    public long getAdd_time() {
+        return add_time;
+    }
+
+    public void setAdd_time(long add_time) {
+        this.add_time = add_time;
+    }
+
+    public String getIntegral_money() {
+        return integral_money == null ? "" : integral_money;
+    }
+
+    public void setIntegral_money(String integral_money) {
+        this.integral_money = integral_money;
+    }
 
     public String getNickname() {
         return nickname == null ? "" : nickname;
@@ -203,14 +220,6 @@ public class OrderDetailBean implements Serializable {
 
     public void setPay_code(String pay_code) {
         this.pay_code = pay_code;
-    }
-
-    public String getAdd_time() {
-        return add_time == null ? "" : add_time;
-    }
-
-    public void setAdd_time(String add_time) {
-        this.add_time = add_time;
     }
 
     public String getPay_time() {

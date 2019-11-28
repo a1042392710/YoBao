@@ -24,6 +24,7 @@ import com.jjz.energy.util.StringUtil;
 import com.jjz.energy.util.Utils;
 import com.jjz.energy.util.glide.GlideUtils;
 import com.jjz.energy.util.networkUtil.PacketUtil;
+import com.jjz.energy.util.system.SpUtil;
 import com.jjz.energy.view.order.ISureBuyView;
 import com.jjz.energy.widgets.singlepicker.SinglePicker;
 import com.jjz.energy.wxapi.OrderPayTypeBean;
@@ -73,6 +74,8 @@ public class SureBuyActivity extends BaseActivity<SureBuyPresenter>implements IS
     LinearLayout llAddress;
     @BindView(R.id.ll_pay_type)
     LinearLayout llPayType;
+    @BindView(R.id.tv_integral_toast)
+    TextView tvIntegralToast;
 
     /**
      * 记录付款方式  默认为微信支付
@@ -139,9 +142,30 @@ public class SureBuyActivity extends BaseActivity<SureBuyPresenter>implements IS
         tvCommodityTitle.setText(data.getGoods_name());
         //运费
         tvFreight.setText("￥"+data.getShopping_price());
-
+        //获取剩余积分
+        String pay_ponits = SpUtil.init(mContext).readString(Constant.PAY_POINTS);
+        if (!StringUtil.isEmpty(pay_ponits)){
+            //总价
+            double old_money = data.getShop_price() + data.getShopping_price();
+            //打完折多少钱
+            double new_money =( (data.getRebate()*10)*(old_money * 10) )/100;
+            //折扣多少钱
+            double integral_money = old_money -new_money;
+            //和剩余积分进行比较，积分多，则该单可打折 并显示折扣后价格
+            if (integral_money <= Double.valueOf(pay_ponits)){
+                tvPriceTitle.setText(new_money+"");
+                //并显示提示
+                tvIntegralToast.setVisibility(View.VISIBLE);
+                tvIntegralToast.setText("该单已使用积分抵扣" + integral_money + "元，您总积分为" + pay_ponits);
+            }else{
+                //总价 = 现价 + 运费
+                tvPriceTitle.setText("￥"+(data.getShop_price() + data.getShopping_price()));
+            }
+        }else{
             //总价 = 现价 + 运费
-        tvPriceTitle.setText("￥"+(data.getShop_price() + data.getShopping_price()));
+            tvPriceTitle.setText("￥"+(data.getShop_price() + data.getShopping_price()));
+        }
+
         //地址 如果没有地址 则需要填写
         if (StringUtil.isEmpty(data.getFull_address())){
             tvShippingAddress.setHint("您还没有添加收货地址");
@@ -248,7 +272,6 @@ public class SureBuyActivity extends BaseActivity<SureBuyPresenter>implements IS
                 map.put("address_id",address_id+"");
                 map.put("pay_code", selectPayType);
                 map.put("goods_num", "1");//数量
-                //积分抵扣 map.put("points_deduction", "0");
                 mPresenter.getBuyGoodsInfo(PacketUtil.getRequestPacket(map));
                 break;
         }

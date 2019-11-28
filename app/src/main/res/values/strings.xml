@@ -32,20 +32,26 @@
 
     <string name="bind_wechat">1．请填写微信中绑定银行卡填写的真实姓名。\n2．为了保证顺利收款，不要特意更改其他账号，否则会导致收款不到账\n3．我们承诺不会向任何人透露您的个人隐私信息</string>
 
+    <string name="withdraw_deposit_alipay_warm_prompt">1．用户实名认证后，才可以进行提现操作。
+        \n2．您可以通过提现记录查看明细。
+        <!--        \n3．提现金额最低为516元。-->
+        <!--        \n4．单月提现金额小于800元免个税,小于4000元个税税费为-800x0.2，大与4000元个税税率为16%,大与两万元个税税费为x30%-2000元。-->
+        <!--        \n5．请在支付宝发票管家中开具电子发票后上传。-->
+        \n3．实际到账金额为扣除税费后的金额。</string>
+
+
+    <string name="refund_confirm_receipt">1.如果拒绝退款，买家可以申请客服介入处理\n2.如果您逾期未处理，将自动退款给买家</string>
+
+
+    <!-- 身份证识别-->
+    <string name="crop_fail">裁剪失败</string>
+    <string name="touch_to_focus">触摸屏幕对焦</string>
 
     <string name="year">年</string>
     <string name="month">月</string>
     <string name="day">日</string>
     <string name="hour">时</string>
     <string name="minute">分</string>
-
-
-    <string name="refund_confirm_receipt">1.如果拒绝退款，买家可以申请客服介入处理\n2.如果您逾期未处理，将自动退款给买家</string>
-
-
-
-
-
 
     <!-- ===================================== 给买家看的-->
 
