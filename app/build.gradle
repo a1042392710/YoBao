@@ -30,6 +30,9 @@ android {
         renderscriptTargetApi 25
         renderscriptSupportModeEnabled true
 
+        aaptOptions {
+            cruncherEnabled = false
+        }
     }
 
     signingConfigs {

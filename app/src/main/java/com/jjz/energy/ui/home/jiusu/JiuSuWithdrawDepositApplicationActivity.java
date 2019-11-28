@@ -8,14 +8,10 @@ import android.widget.TextView;
 
 import com.jjz.energy.R;
 import com.jjz.energy.base.BaseActivity;
-import com.jjz.energy.base.Constant;
 import com.jjz.energy.entry.jiusu.WithdrawInfoBean;
 import com.jjz.energy.presenter.jiusu.MineWalletPresenter;
-import com.jjz.energy.ui.mine.information.OwnerInfoActivity;
 import com.jjz.energy.util.StringUtil;
 import com.jjz.energy.util.networkUtil.PacketUtil;
-import com.jjz.energy.util.system.PopWindowUtil;
-import com.jjz.energy.util.system.SpUtil;
 import com.jjz.energy.view.jiusu.IMineWalletView;
 
 import java.util.HashMap;
@@ -97,33 +93,25 @@ public class JiuSuWithdrawDepositApplicationActivity extends BaseActivity<MineWa
 
             //确定提现
             case R.id.tv_submit:
-                //是否进行实名认证
-                int is_set_idcard= SpUtil.init(mContext).readInt(Constant.IS_SET_IDCARD);
-                if (is_set_idcard==0) {
-                    PopWindowUtil.getInstance().showPopupWindow(mContext, "请先进行实名认证方可提现", () -> {
-                        startActivity(new Intent(mContext, OwnerInfoActivity.class));
-                    });
-                } else {
-                    if (StringUtil.isEmpty(etBankName.getText().toString())) {
-                        showToast("请输入银行名称");
-                        return;
-                    }
-                    if (StringUtil.isEmpty(etBankCrad.getText().toString())) {
-                        showToast("请输入银行卡号");
-                        return;
-                    }
-                    if (StringUtil.isEmpty(etBankPhone.getText().toString())) {
-                        showToast("请输入银行预留手机号");
-                        return;
-                    }
-                    HashMap<String, String> map = new HashMap<>();
-                    map.put("bank_name", etBankName.getText().toString().trim());
-                    map.put("bank_card", etBankCrad.getText().toString().trim());
-                    map.put("bank_phone", etBankPhone.getText().toString().trim());
-                    map.put("type", "3");//1 支付宝  2微信 3银行卡
-                    mPresenter.putWithdrawInfo(PacketUtil.getRequestPacket(map));
-                    break;
+                if (StringUtil.isEmpty(etBankName.getText().toString())) {
+                    showToast("请输入银行名称");
+                    return;
                 }
+                if (StringUtil.isEmpty(etBankCrad.getText().toString())) {
+                    showToast("请输入银行卡号");
+                    return;
+                }
+                if (StringUtil.isEmpty(etBankPhone.getText().toString())) {
+                    showToast("请输入银行预留手机号");
+                    return;
+                }
+                HashMap<String, String> map = new HashMap<>();
+                map.put("bank_name", etBankName.getText().toString().trim());
+                map.put("bank_card", etBankCrad.getText().toString().trim());
+                map.put("bank_phone", etBankPhone.getText().toString().trim());
+                map.put("type", "3");//1 支付宝  2微信 3银行卡
+                mPresenter.putWithdrawInfo(PacketUtil.getRequestPacket(map));
+                break;
         }
     }
 

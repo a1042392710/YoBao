@@ -99,6 +99,18 @@ public class LoginBean implements Serializable {
     private String up_vip_center;
     // 推送公告
     private String push_message;
+    /**
+     * 实名认证 的身份证图片
+     */
+    private int is_set_idcard;
+
+    public int getIs_set_idcard() {
+        return is_set_idcard;
+    }
+
+    public void setIs_set_idcard(int is_set_idcard) {
+        this.is_set_idcard = is_set_idcard;
+    }
 
     public String getPush_message() {
         return push_message == null ? "" : push_message;

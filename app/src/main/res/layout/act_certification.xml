@@ -136,7 +136,7 @@
 
             <ImageView
                 android:id="@+id/img_idcard_front"
-                android:src="@mipmap/ic_idcard_front"
+                android:src="@mipmap/ic_idcard_people"
                 android:layout_gravity="center_horizontal"
                 android:scaleType="fitXY"
                 android:layout_marginTop="25dp"
@@ -145,7 +145,7 @@
 
             <ImageView
                 android:id="@+id/img_idcard_reverse"
-                android:src="@mipmap/ic_idcard_reverse"
+                android:src="@mipmap/ic_idcard_county"
                 android:layout_gravity="center_horizontal"
                 android:scaleType="fitXY"
                 android:layout_marginTop="25dp"

@@ -33,6 +33,7 @@ public class JiuSuMinePresenter extends BasePresenter<JiuSuMineModel, IPersonalI
 
                     @Override
                     protected void startLoading() {
+                        mView.showLoading();
                     }
 
                     @Override

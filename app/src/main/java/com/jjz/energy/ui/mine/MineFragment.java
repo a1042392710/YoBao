@@ -96,7 +96,6 @@ public class MineFragment  extends BaseLazyFragment<MinePresenter> implements IM
         //将shop_id 和 积分存入本地
         SpUtil.init(mContext).commit(Constant.SHOP_ID,data.getShop_id());
         SpUtil.init(mContext).commit(Constant.PAY_POINTS,data.getPay_points()+"");
-        SpUtil.init(mContext).commit(Constant.IS_SET_IDCARD,data.getIs_set_idcard());
         //推送公告
         String push_message = mMineInfoBean.getPush_message();
         //显示文本

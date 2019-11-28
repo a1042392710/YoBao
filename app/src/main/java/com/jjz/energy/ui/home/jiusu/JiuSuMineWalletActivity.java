@@ -7,9 +7,13 @@ import android.widget.TextView;
 
 import com.jjz.energy.R;
 import com.jjz.energy.base.BaseActivity;
+import com.jjz.energy.base.Constant;
 import com.jjz.energy.entry.jiusu.MineWalletBean;
 import com.jjz.energy.presenter.jiusu.MineWalletPresenter;
+import com.jjz.energy.ui.mine.information.OwnerInfoActivity;
 import com.jjz.energy.util.networkUtil.PacketUtil;
+import com.jjz.energy.util.system.PopWindowUtil;
+import com.jjz.energy.util.system.SpUtil;
 import com.jjz.energy.view.jiusu.IMineWalletView;
 
 import butterknife.BindView;
@@ -49,8 +53,6 @@ public class JiuSuMineWalletActivity extends BaseActivity<MineWalletPresenter> i
     }
     //等级Id
     private int level_id;
-
-
     @Override
     protected void initView() {
         tvToolbarTitle.setText("我的佣金");
@@ -73,10 +75,18 @@ public class JiuSuMineWalletActivity extends BaseActivity<MineWalletPresenter> i
                 break;
             //提现
             case R.id.tv_withdraw_deposit:
-                //传输可提现余额到提现页面
-                startActivity(new Intent(mContext, JiuSuWithdrawDepositActivity.class).putExtra(
-                        "apply_commissions", mWalletBean.getApply_commissions())
-                        .putExtra("total_commissions", mWalletBean.getTotal_commissions()));
+                //是否进行实名认证
+                int is_set_idcard= SpUtil.init(mContext).readInt(Constant.IS_SET_IDCARD);
+                if (is_set_idcard==0) {
+                    PopWindowUtil.getInstance().showPopupWindow(mContext, "请先进行实名认证方可提现", () -> {
+                        startActivity(new Intent(mContext, OwnerInfoActivity.class));
+                    });
+                }else {
+                    //传输可提现余额到提现页面
+                    startActivity(new Intent(mContext, JiuSuWithdrawDepositActivity.class).putExtra(
+                            "apply_commissions", mWalletBean.getApply_commissions())
+                            .putExtra("total_commissions", mWalletBean.getTotal_commissions()));
+                }
                 break;
             //佣金记录
             case R.id.tv_toolbar_right:

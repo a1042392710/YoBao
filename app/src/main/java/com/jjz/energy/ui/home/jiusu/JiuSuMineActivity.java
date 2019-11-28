@@ -15,6 +15,7 @@ import com.jjz.energy.entry.jiusu.LoginBean;
 import com.jjz.energy.presenter.jiusu.JiuSuMinePresenter;
 import com.jjz.energy.util.glide.GlideUtils;
 import com.jjz.energy.util.networkUtil.PacketUtil;
+import com.jjz.energy.util.system.SpUtil;
 import com.jjz.energy.view.mine.IPersonalInformationView;
 
 import butterknife.BindView;
@@ -85,6 +86,7 @@ public class JiuSuMineActivity extends BaseActivity<JiuSuMinePresenter> implemen
     @Override
     public void isSuccess(LoginBean loginBean) {
         mLoginBean = loginBean;
+        SpUtil.init(mContext).commit(Constant.IS_SET_IDCARD,loginBean.getIs_set_idcard());
         //写入数据
         setUserInfo();
     }
@@ -139,10 +141,11 @@ public class JiuSuMineActivity extends BaseActivity<JiuSuMinePresenter> implemen
                 break;
             //我的佣金
             case R.id.ll_mine_wallet:
-                int level_id = 1;
-                if (mLoginBean != null) level_id = mLoginBean.getLevel_id();
+                if (mLoginBean== null){
+                    return;
+                }
                 startActivity(new Intent(mContext, JiuSuMineWalletActivity.class).putExtra("level_id",
-                        level_id));
+                        mLoginBean.getLevel_id()));
                 break;
             //我的订单
             case R.id.ll_mine_order:
