@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -46,8 +45,6 @@ public class MineJiuSuShoppingDetailsActivity extends BaseActivity<JiuSuShopPres
     TextView tvLocationDistance;
     @BindView(R.id.tv_call_shop_phone)
     TextView tvCallShopPhone;
-    @BindView(R.id.img_order_vcode)
-    ImageView imgOrderVcode;
     @BindView(R.id.tv_order_sn)
     TextView tvOrderSn;
     @BindView(R.id.tv_order_phone)
@@ -58,8 +55,6 @@ public class MineJiuSuShoppingDetailsActivity extends BaseActivity<JiuSuShopPres
     TextView tvOrderOldMoney;
     @BindView(R.id.tv_order_new_money)
     TextView tvOrderNewMoney;
-    @BindView(R.id.tv_order_vcode_sn)
-    TextView tvOrderVcodeSn;
     /**
      * 消费id
      */

@@ -171,7 +171,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
                             android:layout_weight="1"
-                            android:text="到店支付享受6折优惠"
+                            android:text="扫描店内二维码支付享受9折优惠"
                             android:textColor="@color/red_fd3c3c"
                             android:textSize="12sp" />
 
@@ -185,6 +185,7 @@
                             android:paddingTop="5dp"
                             android:paddingRight="12dp"
                             android:paddingBottom="5dp"
+                            android:visibility="gone"
                             android:text="去买单"
                             android:textColor="@color/white"
                             android:textSize="12sp" />

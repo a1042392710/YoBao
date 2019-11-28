@@ -114,7 +114,7 @@ public class PutCommodityActivity extends BaseActivity <PutCommodityPresenter>im
 
     //单项选择器 (选择折扣）
     private SinglePicker<String> pickerPoint;
-    private String[] mPointDiscounts = {"不打折", "九折", "八折", "七折", "六折", "五折", "四折", "三折", "二折", "一折"};
+    private String[] mPointDiscounts = {"不打折", "9.5折", "9折", "8.5折","8折","7.5折", "7折",  "6.5折", "6折", "5.5折", "5折", "4.5折",  "4折", "3.5折","3折","2.5折", "2折", "1.5折", "1折"};
     /**
      * 地区
      */
@@ -152,7 +152,7 @@ public class PutCommodityActivity extends BaseActivity <PutCommodityPresenter>im
      * 初始化单项选择器
      */
     private void initSingerPicker() {
-        //性别
+        //折扣
         pickerPoint = new SinglePicker<>(this, mPointDiscounts);
         pickerPoint.setItemWidth(200);
         pickerPoint.setTitleText("请选择");
@@ -349,8 +349,10 @@ public class PutCommodityActivity extends BaseActivity <PutCommodityPresenter>im
         hashMap.put("is_free_shipping",mMoneyInfo.isFreight?"1":"0");
         //邮费
         hashMap.put("shipping_price",mMoneyInfo.freight);
-        //商家有 积分抵扣 todo 暂定
-        hashMap.put("exchange_integral","6");
+        if (!tvPointDiscount.getText().toString().contains("不")){
+            //商家有 积分抵扣
+            hashMap.put("exchange_integral",Float.valueOf(tvPointDiscount.getText().toString().replace("折",""))/10+"");
+        }
         //商品数量
         hashMap.put("store_count",mMoneyInfo.num+"");
         //根据逗号分隔到List数组中
@@ -363,7 +365,6 @@ public class PutCommodityActivity extends BaseActivity <PutCommodityPresenter>im
         }
         mPresenter.putCommodity(PacketUtil.getRequestPacket(hashMap),mFileList);
     }
-
 
     // ===================================================== 价格和运费弹窗
 

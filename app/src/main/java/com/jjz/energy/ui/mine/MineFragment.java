@@ -75,6 +75,7 @@ public class MineFragment  extends BaseLazyFragment<MinePresenter> implements IM
      * 我的菜单列表数据
      */
     private List<MineBean> mList;
+
     /**
      * 我的页面数据
      */
