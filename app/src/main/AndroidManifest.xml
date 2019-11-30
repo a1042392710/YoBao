@@ -152,6 +152,11 @@
             android:name=".ui.home.login.LoginResetPasswordActivity"
             android:configChanges="orientation|screenSize"/>
 
+        <!--店内消费 支付成功-->
+        <activity
+            android:name=".ui.jiusu_shop.JiuSuShopPaySucActivity"
+            android:configChanges="orientation|screenSize"/>
+
         <!--获取验证码-->
         <activity android:name=".ui.home.login.LoginInputCodeActivity"
                   android:configChanges="orientation|screenSize"/>

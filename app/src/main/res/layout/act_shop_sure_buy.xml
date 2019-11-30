@@ -56,7 +56,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/tv_commodity_title"
                     android:layout_toRightOf="@id/img_commodity"
-                    android:text="岳麓街润苑小区"
+                    tools:text="岳麓街润苑小区"
                     android:textColor="#666666"
                     android:layout_marginTop="10dp"
                     android:textSize="11sp" />
@@ -102,6 +102,8 @@
                     android:src="@mipmap/ic_right_arrow" />
 
             </LinearLayout>
+
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -185,38 +187,45 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
                 android:layout_marginTop="10dp"
-                android:background="@color/white"
+                android:layout_height="wrap_content"
+                android:paddingTop="16dp"
+                android:paddingBottom="14dp"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingLeft="29dp">
+                android:background="@color/white"
+                android:orientation="horizontal">
+
 
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="输入支付金额"
+                    android:layout_width="wrap_content"
+                    android:text="¥"
                     android:textColor="@color/text_black33"
-                    android:textSize="13sp" />
+                    android:includeFontPadding="false"
+                    android:layout_marginLeft="29dp"
+                    android:textSize="30sp"
+                    android:layout_height="wrap_content"/>
 
                 <EditText
                     android:id="@+id/et_pay_price"
-                    android:layout_width="wrap_content"
-                    android:minWidth="100dp"
-                    android:gravity="center"
-                    android:inputType="numberDecimal"
-                    android:hint="输入金额"
-                    android:layout_marginRight="10dp"
-                    android:textSize="@dimen/font_12sp"
+                    android:background="@drawable/bg_gray_solid_f7"
+                    android:layout_width="match_parent"
+                    android:layout_marginLeft="14dp"
+                    android:singleLine="true"
+                    android:textSize="14sp"
                     android:textColor="@color/red_fe8977"
-                    android:layout_height="wrap_content"/>
+                    android:paddingLeft="10dp"
+                    android:hint="输入金额，积分足够则享受折扣价"
+                    android:inputType="numberDecimal"
+                    android:layout_marginRight="24dp"
+                    android:layout_height="32dp"/>
+
             </LinearLayout>
+
+
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
-                android:layout_marginTop="1dp"
                 android:background="@color/white"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
@@ -254,23 +263,20 @@
             </LinearLayout>
 
             <TextView
-                android:layout_marginLeft="5dp"
+                android:id="@+id/tv_pay_toast"
+                android:layout_marginLeft="10dp"
                 android:textSize="13sp"
                 android:textColor="@color/red_fe8977"
                 android:layout_marginTop="10dp"
-                android:text="该笔支付已超时可使用积分，总积分为100"
+                android:text="您总积分为0分"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
-
-            <View
-                android:layout_width="1dp"
-                android:layout_height="0dp"
-                android:layout_weight="1" />
 
             <!--确定-->
             <TextView
                 android:id="@+id/tv_sure_buy"
                 android:layout_width="match_parent"
+                android:layout_marginTop="40dp"
                 android:layout_height="44dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
@@ -280,6 +286,17 @@
                 android:text="确认支付"
                 android:textColor="@color/white"
                 android:textSize="15sp" />
+
+           <TextView
+               android:padding="10dp"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:textColor="@color/text_blackA6"
+               android:textSize="@dimen/font_12sp"
+               android:layout_marginTop="15dp"
+               android:text="温馨提示：\n\n只有您的积分足够抵扣折扣金额时才可打折，否则将原价付款（积分与金额1:1）" />
+
+
         </LinearLayout>
     </ScrollView>
 

@@ -302,7 +302,9 @@ public class JiuSuShopHomePageActivity extends BaseActivity <JiuSuShopPresenter>
                 break;
                 //打电话
             case R.id.img_call_phone:
-                JiuSuShopHomePageActivityPermissionsDispatcher.callWithCheck(this);
+                //模拟店内买单
+                startActivity(new Intent(mContext,ShopSureBuyActivity.class).putExtra(Constant.SHOP_ID,mShopHomePageBean.getId()));
+//                JiuSuShopHomePageActivityPermissionsDispatcher.callWithCheck(this);
                 break;
                 //查看地图，导航
             case R.id.rl_location:

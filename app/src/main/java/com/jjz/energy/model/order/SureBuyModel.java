@@ -3,6 +3,7 @@ package com.jjz.energy.model.order;
 import com.jjz.energy.base.Api;
 import com.jjz.energy.base.BaseModel;
 import com.jjz.energy.entry.commodity.GoodsBean;
+import com.jjz.energy.entry.jiusu_shop.JiuSuShop;
 import com.jjz.energy.util.networkUtil.RetrofitFactory;
 import com.jjz.energy.util.networkUtil.RxSchedulerHepler;
 import com.jjz.energy.wxapi.OrderPayTypeBean;
@@ -16,9 +17,14 @@ import io.reactivex.Flowable;
 public class SureBuyModel extends BaseModel {
 
 
-    //我的发布
+    //支付页获取商品信息
     public Flowable<GoodsBean> getGoodsInfo(String requestData) {
         return RetrofitFactory.getRetrofit().create(Api.class).getSureBuyInfo(requestData).compose(RxSchedulerHepler.handleMyResult());
+    }
+
+    //支付页 获取商家信息
+    public Flowable<JiuSuShop> getShopsInfo(String requestData) {
+        return RetrofitFactory.getRetrofit().create(Api.class).getShopsInfo(requestData).compose(RxSchedulerHepler.handleMyResult());
     }
 
 

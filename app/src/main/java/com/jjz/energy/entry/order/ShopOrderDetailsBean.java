@@ -93,6 +93,15 @@ public class ShopOrderDetailsBean implements Serializable {
     private String pay_name;
     private int twon;
     private int return_status;
+    private String integral_money;
+
+    public String getIntegral_money() {
+        return integral_money == null ? "" : integral_money;
+    }
+
+    public void setIntegral_money(String integral_money) {
+        this.integral_money = integral_money;
+    }
 
     public int getReturn_status() {
         return return_status;

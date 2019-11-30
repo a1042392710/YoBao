@@ -1,9 +1,11 @@
 package com.jjz.energy.ui.jiusu_shop;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.text.Editable;
+import android.text.InputFilter;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
@@ -17,9 +19,11 @@ import com.jjz.energy.alipay.PayResult;
 import com.jjz.energy.base.BaseActivity;
 import com.jjz.energy.base.Constant;
 import com.jjz.energy.base.LoginEventBean;
-import com.jjz.energy.entry.jiusu_shop.ShopHomePageBean;
+import com.jjz.energy.entry.jiusu_shop.JiuSuShop;
 import com.jjz.energy.presenter.order.SureBuyPresenter;
+import com.jjz.energy.util.DecimalDigitsInputFilter;
 import com.jjz.energy.util.StringUtil;
+import com.jjz.energy.util.Utils;
 import com.jjz.energy.util.glide.GlideUtils;
 import com.jjz.energy.util.networkUtil.PacketUtil;
 import com.jjz.energy.view.order.ISureBuyView;
@@ -31,9 +35,8 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.util.Arrays;
+import java.io.Serializable;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
@@ -68,6 +71,8 @@ public class ShopSureBuyActivity extends BaseActivity<SureBuyPresenter> implemen
     TextView tvIntegral;
     @BindView(R.id.tv_price_title)
     TextView tvPriceTitle;
+    @BindView(R.id.tv_pay_toast)
+    TextView tvPayToast;
     @BindView(R.id.tv_sure_buy)
     TextView tvSureBuy;
     @BindView(R.id.et_pay_price)
@@ -88,19 +93,30 @@ public class ShopSureBuyActivity extends BaseActivity<SureBuyPresenter> implemen
      * 订单编号
      */
     private String order_sn;
+
     /**
-     * 商户的数据
+     * 商家 id
      */
-    private ShopHomePageBean mShopHomePageBean;
+    private int shop_id ;
+
 
     @Override
     protected void initView() {
-        tvToolbarTitle.setText("店内买单");
         EventBus.getDefault().register(this);
-        mShopHomePageBean = (ShopHomePageBean) getIntent().getSerializableExtra(Constant.INTENT_KEY_OBJECT);
-        initData();
+        tvToolbarTitle.setText("店内买单");
+        shop_id = getIntent().getIntExtra(Constant.SHOP_ID,0);
+        initEditHight();
         initSingerPicker();
-        //金额发生变化后，和折扣相乘等于结果
+        //查询商户信息
+        mPresenter.getShopsInfo(PacketUtil.getRequestPacket(Utils.stringToMap(Constant.SHOP_ID,shop_id+"")));
+    }
+    /**
+     * 监听键盘
+     */
+    private void initEditHight() {
+        //设置小数点后最多输入一位
+        etPayPrice.setFilters(new InputFilter[] {new DecimalDigitsInputFilter(1)});
+
         etPayPrice.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -109,9 +125,12 @@ public class ShopSureBuyActivity extends BaseActivity<SureBuyPresenter> implemen
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                //计算折扣价
-                String price = etPayPrice.getText().toString();
-
+                if (!StringUtil.isEmpty(etPayPrice.getText().toString())) {
+                    //键盘收回时计算金额
+                    calculationMoney();
+                } else {
+                    tvPriceTitle.setText("");
+                }
             }
 
             @Override
@@ -119,26 +138,32 @@ public class ShopSureBuyActivity extends BaseActivity<SureBuyPresenter> implemen
 
             }
         });
-    }
 
+    }
     /**
-     * 初始化数据
+     * 计算折扣金额
      */
-    private void initData() {
-        if (mShopHomePageBean == null) {
-            return;
+    private void calculationMoney() {
+        tvPriceTitle.setText(etPayPrice.getText().toString());
+        //买单金额
+        float price = Float.valueOf(etPayPrice.getText().toString());
+        if (mJiuSuShop != null) {
+            //计算折扣价  先拿到折扣
+            if (mJiuSuShop.getPay_points() > 0) {
+                //打完折多少钱
+                double new_money =((mJiuSuShop.getRebate()*10)*(price * 10) )/100;
+                //折扣多少钱
+                float integral_money = (float) (price - new_money);
+                //和剩余积分进行比较，积分多，则该单可打折 并显示折扣后价格
+                if (integral_money <=  mJiuSuShop.getPay_points()){
+                    tvPriceTitle.setText("￥"+new_money);
+                    //并显示提示
+                    tvPayToast.setText("该单已使用积分抵扣" + integral_money + "元，您总积分为" + mJiuSuShop.getPay_points());
+                }
+            }
         }
-        List<String> list = Arrays.asList(mShopHomePageBean.getHeader_img().split(","));
-        if (!StringUtil.isListEmpty(list)){
-            GlideUtils.loadRoundCircleImage(mContext,list.get(0),imgCommodity);
-        }
-        //商店名称
-        tvCommodityTitle.setText(mShopHomePageBean.getShop_name());
-        //地址
-        tvCommodityOldPrice.setText(mShopHomePageBean.getPoiaddress());
-        //折扣
-
     }
+
 
     /**
      * 初始化单项选择器
@@ -154,6 +179,25 @@ public class ShopSureBuyActivity extends BaseActivity<SureBuyPresenter> implemen
         });
     }
 
+    /**
+     * 数据存下来
+     */
+    private JiuSuShop mJiuSuShop ;
+
+    @Override
+    public void isGetShopsInfoSuc(JiuSuShop data) {
+        mJiuSuShop = data;
+        GlideUtils.loadRoundCircleImage(mContext, data.getShop_img(), imgCommodity);
+        //商店名称
+        tvCommodityTitle.setText(data.getShop_name());
+        //地址
+        tvCommodityOldPrice.setText(data.getPoiaddress());
+        //折扣
+        tvFreight.setText((data.getRebate()*10)+"折");
+        //剩余积分 和提示
+        tvPayToast.setText("您还剩余"+data.getPay_points()+"积分");
+
+    }
 
     //获取支付信息
     @Override
@@ -209,13 +253,59 @@ public class ShopSureBuyActivity extends BaseActivity<SureBuyPresenter> implemen
         }
     }
 
+    /**
+     * 支付成功携带参数进下个页面
+     */
+    public  class Parms  implements Serializable {
+        private String shop_name;
+        private String shop_img;
+        private String price_title;
+        private long pay_time;
+        public String getShop_name() {
+            return shop_name == null ? "" : shop_name;
+        }
+
+        public void setShop_name(String shop_name) {
+            this.shop_name = shop_name;
+        }
+
+        public String getShop_img() {
+            return shop_img == null ? "" : shop_img;
+        }
+
+        public void setShop_img(String shop_img) {
+            this.shop_img = shop_img;
+        }
+
+        public String getPrice_title() {
+            return price_title == null ? "" : price_title;
+        }
+
+        public void setPrice_title(String price_title) {
+            this.price_title = price_title;
+        }
+
+        public long getPay_time() {
+            return pay_time;
+        }
+
+        public void setPay_time(long pay_time) {
+            this.pay_time = pay_time;
+        }
+    }
+
 
     //支付成功 进入订单详情页面
     private void paySuc() {
+
+      Parms parms = new Parms();
+        parms.setPay_time(System.currentTimeMillis());
+        parms.setPrice_title(tvPriceTitle.getText().toString());
+        parms.setShop_img(mJiuSuShop.getShop_img());
+        parms.setShop_name(mJiuSuShop.getShop_name());
         //进入店内买单的详情页面
-//        startActivity(new Intent(mContext, OrderDetailsActivity.class).putExtra(Constant.ORDER_SN
-//                , order_sn).putExtra(Constant.USER_TYPE, 0));
-//        finish();
+        startActivity(new Intent(mContext, JiuSuShopPaySucActivity.class).putExtra(Constant.INTENT_KEY_OBJECT,parms));
+        finish();
     }
 
 
@@ -239,12 +329,11 @@ public class ShopSureBuyActivity extends BaseActivity<SureBuyPresenter> implemen
                 HashMap<String, String> map = new HashMap<>();
                 map.put("pay_code", selectPayType);
                 map.put("pay_price", etPayPrice.getText().toString());
-                map.put("shop_id", mShopHomePageBean.getId()+"");
+                map.put("shop_id",shop_id+"");
                 mPresenter.getBuyGoodsInfo(PacketUtil.getRequestPacket(map));
                 break;
         }
     }
-
 
 
     @Override

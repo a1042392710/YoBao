@@ -31,6 +31,7 @@ import com.jjz.energy.entry.jiusu.VipListInfo;
 import com.jjz.energy.entry.jiusu.WithdrawInfoBean;
 import com.jjz.energy.entry.jiusu.WithdrawListBean;
 import com.jjz.energy.entry.jiusu.YoCardReceiveListBean;
+import com.jjz.energy.entry.jiusu_shop.JiuSuShop;
 import com.jjz.energy.entry.jiusu_shop.JiuSuShopBean;
 import com.jjz.energy.entry.jiusu_shop.JiuSuShopClassBean;
 import com.jjz.energy.entry.jiusu_shop.JiuSuShoppingBean;
@@ -78,7 +79,7 @@ import retrofit2.http.Url;
  * Date: 2018/10/25 上午8:45
  */
 public interface Api {
-     String BASE_URL = "http://172.16.32.7/";
+     String BASE_URL = "http://172.16.32.3/";
 //        String BASE_URL = "http://apit.jjznewenergy.com/app/";
      String PACK_NO = "params";
 
@@ -357,6 +358,11 @@ public interface Api {
     @FormUrlEncoded
     @POST("shop/order/checkOrder")
     Flowable<ResponseData<GoodsBean>> getSureBuyInfo(@Field(PACK_NO) String pack_no);
+
+    //确认订单页面获取商家信息
+    @FormUrlEncoded
+    @POST("shop/order/checkOrder")
+    Flowable<ResponseData<JiuSuShop>> getShopsInfo(@Field(PACK_NO) String pack_no);
 
     //立即付款页面 获取支付信息
     @FormUrlEncoded

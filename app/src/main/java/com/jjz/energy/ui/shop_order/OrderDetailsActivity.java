@@ -355,8 +355,8 @@ public class OrderDetailsActivity extends BaseActivity<ShopOrderDetailsPresenter
         tvOrderInfoNum.setText("x"+data.getGoods_num());
         //实付金额
         tvPriceTitle.setText("实付金额：￥"+data.getOrder_amount());
-        //todo 积分优惠金额
-        tvOrderInfoIntegral.setText("￥"+data.getOrder_amount());
+        //积分优惠金额
+        tvOrderInfoIntegral.setText("￥"+data.getIntegral_money());
 
     }
 

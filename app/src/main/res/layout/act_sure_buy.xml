@@ -69,6 +69,23 @@
                     android:textColor="@color/text_blackA6"
                     android:textSize="11sp" />
 
+
+                <TextView
+                    android:id="@+id/tv_toast"
+                    android:layout_width="wrap_content"
+                    android:visibility="gone"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:background="@drawable/bg_orange_solid"
+                    android:layout_alignBottom="@id/img_commodity"
+                    android:layout_marginBottom="10dp"
+                    android:padding="3dp"
+                    android:layout_marginRight="10dp"
+                    tools:text="积分享6折"
+                    android:textColor="@color/white"
+                    android:textSize="9sp" />
+
+
             </RelativeLayout>
 
             <LinearLayout

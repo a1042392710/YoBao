@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 
 import com.jjz.energy.base.BasePresenter;
 import com.jjz.energy.entry.commodity.GoodsBean;
+import com.jjz.energy.entry.jiusu_shop.JiuSuShop;
 import com.jjz.energy.model.order.SureBuyModel;
 import com.jjz.energy.util.networkUtil.CommonSubscriber;
 import com.jjz.energy.view.order.ISureBuyView;
@@ -52,6 +53,35 @@ public class SureBuyPresenter extends BasePresenter<SureBuyModel, ISureBuyView> 
 
     }
 
+    /**
+     * 立即购买页面  获取商家信息
+     * @param map
+     */
+    @SuppressLint("CheckResult")
+    public void getShopsInfo(String map) {
+
+        addSubscribe(mModel.getShopsInfo(map)
+                .subscribeWith(new CommonSubscriber<JiuSuShop>() {
+
+                    @Override
+                    protected void startLoading() {
+                        mView.showLoading();
+                    }
+
+                    @Override
+                    protected void onSuccess(JiuSuShop response) {
+                        mView.stopLoading();
+                        mView.isGetShopsInfoSuc(response);
+                    }
+
+                    @Override
+                    protected void onFail(String errorMsg ,boolean isNetAndSeriveError) {
+                        mView.isFail(errorMsg,isNetAndSeriveError);
+                        mView.stopLoading();
+                    }
+                }));
+
+    }
 
     /**
      *  获取支付信息

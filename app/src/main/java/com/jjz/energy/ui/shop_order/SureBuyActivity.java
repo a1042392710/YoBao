@@ -75,6 +75,8 @@ public class SureBuyActivity extends BaseActivity<SureBuyPresenter>implements IS
     LinearLayout llPayType;
     @BindView(R.id.tv_integral_toast)
     TextView tvIntegralToast;
+    @BindView(R.id.tv_toast)
+    TextView tvToast;
 
     /**
      * 记录付款方式  默认为微信支付
@@ -151,15 +153,17 @@ public class SureBuyActivity extends BaseActivity<SureBuyPresenter>implements IS
         tvPriceTitle.setText("￥"+(data.getShop_price() + data.getShopping_price()));
         //该单支持积分抵扣
         if (data.getRebate()>0&&data.getRebate()<1){
+            tvToast .setVisibility(View.VISIBLE);
+            tvToast.setText("积分享"+(data.getRebate()*10)+"折");
             //有积分
             String pay_ponits =String.valueOf(data.getPay_points());
             if (!StringUtil.isEmpty(pay_ponits)){
                 //总价
                 double old_money = data.getShop_price() + data.getShopping_price();
                 //打完折多少钱
-                double new_money =( (data.getRebate()*10)*(old_money * 10) )/100;
+                double new_money =((data.getRebate()*10)*(old_money * 10) )/100;
                 //折扣多少钱
-                double integral_money = old_money -new_money;
+                float integral_money = (float) (old_money - new_money);
                 //和剩余积分进行比较，积分多，则该单可打折 并显示折扣后价格
                 if (integral_money <= Double.valueOf(pay_ponits)){
                     tvPriceTitle.setText("￥"+new_money);

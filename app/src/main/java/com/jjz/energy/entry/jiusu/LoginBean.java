@@ -3,7 +3,7 @@ package com.jjz.energy.entry.jiusu;
 import java.io.Serializable;
 
 /**
- * @Features: TODO 废弃 专供久速商城
+ * @Features: 久速专区的数据
  * @author: create by chenhao on 2019/4/4
  */
 public class LoginBean implements Serializable {
