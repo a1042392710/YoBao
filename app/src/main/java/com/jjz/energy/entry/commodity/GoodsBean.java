@@ -50,6 +50,18 @@ public class GoodsBean implements Serializable {
      * 折扣
      */
     private float rebate;
+    /**
+     * 剩余积分数量
+     */
+    private float pay_points;
+
+    public float getPay_points() {
+        return pay_points;
+    }
+
+    public void setPay_points(float pay_points) {
+        this.pay_points = pay_points;
+    }
 
     public float getRebate() {
         return rebate;

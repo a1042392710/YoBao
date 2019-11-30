@@ -21,12 +21,12 @@ import com.jjz.energy.entry.enums.ShopOrderStatusEnum;
 import com.jjz.energy.entry.order.ShopOrderDetailsBean;
 import com.jjz.energy.presenter.mine.MineBuyerPresenter;
 import com.jjz.energy.ui.mine.information.HomePageActivity;
-import com.jjz.energy.ui.jiusu_shop.shop_order.EvaluateActivity;
-import com.jjz.energy.ui.jiusu_shop.shop_order.EvaluateDetailsActivity;
-import com.jjz.energy.ui.jiusu_shop.shop_order.OrderDetailsActivity;
-import com.jjz.energy.ui.jiusu_shop.shop_order.refund_order.ApplicationRefundActivity;
-import com.jjz.energy.ui.jiusu_shop.shop_order.refund_order.BuyerRefundDetailsActivity;
-import com.jjz.energy.ui.jiusu_shop.shop_order.refund_order.RefundTypeSelectActivity;
+import com.jjz.energy.ui.shop_order.EvaluateActivity;
+import com.jjz.energy.ui.shop_order.EvaluateDetailsActivity;
+import com.jjz.energy.ui.shop_order.OrderDetailsActivity;
+import com.jjz.energy.ui.shop_order.refund_order.ApplicationRefundActivity;
+import com.jjz.energy.ui.shop_order.refund_order.BuyerRefundDetailsActivity;
+import com.jjz.energy.ui.shop_order.refund_order.RefundTypeSelectActivity;
 import com.jjz.energy.ui.notice.IMActivity;
 import com.jjz.energy.util.StringUtil;
 import com.jjz.energy.util.Utils;
@@ -269,6 +269,9 @@ public class MineBuyerActivity extends BaseActivity <MineBuyerPresenter>implemen
         private void lableClick(String btnStr,MineBuyerBean.MineBuyerListBean data){
             switch (btnStr) {
                 case "提醒发货":
+                    PopWindowUtil.getInstance().showPopupWindow(mContext, "您将提醒卖家发货，一天只能提醒一次", () -> {
+                        mPresenter.remindShipment(PacketUtil.getRequestPacket(Utils.stringToMap(Constant.ORDER_SN,data.getOrder_sn())));
+                    });
                     break;
                 case "申请退款":
                     startActivity(new Intent(mContext, ApplicationRefundActivity.class).putExtra(Constant.REC_ID,data.getRec_id()).putExtra("type",Constant.RETURN_MONEY));

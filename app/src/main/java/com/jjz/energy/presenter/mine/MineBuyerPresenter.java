@@ -105,6 +105,62 @@ public class MineBuyerPresenter extends BasePresenter<MineBuyerModel, IMineBuyer
 
     }
 
+
+
+    /**
+     * 提醒发货
+     */
+    public void remindShipment(String pack_no) {
+
+        addSubscribe(mModel.remindShipment(pack_no)
+                .subscribeWith(new CommonSubscriber<String>() {
+
+                    @Override
+                    protected void startLoading() {
+                        mView.showLoading();
+                    }
+
+                    @Override
+                    protected void onSuccess(String response) {
+                        mView.stopLoading();
+                        mView.isFail(response,false);
+                    }
+
+                    @Override
+                    protected void onFail(String errorMsg, boolean isNetAndSeriveError) {
+                        mView.isFail(errorMsg, isNetAndSeriveError);
+                        mView.stopLoading();
+                    }
+                }));
+    }
+
+    /**
+     * 提醒收货
+     */
+    public void remindReceipt(String pack_no) {
+
+        addSubscribe(mModel.remindReceipt(pack_no)
+                .subscribeWith(new CommonSubscriber<String>() {
+
+                    @Override
+                    protected void startLoading() {
+                        mView.showLoading();
+                    }
+
+                    @Override
+                    protected void onSuccess(String response) {
+                        mView.stopLoading();
+                        mView.isFail(response,false);
+                    }
+
+                    @Override
+                    protected void onFail(String errorMsg, boolean isNetAndSeriveError) {
+                        mView.isFail(errorMsg, isNetAndSeriveError);
+                        mView.stopLoading();
+                    }
+                }));
+    }
+
     /**
      * 取消订单
      */

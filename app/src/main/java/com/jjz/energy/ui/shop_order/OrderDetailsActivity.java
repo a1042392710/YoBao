@@ -1,4 +1,4 @@
-package com.jjz.energy.ui.jiusu_shop.shop_order;
+package com.jjz.energy.ui.shop_order;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -20,10 +20,10 @@ import com.jjz.energy.base.Constant;
 import com.jjz.energy.entry.order.ShopOrderDetailsBean;
 import com.jjz.energy.presenter.order.ShopOrderDetailsPresenter;
 import com.jjz.energy.ui.home.commodity.CommodityDetailActivity;
-import com.jjz.energy.ui.jiusu_shop.shop_order.refund_order.ApplicationRefundActivity;
-import com.jjz.energy.ui.jiusu_shop.shop_order.refund_order.BuyerRefundDetailsActivity;
-import com.jjz.energy.ui.jiusu_shop.shop_order.refund_order.RefundTypeSelectActivity;
-import com.jjz.energy.ui.jiusu_shop.shop_order.refund_order.SellerRefundDetailsActivity;
+import com.jjz.energy.ui.shop_order.refund_order.ApplicationRefundActivity;
+import com.jjz.energy.ui.shop_order.refund_order.BuyerRefundDetailsActivity;
+import com.jjz.energy.ui.shop_order.refund_order.RefundTypeSelectActivity;
+import com.jjz.energy.ui.shop_order.refund_order.SellerRefundDetailsActivity;
 import com.jjz.energy.ui.notice.IMActivity;
 import com.jjz.energy.util.DateUtil;
 import com.jjz.energy.util.StringUtil;
@@ -91,6 +91,8 @@ public class OrderDetailsActivity extends BaseActivity<ShopOrderDetailsPresenter
     TextView tvPriceTitle;
     @BindView(R.id.tv_system_toast)
     TextView tvSystemToast;
+    @BindView(R.id.tv_order_info_integral)
+    TextView tvOrderInfoIntegral;
     @BindView(R.id.ll_bottom_btn)
     LinearLayout llBottomBtn;
 
@@ -173,18 +175,23 @@ public class OrderDetailsActivity extends BaseActivity<ShopOrderDetailsPresenter
     private void lableCilck(String str){
         switch (str){
             case "查看评价":
-                startActivity(new Intent(mContext, EvaluateDetailsActivity.class).putExtra(Constant.ORDER_SN, order_sn));
+                startActivity(new Intent(mContext, EvaluateDetailsActivity.class).putExtra(Constant.ORDER_SN,   order_sn));
                 break;
             case "评价一下":
                 startActivityForResult(new Intent(mContext, EvaluateActivity.class).putExtra(Constant.ORDER_SN, order_sn),10);
                 break;
             case "提醒发货":
+                PopWindowUtil.getInstance().showPopupWindow(mContext, "您将提醒卖家发货，一天只能提醒一次", () -> {
+                    mPresenter.remindShipment(PacketUtil.getRequestPacket(Utils.stringToMap(Constant.ORDER_SN,order_sn)));
+                });
                 break;
             case "去发货":
                 startActivityForResult(new Intent(mContext,DeliverGoodsActivity.class).putExtra(Constant.ORDER_SN,order_sn),10);
                 break;
             case "提醒收货":
-
+                PopWindowUtil.getInstance().showPopupWindow(mContext, "您将提醒买家收货，一天只能提醒一次", () -> {
+                    mPresenter.remindReceipt(PacketUtil.getRequestPacket(Utils.stringToMap(Constant.ORDER_SN,order_sn)));
+                });
                 break;
             case "确认收货":
                 PopWindowUtil.getInstance().showPopupWindow(mContext, "您是否确认收货？", () -> {
@@ -348,6 +355,9 @@ public class OrderDetailsActivity extends BaseActivity<ShopOrderDetailsPresenter
         tvOrderInfoNum.setText("x"+data.getGoods_num());
         //实付金额
         tvPriceTitle.setText("实付金额：￥"+data.getOrder_amount());
+        //todo 积分优惠金额
+        tvOrderInfoIntegral.setText("￥"+data.getOrder_amount());
+
     }
 
     //确认收货

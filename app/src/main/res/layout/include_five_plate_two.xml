@@ -31,27 +31,6 @@
             android:textSize="11sp" />
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/ll_barter"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:orientation="vertical">
-
-        <ImageView
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:src="@mipmap/ic_menu_one_by_one" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:text="以物易物"
-            android:textColor="@color/text_black33"
-            android:textSize="11sp" />
-    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/ll_shop_discount"
@@ -71,6 +50,29 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
             android:text="久速商家"
+            android:textColor="@color/text_black33"
+            android:textSize="11sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_barter"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:visibility="invisible"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:src="@mipmap/ic_menu_one_by_one" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="以物易物"
             android:textColor="@color/text_black33"
             android:textSize="11sp" />
     </LinearLayout>

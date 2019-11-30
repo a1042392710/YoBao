@@ -19,11 +19,11 @@ import com.jjz.energy.entry.enums.RefundOrderStatusEnum;
 import com.jjz.energy.entry.mine.MineBuyerBean;
 import com.jjz.energy.presenter.mine.MineBuyerPresenter;
 import com.jjz.energy.ui.mine.information.HomePageActivity;
-import com.jjz.energy.ui.jiusu_shop.shop_order.DeliverGoodsActivity;
-import com.jjz.energy.ui.jiusu_shop.shop_order.EvaluateActivity;
-import com.jjz.energy.ui.jiusu_shop.shop_order.EvaluateDetailsActivity;
-import com.jjz.energy.ui.jiusu_shop.shop_order.OrderDetailsActivity;
-import com.jjz.energy.ui.jiusu_shop.shop_order.refund_order.SellerRefundDetailsActivity;
+import com.jjz.energy.ui.shop_order.DeliverGoodsActivity;
+import com.jjz.energy.ui.shop_order.EvaluateActivity;
+import com.jjz.energy.ui.shop_order.EvaluateDetailsActivity;
+import com.jjz.energy.ui.shop_order.OrderDetailsActivity;
+import com.jjz.energy.ui.shop_order.refund_order.SellerRefundDetailsActivity;
 import com.jjz.energy.ui.notice.IMActivity;
 import com.jjz.energy.util.StringUtil;
 import com.jjz.energy.util.Utils;
@@ -263,6 +263,9 @@ public class MineSellerActivity extends BaseActivity <MineBuyerPresenter>impleme
         private void lableClick(String btnStr,MineBuyerBean.MineBuyerListBean data){
             switch (btnStr) {
                 case "提醒收货":
+                    PopWindowUtil.getInstance().showPopupWindow(mContext, "您将提醒买家收货，一天只能提醒一次", () -> {
+                        mPresenter.remindReceipt(PacketUtil.getRequestPacket(Utils.stringToMap(Constant.ORDER_SN,data.getOrder_sn())));
+                    });
                     break;
                 case "去发货":
                     startActivity(new Intent(mContext, DeliverGoodsActivity.class).putExtra(Constant.ORDER_SN,data.getOrder_sn()));

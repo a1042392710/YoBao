@@ -1,4 +1,4 @@
-package com.jjz.energy.ui.jiusu_shop.shop_order.refund_order;
+package com.jjz.energy.ui.shop_order.refund_order;
 
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;

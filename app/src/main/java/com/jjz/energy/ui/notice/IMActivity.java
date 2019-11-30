@@ -16,7 +16,7 @@ import com.jjz.energy.adapter.ImAdapter;
 import com.jjz.energy.base.BaseActivity;
 import com.jjz.energy.base.BasePresenter;
 import com.jjz.energy.base.LoginEventBean;
-import com.jjz.energy.ui.jiusu_shop.shop_order.SureBuyActivity;
+import com.jjz.energy.ui.shop_order.SureBuyActivity;
 import com.jjz.energy.util.StringUtil;
 import com.jjz.energy.util.system.SoftKeyBoardListener;
 

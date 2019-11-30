@@ -17,7 +17,7 @@ import com.jjz.energy.base.Constant;
 import com.jjz.energy.entry.mine.LikeGoodsBean;
 import com.jjz.energy.presenter.mine.MineLikeCommodityPresenter;
 import com.jjz.energy.ui.home.commodity.CommodityDetailActivity;
-import com.jjz.energy.ui.jiusu_shop.shop_order.SureBuyActivity;
+import com.jjz.energy.ui.shop_order.SureBuyActivity;
 import com.jjz.energy.util.DateUtil;
 import com.jjz.energy.util.StringUtil;
 import com.jjz.energy.util.Utils;

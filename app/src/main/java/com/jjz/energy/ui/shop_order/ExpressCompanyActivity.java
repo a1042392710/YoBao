@@ -1,4 +1,4 @@
-package com.jjz.energy.ui.jiusu_shop.shop_order;
+package com.jjz.energy.ui.shop_order;
 
 import android.content.Intent;
 import android.support.annotation.Nullable;

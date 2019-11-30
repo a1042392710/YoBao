@@ -62,7 +62,7 @@ public class UserInfo implements Serializable {
      */
     private String wxapp_openid;
     /**
-     * 用户IM
+     * 用户token
      */
     private String token;
     /**
@@ -73,11 +73,23 @@ public class UserInfo implements Serializable {
      * 资料完整度
      */
     private int  completion;
-
     /**
      * 实名认证 的身份证图片
      */
     private int is_set_idcard;
+
+    /**
+     * 剩余积分数量
+     */
+    private float pay_points;
+
+    public float getPay_points() {
+        return pay_points;
+    }
+
+    public void setPay_points(float pay_points) {
+        this.pay_points = pay_points;
+    }
 
     public int getIs_set_idcard() {
         return is_set_idcard;

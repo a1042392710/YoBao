@@ -1,4 +1,4 @@
-package com.jjz.energy.ui.jiusu_shop.shop_order.refund_order;
+package com.jjz.energy.ui.shop_order.refund_order;
 
 import android.Manifest;
 import android.content.Intent;
@@ -21,7 +21,7 @@ import com.jjz.energy.base.BaseActivity;
 import com.jjz.energy.base.Constant;
 import com.jjz.energy.entry.order.ExpressCompanyBean;
 import com.jjz.energy.presenter.order.RefundPresenter;
-import com.jjz.energy.ui.jiusu_shop.shop_order.ExpressCompanyActivity;
+import com.jjz.energy.ui.shop_order.ExpressCompanyActivity;
 import com.jjz.energy.util.StringUtil;
 import com.jjz.energy.util.file.FileUtil;
 import com.jjz.energy.util.glide.GlideUtils;

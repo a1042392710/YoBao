@@ -16,7 +16,7 @@ import com.jjz.energy.base.BaseRecycleNewAdapter;
 import com.jjz.energy.base.Constant;
 import com.jjz.energy.entry.mine.OrderNoticeBean;
 import com.jjz.energy.presenter.home.NoticePresenter;
-import com.jjz.energy.ui.jiusu_shop.shop_order.ExpressDetailsActivity;
+import com.jjz.energy.ui.shop_order.ExpressDetailsActivity;
 import com.jjz.energy.util.DateUtil;
 import com.jjz.energy.util.glide.GlideUtils;
 import com.jjz.energy.util.networkUtil.PacketUtil;

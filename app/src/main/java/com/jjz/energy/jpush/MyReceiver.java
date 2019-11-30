@@ -11,11 +11,11 @@ import com.jjz.energy.base.Constant;
 import com.jjz.energy.ui.MainActivity;
 import com.jjz.energy.ui.community.CommunityDetailActivity;
 import com.jjz.energy.ui.home.commodity.CommodityDetailActivity;
-import com.jjz.energy.ui.jiusu_shop.shop_order.EvaluateDetailsActivity;
-import com.jjz.energy.ui.jiusu_shop.shop_order.ExpressDetailsActivity;
-import com.jjz.energy.ui.jiusu_shop.shop_order.OrderDetailsActivity;
-import com.jjz.energy.ui.jiusu_shop.shop_order.refund_order.BuyerRefundDetailsActivity;
-import com.jjz.energy.ui.jiusu_shop.shop_order.refund_order.SellerRefundDetailsActivity;
+import com.jjz.energy.ui.shop_order.EvaluateDetailsActivity;
+import com.jjz.energy.ui.shop_order.ExpressDetailsActivity;
+import com.jjz.energy.ui.shop_order.OrderDetailsActivity;
+import com.jjz.energy.ui.shop_order.refund_order.BuyerRefundDetailsActivity;
+import com.jjz.energy.ui.shop_order.refund_order.SellerRefundDetailsActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;

@@ -1,4 +1,4 @@
-package com.jjz.energy.ui.jiusu_shop.shop_order;
+package com.jjz.energy.ui.shop_order;
 
 import android.content.Intent;
 import android.support.annotation.Nullable;
@@ -93,7 +93,7 @@ public class DeliverGoodsActivity extends BaseActivity<ExpressPresenter>implemen
      * 发货
      */
     private void putExpressInfo(){
-        if (StringUtil.isEmpty(tvSellerNameAndPhone.getText().toString())){
+        if (seller_address_id == -1){
             showToast("请去地址簿添加地址");
             return;
         }
@@ -122,8 +122,10 @@ public class DeliverGoodsActivity extends BaseActivity<ExpressPresenter>implemen
 
     @Override
     public void isGetExpressAddressInfoSuc(ExpressAddressInfoBean data) {
-        //寄件人的 address_id
-        seller_address_id = data.getSend_info().getAddress_id();
+        if (data.getSend_info()!=null ){
+            //寄件人的 address_id
+            seller_address_id = data.getSend_info().getAddress_id();
+        }
         //收货人信息
         tvBuyerAddress.setText(data.getFull_address());
         //收货人名字电话
@@ -178,7 +180,7 @@ public class DeliverGoodsActivity extends BaseActivity<ExpressPresenter>implemen
     /**
      * 寄件人的id
      */
-    private int seller_address_id;
+    private int seller_address_id = -1;
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {

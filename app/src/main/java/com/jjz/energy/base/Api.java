@@ -394,6 +394,16 @@ public interface Api {
     @POST("shop/order/confirmOrder")
     Flowable<ResponseData<String>> confirmReceipt(@Field(PACK_NO) String pack_no);
 
+    // 提醒收货
+    @FormUrlEncoded
+    @POST("shop/order/remindReceive")
+    Flowable<ResponseData<String>> remindReceipt(@Field(PACK_NO) String pack_no);
+
+    // 提醒发货
+    @FormUrlEncoded
+    @POST("shop/order/remindSend")
+    Flowable<ResponseData<String>> remindShipment(@Field(PACK_NO) String pack_no);
+
     // 取消订单
     @FormUrlEncoded
     @POST("shop/order/cancelOrder")

@@ -1,6 +1,9 @@
 package com.jjz.energy.ui.jiusu_shop;
 
+import android.Manifest;
 import android.content.Intent;
+import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -24,6 +27,7 @@ import com.jjz.energy.util.Utils;
 import com.jjz.energy.util.glide.GlideImageLoader;
 import com.jjz.energy.util.networkUtil.AesUtils;
 import com.jjz.energy.util.networkUtil.PacketUtil;
+import com.jjz.energy.util.system.PopWindowUtil;
 import com.jjz.energy.view.jiusu_shop.IJiuSuShopView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.youth.banner.Banner;
@@ -36,11 +40,16 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import permissions.dispatcher.NeedsPermission;
+import permissions.dispatcher.OnShowRationale;
+import permissions.dispatcher.PermissionRequest;
+import permissions.dispatcher.RuntimePermissions;
 
 /**
  * @Features: 久速商家个人主页
  * @author: create by chenhao on 2019/11/9
  */
+@RuntimePermissions
 public class JiuSuShopHomePageActivity extends BaseActivity <JiuSuShopPresenter> implements IJiuSuShopView {
 
 
@@ -220,7 +229,7 @@ public class JiuSuShopHomePageActivity extends BaseActivity <JiuSuShopPresenter>
         tvDesc.setText(data.getShop_desc());
         tvLocationContent.setText(data.getPoiaddress());
         tvLocationContentDesc.setText(data.getPoiname());
-        tvGoShopBuy.setText("到店享受积分抵扣"+(data.getRebate()*10)+"折优惠");
+        tvGoShopBuy.setText("扫描店内二维码支付享受积分抵扣"+(data.getRebate()*10)+"折优惠");
         tvDiscount.setText((data.getRebate()*10)+"折起 | 人均："+data.getAvg_tax()+"元");
         //显示推荐商品列表
         if (mCommodityAdapter.notifyChangeData(data.getCommodityList())){
@@ -293,6 +302,7 @@ public class JiuSuShopHomePageActivity extends BaseActivity <JiuSuShopPresenter>
                 break;
                 //打电话
             case R.id.img_call_phone:
+                JiuSuShopHomePageActivityPermissionsDispatcher.callWithCheck(this);
                 break;
                 //查看地图，导航
             case R.id.rl_location:
@@ -312,6 +322,32 @@ public class JiuSuShopHomePageActivity extends BaseActivity <JiuSuShopPresenter>
                 startActivity(new Intent(mContext,JiuSuShopAllGoodsActivity.class).putExtra(Constant.SHOP_ID,mShopHomePageBean.getId()));
                 break;
         }
+    }
+    @NeedsPermission(Manifest.permission.CALL_PHONE)
+    void call() {
+        if (mShopHomePageBean!=null){
+            String phone = mShopHomePageBean.getShop_phone();
+            // 拨号：激活系统的拨号组件
+            Intent intent = new Intent(); // 意图对象：动作 + 数据
+            intent.setAction(Intent.ACTION_CALL); // 设置动作
+            Uri data = Uri.parse("tel:" + phone); // 设置数据
+            intent.setData(data);
+            startActivity(intent); // 激活Activity组件aodian
+        }
+    }
+    //给用户解释为什么要申请权限
+    @OnShowRationale(Manifest.permission.CALL_PHONE)
+    void showCallPhone(final PermissionRequest request) {
+        //唤起打电话权限
+        PopWindowUtil.getInstance().showPopupWindow(mContext, "没有电话权限可不能打电话哦", () -> {
+            request.proceed();//继续执行请求
+        });
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        JiuSuShopHomePageActivityPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
     }
 
     @Override
