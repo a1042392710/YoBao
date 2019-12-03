@@ -514,6 +514,16 @@
             android:configChanges="orientation|screenSize"/>
 
 
+        <!--支付成功-->
+        <activity android:name="com.jjz.energy.ui.home.jiusu.JiuSuVCodeDetailActivity"
+            android:configChanges="orientation|screenSize"/>
+
+
+        <!--支付成功-->
+        <activity android:name="com.jjz.energy.ui.home.jiusu.JiuSuTranscationSucActivity"
+            android:configChanges="orientation|screenSize"/>
+
+
 
         <!--****************** 支付****************** -->
 

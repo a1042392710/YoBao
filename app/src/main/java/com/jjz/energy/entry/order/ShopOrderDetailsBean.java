@@ -78,7 +78,7 @@ public class ShopOrderDetailsBean implements Serializable {
     private int is_comment;
     private String mobile;
     private String buyer_mobile;
-    private String seller_mobile;
+    private String saler_mobile;
     private String order_amount;
     private String order_sn;
     private int order_status;
@@ -94,6 +94,14 @@ public class ShopOrderDetailsBean implements Serializable {
     private int twon;
     private int return_status;
     private String integral_money;
+
+    public String getSaler_mobile() {
+        return saler_mobile == null ? "" : saler_mobile;
+    }
+
+    public void setSaler_mobile(String saler_mobile) {
+        this.saler_mobile = saler_mobile;
+    }
 
     public String getIntegral_money() {
         return integral_money == null ? "" : integral_money;
@@ -121,13 +129,6 @@ public class ShopOrderDetailsBean implements Serializable {
         this.buyer_mobile = buyer_mobile;
     }
 
-    public String getSeller_mobile() {
-        return seller_mobile == null ? "" : seller_mobile;
-    }
-
-    public void setSeller_mobile(String seller_mobile) {
-        this.seller_mobile = seller_mobile;
-    }
 
     public int getRec_id() {
         return rec_id;

@@ -332,7 +332,8 @@ public class FeedBackActivity extends BaseActivity <FeedBackPresenter> implement
 
     @Override
     public void isSuccess(String data) {
-        showToast("我们已经收到您提交的意见");
+        showToast("我们已经收到您提交的意见,祝您生活愉快");
+        finish();
     }
 
     @Override

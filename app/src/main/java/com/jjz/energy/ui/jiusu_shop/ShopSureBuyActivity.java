@@ -97,18 +97,18 @@ public class ShopSureBuyActivity extends BaseActivity<SureBuyPresenter> implemen
     /**
      * 商家 id
      */
-    private int shop_id ;
+    private String shop_id ;
 
 
     @Override
     protected void initView() {
         EventBus.getDefault().register(this);
         tvToolbarTitle.setText("店内买单");
-        shop_id = getIntent().getIntExtra(Constant.SHOP_ID,0);
+        shop_id = getIntent().getStringExtra(Constant.SHOP_ID);
         initEditHight();
         initSingerPicker();
         //查询商户信息
-        mPresenter.getShopsInfo(PacketUtil.getRequestPacket(Utils.stringToMap(Constant.SHOP_ID,shop_id+"")));
+        mPresenter.getShopsInfo(PacketUtil.getRequestPacket(Utils.stringToMap(Constant.SHOP_ID,shop_id)));
     }
     /**
      * 监听键盘

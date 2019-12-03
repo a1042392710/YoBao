@@ -30,7 +30,7 @@ public class FeedBackModel extends BaseModel {
         Map<String, RequestBody> photos = new HashMap<>();
         if (urls.size() > 0) {
             for (int i = 0; i < urls.size(); i++) {
-                photos.put("file[]\"; filename=\"" + urls.get(i).getName(), RequestBody.create(MediaType.parse("image/png"), urls.get(i)));
+                photos.put("image[]\"; filename=\"" + urls.get(i).getName(), RequestBody.create(MediaType.parse("image/png"), urls.get(i)));
             }
         }
         return  RetrofitFactory.getRetrofit().create(Api.class).feedbackSubmit(mBuilder, photos).compose(RxSchedulerHepler.handleMyResult());

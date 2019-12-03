@@ -33,6 +33,7 @@ public class Constant {
     //    ScanCode
     public static final String SCAN_TYPE_SHARE = "share";
     public static final String SCAN_TYPE_ORDER = "order";
+    public static final String SCAN_TYPE_SHOP_SHOPPING = "offline";
 
     /**
      * 存储用户定位 和经纬度

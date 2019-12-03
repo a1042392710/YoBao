@@ -143,7 +143,7 @@ public class OrderDetailsActivity extends BaseActivity<ShopOrderDetailsPresenter
                     return;
                 }
                 //和买家或者卖家聊天
-                startActivity(new Intent(mContext, IMActivity.class).putExtra("userName",user_type==0?mData.getSeller_mobile():mData.getBuyer_mobile()));
+                startActivity(new Intent(mContext, IMActivity.class).putExtra("userName",user_type==0?mData.getSaler_mobile():mData.getBuyer_mobile()));
                 break;
             case R.id.tv_logistics_details:
                 //查看物流详情

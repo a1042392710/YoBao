@@ -43,13 +43,13 @@ android {
 //            storePassword 'jjz666888'
 //            v2SigningEnabled false
 //        }
-//        debug {
-//            storeFile file('F:/chenhao/key/yobao.jks')
-//            storePassword "jjz666888"
-//            keyAlias "yobao"
-//            keyPassword "jjz666888"
-//            v2SigningEnabled false
-//        }
+        debug {
+            storeFile file('F:/chenhao/key/yobao.jks')
+            storePassword "jjz666888"
+            keyAlias "yobao"
+            keyPassword "jjz666888"
+            v2SigningEnabled false
+        }
     }
 
     buildTypes {

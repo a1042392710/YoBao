@@ -317,9 +317,7 @@ public class JiuSuShopHomePageActivity extends BaseActivity <JiuSuShopPresenter>
                 if (mShopHomePageBean==null){
                     return;
                 }
-                //模拟店内买单
-                startActivity(new Intent(mContext,ShopSureBuyActivity.class).putExtra(Constant.SHOP_ID,mShopHomePageBean.getId()));
-//                JiuSuShopHomePageActivityPermissionsDispatcher.callWithCheck(this);
+                JiuSuShopHomePageActivityPermissionsDispatcher.callWithCheck(this);
                 break;
                 //查看地图，导航
             case R.id.rl_location:

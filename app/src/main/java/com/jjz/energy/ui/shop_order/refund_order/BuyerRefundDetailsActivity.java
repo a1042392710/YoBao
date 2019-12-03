@@ -226,12 +226,15 @@ public class BuyerRefundDetailsActivity extends BaseActivity<RefundPresenter>imp
                 tvRefundStateToast.setText(R.string.refund_buyer_wait_seller_rceiving_toast);
                 tvRefundAllToast.setText(R.string.refund_buyer_wait_seller_rceiving_toast_all);
                 rlExpressInfo.setVisibility(View.VISIBLE);
-                //写入退货物流信息
-                tvRefundExpressInfoTitle.setText("退货物流："+ mDetailsBean.getTrick().getShipping_name()+"("+mDetailsBean.getTrick().getCourier_number()+")" );
-                //详情
-                tvRefundExpressInfoContent.setText(mDetailsBean.getTrick().getAcceptStation());
-                //时间
-                tvRefundExpressInfoTime.setText(mDetailsBean.getTrick().getAcceptTime());
+                if (mDetailsBean.getTrick()!=null){
+                    //写入退货物流信息
+                    tvRefundExpressInfoTitle.setText("退货物流："+ mDetailsBean.getTrick().getShipping_name()+"("+mDetailsBean.getTrick().getCourier_number()+")" );
+                    //详情
+                    tvRefundExpressInfoContent.setText(mDetailsBean.getTrick().getAcceptStation());
+                    //时间
+                    tvRefundExpressInfoTime.setText(mDetailsBean.getTrick().getAcceptTime());
+                }
+
 
                 break;
             //退款完成

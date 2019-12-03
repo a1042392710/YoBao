@@ -1,7 +1,11 @@
 package com.jjz.energy.ui.mine;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.net.Uri;
+import android.provider.Settings;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -9,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
 import com.blankj.utilcode.util.StringUtils;
 import com.jjz.energy.R;
 import com.jjz.energy.adapter.MineAdapter;
@@ -19,7 +24,9 @@ import com.jjz.energy.base.Constant;
 import com.jjz.energy.entry.jiusu.MineBean;
 import com.jjz.energy.entry.jiusu.MineInfoBean;
 import com.jjz.energy.presenter.mine.MinePresenter;
+import com.jjz.energy.ui.home.jiusu.JiuSuVCodeDetailActivity;
 import com.jjz.energy.ui.jiusu_shop.JiuSuShopHomePageActivity;
+import com.jjz.energy.ui.jiusu_shop.ShopSureBuyActivity;
 import com.jjz.energy.ui.mine.information.HomePageActivity;
 import com.jjz.energy.util.StringUtil;
 import com.jjz.energy.util.glide.GlideUtils;
@@ -29,17 +36,24 @@ import com.jjz.energy.util.networkUtil.UserLoginBiz;
 import com.jjz.energy.util.system.PopWindowUtil;
 import com.jjz.energy.util.system.SpUtil;
 import com.jjz.energy.view.mine.IMineView;
+import com.jjz.energy.zxing.android.CaptureActivity;
+import com.jjz.energy.zxing.common.ZxConstant;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import permissions.dispatcher.NeedsPermission;
+import permissions.dispatcher.OnNeverAskAgain;
+import permissions.dispatcher.RuntimePermissions;
 
 /**
  * @Features: 个人中心
  * @author: create by chenhao on 2019/7/15
  */
+@RuntimePermissions
 public class MineFragment  extends BaseLazyFragment<MinePresenter> implements IMineView {
 
     @BindView(R.id.view_title)
@@ -70,6 +84,8 @@ public class MineFragment  extends BaseLazyFragment<MinePresenter> implements IM
     TextView tvLikeSum;
     @BindView(R.id.tv_shop_go)
     TextView tvShopGo;
+    @BindView(R.id.tv_shop_vcode)
+    TextView tvShopVcode;
 
     /**
      * 我的菜单列表数据
@@ -157,7 +173,7 @@ public class MineFragment  extends BaseLazyFragment<MinePresenter> implements IM
 
     }
 
-    @OnClick({R.id.img_setting, R.id.ll_mine_release, R.id.ll_mine_seller, R.id.ll_mine_buyer,R.id.tv_shop_go,
+    @OnClick({R.id.img_setting, R.id.ll_mine_release, R.id.ll_mine_seller, R.id.ll_mine_buyer,R.id.tv_shop_go,R.id.tv_shop_vcode,
             R.id.ll_mine_like, R.id.tv_feedback, R.id.tv_about_us ,R.id.img_head  ,R.id.tv_like_sum ,R.id.tv_fans_sum  })
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -205,6 +221,10 @@ public class MineFragment  extends BaseLazyFragment<MinePresenter> implements IM
             case R.id.tv_about_us:
                 startActivity(new Intent(mContext,AboutUsActivity.class));
                 break;
+                //扫一扫
+            case R.id.tv_shop_vcode:
+                MineFragmentPermissionsDispatcher.takeScanWithCheck(this);
+                break;
                 //商家入驻
             case R.id.tv_shop_go:
                 //获取时间
@@ -230,7 +250,68 @@ public class MineFragment  extends BaseLazyFragment<MinePresenter> implements IM
     @Override
     public void isFail(String msg ,boolean isNetAndServiceError) {}
 
+
+    // --------------------------------------------- 扫码权限
+
+    @NeedsPermission({Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE})
+    void takeScan() {
+        startActivityForResult(new Intent(mContext, CaptureActivity.class),
+                Constant.REQUEST_CODE_SCAN);
+    }
+
+    //用户选择的不再询问后回调  非必须的方法
+    @OnNeverAskAgain({Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE})
+    public void multiNeverAsk() {
+        PopWindowUtil.getInstance().showPopupWindow(mContext, "没有权限您就无法使用扫一扫功能，请您前往设置页面打开拍照和读取sd" +
+                "卡的权限！", "取消", "去设置", () -> {
+            Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+            Uri uri1 = Uri.parse("package:" + mContext.getPackageName());
+            intent.setData(uri1);
+            startActivityForResult(intent, 20);
+        });
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        MineFragmentPermissionsDispatcher.onRequestPermissionsResult(this, requestCode,
+                grantResults);
+    }
+
+
     //=========================================================================== 方法重写和生命周期
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == Constant.REQUEST_CODE_SCAN) {
+            if (data != null) {
+                Map itemMap;
+                try {
+                    itemMap = (Map) JSON.parse(data.getStringExtra(ZxConstant.CODED_CONTENT));
+                    //二维码的内容
+                    String qr_code = (String) itemMap.get("qr_code");
+                    String scan_type = (String) itemMap.get("scan_type");
+                    //扫码类型为订单
+                    if (Constant.SCAN_TYPE_ORDER.equals(scan_type)) {
+                        startActivity(new Intent(mContext, JiuSuVCodeDetailActivity.class).putExtra(
+                                "qr_code", qr_code));
+                        //扫码类型为 到店支付  shop_shopping
+                    } else if (Constant.SCAN_TYPE_SHOP_SHOPPING.equals(scan_type)){
+                        startActivity(new Intent(mContext, ShopSureBuyActivity.class).putExtra(Constant.SHOP_ID,qr_code));
+
+                    }else{
+                        showToast("请扫描正确的二维码");
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    showToast("请扫描正确的二维码");
+                }
+            }
+        }
+    }
 
     @Override
     public void onResume() {
