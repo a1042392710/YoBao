@@ -1,10 +1,14 @@
 package com.jjz.energy.adapter;
 
 import android.support.annotation.Nullable;
+import android.widget.ImageView;
 
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.jjz.energy.R;
 import com.jjz.energy.base.BaseRecycleNewAdapter;
 import com.jjz.energy.entry.jiusu_shop.JiuSuShoppingBean;
+import com.jjz.energy.util.DateUtil;
+import com.jjz.energy.util.glide.GlideUtils;
 
 import java.util.List;
 
@@ -20,6 +24,10 @@ public class MineJiuSuShippingAdpter extends BaseRecycleNewAdapter<JiuSuShopping
 
     @Override
     protected void convert(BaseViewHolder helper, JiuSuShoppingBean.ListBean item) {
-
+        helper.setText(R.id.item_tv_shop_name,item.getShop_name());
+        helper.setText(R.id.item_tv_new_money,"实付："+item.getOrder_amount());
+        helper.setText(R.id.item_tv_time, DateUtil.longToDate(item.getPay_time(),null));
+        ImageView img = helper.getView(R.id.item_img_shop);
+        GlideUtils.loadRoundCircleImage(mContext,item.getShop_img(),img);
     }
 }

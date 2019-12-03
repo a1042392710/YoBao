@@ -10,11 +10,15 @@ import android.widget.TextView;
 
 import com.jjz.energy.R;
 import com.jjz.energy.base.BaseActivity;
+import com.jjz.energy.base.Constant;
 import com.jjz.energy.entry.jiusu_shop.JiuSuShoppingDetailsBean;
 import com.jjz.energy.presenter.jiusu_shop.JiuSuShopPresenter;
+import com.jjz.energy.util.DateUtil;
+import com.jjz.energy.util.StringUtil;
 import com.jjz.energy.util.Utils;
 import com.jjz.energy.util.networkUtil.PacketUtil;
 import com.jjz.energy.util.system.PopWindowUtil;
+import com.jjz.energy.util.system.SpUtil;
 import com.jjz.energy.view.jiusu_shop.IJiuSuShopView;
 
 import butterknife.BindView;
@@ -56,9 +60,9 @@ public class MineJiuSuShoppingDetailsActivity extends BaseActivity<JiuSuShopPres
     @BindView(R.id.tv_order_new_money)
     TextView tvOrderNewMoney;
     /**
-     * 消费id
+     * 订单编号
      */
-    private int id;
+    private String order_sn;
     /**
      * 将数据存下来
      */
@@ -67,23 +71,28 @@ public class MineJiuSuShoppingDetailsActivity extends BaseActivity<JiuSuShopPres
     @Override
     protected void initView() {
         tvToolbarTitle.setText("消费详情");
-        id = getIntent().getIntExtra("id", 0);
-        mPresenter.getJiuSuShoppingDetails(PacketUtil.getRequestPacket(Utils.stringToMap("id",
-                "id")));
+        order_sn = getIntent().getStringExtra(Constant.ORDER_SN);
+        mPresenter.getJiuSuShoppingDetails(PacketUtil.getRequestPacket(Utils.stringToMap(Constant.ORDER_SN,
+                order_sn)));
     }
 
     @Override
     public void isGetJiusuShoppingDetailsSuc(JiuSuShoppingDetailsBean data) {
         mDetailsBean = data;
+        //获取经纬度
+        String lng = SpUtil.init(mContext).readString(Constant.LOCATION_LNG);
+        String lat = SpUtil.init(mContext).readString(Constant.LOCATION_LAT);
+        double  mLng =  StringUtil.isEmpty(lng)?0 :Double.valueOf(lng);
+        double  mLat =  StringUtil.isEmpty(lat)?0 :Double.valueOf(lat);
         //给所有的数据赋值
-        tvShopName.setText("商家名称");
-        tvLocationContent.setText("商家位置");
-        tvLocationDistance.setText("距离你多远");
-        tvOrderSn.setText("订单编号：");
-        tvOrderPhone.setText("手机号：");
-        tvOrderTime.setText("支付时间：");
-        tvOrderOldMoney.setText("总价：");
-        tvOrderNewMoney.setText("实付：");
+        tvShopName.setText(data.getShop_name());
+        tvLocationContent.setText(data.getHouse_number());
+        tvLocationDistance.setText(Utils.getDistance(mLng,mLat,data.getLng(),data.getLat())+"km");
+        tvOrderSn.setText("订单编号："+data.getOrder_sn());
+        tvOrderPhone.setText("手机号："+data.getShop_phone());
+        tvOrderTime.setText("支付时间："+ DateUtil.longToDate(data.getPay_time(),null));
+        tvOrderOldMoney.setText("总价："+data.getTotal_amount()+"元");
+        tvOrderNewMoney.setText("实付："+data.getOrder_amount()+"元");
 
     }
 
@@ -96,7 +105,10 @@ public class MineJiuSuShoppingDetailsActivity extends BaseActivity<JiuSuShopPres
                 break;
             //打电话给商家
             case R.id.tv_call_shop_phone:
-                PopWindowUtil.getInstance().showPopupWindow(mContext, "您将拨打电话 123456789 ", () -> {
+                if (mDetailsBean==null){
+                    return;
+                }
+                PopWindowUtil.getInstance().showPopupWindow(mContext, "您将拨打电话:"+mDetailsBean.getShop_phone(), () -> {
                     callPhone();
                 });
                 break;
@@ -134,7 +146,7 @@ public class MineJiuSuShoppingDetailsActivity extends BaseActivity<JiuSuShopPres
             // 拨号：激活系统的拨号组件
             Intent intent = new Intent(); // 意图对象：动作 + 数据
             intent.setAction(Intent.ACTION_CALL); // 设置动作
-            String number = mDetailsBean.getPhone_number();
+            String number = mDetailsBean.getShop_phone();
             Uri data = Uri.parse("tel:" + number); // 设置数据
             intent.setData(data);
             startActivity(intent); // 激活Activity组件

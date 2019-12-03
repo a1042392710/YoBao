@@ -111,7 +111,34 @@ public class SureBuyPresenter extends BasePresenter<SureBuyModel, ISureBuyView> 
                 }));
 
     }
+    /**
+     *  获取店内消费支付信息
+     */
+    @SuppressLint("CheckResult")
+    public void getBuyShopsInfo(String map) {
 
+        addSubscribe(mModel.getBuyShopsInfo(map)
+                .subscribeWith(new CommonSubscriber<OrderPayTypeBean>() {
+
+                    @Override
+                    protected void startLoading() {
+                        mView.showLoading();
+                    }
+
+                    @Override
+                    protected void onSuccess(OrderPayTypeBean response) {
+                        mView.isGetBuyInfoSuccess(response);
+                        mView.stopLoading();
+                    }
+
+                    @Override
+                    protected void onFail(String errorMsg, boolean isNetAndSeriveError) {
+                        mView.isFail(errorMsg,isNetAndSeriveError);
+                        mView.stopLoading();
+                    }
+                }));
+
+    }
     @Override
     protected SureBuyModel createModel() {
         return new SureBuyModel();

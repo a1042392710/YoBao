@@ -22,6 +22,7 @@ import com.jjz.energy.base.Constant;
 import com.jjz.energy.entry.commodity.HomePageCommentBean;
 import com.jjz.energy.entry.jiusu_shop.ShopHomePageBean;
 import com.jjz.energy.presenter.jiusu_shop.JiuSuShopPresenter;
+import com.jjz.energy.ui.home.commodity.CommodityDetailActivity;
 import com.jjz.energy.util.StringUtil;
 import com.jjz.energy.util.Utils;
 import com.jjz.energy.util.glide.GlideImageLoader;
@@ -139,17 +140,20 @@ public class JiuSuShopHomePageActivity extends BaseActivity <JiuSuShopPresenter>
         shop_id = getIntent().getIntExtra(Constant.SHOP_ID,0);
         tvToolbarTitle.setText("商家主页");
         initRv();
+        initListener();
         //获取商家基础信息
         mPresenter.getShopHomePageInfo(PacketUtil.getRequestPacket(Utils.stringToMap(Constant.SHOP_ID,AesUtils.encrypt(String.valueOf(shop_id), AesUtils.KEY, AesUtils.IV))));
         //获取商家评价
         getCommentData(false);
     }
 
+
+
     /**
      * 初始化所有的列表和刷新控件
      */
     private void initRv() {
-        //评价
+        //评价列表初始化
         rvComentlist.setLayoutManager(new LinearLayoutManager(this){
             @Override
             public boolean canScrollVertically() {
@@ -159,7 +163,8 @@ public class JiuSuShopHomePageActivity extends BaseActivity <JiuSuShopPresenter>
         mCommentAdapter = new HomePageCommentAdapter(R.layout.item_homepage_comment,
                 new ArrayList<>());
         rvComentlist.setAdapter(mCommentAdapter);
-        //推荐商品
+
+        //推荐商品列表初始化
         rvCommodity.setLayoutManager(new LinearLayoutManager(this){
             @Override
             public boolean canScrollVertically() {
@@ -169,6 +174,12 @@ public class JiuSuShopHomePageActivity extends BaseActivity <JiuSuShopPresenter>
         mCommodityAdapter = new ShopHomePageCommodityAdapter(R.layout.item_shop_commodity,
                 new ArrayList<>());
         rvCommodity.setAdapter(mCommodityAdapter);
+
+    }
+
+    private void initListener() {
+        mCommodityAdapter.setOnItemClickListener((adapter, view, position)
+                -> startActivity(new Intent(mContext, CommodityDetailActivity.class).putExtra(Constant.GOODS_ID,mCommodityAdapter.getItem(position).getGoods_id())));
         //上拉加载
         smartRefresh.setOnLoadMoreListener(refreshLayout -> {
             mPage++;
@@ -190,6 +201,7 @@ public class JiuSuShopHomePageActivity extends BaseActivity <JiuSuShopPresenter>
             getCommentData(false);
         });
     }
+
     /**
      * 获取评价列表
      *
@@ -302,6 +314,9 @@ public class JiuSuShopHomePageActivity extends BaseActivity <JiuSuShopPresenter>
                 break;
                 //打电话
             case R.id.img_call_phone:
+                if (mShopHomePageBean==null){
+                    return;
+                }
                 //模拟店内买单
                 startActivity(new Intent(mContext,ShopSureBuyActivity.class).putExtra(Constant.SHOP_ID,mShopHomePageBean.getId()));
 //                JiuSuShopHomePageActivityPermissionsDispatcher.callWithCheck(this);

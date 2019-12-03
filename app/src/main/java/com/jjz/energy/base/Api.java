@@ -361,13 +361,18 @@ public interface Api {
 
     //确认订单页面获取商家信息
     @FormUrlEncoded
-    @POST("shop/order/checkOrder")
+    @POST("shop/order/scanCheck")
     Flowable<ResponseData<JiuSuShop>> getShopsInfo(@Field(PACK_NO) String pack_no);
 
     //立即付款页面 获取支付信息
     @FormUrlEncoded
     @POST("shop/order/createOrder")
     Flowable<ResponseData<OrderPayTypeBean>> getBuyGoodsInfo(@Field(PACK_NO) String pack_no);
+
+    //立即付款页面 获取商家支付信息
+    @FormUrlEncoded
+    @POST("shop/order/createScanOrder")
+    Flowable<ResponseData<OrderPayTypeBean>> getBuyShopsInfo(@Field(PACK_NO) String pack_no);
 
     // 查询物流公司
     @FormUrlEncoded
@@ -506,14 +511,14 @@ public interface Api {
      * 获取久速商家店内消费记录
      */
     @FormUrlEncoded
-    @POST("shop/return_goods/returnGoodsLog")
+    @POST("shop/order/scanOrderList")
     Flowable<ResponseData<JiuSuShoppingBean>> getJiuSuShoppingList(@Field(PACK_NO) String pack_no);
 
     /**
      * 获取久速商家店内消费记录 详情
      */
     @FormUrlEncoded
-    @POST("shop/return_goods/returnGoodsLog")
+    @POST("shop/order/scanOrderInfo")
     Flowable<ResponseData<JiuSuShoppingDetailsBean>> getJiuSuShoppingDetails(@Field(PACK_NO) String pack_no);
 
     /**
@@ -698,6 +703,14 @@ public interface Api {
     @POST("app/user/getUserinfo")
     Flowable<ResponseData<BindOwnerInfoBean>> getBindOwnernfo(@Field(PACK_NO) String pack_no);
 
+    /**
+     * 我的 == 意见反馈
+     */
+    @Multipart
+    @POST("shop/user/feedbackSubmit")
+    Flowable<ResponseData<String>> feedbackSubmit(
+            @Part MultipartBody.Part params, @PartMap Map<String, RequestBody> imgFiles
+    );
 
     /**
      * 下载文件

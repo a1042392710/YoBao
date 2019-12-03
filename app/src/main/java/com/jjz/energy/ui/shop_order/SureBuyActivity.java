@@ -2,6 +2,7 @@ package com.jjz.energy.ui.shop_order;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
@@ -137,6 +138,9 @@ public class SureBuyActivity extends BaseActivity<SureBuyPresenter>implements IS
         GlideUtils.loadRoundCircleImage(mContext,data.getGoods_images(),imgCommodity);
         //原价
         tvCommodityOldPrice.setText("原价￥"+data.getMarket_price());
+        //给原价加上中划线
+        tvCommodityOldPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+        tvCommodityOldPrice.getPaint().setAntiAlias(true); //去掉锯齿
         //现价
         tvCommodityPrice.setText("￥"+data.getShop_price());
         //商品名称

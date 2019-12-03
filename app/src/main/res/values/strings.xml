@@ -42,6 +42,8 @@
 
     <string name="refund_confirm_receipt">1.如果拒绝退款，买家可以申请客服介入处理\n2.如果您逾期未处理，将自动退款给买家</string>
 
+    <string name="shop_sure_buy_toast">温馨提示： \n\n 1.只有您的积分足够抵扣折扣金额时才可打折，否则将原价付款（积分与金额1:1） \n\n 2.最低使用1积分  \n\n3.可在 我的—消费记录 中查看您的所有店内买单记录</string>
+
 
     <!-- 身份证识别-->
     <string name="crop_fail">裁剪失败</string>

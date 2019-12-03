@@ -75,8 +75,8 @@
 
     <View
         android:layout_below="@id/item_img_commodity"
-        android:layout_marginTop="3dp"
-        android:layout_marginBottom="3dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
         android:layout_width="match_parent"
         android:layout_height="1dp"/>
 

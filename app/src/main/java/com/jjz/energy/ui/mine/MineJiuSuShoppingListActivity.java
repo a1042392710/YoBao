@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.jjz.energy.R;
 import com.jjz.energy.adapter.MineJiuSuShippingAdpter;
 import com.jjz.energy.base.BaseActivity;
+import com.jjz.energy.base.Constant;
 import com.jjz.energy.entry.jiusu_shop.JiuSuShoppingBean;
 import com.jjz.energy.presenter.jiusu_shop.JiuSuShopPresenter;
 import com.jjz.energy.util.Utils;
@@ -62,9 +63,9 @@ public class MineJiuSuShoppingListActivity extends BaseActivity<JiuSuShopPresent
         rvShoppingList.setAdapter(mAdapter);
         //跳转详情页面
         mAdapter.setOnItemClickListener((adapter, view, position) -> {
-            startActivity(new Intent(mContext, MineJiuSuShoppingDetailsActivity.class).putExtra("id", 0));
+            startActivity(new Intent(mContext, MineJiuSuShoppingDetailsActivity.class).putExtra(Constant.ORDER_SN, mAdapter.getItem(position).getOrder_sn()));
         });
-
+        getData(false);
     }
 
     /**

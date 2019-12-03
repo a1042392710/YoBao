@@ -147,7 +147,7 @@ public class ImAdapter extends BaseRecycleNewAdapter<Message> {
             }
         }
         //聊天时间
-        tvMyTime.setText(DateUtil.longToDate(item.getCreateTime(), "yyyy年MM月dd日 HH:mm"));
+        tvMyTime.setText(DateUtil.longToDate(item.getCreateTime()/1000L, "yyyy年MM月dd日 HH:mm"));
 
         switch (item.getContentType()) {
             case text:

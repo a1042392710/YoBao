@@ -9,6 +9,7 @@ import com.jjz.energy.R;
 import com.jjz.energy.base.BaseActivity;
 import com.jjz.energy.base.BasePresenter;
 import com.jjz.energy.base.Constant;
+import com.jjz.energy.entry.jiusu_shop.Parms;
 import com.jjz.energy.util.DateUtil;
 import com.jjz.energy.util.glide.GlideUtils;
 
@@ -40,7 +41,7 @@ public class JiuSuShopPaySucActivity extends BaseActivity {
     /**
      * 支付结果
      */
-    private ShopSureBuyActivity.Parms mParms;
+    private Parms mParms;
 
     @Override
     protected BasePresenter getPresenter() {
@@ -55,23 +56,23 @@ public class JiuSuShopPaySucActivity extends BaseActivity {
     @Override
     protected void initView() {
         tvToolbarTitle.setText("支付结果");
-        mParms = (ShopSureBuyActivity.Parms) getIntent().getSerializableExtra(Constant.INTENT_KEY_OBJECT);
+        mParms = (Parms) getIntent().getSerializableExtra(Constant.INTENT_KEY_OBJECT);
         if (mParms!=null){
             GlideUtils.loadRoundCircleImage(mContext,mParms.getShop_img(),imgShop);
             tvPayPrice.setText("¥" + mParms.getPrice_title() );
             tvShopName.setText("¥" + mParms.getShop_name() );
-            tvPayTime.setText(DateUtil.longToDate(mParms.getPay_time(),null));
+            tvPayTime.setText(DateUtil.longToDate(mParms.getPay_time()/1000L,null));
         }
     }
 
     @Override
     public void showLoading() {
-
+    startProgressDialog();
     }
 
     @Override
     public void stopLoading() {
-
+        stopProgressDialog();
     }
 
 

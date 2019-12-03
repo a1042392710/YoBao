@@ -33,5 +33,10 @@ public class SureBuyModel extends BaseModel {
         return RetrofitFactory.getRetrofit().create(Api.class).getBuyGoodsInfo(requestData).compose(RxSchedulerHepler.handleMyResult());
     }
 
+    //调起支付 获取支付信息
+    public Flowable<OrderPayTypeBean> getBuyShopsInfo(String requestData) {
+        return RetrofitFactory.getRetrofit().create(Api.class).getBuyShopsInfo(requestData).compose(RxSchedulerHepler.handleMyResult());
+    }
+
 
 }

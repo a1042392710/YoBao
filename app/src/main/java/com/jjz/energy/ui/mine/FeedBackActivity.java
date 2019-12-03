@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -17,14 +18,17 @@ import android.widget.TextView;
 import com.jjz.energy.R;
 import com.jjz.energy.adapter.CommonSelectPhotoAdapter;
 import com.jjz.energy.base.BaseActivity;
-import com.jjz.energy.base.BasePresenter;
 import com.jjz.energy.base.Constant;
+import com.jjz.energy.presenter.mine.FeedBackPresenter;
 import com.jjz.energy.util.StringUtil;
+import com.jjz.energy.util.file.FileUtil;
 import com.jjz.energy.util.flowlayout.FlowLayout;
 import com.jjz.energy.util.flowlayout.TagAdapter;
 import com.jjz.energy.util.flowlayout.TagFlowLayout;
 import com.jjz.energy.util.glide.MyGlideEngine;
+import com.jjz.energy.util.networkUtil.PacketUtil;
 import com.jjz.energy.util.system.PopWindowUtil;
+import com.jjz.energy.view.mine.IFeedBackView;
 import com.zhihu.matisse.Matisse;
 import com.zhihu.matisse.MimeType;
 import com.zhihu.matisse.internal.entity.CaptureStrategy;
@@ -33,22 +37,28 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.EnumSet;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.OnNeverAskAgain;
 import permissions.dispatcher.RuntimePermissions;
+import top.zibin.luban.Luban;
+import top.zibin.luban.OnCompressListener;
 
 /**
  * @Features: 意见反馈
  * @author: create by chenhao on 2019/8/21
  */
 @RuntimePermissions
-public class FeedBackActivity extends BaseActivity {
+public class FeedBackActivity extends BaseActivity <FeedBackPresenter> implements IFeedBackView {
 
     @BindView(R.id.ll_toolbar_left)
     LinearLayout llToolbarLeft;
@@ -90,8 +100,8 @@ public class FeedBackActivity extends BaseActivity {
 
 
     @Override
-    protected BasePresenter getPresenter() {
-        return null;
+    protected FeedBackPresenter getPresenter() {
+        return new FeedBackPresenter(this);
     }
 
     @Override
@@ -235,11 +245,72 @@ public class FeedBackActivity extends BaseActivity {
                     showToast("请填写反馈内容");
                     return;
                 }
-                //提交
-                showToast("提交成功");
-                finish();
+                compressPhotos();
                 break;
         }
+    }
+
+    // ================================ 数据提交
+
+    /**
+     * 待上传的所有图片
+     */
+    private List<File> mFileList;
+    /**
+     * 压缩图片
+     */
+    private void compressPhotos() {
+        mFileList = new ArrayList<>();
+        //无图片直接提交 -1 是减去 添加图片的那个数据
+        if (mSelectPhotos.size() - 1 > 0) {
+            //有图片则压缩
+            for (int i = 0; i < mSelectPhotos.size() - 1; i++) {
+                int finalI = 1 + i;
+                Luban.with(this)
+                        .load(FileUtil.getRealFilePath(mContext, mSelectPhotos.get(i)))
+                        .ignoreBy(100)
+                        .filter(path -> !(TextUtils.isEmpty(path) || path.toLowerCase().endsWith(".gif")))
+                        .setCompressListener(new OnCompressListener() {
+                            @Override
+                            public void onStart() {
+                                showLoading();
+                            }
+
+                            @Override
+                            public void onSuccess(File file) {
+                                //压缩完图片后提交数据
+                                mFileList.add(file);
+                                if (finalI == mSelectPhotos.size() - 1) {
+                                    stopLoading();
+                                    submit();
+                                }
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                showToast("图片压缩失败，请重试");
+                                stopLoading();
+                            }
+                        }).launch();
+            }
+        } else {
+            submit();
+
+        }
+    }
+    /**
+     * 提交数据
+     */
+    private void submit() {
+        Map<String, String> map = new HashMap<>();
+        //反馈内容
+        map.put("content", etFeedBackContent.getText().toString());
+        //联系方式
+        map.put("contact", etFeedBackPhone.getText().toString());
+        //意见类型
+        map.put("type", seleteFeedPosition);
+        //提交意见反馈
+        mPresenter.feedbackSubmit(PacketUtil.getRequestPacket(map),mFileList);
     }
 
     @Override
@@ -259,4 +330,13 @@ public class FeedBackActivity extends BaseActivity {
         EventBus.getDefault().unregister(this);
     }
 
+    @Override
+    public void isSuccess(String data) {
+        showToast("我们已经收到您提交的意见");
+    }
+
+    @Override
+    public void isFail(String msg) {
+        showToast(msg);
+    }
 }

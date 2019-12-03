@@ -201,7 +201,12 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements IHomeVi
                 break;
             //搜索
             case R.id.card_search:
-                startActivity(new Intent(mContext, SearchActivity.class),ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
+                //需要验证登录
+                if (!UserLoginBiz.getInstance(mContext).detectUserLoginStatus()){
+                    startActivity(new Intent(mContext,LoginActivity.class));
+                }else {
+                    startActivity(new Intent(mContext, SearchActivity.class), ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
+                }
                 break;
             //通知
             case R.id.img_notice:
@@ -238,7 +243,12 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements IHomeVi
                 break;
             //久速商家
             case R.id.ll_shop_discount:
-                startActivity(new Intent(mContext, JiuSuShopActivity.class));
+                //需要验证登录
+                if (!UserLoginBiz.getInstance(mContext).detectUserLoginStatus()){
+                    startActivity(new Intent(mContext,LoginActivity.class));
+                }else {
+                    startActivity(new Intent(mContext, JiuSuShopActivity.class));
+                }
                 break;
             //以物易物
             case R.id.ll_barter:

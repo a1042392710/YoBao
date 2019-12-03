@@ -20,6 +20,7 @@ import com.jjz.energy.base.BaseActivity;
 import com.jjz.energy.base.Constant;
 import com.jjz.energy.base.LoginEventBean;
 import com.jjz.energy.entry.jiusu_shop.JiuSuShop;
+import com.jjz.energy.entry.jiusu_shop.Parms;
 import com.jjz.energy.presenter.order.SureBuyPresenter;
 import com.jjz.energy.util.DecimalDigitsInputFilter;
 import com.jjz.energy.util.StringUtil;
@@ -35,7 +36,6 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -130,6 +130,7 @@ public class ShopSureBuyActivity extends BaseActivity<SureBuyPresenter> implemen
                     calculationMoney();
                 } else {
                     tvPriceTitle.setText("");
+                    tvPayToast.setText("您总积分为" + mJiuSuShop.getPay_points());
                 }
             }
 
@@ -138,7 +139,6 @@ public class ShopSureBuyActivity extends BaseActivity<SureBuyPresenter> implemen
 
             }
         });
-
     }
     /**
      * 计算折扣金额
@@ -151,14 +151,16 @@ public class ShopSureBuyActivity extends BaseActivity<SureBuyPresenter> implemen
             //计算折扣价  先拿到折扣
             if (mJiuSuShop.getPay_points() > 0) {
                 //打完折多少钱
-                double new_money =((mJiuSuShop.getRebate()*10)*(price * 10) )/100;
+                float new_money =((mJiuSuShop.getRebate()*10)*(price * 10) )/100;
                 //折扣多少钱
-                float integral_money = (float) (price - new_money);
+                float integral_money = (price - new_money);
                 //和剩余积分进行比较，积分多，则该单可打折 并显示折扣后价格
                 if (integral_money <=  mJiuSuShop.getPay_points()){
-                    tvPriceTitle.setText("￥"+new_money);
+                    tvPriceTitle.setText(new_money+"");
                     //并显示提示
-                    tvPayToast.setText("该单已使用积分抵扣" + integral_money + "元，您总积分为" + mJiuSuShop.getPay_points());
+                    tvPayToast.setText("支付成功将扣除" + Math.ceil(integral_money) + "积分，您总积分为" + mJiuSuShop.getPay_points());
+                }else{
+                    tvPayToast.setText("此金额已超出可使用积分"+(integral_money-mJiuSuShop.getPay_points())+"分");
                 }
             }
         }
@@ -182,7 +184,7 @@ public class ShopSureBuyActivity extends BaseActivity<SureBuyPresenter> implemen
     /**
      * 数据存下来
      */
-    private JiuSuShop mJiuSuShop ;
+    private JiuSuShop  mJiuSuShop = new JiuSuShop(); ;
 
     @Override
     public void isGetShopsInfoSuc(JiuSuShop data) {
@@ -253,58 +255,17 @@ public class ShopSureBuyActivity extends BaseActivity<SureBuyPresenter> implemen
         }
     }
 
-    /**
-     * 支付成功携带参数进下个页面
-     */
-    public  class Parms  implements Serializable {
-        private String shop_name;
-        private String shop_img;
-        private String price_title;
-        private long pay_time;
-        public String getShop_name() {
-            return shop_name == null ? "" : shop_name;
-        }
-
-        public void setShop_name(String shop_name) {
-            this.shop_name = shop_name;
-        }
-
-        public String getShop_img() {
-            return shop_img == null ? "" : shop_img;
-        }
-
-        public void setShop_img(String shop_img) {
-            this.shop_img = shop_img;
-        }
-
-        public String getPrice_title() {
-            return price_title == null ? "" : price_title;
-        }
-
-        public void setPrice_title(String price_title) {
-            this.price_title = price_title;
-        }
-
-        public long getPay_time() {
-            return pay_time;
-        }
-
-        public void setPay_time(long pay_time) {
-            this.pay_time = pay_time;
-        }
-    }
 
 
     //支付成功 进入订单详情页面
     private void paySuc() {
-
-      Parms parms = new Parms();
+        Parms parms = new Parms();
         parms.setPay_time(System.currentTimeMillis());
         parms.setPrice_title(tvPriceTitle.getText().toString());
         parms.setShop_img(mJiuSuShop.getShop_img());
         parms.setShop_name(mJiuSuShop.getShop_name());
         //进入店内买单的详情页面
-        startActivity(new Intent(mContext, JiuSuShopPaySucActivity.class).putExtra(Constant.INTENT_KEY_OBJECT,parms));
+        startActivity(new Intent(mContext, JiuSuShopPaySucActivity.class).putExtra(Constant.INTENT_KEY_OBJECT, parms));
         finish();
     }
 
@@ -325,12 +286,16 @@ public class ShopSureBuyActivity extends BaseActivity<SureBuyPresenter> implemen
                 break;
             //确认购买
             case R.id.tv_sure_buy:
+                if (StringUtil.isEmpty(etPayPrice.getText().toString())){
+                    showToast("请输入金额");
+                    return;
+                }
                 //调起支付
                 HashMap<String, String> map = new HashMap<>();
                 map.put("pay_code", selectPayType);
-                map.put("pay_price", etPayPrice.getText().toString());
-                map.put("shop_id",shop_id+"");
-                mPresenter.getBuyGoodsInfo(PacketUtil.getRequestPacket(map));
+                map.put("money", etPayPrice.getText().toString());
+                map.put(Constant.SHOP_ID,shop_id+"");
+                mPresenter.getBuyShopsInfo(PacketUtil.getRequestPacket(map));
                 break;
         }
     }
