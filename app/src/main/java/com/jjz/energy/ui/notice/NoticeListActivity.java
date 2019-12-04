@@ -107,53 +107,91 @@ public class NoticeListActivity extends BaseActivity<NoticePresenter> implements
     public void isGetNoticeListInfoSuc(NoticeListInfo data) {
         //设置各项数据
         if (data.getMessages() != null) {
-            setRedMark(mMessageRed, data.getMessages().getUnread_num(), imgMessageNotice);
+            if (mMessageRed != null) {
+                mMessageRed.setBadgeNumber( data.getMessages().getUnread_num());
+            } else {
+                mMessageRed = new QBadgeView(mContext).bindTarget(imgMessageNotice).setBadgeGravity(Gravity.TOP | Gravity.END)
+                        .setBadgeTextSize(8, true).setBadgeNumber(data.getMessages().getUnread_num()).setGravityOffset(2, 0,
+                                true);
+            }
             tvMessageContent.setText(data.getMessages().getMessages());
             tvMessageTime.setText(DateUtil.longToDate(data.getMessages().getLast_time(), null));
         } else {
             tvMessageTime.setText("");
             tvMessageContent.setText("暂无新消息");
-            setRedMark(mMessageRed, 0, imgMessageNotice);
+            if (mMessageRed != null) {
+                mMessageRed.setBadgeNumber(0);
+            }
         }
         //设置各项数据
         if (data.getOrder() != null) {
-            setRedMark(mOrderRed, data.getOrder().getUnread_num(), imgOrderNotice);
+            if (mOrderRed != null) {
+                mOrderRed.setBadgeNumber( data.getOrder().getUnread_num());
+            } else {
+                mOrderRed = new QBadgeView(mContext).bindTarget(imgOrderNotice).setBadgeGravity(Gravity.TOP | Gravity.END)
+                        .setBadgeTextSize(8, true).setBadgeNumber(data.getOrder().getUnread_num()).setGravityOffset(2, 0,
+                                true);
+            }
             tvOrderContent.setText(data.getOrder().getMessages());
             tvOrderTime.setText(DateUtil.longToDate(data.getOrder().getLast_time(), null));
         } else {
             tvOrderTime.setText("");
             tvOrderContent.setText("暂无新消息");
-            setRedMark(mOrderRed, 0, imgOrderNotice);
+            if (mOrderRed != null) {
+                mOrderRed.setBadgeNumber(0);
+            }
         }
         //设置各项数据
         if (data.getShipping() != null) {
-            setRedMark(mLogisticeRed, data.getShipping().getUnread_num(), imgLogisticsNotice);
+            if (mLogisticeRed != null) {
+                mLogisticeRed.setBadgeNumber( data.getShipping().getUnread_num());
+            } else {
+                mLogisticeRed = new QBadgeView(mContext).bindTarget(imgLogisticsNotice).setBadgeGravity(Gravity.TOP | Gravity.END)
+                        .setBadgeTextSize(8, true).setBadgeNumber(data.getShipping().getUnread_num()).setGravityOffset(2, 0, true);
+            }
             tvLogisticsContent.setText(data.getShipping().getMessages());
             tvLogisticsTime.setText(DateUtil.longToDate(data.getShipping().getLast_time(), null));
         } else {
             tvLogisticsTime.setText("");
             tvLogisticsContent.setText("暂无新消息");
-            setRedMark(mLogisticeRed, 0, imgLogisticsNotice);
+            if (mLogisticeRed != null) {
+                mLogisticeRed.setBadgeNumber(0);
+            }
         }
         //设置各项数据
         if (data.getSystem() != null) {
+            if (mSystemRed != null) {
+                mSystemRed.setBadgeNumber( data.getSystem().getUnread_num());
+            } else {
+                mSystemRed = new QBadgeView(mContext).bindTarget(imgSystemNotice).setBadgeGravity(Gravity.TOP | Gravity.END)
+                        .setBadgeTextSize(8, true).setBadgeNumber(data.getSystem().getUnread_num()).setGravityOffset(2, 0, true);
+            }
             setRedMark(mSystemRed, data.getSystem().getUnread_num(), imgSystemNotice);
             tvSystemContent.setText(data.getSystem().getMessages());
             tvSystemTime.setText(DateUtil.longToDate(data.getSystem().getLast_time(), null));
         } else {
             tvSystemTime.setText("");
             tvSystemContent.setText("暂无新消息");
-            setRedMark(mSystemRed, 0, imgSystemNotice);
+            if (mSystemRed != null) {
+                mSystemRed.setBadgeNumber(0);
+            }
         }
         //设置各项数据
         if (data.getCommunity() != null) {
-            setRedMark(mEvaluationRed, data.getCommunity().getUnread_num(), imgEvaluationNotice);
+            if (mEvaluationRed != null) {
+                mEvaluationRed.setBadgeNumber( data.getCommunity().getUnread_num());
+            } else {
+                mEvaluationRed = new QBadgeView(mContext).bindTarget(imgEvaluationNotice).setBadgeGravity(Gravity.TOP | Gravity.END)
+                        .setBadgeTextSize(8, true).setBadgeNumber(data.getCommunity().getUnread_num()).setGravityOffset(2, 0, true);
+            }
             tvEvaluationContent.setText(data.getCommunity().getMessages());
             tvEvaluationTime.setText(DateUtil.longToDate(data.getCommunity().getLast_time(), null));
         } else {
             tvEvaluationTime.setText("");
             tvEvaluationContent.setText("暂无新消息");
-            setRedMark(mEvaluationRed, 0, imgEvaluationNotice);
+            if (mEvaluationRed != null) {
+                mEvaluationRed.setBadgeNumber(0);
+            }
         }
 
 
@@ -171,6 +209,7 @@ public class NoticeListActivity extends BaseActivity<NoticePresenter> implements
                     .setBadgeTextSize(8, true).setBadgeNumber(noticeSum).setGravityOffset(2, 0,
                             true);
         }
+
     }
 
     @OnClick({R.id.ll_toolbar_left, R.id.rl_system, R.id.rl_order, R.id.rl_logistics,
@@ -206,8 +245,6 @@ public class NoticeListActivity extends BaseActivity<NoticePresenter> implements
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
-
     }
 
     @Override

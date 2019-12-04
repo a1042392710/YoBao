@@ -9,7 +9,6 @@ import com.baidu.mapapi.CoordType;
 import com.baidu.mapapi.SDKInitializer;
 import com.jjz.energy.R;
 import com.jjz.energy.ui.notice.IMActivity;
-import com.jjz.energy.util.CrashHandler;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
@@ -31,7 +30,7 @@ public class BaseApplication extends Application {
         AppContext = getApplicationContext();
         initBaiduSDK();
         initJPushJMessage();
-        CrashHandler.getInstance().init(this);
+//        CrashHandler.getInstance().init(this);
         setupLeakCanary();
     }
 
