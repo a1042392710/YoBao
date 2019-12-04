@@ -222,7 +222,6 @@ public class CommunityDetailActivity extends BaseActivity<CommunityPresenter> im
                         //回到初始状态
                         etComment.setHint("说点什么吧");
                         reply_id="";
-                        selectIndex=-1;
                         LinearLayout.LayoutParams layoutParams =
                                 (LinearLayout.LayoutParams) view_keybord.getLayoutParams();
                         layoutParams.height = 0;
@@ -301,7 +300,7 @@ public class CommunityDetailActivity extends BaseActivity<CommunityPresenter> im
         HashMap<String,String> map = new HashMap<>();
         map.put("content",etComment.getText().toString());
         map.put("timeline_id",mListBean.getId()+"");
-        if (!etComment.getHint().toString().contains("@")&&!StringUtil.isEmpty(reply_id)){
+        if (selectIndex!=-1&&!StringUtil.isEmpty(reply_id)){
             map.put("reply_id",reply_id);
         }
         mPresenter.putComment(PacketUtil.getRequestPacket(map));

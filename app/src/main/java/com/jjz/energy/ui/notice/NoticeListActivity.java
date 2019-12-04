@@ -55,14 +55,6 @@ public class NoticeListActivity extends BaseActivity<NoticePresenter> implements
     TextView tvOrderTime;
     @BindView(R.id.rl_order)
     RelativeLayout rlOrder;
-    @BindView(R.id.tv_logistics_title)
-    TextView tvLogisticsTitle;
-    @BindView(R.id.tv_logistics_content)
-    TextView tvLogisticsContent;
-    @BindView(R.id.tv_logistics_time)
-    TextView tvLogisticsTime;
-    @BindView(R.id.rl_logistics)
-    RelativeLayout rlLogistics;
     @BindView(R.id.tv_message_title)
     TextView tvMessageTitle;
     @BindView(R.id.tv_message_content)
@@ -78,7 +70,7 @@ public class NoticeListActivity extends BaseActivity<NoticePresenter> implements
     @BindView(R.id.tv_evaluation_time)
     TextView tvEvaluationTime;
     //红点
-    private Badge mOrderRed, mSystemRed, mMessageRed, mLogisticeRed ,mEvaluationRed;
+    private Badge mOrderRed, mSystemRed, mMessageRed ,mEvaluationRed;
 
     private ImageView imgMessageNotice;
     private ImageView imgLogisticsNotice;
@@ -90,7 +82,6 @@ public class NoticeListActivity extends BaseActivity<NoticePresenter> implements
     protected void initView() {
         tvToolbarTitle.setText("消息");
         imgMessageNotice = findViewById(R.id.img_message_notice);
-        imgLogisticsNotice = findViewById(R.id.img_logistics_notice);
         imgOrderNotice = findViewById(R.id.img_order_notice);
         imgSystemNotice = findViewById(R.id.img_system_notice);
         imgEvaluationNotice = findViewById(R.id.img_evaluation_notice);
@@ -142,23 +133,6 @@ public class NoticeListActivity extends BaseActivity<NoticePresenter> implements
             }
         }
         //设置各项数据
-        if (data.getShipping() != null) {
-            if (mLogisticeRed != null) {
-                mLogisticeRed.setBadgeNumber( data.getShipping().getUnread_num());
-            } else {
-                mLogisticeRed = new QBadgeView(mContext).bindTarget(imgLogisticsNotice).setBadgeGravity(Gravity.TOP | Gravity.END)
-                        .setBadgeTextSize(8, true).setBadgeNumber(data.getShipping().getUnread_num()).setGravityOffset(2, 0, true);
-            }
-            tvLogisticsContent.setText(data.getShipping().getMessages());
-            tvLogisticsTime.setText(DateUtil.longToDate(data.getShipping().getLast_time(), null));
-        } else {
-            tvLogisticsTime.setText("");
-            tvLogisticsContent.setText("暂无新消息");
-            if (mLogisticeRed != null) {
-                mLogisticeRed.setBadgeNumber(0);
-            }
-        }
-        //设置各项数据
         if (data.getSystem() != null) {
             if (mSystemRed != null) {
                 mSystemRed.setBadgeNumber( data.getSystem().getUnread_num());
@@ -166,7 +140,6 @@ public class NoticeListActivity extends BaseActivity<NoticePresenter> implements
                 mSystemRed = new QBadgeView(mContext).bindTarget(imgSystemNotice).setBadgeGravity(Gravity.TOP | Gravity.END)
                         .setBadgeTextSize(8, true).setBadgeNumber(data.getSystem().getUnread_num()).setGravityOffset(2, 0, true);
             }
-            setRedMark(mSystemRed, data.getSystem().getUnread_num(), imgSystemNotice);
             tvSystemContent.setText(data.getSystem().getMessages());
             tvSystemTime.setText(DateUtil.longToDate(data.getSystem().getLast_time(), null));
         } else {
@@ -198,21 +171,7 @@ public class NoticeListActivity extends BaseActivity<NoticePresenter> implements
         closeRefresh(smartRefresh);
     }
 
-    /**
-     * 设置
-     */
-    private void setRedMark(Badge badge, int noticeSum, View img) {
-        if (badge != null) {
-            badge.setBadgeNumber(noticeSum);
-        } else {
-            badge = new QBadgeView(mContext).bindTarget(img).setBadgeGravity(Gravity.TOP | Gravity.END)
-                    .setBadgeTextSize(8, true).setBadgeNumber(noticeSum).setGravityOffset(2, 0,
-                            true);
-        }
-
-    }
-
-    @OnClick({R.id.ll_toolbar_left, R.id.rl_system, R.id.rl_order, R.id.rl_logistics,
+    @OnClick({R.id.ll_toolbar_left, R.id.rl_system, R.id.rl_order,
             R.id.rl_message ,R.id.rl_evaluation})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -227,10 +186,7 @@ public class NoticeListActivity extends BaseActivity<NoticePresenter> implements
             case R.id.rl_order:
                 startActivity(new Intent(mContext, OrderNoticeActivity.class));
                 break;
-            //物流消息
-            case R.id.rl_logistics:
-                startActivity(new Intent(mContext, LogisticsNoticeActivity.class));
-                break;
+
             //留言消息
             case R.id.rl_message:
                 startActivity(new Intent(mContext, CommentNoticeActivity.class));

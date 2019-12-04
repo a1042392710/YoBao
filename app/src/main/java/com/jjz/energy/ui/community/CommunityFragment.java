@@ -240,6 +240,7 @@ public class CommunityFragment extends BaseLazyFragment<CommunityPresenter> impl
                 rv_photo.setLayoutManager(new GridLayoutManager(mContext, 2));
                 //放入图片的数据
                 rv_photo.setAdapter(new PhotoAdapter(R.layout.item_photo ,list));
+
             } else {
                 rv_photo.setVisibility(View.GONE);
             }

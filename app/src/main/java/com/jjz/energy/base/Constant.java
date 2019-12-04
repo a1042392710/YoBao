@@ -83,10 +83,6 @@ public class Constant {
      */
     public  static  final int NOTICE_REFUND = 2;
     /**
-     * 推送的消息类型 物流
-     */
-    public  static  final int NOTICE_LOGISTICE= 3;
-    /**
      * 推送的消息类型 留言
      */
     public  static  final int NOTICE_MESSAGE = 4;

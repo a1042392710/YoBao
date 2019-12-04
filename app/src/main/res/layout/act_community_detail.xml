@@ -94,7 +94,7 @@
                         android:id="@+id/rv_photo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="18dp"
+                        android:layout_marginLeft="22dp"
                         android:paddingTop="15dp" />
 
                     <TextView

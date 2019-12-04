@@ -198,8 +198,10 @@ public class PostFragment extends BaseLazyFragment<CommunityPresenter> implement
                 rv_photo.setLayoutManager(new GridLayoutManager(mContext, 2));
                 //放入图片的数据
                 rv_photo.setAdapter(new PhotoAdapter(R.layout.item_photo, list));
+
             } else {
                 rv_photo.setVisibility(View.GONE);
+
             }
             //没点赞
             if (item.getIs_like() == 0) {

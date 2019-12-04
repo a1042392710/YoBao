@@ -139,65 +139,6 @@
                 android:layout_height="1dp"
                 android:background="@color/color_bg_f7" />
 
-            <RelativeLayout
-                android:id="@+id/rl_logistics"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:orientation="vertical"
-                android:paddingLeft="14dp"
-                android:paddingTop="10dp"
-                android:paddingRight="14dp"
-                android:paddingBottom="10dp">
-
-
-                <ImageView
-                    android:id="@+id/img_logistics_notice"
-                    android:layout_width="50dp"
-                    android:paddingRight="7dp"
-                    android:layout_height="50dp"
-                    android:src="@mipmap/ic_message_logistics" />
-
-                <TextView
-                    android:id="@+id/tv_logistics_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="11dp"
-                    android:layout_toRightOf="@id/img_logistics_notice"
-                    android:text="物流消息"
-                    android:textColor="@color/text_black28"
-                    android:textSize="14sp" />
-
-                <TextView
-                    android:id="@+id/tv_logistics_content"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/tv_logistics_title"
-                    android:layout_alignLeft="@id/tv_logistics_title"
-                    android:layout_marginTop="6dp"
-                    android:singleLine="true"
-                    android:ellipsize="end"
-                    android:text="暂无物流消息"
-                    android:textColor="@color/text_black75"
-                    android:textSize="11sp" />
-
-                <TextView
-                    android:id="@+id/tv_logistics_time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBottom="@id/tv_logistics_title"
-                    android:layout_alignParentRight="true"
-                    android:textColor="@color/text_black75"
-                    android:textSize="11sp"
-                    tools:text="16:08" />
-
-
-            </RelativeLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/color_bg_f7" />
 
             <RelativeLayout
                 android:id="@+id/rl_message"

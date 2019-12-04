@@ -12,7 +12,6 @@ import com.jjz.energy.ui.MainActivity;
 import com.jjz.energy.ui.community.CommunityDetailActivity;
 import com.jjz.energy.ui.home.commodity.CommodityDetailActivity;
 import com.jjz.energy.ui.shop_order.EvaluateDetailsActivity;
-import com.jjz.energy.ui.shop_order.ExpressDetailsActivity;
 import com.jjz.energy.ui.shop_order.OrderDetailsActivity;
 import com.jjz.energy.ui.shop_order.refund_order.BuyerRefundDetailsActivity;
 import com.jjz.energy.ui.shop_order.refund_order.SellerRefundDetailsActivity;
@@ -107,10 +106,6 @@ public class MyReceiver extends BroadcastReceiver {
             case Constant.NOTICE_REFUND:
                 i = new Intent(context, user_type.equals("buyer") ?
                         BuyerRefundDetailsActivity.class : SellerRefundDetailsActivity.class).putExtra(Constant.RETURN_ID, id);
-                break;
-            //推送类型 物流
-            case Constant.NOTICE_LOGISTICE:
-                i = new Intent(context, ExpressDetailsActivity.class).putExtra(Constant.SHIPPING_NO,id);
                 break;
             //推送类型 留言
             case Constant.NOTICE_MESSAGE:

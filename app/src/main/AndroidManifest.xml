@@ -366,10 +366,6 @@
         <activity android:name="com.jjz.energy.ui.notice.SystemNoticeActivity"
             android:configChanges="orientation|screenSize"/>
 
-        <!--物流消息-->
-        <activity android:name="com.jjz.energy.ui.notice.LogisticsNoticeActivity"
-            android:configChanges="orientation|screenSize"/>
-
         <!--留言消息-->
         <activity android:name="com.jjz.energy.ui.notice.CommentNoticeActivity"
             android:configChanges="orientation|screenSize"/>
