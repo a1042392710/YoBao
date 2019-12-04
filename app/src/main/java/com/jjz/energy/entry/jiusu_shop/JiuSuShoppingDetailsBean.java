@@ -26,6 +26,33 @@ public class JiuSuShoppingDetailsBean  {
     private String order_amount;
     private String total_amount;
     private String order_sn;
+    private String nickname;
+    private String mobile;
+    private String head_pic;
+
+    public String getNickname() {
+        return nickname == null ? "" : nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public String getMobile() {
+        return mobile == null ? "" : mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+
+    public String getHead_pic() {
+        return head_pic == null ? "" : head_pic;
+    }
+
+    public void setHead_pic(String head_pic) {
+        this.head_pic = head_pic;
+    }
 
     public double getLng() {
         return lng;

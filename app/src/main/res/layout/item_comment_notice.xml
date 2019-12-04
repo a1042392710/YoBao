@@ -21,9 +21,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingLeft="17dp"
-            android:paddingTop="6dp"
+            android:paddingTop="3dp"
             android:paddingRight="17dp"
-            android:paddingBottom="6dp"
+            android:paddingBottom="3dp"
             android:text="星期三 09:08"
             android:textColor="@color/white"
             android:textSize="13sp" />
@@ -58,14 +58,6 @@
             android:layout_marginRight="10dp"
             android:src="@color/color_primary_f5" />
 
-        <ImageView
-            android:id="@+id/item_img_commondity"
-            android:layout_width="77dp"
-            android:layout_height="77dp"
-            android:layout_below="@id/item_tv_notice_title"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="5dp"
-            android:src="@color/color_primary_f5" />
 
         <TextView
             android:id="@+id/item_tv_notice_content"

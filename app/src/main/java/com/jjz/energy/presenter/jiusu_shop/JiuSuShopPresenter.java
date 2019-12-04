@@ -148,6 +148,70 @@ public class JiuSuShopPresenter extends BasePresenter<JiuSuShopModel, IJiuSuShop
                 }));
 
     }
+
+
+    /**
+     * 获取本店收款记录
+     * @param map
+     */
+    @SuppressLint("CheckResult")
+    public void getJiuSuCollectionList(String map,boolean isLoadMore) {
+
+        addSubscribe(mModel.getJiuSuCollectionList(map)
+                .subscribeWith(new CommonSubscriber<JiuSuShoppingBean>() {
+
+                    @Override
+                    protected void startLoading() {
+                        if (!isLoadMore){
+                            mView.showLoading();
+                        }
+                    }
+
+                    @Override
+                    protected void onSuccess(JiuSuShoppingBean response) {
+                        mView.stopLoading();
+                        mView.isGetJiusuShoppingListSuc(response);
+                    }
+
+                    @Override
+                    protected void onFail(String errorMsg ,boolean isNetAndSeriveError) {
+                        mView.isFail(errorMsg,isNetAndSeriveError);
+                        mView.stopLoading();
+                    }
+                }));
+
+    }
+
+    /**
+     * 商家收款详情
+     * @param map
+     */
+    @SuppressLint("CheckResult")
+    public void getJiuSuCollectionDetails(String map) {
+
+        addSubscribe(mModel.getJiuCollectionDetails(map)
+                .subscribeWith(new CommonSubscriber<JiuSuShoppingDetailsBean>() {
+
+                    @Override
+                    protected void startLoading() {
+                        mView.showLoading();
+                    }
+
+                    @Override
+                    protected void onSuccess(JiuSuShoppingDetailsBean response) {
+                        mView.stopLoading();
+                        mView.isGetJiusuShoppingDetailsSuc(response);
+                    }
+
+                    @Override
+                    protected void onFail(String errorMsg ,boolean isNetAndSeriveError) {
+                        mView.isFail(errorMsg,isNetAndSeriveError);
+                        mView.stopLoading();
+                    }
+                }));
+
+    }
+
     /**
      * 获取商家个人主页信息
      * @param map

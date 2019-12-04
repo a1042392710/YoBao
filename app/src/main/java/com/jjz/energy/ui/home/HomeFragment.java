@@ -24,14 +24,9 @@ import com.jjz.energy.entry.home.HomeDetailBean;
 import com.jjz.energy.presenter.home.HomePresenter;
 import com.jjz.energy.ui.MainActivity;
 import com.jjz.energy.ui.city.CityPickerActivity;
-import com.jjz.energy.ui.home.charitable.CharitableActivity;
 import com.jjz.energy.ui.home.commodity.HomeCommodityFragment;
-import com.jjz.energy.ui.home.education.EducationActivity;
-import com.jjz.energy.ui.home.insurance.InsuranceActivity;
 import com.jjz.energy.ui.home.jiusu.JiuSuHomeActivity;
 import com.jjz.energy.ui.home.login.LoginActivity;
-import com.jjz.energy.ui.home.logistics.LogisticsActivity;
-import com.jjz.energy.ui.home.pension.PensionActivity;
 import com.jjz.energy.ui.jiusu_shop.JiuSuShopActivity;
 import com.jjz.energy.ui.notice.NoticeListActivity;
 import com.jjz.energy.util.StringUtil;
@@ -218,23 +213,28 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements IHomeVi
                 break;
             //物流
             case R.id.ll_logistics:
-                startActivity(new Intent(mContext, LogisticsActivity.class));
+                showToast("暂未开放");
+//                startActivity(new Intent(mContext, LogisticsActivity.class));
                 break;
             //保险
             case R.id.ll_insurance:
-                startActivity(new Intent(mContext, InsuranceActivity.class));
+                showToast("暂未开放");
+//                startActivity(new Intent(mContext, InsuranceActivity.class));
                 break;
             //养老
             case R.id.ll_old:
-                startActivity(new Intent(mContext, PensionActivity.class));
+                showToast("暂未开放");
+//                startActivity(new Intent(mContext, PensionActivity.class));
                 break;
             //公益
             case R.id.ll_charitable:
-                startActivity(new Intent(mContext, CharitableActivity.class));
+                showToast("暂未开放");
+//                startActivity(new Intent(mContext, CharitableActivity.class));
                 break;
             //教育
             case R.id.ll_education:
-                startActivity(new Intent(mContext, EducationActivity.class));
+                showToast("暂未开放");
+//                startActivity(new Intent(mContext, EducationActivity.class));
                 break;
             //久速专区
             case R.id.ll_jiusu:

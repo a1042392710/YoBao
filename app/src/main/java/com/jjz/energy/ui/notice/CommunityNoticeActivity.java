@@ -151,7 +151,7 @@ public class CommunityNoticeActivity extends BaseActivity<NoticePresenter> imple
 
     @Override
     protected int layoutId() {
-        return R.layout.act_notice_list;
+        return R.layout.act_community_notice_list;
     }
 
     class NoticeAdapter extends BaseRecycleNewAdapter<OrderNoticeBean.ListBean>{

@@ -139,8 +139,6 @@ public class HomePageActivity extends BaseActivity<HomePagePresenter> implements
         isFocus = data.getIs_focus();
         //设置头像
         GlideUtils.loadCircleImage(mContext,data.getHead_pic(),imgHead);
-        //设置背景为头像高斯模糊后的图片
-        GlideUtils.loadBlurImage(mContext,data.getHead_pic(),llHeader);
         //用户昵称
         tvUserName.setText(data.getNickname());
         //粉丝数 关注数

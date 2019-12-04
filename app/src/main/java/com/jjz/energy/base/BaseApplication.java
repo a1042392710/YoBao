@@ -9,6 +9,7 @@ import com.baidu.mapapi.CoordType;
 import com.baidu.mapapi.SDKInitializer;
 import com.jjz.energy.R;
 import com.jjz.energy.ui.notice.IMActivity;
+import com.jjz.energy.util.CrashHandler;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
@@ -30,6 +31,7 @@ public class BaseApplication extends Application {
         AppContext = getApplicationContext();
         initBaiduSDK();
         initJPushJMessage();
+        CrashHandler.getInstance().init(this);
         setupLeakCanary();
     }
 
@@ -40,7 +42,7 @@ public class BaseApplication extends Application {
      */
     private void initBaiduSDK() {
         //bugly 参数3  调试开关 /测试时true 发布时false
-        Bugly.init(getApplicationContext(), Constant.BUGLY_ID, true);
+        Bugly.init(getApplicationContext(), Constant.BUGLY_ID, false);
         //在使用SDK各组件之前初始化context信息，传入ApplicationContext
         SDKInitializer.initialize(this);
         //自4.3.0起，百度地图SDK所有接口均支持百度坐标和国测局坐标，用此方法设置您使用的坐标类型.

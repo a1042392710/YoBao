@@ -18,8 +18,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:text="星期三 09:08"
-        android:paddingTop="6dp"
-        android:paddingBottom="6dp"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
         android:paddingLeft="17dp"
         android:paddingRight="17dp"
         android:textSize="13sp"

@@ -108,47 +108,52 @@ public class NoticeListActivity extends BaseActivity<NoticePresenter> implements
         //设置各项数据
         if (data.getMessages() != null) {
             setRedMark(mMessageRed, data.getMessages().getUnread_num(), imgMessageNotice);
-            tvMessageContent.setText(data.getMessages().getMessage());
+            tvMessageContent.setText(data.getMessages().getMessages());
             tvMessageTime.setText(DateUtil.longToDate(data.getMessages().getLast_time(), null));
         } else {
             tvMessageTime.setText("");
             tvMessageContent.setText("暂无新消息");
+            setRedMark(mMessageRed, 0, imgMessageNotice);
         }
         //设置各项数据
         if (data.getOrder() != null) {
             setRedMark(mOrderRed, data.getOrder().getUnread_num(), imgOrderNotice);
-            tvOrderContent.setText(data.getOrder().getMessage());
+            tvOrderContent.setText(data.getOrder().getMessages());
             tvOrderTime.setText(DateUtil.longToDate(data.getOrder().getLast_time(), null));
         } else {
             tvOrderTime.setText("");
             tvOrderContent.setText("暂无新消息");
+            setRedMark(mOrderRed, 0, imgOrderNotice);
         }
         //设置各项数据
         if (data.getShipping() != null) {
             setRedMark(mLogisticeRed, data.getShipping().getUnread_num(), imgLogisticsNotice);
-            tvLogisticsContent.setText(data.getShipping().getMessage());
+            tvLogisticsContent.setText(data.getShipping().getMessages());
             tvLogisticsTime.setText(DateUtil.longToDate(data.getShipping().getLast_time(), null));
         } else {
             tvLogisticsTime.setText("");
             tvLogisticsContent.setText("暂无新消息");
+            setRedMark(mLogisticeRed, 0, imgLogisticsNotice);
         }
         //设置各项数据
         if (data.getSystem() != null) {
             setRedMark(mSystemRed, data.getSystem().getUnread_num(), imgSystemNotice);
-            tvSystemContent.setText(data.getSystem().getMessage());
+            tvSystemContent.setText(data.getSystem().getMessages());
             tvSystemTime.setText(DateUtil.longToDate(data.getSystem().getLast_time(), null));
         } else {
             tvSystemTime.setText("");
             tvSystemContent.setText("暂无新消息");
+            setRedMark(mSystemRed, 0, imgSystemNotice);
         }
         //设置各项数据
         if (data.getCommunity() != null) {
             setRedMark(mEvaluationRed, data.getCommunity().getUnread_num(), imgEvaluationNotice);
-            tvEvaluationContent.setText(data.getCommunity().getMessage());
+            tvEvaluationContent.setText(data.getCommunity().getMessages());
             tvEvaluationTime.setText(DateUtil.longToDate(data.getCommunity().getLast_time(), null));
         } else {
             tvEvaluationTime.setText("");
             tvEvaluationContent.setText("暂无新消息");
+            setRedMark(mEvaluationRed, 0, imgEvaluationNotice);
         }
 
 

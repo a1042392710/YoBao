@@ -164,9 +164,7 @@ public class CommentNoticeActivity extends BaseActivity<NoticePresenter> impleme
         @Override
         protected void convert(BaseViewHolder helper, OrderNoticeBean.ListBean item) {
             ImageView imgHead = helper.getView(R.id.item_img_head);
-            ImageView imgCommodity = helper.getView(R.id.item_img_commondity);
             GlideUtils.loadRoundCircleImage(mContext,item.getHead_pic(),imgHead);
-            GlideUtils.loadRoundCircleImage(mContext,item.getImg_url(),imgCommodity);
             helper.setText(R.id.item_tv_notice_title,item.getNickname()+" 给您留言了");
             helper.setText(R.id.item_tv_notice_content,item.getContent());
             helper.setText(R.id.item_tv_time_title, DateUtil.longToDate(item.getAdd_time(),null));

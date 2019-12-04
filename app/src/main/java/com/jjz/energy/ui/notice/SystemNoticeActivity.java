@@ -69,7 +69,7 @@ public class SystemNoticeActivity extends BaseActivity<NoticePresenter> implemen
         //点击进入各个详情页面
         mNoticeAdapter.setOnItemClickListener((adapter, view, position) -> {
             //进入商品详情页面
-            startActivity(new Intent(mContext, CommodityDetailActivity.class).putExtra(Constant.ORDER_SN, mNoticeAdapter.getData().get(position).getOrder_sn()));
+            startActivity(new Intent(mContext, CommodityDetailActivity.class).putExtra(Constant.GOODS_ID, mNoticeAdapter.getData().get(position).getGoods_id()));
         });
         getData(false);
     }

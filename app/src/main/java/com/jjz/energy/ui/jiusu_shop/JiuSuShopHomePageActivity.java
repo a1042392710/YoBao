@@ -133,16 +133,16 @@ public class JiuSuShopHomePageActivity extends BaseActivity <JiuSuShopPresenter>
     /**
      * 商家id
      */
-    private int shop_id;
+    private String shop_id;
 
     @Override
     protected void initView() {
-        shop_id = getIntent().getIntExtra(Constant.SHOP_ID,0);
+        shop_id = getIntent().getStringExtra(Constant.SHOP_ID);
         tvToolbarTitle.setText("商家主页");
         initRv();
         initListener();
         //获取商家基础信息
-        mPresenter.getShopHomePageInfo(PacketUtil.getRequestPacket(Utils.stringToMap(Constant.SHOP_ID,AesUtils.encrypt(String.valueOf(shop_id), AesUtils.KEY, AesUtils.IV))));
+        mPresenter.getShopHomePageInfo(PacketUtil.getRequestPacket(Utils.stringToMap(Constant.SHOP_ID,AesUtils.encrypt(shop_id, AesUtils.KEY, AesUtils.IV))));
         //获取商家评价
         getCommentData(false);
     }

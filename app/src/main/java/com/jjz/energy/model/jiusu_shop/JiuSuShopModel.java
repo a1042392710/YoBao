@@ -39,6 +39,11 @@ public class JiuSuShopModel extends BaseModel {
         return RetrofitFactory.getRetrofit().create(Api.class).getJiuSuShoppingList(requestData).compose(RxSchedulerHepler.handleMyResult());
     }
 
+    //获取本店收款记录
+    public Flowable<JiuSuShoppingBean> getJiuSuCollectionList(String requestData) {
+        return RetrofitFactory.getRetrofit().create(Api.class).getJiuSuCollectionList(requestData).compose(RxSchedulerHepler.handleMyResult());
+    }
+
     //获取商家个人主页的数据
     public Flowable<ShopHomePageBean> getShopHomePage(String requestData) {
         return RetrofitFactory.getRetrofit().create(Api.class).getShopHomePage(requestData).compose(RxSchedulerHepler.handleMyResult());
@@ -49,9 +54,14 @@ public class JiuSuShopModel extends BaseModel {
         return RetrofitFactory.getRetrofit().create(Api.class).getShopCommentList(requestData).compose(RxSchedulerHepler.handleMyResult());
     }
 
-    //获取商家个人主页的数据
+    //获取消费记录详情
     public Flowable<JiuSuShoppingDetailsBean> getJiuSuShoppingDetails(String requestData) {
         return RetrofitFactory.getRetrofit().create(Api.class).getJiuSuShoppingDetails(requestData).compose(RxSchedulerHepler.handleMyResult());
+    }
+
+    //获取收款记录详情
+    public Flowable<JiuSuShoppingDetailsBean> getJiuCollectionDetails(String requestData) {
+        return RetrofitFactory.getRetrofit().create(Api.class).getJiuCollectionDetails(requestData).compose(RxSchedulerHepler.handleMyResult());
     }
 
 }

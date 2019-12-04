@@ -424,7 +424,7 @@ public class CommodityDetailActivity extends BaseActivity <CommodityDetailsPrese
                 if (!StringUtil.isEmpty(mGoodsInfo.getGoods_info().getShop_id())){
                     //否则进入个人用户页面
                     startActivity(new Intent(mContext, JiuSuShopHomePageActivity.class).putExtra(Constant.SHOP_ID
-                            ,Integer.valueOf(mGoodsInfo.getGoods_info().getShop_id()) ));
+                            ,mGoodsInfo.getGoods_info().getShop_id()));
                 }else{
                     //否则进入个人用户页面
                     startActivity(new Intent(mContext, HomePageActivity.class).putExtra(Constant.USER_ID

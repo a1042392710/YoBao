@@ -514,13 +514,20 @@
             android:configChanges="orientation|screenSize"/>
 
 
-        <!--支付成功-->
+        <!--二维码详情-->
         <activity android:name="com.jjz.energy.ui.home.jiusu.JiuSuVCodeDetailActivity"
             android:configChanges="orientation|screenSize"/>
 
-
-        <!--支付成功-->
+        <!--核销页面-->
         <activity android:name="com.jjz.energy.ui.home.jiusu.JiuSuTranscationSucActivity"
+            android:configChanges="orientation|screenSize"/>
+
+        <!--收款记录-->
+        <activity android:name="com.jjz.energy.ui.mine.MineJiuSuCollectionListActivity"
+            android:configChanges="orientation|screenSize"/>
+
+        <!--收款详情-->
+        <activity android:name="com.jjz.energy.ui.mine.MineJiuSuCollectionDetailsActivity"
             android:configChanges="orientation|screenSize"/>
 
 

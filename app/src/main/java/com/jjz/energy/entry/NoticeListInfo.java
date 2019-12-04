@@ -56,41 +56,41 @@ public class NoticeListInfo {
     }
 
    public class Notice {
-        String name;
-        int unread_num;
-        String message;
-        long last_time;
+       String name;
+       int unread_num;
+       String messages;
+       long last_time;
 
-        public String getName() {
-            return name == null ? "" : name;
-        }
+       public String getName() {
+           return name == null ? "" : name;
+       }
 
-        public void setName(String name) {
-            this.name = name;
-        }
+       public void setName(String name) {
+           this.name = name;
+       }
 
-        public int getUnread_num() {
-            return unread_num;
-        }
+       public int getUnread_num() {
+           return unread_num;
+       }
 
-        public void setUnread_num(int unread_num) {
-            this.unread_num = unread_num;
-        }
+       public void setUnread_num(int unread_num) {
+           this.unread_num = unread_num;
+       }
 
-        public String getMessage() {
-            return message == null ? "" : message;
-        }
+       public String getMessages() {
+           return messages == null ? "" : messages;
+       }
 
-        public void setMessage(String message) {
-            this.message = message;
-        }
+       public void setMessages(String messages) {
+           this.messages = messages;
+       }
 
-        public long getLast_time() {
-            return last_time;
-        }
+       public long getLast_time() {
+           return last_time;
+       }
 
-        public void setLast_time(long last_time) {
-            this.last_time = last_time;
-        }
-    }
+       public void setLast_time(long last_time) {
+           this.last_time = last_time;
+       }
+   }
 }

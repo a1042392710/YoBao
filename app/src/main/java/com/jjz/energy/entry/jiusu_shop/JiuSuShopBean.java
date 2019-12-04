@@ -40,18 +40,19 @@ public class JiuSuShopBean implements Serializable {
         private String shop_img;
         private String shop_name;
         private int avg_tax;
-        private int id;
+        private String id;
         private String cateName;
         private double lng;
         private double lat;
         private String applause_rate;
         private String district;
 
-        public int getId() {
-            return id;
+
+        public String getId() {
+            return id == null ? "" : id;
         }
 
-        public void setId(int id) {
+        public void setId(String id) {
             this.id = id;
         }
 

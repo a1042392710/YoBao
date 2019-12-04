@@ -157,7 +157,7 @@ public class SearchShopResultActivity extends BaseActivity<JiuSuShopPresenter> i
 
         // 跳转商家个人主页
         mAdapter.setOnItemClickListener((adapter, view, position) ->
-                startActivity(new Intent(mContext,JiuSuShopHomePageActivity.class).putExtra("id",mAdapter.getItem(position).getId())));
+                startActivity(new Intent(mContext,JiuSuShopHomePageActivity.class).putExtra(Constant.SHOP_ID,mAdapter.getItem(position).getId())));
         //上拉加载
         smartRefresh.setOnLoadMoreListener(refreshLayout -> {
             mPage++;

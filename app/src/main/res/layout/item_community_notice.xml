@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="14dp"
         android:layout_marginRight="14dp"
-        android:layout_marginBottom="5dp"
+        android:layout_marginBottom="10dp"
         android:background="@drawable/bg_white_radius"
         android:padding="10dp">
 

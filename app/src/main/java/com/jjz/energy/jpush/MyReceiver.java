@@ -129,7 +129,7 @@ public class MyReceiver extends BroadcastReceiver {
 
             //推送类型 系统消息
             case Constant.NOTICE_SYSTEM:
-                i = new Intent(context, CommodityDetailActivity.class).putExtra(Constant.GOODS_ID, id);
+                i = new Intent(context, CommodityDetailActivity.class).putExtra(Constant.GOODS_ID, Integer.valueOf(id));
                 break;
             default:
                 //不清楚通知类型的全跳首页
