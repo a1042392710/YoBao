@@ -36,6 +36,7 @@ import com.jjz.energy.util.Utils;
 import com.jjz.energy.util.file.FileUtil;
 import com.jjz.energy.util.glide.MyGlideEngine;
 import com.jjz.energy.util.networkUtil.PacketUtil;
+import com.jjz.energy.util.networkUtil.UserLoginBiz;
 import com.jjz.energy.util.system.PopWindowUtil;
 import com.jjz.energy.util.system.SpUtil;
 import com.jjz.energy.view.home.IPutCommodityView;
@@ -134,7 +135,7 @@ public class PutCommodityActivity extends BaseActivity <PutCommodityPresenter>im
         address = SpUtil.init(mContext).readString(Constant.LOCATION_ADDRESS);
         tvLocationAddress.setText(address.replace("/", " "));
         //如果是商家，则显示折扣
-        String shop_id = SpUtil.init(mContext).readString(Constant.SHOP_ID);
+        String shop_id = UserLoginBiz.getInstance(mContext).readUserInfo().getShop_id();
         if (!StringUtil.isEmpty(shop_id)){
             tvPointDiscountText.setVisibility(View.VISIBLE);
             llPointDiscount.setVisibility(View.VISIBLE);

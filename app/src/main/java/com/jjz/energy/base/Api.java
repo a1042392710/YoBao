@@ -21,7 +21,6 @@ import com.jjz.energy.entry.jiusu.JiuSuOrderBean;
 import com.jjz.energy.entry.jiusu.LoginBean;
 import com.jjz.energy.entry.jiusu.MapMarkerBean;
 import com.jjz.energy.entry.jiusu.MineAccountBean;
-import com.jjz.energy.entry.jiusu.MineInfoBean;
 import com.jjz.energy.entry.jiusu.MineWalletBean;
 import com.jjz.energy.entry.jiusu.MineWalletListBean;
 import com.jjz.energy.entry.jiusu.OrderDetailBean;
@@ -79,8 +78,8 @@ import retrofit2.http.Url;
  * Date: 2018/10/25 上午8:45
  */
 public interface Api {
-     String BASE_URL = "http://172.16.32.3/";
-//        String BASE_URL = "http://apit.jjznewenergy.com/app/";
+//     String BASE_URL = "http://172.16.32.3/";
+        String BASE_URL = "http://apit.jjznewenergy.com/";
      String PACK_NO = "params";
 
 
@@ -125,7 +124,7 @@ public interface Api {
     //获取我的页面数据
     @FormUrlEncoded
     @POST("shop/user/getUserinfo")
-    Flowable<ResponseData<MineInfoBean>> getMineInfo(@Field(PACK_NO) String pack_no);
+    Flowable<ResponseData<UserInfo>> getMineInfo(@Field(PACK_NO) String pack_no);
 
     /**
      * 修改个人信息

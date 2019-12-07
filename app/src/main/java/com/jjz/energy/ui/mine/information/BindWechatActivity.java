@@ -6,12 +6,15 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.jjz.energy.R;
 import com.jjz.energy.base.BaseActivity;
 import com.jjz.energy.base.Constant;
 import com.jjz.energy.base.LoginEventBean;
+import com.jjz.energy.entry.UserInfo;
 import com.jjz.energy.entry.home.BindBean;
 import com.jjz.energy.presenter.mine.BindALiAndWechatPresenter;
+import com.jjz.energy.util.networkUtil.UserLoginBiz;
 import com.jjz.energy.util.system.SpUtil;
 import com.jjz.energy.util.StringUtil;
 import com.jjz.energy.util.Utils;
@@ -120,8 +123,11 @@ public class BindWechatActivity extends BaseActivity<BindALiAndWechatPresenter> 
 
     @Override
     public void isPutSuccess(String data) {
-        showToast("操作成功");
-        finish();
+        UserInfo userInfo = UserLoginBiz.getInstance(mContext).readUserInfo();
+        userInfo.setIs_bind_wechat(1);
+        UserLoginBiz.getInstance(mContext).saveUserInfo(userInfo);
+        ToastUtils.showLong("操作成功");
+        tvBind.setText("安全修改");
     }
 
     @Override

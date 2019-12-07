@@ -3,7 +3,7 @@ package com.jjz.energy.presenter.mine;
 import android.annotation.SuppressLint;
 
 import com.jjz.energy.base.BasePresenter;
-import com.jjz.energy.entry.jiusu.MineInfoBean;
+import com.jjz.energy.entry.UserInfo;
 import com.jjz.energy.model.mine.MineModel;
 import com.jjz.energy.util.networkUtil.CommonSubscriber;
 import com.jjz.energy.view.mine.IMineView;
@@ -28,14 +28,14 @@ public class MinePresenter extends BasePresenter<MineModel, IMineView> {
     public void getUserInfo(String map) {
 
         addSubscribe(mModel.getUserInfo(map)
-                .subscribeWith(new CommonSubscriber<MineInfoBean>() {
+                .subscribeWith(new CommonSubscriber<UserInfo>() {
 
                     @Override
                     protected void startLoading() {
                     }
 
                     @Override
-                    protected void onSuccess(MineInfoBean response) {
+                    protected void onSuccess(UserInfo response) {
                         mView.stopLoading();
                         mView.isGetInfoSuccess(response);
                     }

@@ -115,11 +115,7 @@ public class Constant {
      */
     public static final String SHOP_ID= "shop_id";
     /**
-     * 用户 积分
-     */
-    public static final String PAY_POINTS= "pay_points";
-    /**
-     * 用户 积分
+     * 用户是否实名认证
      */
     public static final String IS_SET_IDCARD= "is_set_idcard";
 

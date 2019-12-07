@@ -1,7 +1,7 @@
 package com.jjz.energy.view.mine;
 
 import com.jjz.energy.base.IBaseView;
-import com.jjz.energy.entry.jiusu.MineInfoBean;
+import com.jjz.energy.entry.UserInfo;
 
 /**
  * create 我的页面
@@ -10,7 +10,7 @@ import com.jjz.energy.entry.jiusu.MineInfoBean;
 public interface IMineView extends IBaseView {
 
     //获取个人信息
-    void isGetInfoSuccess(MineInfoBean data);
+    void isGetInfoSuccess(UserInfo data);
 
     void isFail(String msg, boolean isNetAndServiceError);
 

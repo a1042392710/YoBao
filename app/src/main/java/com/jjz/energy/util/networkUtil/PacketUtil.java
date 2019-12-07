@@ -44,22 +44,6 @@ public class PacketUtil {
             String uuid = UUID.randomUUID().toString();
             //随机字符串
             rows.put("nonce_str", uuid);
-//            //设备ID
-//            TelephonyManager manager = (TelephonyManager) BaseApplication.getAppContext().getSystemService(Context.TELEPHONY_SERVICE);
-//            try {
-//                if (ActivityCompat.checkSelfPermission(BaseApplication.getAppContext(), Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED) {
-//                    assert manager != null;
-//                    if (StringUtils.isEmpty(manager.getDeviceId())) {
-//                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-//                            rows.put("device_info", manager.getDeviceId(0));
-//                        }
-//                    } else {
-//                        rows.put("device_info", manager.getDeviceId());
-//                    }
-//                }
-//            } catch (Exception ignored) {
-//                rows.put("device_info", "");
-//            }
 
             String device_info = Utils.getUUID();
             rows.put("device_info",device_info);

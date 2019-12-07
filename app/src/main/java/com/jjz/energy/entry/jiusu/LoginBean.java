@@ -66,13 +66,13 @@ public class LoginBean implements Serializable {
      */
     private int is_bind_wechat;
     /**
-     * 微信的openId 有 就表示授权了
-     */
-    private String wxapp_openid;
-    /**
      * 是否绑定支付宝
      */
     private int is_bind_alipay;
+    /**
+     * 微信的openId 有 就表示授权了
+     */
+    private String wxapp_openid;
 
     /**
      * 升级会员的文案

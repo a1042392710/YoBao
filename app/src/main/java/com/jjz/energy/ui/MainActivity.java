@@ -27,11 +27,13 @@ import com.jjz.energy.R;
 import com.jjz.energy.adapter.ViewPagerAdapter;
 import com.jjz.energy.base.BaseActivity;
 import com.jjz.energy.base.Constant;
+import com.jjz.energy.entry.UserInfo;
 import com.jjz.energy.entry.event.LocationEvent;
 import com.jjz.energy.presenter.MainPresenter;
 import com.jjz.energy.ui.community.PutCommunityActivity;
 import com.jjz.energy.ui.home.commodity.PutCommodityActivity;
 import com.jjz.energy.ui.home.login.LoginActivity;
+import com.jjz.energy.ui.mine.information.MineAccountsActivity;
 import com.jjz.energy.util.Utils;
 import com.jjz.energy.util.networkUtil.PacketUtil;
 import com.jjz.energy.util.networkUtil.UserLoginBiz;
@@ -176,8 +178,15 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IMainVi
         //发布商品
         item_ll_put_idle.setOnClickListener(v -> {
             popupWindow.dismiss();
-            //发布商品
-            startActivity(new Intent(mContext, PutCommodityActivity.class));
+            UserInfo userInfo = UserLoginBiz.getInstance(mContext).readUserInfo();
+            if (userInfo.getIs_bind_alipay() ==1 || userInfo.getIs_bind_wechat()==1){
+                //发布商品
+                startActivity(new Intent(mContext, PutCommodityActivity.class));
+            }else{
+                showToast("请先添加收款账户");
+                startActivity(new Intent(mContext, MineAccountsActivity.class));
+            }
+
         });
         //发布帖子
         item_ll_put_post.setOnClickListener(v -> {

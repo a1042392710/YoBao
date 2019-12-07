@@ -21,8 +21,8 @@ import com.jjz.energy.base.BaseApplication;
 import com.jjz.energy.base.BaseLazyFragment;
 import com.jjz.energy.base.BaseWebActivity;
 import com.jjz.energy.base.Constant;
+import com.jjz.energy.entry.UserInfo;
 import com.jjz.energy.entry.jiusu.MineBean;
-import com.jjz.energy.entry.jiusu.MineInfoBean;
 import com.jjz.energy.presenter.mine.MinePresenter;
 import com.jjz.energy.ui.home.jiusu.JiuSuVCodeDetailActivity;
 import com.jjz.energy.ui.jiusu_shop.JiuSuShopHomePageActivity;
@@ -95,7 +95,7 @@ public class MineFragment  extends BaseLazyFragment<MinePresenter> implements IM
     /**
      * 我的页面数据
      */
-    private MineInfoBean mMineInfoBean = new MineInfoBean();
+    private UserInfo mUserInfo = new UserInfo();
 
     @Override
     protected void initView() {
@@ -107,26 +107,25 @@ public class MineFragment  extends BaseLazyFragment<MinePresenter> implements IM
      */
     @SuppressLint("SetTextI18n")
     @Override
-    public void isGetInfoSuccess(MineInfoBean data) {
-        mMineInfoBean = data;
-        //将shop_id 和 积分存入本地
-        SpUtil.init(mContext).commit(Constant.SHOP_ID,data.getShop_id());
+    public void isGetInfoSuccess(UserInfo data) {
+        mUserInfo = data;
+        //将最新的数据存到本地
+        UserLoginBiz.getInstance(mContext).saveUserInfo(mUserInfo);
         //推送公告
-        String push_message = mMineInfoBean.getPush_message();
+        String push_message = mUserInfo.getPush_message();
         //显示文本
         if (!StringUtil.isEmpty(push_message) && !push_message.equals(SpUtil.init(mContext).readString("push_message"))){
             PopWindowUtil.getInstance().showPopupWindow(mContext, push_message, () -> {});
             SpUtil.init(mContext).commit("push_message",push_message);
         }
         //头像
-        GlideUtils.loadCircleImage(mContext, mMineInfoBean.getHead_pic(), imgHead);
+        GlideUtils.loadCircleImage(mContext, mUserInfo.getHead_pic(), imgHead);
         //昵称
-        tvNickName.setText(mMineInfoBean.getNickname());
+        tvNickName.setText(mUserInfo.getNickname());
         //关注数量和粉丝数量
         tvFansSum.setText("粉丝："+data.getFans_num());
         tvLikeSum.setText("关注："+data.getFocus_num());
     }
-
 
     /**
      * 初始化我的菜单网格数据
@@ -187,10 +186,10 @@ public class MineFragment  extends BaseLazyFragment<MinePresenter> implements IM
                 break;
             //头像
             case R.id.img_head:
-                if (!StringUtil.isEmpty(mMineInfoBean.getShop_id())){
-                    startActivity(new Intent(mContext, JiuSuShopHomePageActivity.class).putExtra(Constant.SHOP_ID,mMineInfoBean.getShop_id()));
+                if (!StringUtil.isEmpty(mUserInfo.getShop_id())){
+                    startActivity(new Intent(mContext, JiuSuShopHomePageActivity.class).putExtra(Constant.SHOP_ID,mUserInfo.getShop_id()));
                 }else {
-                    startActivity(new Intent(mContext, HomePageActivity.class).putExtra(Constant.USER_ID, mMineInfoBean.getUser_id()));
+                    startActivity(new Intent(mContext, HomePageActivity.class).putExtra(Constant.USER_ID, mUserInfo.getUser_id()));
                 }
                 break;
                 //我发布的

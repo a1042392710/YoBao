@@ -22,7 +22,9 @@ public class MineInfoBean  implements Serializable {
      */
     private int user_id ;
 
-    // 推送公告
+    /**
+     *  推送公告
+     */
     private String push_message;
 
     /**
@@ -42,9 +44,33 @@ public class MineInfoBean  implements Serializable {
      */
     private String shop_id;
     /**
-     * 实名认证 的身份证图片
+     * 是否实名认证
      */
     private int is_set_idcard;
+    /**
+     * 是否绑定微信
+     */
+    private int is_bind_wechat;
+    /**
+     * 是否绑定支付宝
+     */
+    private int is_bind_alipay;
+
+    public int getIs_bind_wechat() {
+        return is_bind_wechat;
+    }
+
+    public void setIs_bind_wechat(int is_bind_wechat) {
+        this.is_bind_wechat = is_bind_wechat;
+    }
+
+    public int getIs_bind_alipay() {
+        return is_bind_alipay;
+    }
+
+    public void setIs_bind_alipay(int is_bind_alipay) {
+        this.is_bind_alipay = is_bind_alipay;
+    }
 
     public int getIs_set_idcard() {
         return is_set_idcard;

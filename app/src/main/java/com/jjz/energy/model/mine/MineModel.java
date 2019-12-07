@@ -2,7 +2,7 @@ package com.jjz.energy.model.mine;
 
 import com.jjz.energy.base.Api;
 import com.jjz.energy.base.BaseModel;
-import com.jjz.energy.entry.jiusu.MineInfoBean;
+import com.jjz.energy.entry.UserInfo;
 import com.jjz.energy.util.networkUtil.RetrofitFactory;
 import com.jjz.energy.util.networkUtil.RxSchedulerHepler;
 
@@ -15,7 +15,7 @@ import io.reactivex.Flowable;
 public class MineModel extends BaseModel {
 
     //获取用户信息
-    public Flowable<MineInfoBean> getUserInfo(String requestData) {
+    public Flowable<UserInfo> getUserInfo(String requestData) {
         return RetrofitFactory.getRetrofit().create(Api.class).getMineInfo(requestData).compose(RxSchedulerHepler.handleMyResult());
     }
 

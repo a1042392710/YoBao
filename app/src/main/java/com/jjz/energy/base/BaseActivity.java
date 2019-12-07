@@ -166,7 +166,6 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
                 LogUtil.e("久速","极光IM:"+msg);
             }
         });
-
         //跳转首页
         Intent intent = new Intent(mContext, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

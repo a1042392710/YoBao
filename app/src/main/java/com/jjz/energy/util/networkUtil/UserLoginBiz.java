@@ -46,7 +46,7 @@ public class UserLoginBiz implements UserLoginBizInterface {
      * @return
      */
     public boolean detectUserLoginStatus() {
-        return SpUtil.init(mContext).readBoolean("com.jjz.energy.eventbean.UserModel.LOGIN_STATUS", false);
+        return SpUtil.init(mContext).readBoolean("com.jjz.energy.UserModel.LOGIN_STATUS", false);
     }
     /**
      * 登出
@@ -74,7 +74,7 @@ public class UserLoginBiz implements UserLoginBizInterface {
      * @param isLogin
      */
     private void saveLoginStatus(Boolean isLogin) {
-        SpUtil.init(mContext).commit("com.jjz.energy.eventbean.UserModel.LOGIN_STATUS", isLogin);
+        SpUtil.init(mContext).commit("com.jjz.energy.UserModel.LOGIN_STATUS", isLogin);
     }
 
 

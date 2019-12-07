@@ -76,6 +76,7 @@ public class JiuSuMineActivity extends BaseActivity<JiuSuMinePresenter> implemen
     LinearLayout llMineSellerOrder;
     @BindView(R.id.ll_share)
     LinearLayout llShare;
+
     private LoginBean mLoginBean = new LoginBean();
 
     @Override

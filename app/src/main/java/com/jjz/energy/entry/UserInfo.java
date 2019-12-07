@@ -21,10 +21,6 @@ public class UserInfo implements Serializable {
      */
     private String mobile;
     /**
-     * 车牌
-     */
-    private String license_plate;
-    /**
      * 昵称
      */
     private String nickname;
@@ -68,11 +64,11 @@ public class UserInfo implements Serializable {
     /**
      * 极光IM 用户密码
      */
-    private String jmessage_password ;
+    private String jmessage_password;
     /**
      * 资料完整度
      */
-    private int  completion;
+    private int completion;
     /**
      * 实名认证 的身份证图片
      */
@@ -83,22 +79,23 @@ public class UserInfo implements Serializable {
      */
     private float pay_points;
 
-    public float getPay_points() {
-        return pay_points;
-    }
+    /**
+     * 商家Id
+     */
+    private String shop_id;
+    /**
+     * 粉丝数量
+     */
+    private int focus_num;
+    /**
+     * 关注数量
+     */
+    private int fans_num;
 
-    public void setPay_points(float pay_points) {
-        this.pay_points = pay_points;
-    }
-
-    public int getIs_set_idcard() {
-        return is_set_idcard;
-    }
-
-    public void setIs_set_idcard(int is_set_idcard) {
-        this.is_set_idcard = is_set_idcard;
-    }
-
+    /**
+     * 推送公告
+     */
+    private String push_message;
 
     public int getUser_id() {
         return user_id;
@@ -106,30 +103,6 @@ public class UserInfo implements Serializable {
 
     public void setUser_id(int user_id) {
         this.user_id = user_id;
-    }
-
-    public String getJmessage_password() {
-        return jmessage_password == null ? "" : jmessage_password;
-    }
-
-    public void setJmessage_password(String jmessage_password) {
-        this.jmessage_password = jmessage_password;
-    }
-
-    public String getToken() {
-        return token == null ? "" : token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
-    }
-
-    public String getDesc() {
-        return desc == null ? "" : desc;
-    }
-
-    public void setDesc(String desc) {
-        this.desc = desc;
     }
 
     public String getHead_pic() {
@@ -148,20 +121,20 @@ public class UserInfo implements Serializable {
         this.mobile = mobile;
     }
 
-    public String getLicense_plate() {
-        return license_plate == null ? "" : license_plate;
-    }
-
-    public void setLicense_plate(String license_plate) {
-        this.license_plate = license_plate;
-    }
-
     public String getNickname() {
         return nickname == null ? "" : nickname;
     }
 
     public void setNickname(String nickname) {
         this.nickname = nickname;
+    }
+
+    public String getDesc() {
+        return desc == null ? "" : desc;
+    }
+
+    public void setDesc(String desc) {
+        this.desc = desc;
     }
 
     public int getSex() {
@@ -179,7 +152,6 @@ public class UserInfo implements Serializable {
     public void setHaspassword(int haspassword) {
         this.haspassword = haspassword;
     }
-
 
     public String getTime() {
         return time == null ? "" : time;
@@ -221,11 +193,75 @@ public class UserInfo implements Serializable {
         this.wxapp_openid = wxapp_openid;
     }
 
+    public String getToken() {
+        return token == null ? "" : token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public String getJmessage_password() {
+        return jmessage_password == null ? "" : jmessage_password;
+    }
+
+    public void setJmessage_password(String jmessage_password) {
+        this.jmessage_password = jmessage_password;
+    }
+
     public int getCompletion() {
         return completion;
     }
 
     public void setCompletion(int completion) {
         this.completion = completion;
+    }
+
+    public int getIs_set_idcard() {
+        return is_set_idcard;
+    }
+
+    public void setIs_set_idcard(int is_set_idcard) {
+        this.is_set_idcard = is_set_idcard;
+    }
+
+    public float getPay_points() {
+        return pay_points;
+    }
+
+    public void setPay_points(float pay_points) {
+        this.pay_points = pay_points;
+    }
+
+    public String getShop_id() {
+        return shop_id == null ? "" : shop_id;
+    }
+
+    public void setShop_id(String shop_id) {
+        this.shop_id = shop_id;
+    }
+
+    public int getFocus_num() {
+        return focus_num;
+    }
+
+    public void setFocus_num(int focus_num) {
+        this.focus_num = focus_num;
+    }
+
+    public int getFans_num() {
+        return fans_num;
+    }
+
+    public void setFans_num(int fans_num) {
+        this.fans_num = fans_num;
+    }
+
+    public String getPush_message() {
+        return push_message == null ? "" : push_message;
+    }
+
+    public void setPush_message(String push_message) {
+        this.push_message = push_message;
     }
 }
