@@ -1,6 +1,8 @@
 package com.jjz.energy.ui.shop_order.refund_order;
 
+import android.Manifest;
 import android.content.Intent;
+import android.net.Uri;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -25,11 +27,16 @@ import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import permissions.dispatcher.NeedsPermission;
+import permissions.dispatcher.OnShowRationale;
+import permissions.dispatcher.PermissionRequest;
+import permissions.dispatcher.RuntimePermissions;
 
 /**
  * @Features: 买家查看退款详情
  * @author: create by chenhao on 2019/11/4
  */
+@RuntimePermissions
 public class BuyerRefundDetailsActivity extends BaseActivity<RefundPresenter>implements IRefundView {
 
     @BindView(R.id.ll_toolbar_left)
@@ -264,7 +271,9 @@ public class BuyerRefundDetailsActivity extends BaseActivity<RefundPresenter>imp
     private void onLableClick(String str){
         switch (str){
             case "客服介入":
-                //todo 客服
+                PopWindowUtil.getInstance().showPopupWindow(mContext, "您将拨打客服电话:"+"400-1070-400", () -> {
+                    callPhone();
+                });
                 break;
             case "撤销申请":
                 PopWindowUtil.getInstance().showPopupWindow(mContext, "您将撤销本次退款申请，您下次还可以再提交申请", () -> {
@@ -292,6 +301,28 @@ public class BuyerRefundDetailsActivity extends BaseActivity<RefundPresenter>imp
         showToast("您已撤销申请");
         getData();
     }
+
+    @NeedsPermission(Manifest.permission.CALL_PHONE)
+    void callPhone() {
+        if (mDetailsBean!=null) {
+            // 拨号：激活系统的拨号组件
+            Intent intent = new Intent(); // 意图对象：动作 + 数据
+            intent.setAction(Intent.ACTION_CALL); // 设置动作
+            Uri data = Uri.parse("tel:" + "4001070400"); // 设置数据
+            intent.setData(data);
+            startActivity(intent); // 激活Activity组件
+        }
+    }
+
+    //给用户解释为什么要申请权限
+    @OnShowRationale(Manifest.permission.CALL_PHONE)
+    void showCallPhone(final PermissionRequest request) {
+        //唤起打电话权限
+        PopWindowUtil.getInstance().showPopupWindow(mContext, "没有电话权限可不能打电话哦", () -> {
+            request.proceed();//继续执行请求
+        });
+    }
+
 
     @OnClick({R.id.ll_toolbar_left, R.id.item_tv_lable_one, R.id.item_tv_lable_two,R.id.tv_history,
             R.id.item_tv_lable_three,R.id.rl_express_info})
