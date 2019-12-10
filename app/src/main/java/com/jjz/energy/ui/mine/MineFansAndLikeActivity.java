@@ -65,8 +65,6 @@ public class MineFansAndLikeActivity extends BaseActivity {
         vpFans.setCurrentItem(vpSelectIndex);
     }
 
-
-
     @Override
     public void showLoading() {
         startProgressDialog();

@@ -66,6 +66,10 @@ public class RefundDetailsBean implements Serializable {
      */
     private long canceltime;
     /**
+     * 售后截止处理时间
+     */
+    private long end_time;
+    /**
      * 拒绝原因
      */
     private String reject_reason;
@@ -75,6 +79,14 @@ public class RefundDetailsBean implements Serializable {
     private int rec_id;
 
     private Trick trick;
+
+    public long getEnd_time() {
+        return end_time;
+    }
+
+    public void setEnd_time(long end_time) {
+        this.end_time = end_time;
+    }
 
     public Trick getTrick() {
         return trick;

@@ -183,8 +183,8 @@ public class BuyerRefundDetailsActivity extends BaseActivity<RefundPresenter>imp
                 itemTvLableThree.setVisibility(View.VISIBLE);
                 itemTvLableTwo.setVisibility(View.VISIBLE);
                 tvRejectReson.setText("卖家已拒绝");
-                //todo 退款时间
-                tvTime.setText("还剩几天");
+                //退款时间
+                tvTime.setText("还剩"+DateUtil.dateDiff(System.currentTimeMillis(),mDetailsBean.getEnd_time()));
                 tvRefundStateToast.setText("拒绝说明:"+mDetailsBean.getReject_reason());
                 tvRefundAllToast.setText(R.string.refund_buyer_refuse_return_toast_all);
                 itemTvLableThree.setText("修改申请");
@@ -196,8 +196,8 @@ public class BuyerRefundDetailsActivity extends BaseActivity<RefundPresenter>imp
                 tvRefundAllToast.setVisibility(View.VISIBLE);
                 itemTvLableThree.setVisibility(View.VISIBLE);
                 itemTvLableTwo.setVisibility(View.VISIBLE);
-                //todo 退款时间
-                tvTime.setText("还剩几天");
+                //退款时间
+                tvTime.setText("还剩"+DateUtil.dateDiff(System.currentTimeMillis(),mDetailsBean.getEnd_time()));
                 tvRejectReson.setText(R.string.refund_buyer_money_application);
                 tvRefundStateToast.setText(R.string.refund_buyer_money_application_toast);
                 itemTvLableThree.setText("修改申请");
@@ -218,7 +218,8 @@ public class BuyerRefundDetailsActivity extends BaseActivity<RefundPresenter>imp
                 tvRefundStateToast.setVisibility(View.VISIBLE);
                 tvRefundAllToast.setVisibility(View.VISIBLE);
                 itemTvLableThree.setVisibility(View.VISIBLE);
-                tvTime.setText("还剩几天");
+                //退款时间
+                tvTime.setText("还剩"+DateUtil.dateDiff(System.currentTimeMillis(),mDetailsBean.getEnd_time()));
                 tvRejectReson.setText(R.string.refund_buyer_cargo_return);
                 tvRefundStateToast.setText(R.string.refund_buyer_cargo_return_toast);
                 tvRefundAllToast.setText(R.string.refund_buyer_cargo_return_toast_all);
@@ -228,7 +229,8 @@ public class BuyerRefundDetailsActivity extends BaseActivity<RefundPresenter>imp
             case 2:
                 tvRefundStateToast.setVisibility(View.VISIBLE);
                 tvRefundAllToast.setVisibility(View.VISIBLE);
-                tvTime.setText("还剩几天");
+                //退款时间
+                tvTime.setText("还剩"+DateUtil.dateDiff(System.currentTimeMillis(),mDetailsBean.getEnd_time()));
                 tvRejectReson.setText(R.string.refund_buyer_wait_seller_rceiving);
                 tvRefundStateToast.setText(R.string.refund_buyer_wait_seller_rceiving_toast);
                 tvRefundAllToast.setText(R.string.refund_buyer_wait_seller_rceiving_toast_all);
@@ -241,7 +243,6 @@ public class BuyerRefundDetailsActivity extends BaseActivity<RefundPresenter>imp
                     //时间
                     tvRefundExpressInfoTime.setText(mDetailsBean.getTrick().getAcceptTime());
                 }
-
 
                 break;
             //退款完成
