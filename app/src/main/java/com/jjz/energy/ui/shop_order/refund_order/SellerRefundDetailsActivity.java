@@ -179,7 +179,7 @@ public class SellerRefundDetailsActivity extends BaseActivity<RefundPresenter>im
                 itemTvLableThree.setVisibility(View.VISIBLE);
                 tvRejectReson.setText(R.string.refund_seller_refuse_return);
                 //退款时间
-                tvTime.setText("还剩"+DateUtil.dateDiff(System.currentTimeMillis(),mDetailsBean.getEnd_time()));
+                tvTime.setText("还剩"+DateUtil.dateDiff(System.currentTimeMillis(),mDetailsBean.getEnd_time()*1000L));
                 tvRefundStateToast.setText(R.string.refund_seller__refuse_return_toast);
                 itemTvLableThree.setText("同意退款");
                 break;
@@ -190,7 +190,7 @@ public class SellerRefundDetailsActivity extends BaseActivity<RefundPresenter>im
                 itemTvLableThree.setVisibility(View.VISIBLE);
                 itemTvLableTwo.setVisibility(View.VISIBLE);
                 //退款时间
-                tvTime.setText("还剩"+DateUtil.dateDiff(System.currentTimeMillis(),mDetailsBean.getEnd_time()));
+                tvTime.setText("还剩"+DateUtil.dateDiff(System.currentTimeMillis(),mDetailsBean.getEnd_time()*1000L));
                 if (type == 0) {
                     //仅退款
                     tvRejectReson.setText(R.string.refund_seller_audit);
@@ -222,7 +222,7 @@ public class SellerRefundDetailsActivity extends BaseActivity<RefundPresenter>im
                 tvRefundStateToast.setText(R.string.refund_seller_wait_receipt_toast);
                 itemTvLableThree.setText("收到货，同意退款");
                 //退款时间
-                tvTime.setText("还剩"+DateUtil.dateDiff(System.currentTimeMillis(),mDetailsBean.getEnd_time()));
+                tvTime.setText("还剩"+DateUtil.dateDiff(System.currentTimeMillis(),mDetailsBean.getEnd_time()*1000L));
                 break;
                 //买家已发货
             case 2:
@@ -235,7 +235,7 @@ public class SellerRefundDetailsActivity extends BaseActivity<RefundPresenter>im
                 itemTvLableThree.setText("同意退款");
                 itemTvLableTwo.setText("拒绝退款");
                 //退款时间
-                tvTime.setText("还剩"+DateUtil.dateDiff(System.currentTimeMillis(),mDetailsBean.getEnd_time()));
+                tvTime.setText("还剩"+DateUtil.dateDiff(System.currentTimeMillis(),mDetailsBean.getEnd_time()*1000L));
                 //写入退货物流信息
                 tvRefundExpressInfoTitle.setText("退货物流："+ mDetailsBean.getTrick().getShipping_name()+"("+mDetailsBean.getTrick().getCourier_number()+")" );
                 //详情
