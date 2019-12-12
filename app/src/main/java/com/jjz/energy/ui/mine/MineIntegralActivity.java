@@ -87,7 +87,7 @@ public class MineIntegralActivity extends BaseActivity<MineIntegralPresenter> im
     public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
         mPage++;
         isLoadMore = true;
-        getData(false);
+        getData(true);
     }
 
     @Override
