@@ -259,7 +259,6 @@ public class SellerRefundDetailsActivity extends BaseActivity<RefundPresenter>im
                 tvRefundStateToast.setText("买家已撤销本次退款申请");
                 break;
 
-
         }
         stopLoading();
     }

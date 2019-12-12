@@ -6,8 +6,6 @@ import com.jjz.energy.entry.jiusu.AgencyBean;
 import com.jjz.energy.util.networkUtil.RetrofitFactory;
 import com.jjz.energy.util.networkUtil.RxSchedulerHepler;
 
-import java.util.List;
-
 import io.reactivex.Flowable;
 
 /**
@@ -16,7 +14,7 @@ import io.reactivex.Flowable;
  */
 public class MineAgencyModel extends BaseModel {
 
-    public Flowable<List<AgencyBean>> getAgency(String requestData) {
+    public Flowable<AgencyBean> getAgency(String requestData) {
         return RetrofitFactory.getRetrofit().create(Api.class).getAgency(requestData).compose(RxSchedulerHepler.handleMyResult());
     }
 

@@ -156,7 +156,7 @@ public class MineWalletPresenter extends BasePresenter<MineWalletModel, IMineWal
     public void getWithdrawList(String map) {
 
         addSubscribe(mModel.getWithdrawList(map)
-                .subscribeWith(new CommonSubscriber<List<WithdrawListBean>>() {
+                .subscribeWith(new CommonSubscriber<WithdrawListBean>() {
 
                     @Override
                     protected void startLoading() {
@@ -164,7 +164,7 @@ public class MineWalletPresenter extends BasePresenter<MineWalletModel, IMineWal
                     }
 
                     @Override
-                    protected void onSuccess(List<WithdrawListBean> response) {
+                    protected void onSuccess(WithdrawListBean response) {
                         mView.stopLoading();
                         mView.isWithdrawListSuccess(response);
                     }

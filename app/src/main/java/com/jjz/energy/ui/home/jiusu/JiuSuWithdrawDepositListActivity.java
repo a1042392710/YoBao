@@ -52,13 +52,13 @@ public class JiuSuWithdrawDepositListActivity extends BaseActivity<MineWalletPre
     }
 
     @Override
-    public void isWithdrawListSuccess(List<WithdrawListBean> data) {
-        if (StringUtil.isListEmpty(data)){
+    public void isWithdrawListSuccess(WithdrawListBean data) {
+        if (StringUtil.isListEmpty(data.getList())){
             View view = View.inflate(mContext, R.layout.item_empty, null);
             mGetAdapter.setEmptyView(view);
             return;
         }
-        mGetAdapter.notifyChangeData(data);
+        mGetAdapter.notifyChangeData(data.getList());
     }
 
     @Override
@@ -93,14 +93,14 @@ public class JiuSuWithdrawDepositListActivity extends BaseActivity<MineWalletPre
 
 
     //提取记录
-    class GetListAdapter extends BaseRecycleNewAdapter<WithdrawListBean> {
+    class GetListAdapter extends BaseRecycleNewAdapter<WithdrawListBean.ListBean> {
 
-        public GetListAdapter(int layoutResId, @Nullable List<WithdrawListBean> data) {
+        public GetListAdapter(int layoutResId, @Nullable List<WithdrawListBean.ListBean> data) {
             super(layoutResId, data);
         }
 
         @Override
-        protected void convert(BaseViewHolder helper, WithdrawListBean item) {
+        protected void convert(BaseViewHolder helper, WithdrawListBean.ListBean item) {
 //            helper.setText(R.id.item_tv_title,
 //                    "提现到" + item.getTypeName() + "(" + item.getTotal_money() + "元)，实际到账"
 //                            +item.getPay_money()+"元，税金"+item.getTotal_taxes()+"元，手续费"+item.getCharge()+"元");

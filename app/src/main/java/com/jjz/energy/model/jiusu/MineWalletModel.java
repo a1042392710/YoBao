@@ -38,7 +38,7 @@ public class MineWalletModel extends BaseModel {
 
 
     //获取提现记录
-    public Flowable<List<WithdrawListBean>> getWithdrawList(String requestData) {
+    public Flowable<WithdrawListBean> getWithdrawList(String requestData) {
         return RetrofitFactory.getRetrofit().create(Api.class).getWithdrawList(requestData).compose(RxSchedulerHepler.handleMyResult());
     }
     //获取提现记录

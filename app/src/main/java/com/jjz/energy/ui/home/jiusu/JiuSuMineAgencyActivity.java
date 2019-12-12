@@ -183,15 +183,15 @@ public class JiuSuMineAgencyActivity extends BaseActivity<MineAgencyPresenter> i
     }
 
     @Override
-    public void isSuccess(List<AgencyBean> data) {
+    public void isSuccess(AgencyBean data) {
         if (isLoadMore) {
             //加载更多
             isLoadMore = false;
-           if (!mMyAdapter.addNewData(data)){
+           if (!mMyAdapter.addNewData(data.getList())){
                smartRefresh.setEnableLoadMore(false);
            }
         } else {
-            mMyAdapter.notifyChangeData(data);
+            mMyAdapter.notifyChangeData(data.getList());
         }
         //关闭刷新
         closeRefresh(smartRefresh);
@@ -208,14 +208,14 @@ public class JiuSuMineAgencyActivity extends BaseActivity<MineAgencyPresenter> i
         showToast(msg);
     }
 
-    class MyAdapter extends BaseRecycleNewAdapter<AgencyBean> {
+    class MyAdapter extends BaseRecycleNewAdapter<AgencyBean.ListBean> {
 
-        public MyAdapter(int layoutResId, @Nullable List<AgencyBean> data) {
+        public MyAdapter(int layoutResId, @Nullable List<AgencyBean.ListBean> data) {
             super(layoutResId, data);
         }
 
         @Override
-        protected void convert(BaseViewHolder helper, AgencyBean item) {
+        protected void convert(BaseViewHolder helper, AgencyBean.ListBean item) {
             //电话，姓名，注册时间
             helper.setText(R.id.item_tv_phone, item.getMobile());
             helper.setText(R.id.item_tv_name, item.getNickname());

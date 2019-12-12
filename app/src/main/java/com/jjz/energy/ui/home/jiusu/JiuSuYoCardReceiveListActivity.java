@@ -93,21 +93,21 @@ public class JiuSuYoCardReceiveListActivity extends BaseActivity<JiuSuMineVipPre
     }
 
     @Override
-    public void isListSuccess(List<YoCardReceiveListBean> data) {
+    public void isListSuccess(YoCardReceiveListBean data) {
         //加载更多
         if (isLoadMore) {
             isLoadMore = false;
-            if (!mGetAdapter.addNewData(data)){
+            if (!mGetAdapter.addNewData(data.getList())){
                 smartRefresh.setEnableLoadMore(false);
             }
         } else {
-            if (StringUtil.isListEmpty(data)){
+            if (StringUtil.isListEmpty(data.getList())){
                 View view = View.inflate(mContext, R.layout.item_empty, null);
                 mGetAdapter.setEmptyView(view);
                 smartRefresh.setEnableRefresh(false);
                 return;
             }
-            mGetAdapter.notifyChangeData(data);
+            mGetAdapter.notifyChangeData(data.getList());
         }
         //关闭刷新
         closeRefresh(smartRefresh);
@@ -116,14 +116,14 @@ public class JiuSuYoCardReceiveListActivity extends BaseActivity<JiuSuMineVipPre
 
 
     //获取记录
-    class GetListAdapter extends BaseRecycleNewAdapter<YoCardReceiveListBean> {
+    class GetListAdapter extends BaseRecycleNewAdapter<YoCardReceiveListBean.ListBean> {
 
-        public GetListAdapter(int layoutResId, @Nullable List<YoCardReceiveListBean> data) {
+        public GetListAdapter(int layoutResId, @Nullable List<YoCardReceiveListBean.ListBean> data) {
             super(layoutResId, data);
         }
 
         @Override
-        protected void convert(BaseViewHolder helper, YoCardReceiveListBean item) {
+        protected void convert(BaseViewHolder helper, YoCardReceiveListBean.ListBean item) {
             helper.setText(R.id.item_tv_title,
                     item.getDesc());
             helper.setText(R.id.item_tv_time, DateUtil.longToDate(item.getChange_time(),null));

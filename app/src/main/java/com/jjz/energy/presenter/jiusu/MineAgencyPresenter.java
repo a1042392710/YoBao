@@ -8,8 +8,6 @@ import com.jjz.energy.model.jiusu.MineAgencyModel;
 import com.jjz.energy.util.networkUtil.CommonSubscriber;
 import com.jjz.energy.view.jiusu.IMineAgencyView;
 
-import java.util.List;
-
 /**
  * create by: 查询我的下级代理
  * Date: 2018/9/17 下午4:22
@@ -30,7 +28,7 @@ public class MineAgencyPresenter extends BasePresenter<MineAgencyModel, IMineAge
     public void getAgency(String map, boolean isShowLoading) {
 
         addSubscribe(mModel.getAgency(map)
-                .subscribeWith(new CommonSubscriber<List<AgencyBean>>() {
+                .subscribeWith(new CommonSubscriber<AgencyBean>() {
 
                     @Override
                     protected void startLoading() {
@@ -41,7 +39,7 @@ public class MineAgencyPresenter extends BasePresenter<MineAgencyModel, IMineAge
                     }
 
                     @Override
-                    protected void onSuccess(List<AgencyBean> response) {
+                    protected void onSuccess(AgencyBean response) {
                         mView.stopLoading();
                         mView.isSuccess(response);
                     }

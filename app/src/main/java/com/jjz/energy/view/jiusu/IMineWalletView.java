@@ -27,7 +27,7 @@ public interface IMineWalletView extends IBaseView {
 
     }
     //获取提现记录
-    default void isWithdrawListSuccess(List<WithdrawListBean> data) {
+    default void isWithdrawListSuccess(WithdrawListBean data) {
 
     }
     //获取佣金详情

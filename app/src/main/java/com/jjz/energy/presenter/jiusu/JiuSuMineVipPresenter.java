@@ -8,8 +8,6 @@ import com.jjz.energy.model.jiusu.JiuSuMineVipModel;
 import com.jjz.energy.util.networkUtil.CommonSubscriber;
 import com.jjz.energy.view.jiusu.IJiuSuMineVipView;
 
-import java.util.List;
-
 /**
  * create by: 我的会员
  * Date: 2018/9/17 下午4:22
@@ -29,7 +27,7 @@ public class JiuSuMineVipPresenter extends BasePresenter<JiuSuMineVipModel, IJiu
     public void getYoGiftList(String map, boolean isShow) {
 
         addSubscribe(mModel.getYoGiftList(map)
-                .subscribeWith(new CommonSubscriber<List<YoCardReceiveListBean>>() {
+                .subscribeWith(new CommonSubscriber<YoCardReceiveListBean>() {
 
                     @Override
                     protected void startLoading() {
@@ -39,7 +37,7 @@ public class JiuSuMineVipPresenter extends BasePresenter<JiuSuMineVipModel, IJiu
                     }
 
                     @Override
-                    protected void onSuccess(List<YoCardReceiveListBean> response) {
+                    protected void onSuccess(YoCardReceiveListBean response) {
                         mView.stopLoading();
                         mView.isListSuccess(response);
                     }

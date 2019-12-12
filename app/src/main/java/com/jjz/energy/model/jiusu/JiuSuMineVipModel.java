@@ -6,8 +6,6 @@ import com.jjz.energy.entry.jiusu.YoCardReceiveListBean;
 import com.jjz.energy.util.networkUtil.RetrofitFactory;
 import com.jjz.energy.util.networkUtil.RxSchedulerHepler;
 
-import java.util.List;
-
 import io.reactivex.Flowable;
 
 /**
@@ -17,7 +15,7 @@ import io.reactivex.Flowable;
 public class JiuSuMineVipModel extends BaseModel {
 
     //获取记录
-    public Flowable<List<YoCardReceiveListBean>> getYoGiftList(String requestData) {
+    public Flowable<YoCardReceiveListBean> getYoGiftList(String requestData) {
         return RetrofitFactory.getRetrofit().create(Api.class).getYoGiftList(requestData).compose(RxSchedulerHepler.handleMyResult());
     }
 }

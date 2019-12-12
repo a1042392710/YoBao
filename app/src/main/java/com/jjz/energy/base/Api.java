@@ -90,6 +90,7 @@ public interface Api {
     @POST("shop/user/login")
     Flowable<ResponseData<UserInfo>> passWordLogin(
             @Field(PACK_NO) String data
+
     );
 
     //获取验证码
@@ -222,11 +223,7 @@ public interface Api {
     Flowable<ResponseData<AddressBean>> getAddressList(@Field(PACK_NO) String pack_no);
 
 
-
-
-
     //-------------------------------------------------------- 发布 帖子 / 物流 / 商品
-
 
     //发布商品
     @Multipart
@@ -347,8 +344,6 @@ public interface Api {
     @FormUrlEncoded
     @POST("shop/time_line/sendComment")
     Flowable<ResponseData<String>> putPostComment(@Field(PACK_NO) String pack_no);
-
-
 
 
     // ----------------------------------------------------------  订单
@@ -572,10 +567,10 @@ public interface Api {
     Flowable<ResponseData<LoginBean>> getJiuSuInfo(@Field(PACK_NO) String pack_no);
 
 
-    //查询下级代理
+    //查询下级代理  todo
     @FormUrlEncoded
     @POST("app/user/agentsMembers")
-    Flowable<ResponseData<List<AgencyBean>>> getAgency(@Field(PACK_NO) String pack_no);
+    Flowable<ResponseData<AgencyBean>> getAgency(@Field(PACK_NO) String pack_no);
 
     //地图 查询网点
     @FormUrlEncoded
@@ -666,10 +661,10 @@ public interface Api {
     @POST("app/commission/commissionsList")
     Flowable<ResponseData<List<MineWalletListBean>>> getBalanceList(@Field(PACK_NO) String pack_no);
 
-    //提现记录
+    //提现记录 todo
     @FormUrlEncoded
     @POST("app/commission/insufficientList")
-    Flowable<ResponseData<List<WithdrawListBean>>> getWithdrawList(@Field(PACK_NO) String pack_no);
+    Flowable<ResponseData<WithdrawListBean>> getWithdrawList(@Field(PACK_NO) String pack_no);
 
     //佣金详情
     @FormUrlEncoded
@@ -696,10 +691,10 @@ public interface Api {
     @POST("app/order/getOrderInvoice")
     Flowable<ResponseData<BillEntry>> getBill(@Field(PACK_NO) String pack_no);
 
-    //获取赠品领取记录
+    //获取赠品领取记录 todo
     @FormUrlEncoded
     @POST("app/user/consumptionRecord")
-    Flowable<ResponseData<List<YoCardReceiveListBean>>> getYoGiftList(@Field(PACK_NO) String pack_no);
+    Flowable<ResponseData<YoCardReceiveListBean>> getYoGiftList(@Field(PACK_NO) String pack_no);
 
     //我的积分
     @FormUrlEncoded
