@@ -111,7 +111,7 @@ dependencies {
     implementation files('libs/open_sdk_r5756.jar')
 
     //微信支付
-    implementation 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
+    implementation 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
 
     //多dex配置 分包
     implementation 'com.android.support:multidex:1.0.3'

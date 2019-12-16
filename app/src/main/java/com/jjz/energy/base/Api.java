@@ -617,7 +617,7 @@ public interface Api {
     @POST("app/order/scanQrOrder")
     Flowable<ResponseData<OrderDetailBean>> scanQrOrder(@Field(PACK_NO) String pack_no);
 
-    //完结订单
+    //完结订t
     @FormUrlEncoded
     @POST("app/order/finishOrder")
     Flowable<ResponseData<String>> finishOrder(@Field(PACK_NO) String pack_no);

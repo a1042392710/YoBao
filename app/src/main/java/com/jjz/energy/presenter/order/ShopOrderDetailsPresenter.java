@@ -95,7 +95,7 @@ public class ShopOrderDetailsPresenter extends BasePresenter<ShopOrderDetailsMod
                     @Override
                     protected void onSuccess(String response) {
                         mView.stopLoading();
-                        mView.isFail(response,false);
+                        mView.isFail("提醒成功",false);
                     }
 
                     @Override
@@ -123,7 +123,7 @@ public class ShopOrderDetailsPresenter extends BasePresenter<ShopOrderDetailsMod
                     @Override
                     protected void onSuccess(String response) {
                         mView.stopLoading();
-                        mView.isFail(response,false);
+                        mView.isFail("提醒成功",false);
                     }
 
                     @Override

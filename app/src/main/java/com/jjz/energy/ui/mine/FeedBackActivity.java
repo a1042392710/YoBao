@@ -76,7 +76,6 @@ public class FeedBackActivity extends BaseActivity <FeedBackPresenter> implement
     RecyclerView rvFeedBack;
     @BindView(R.id.tv_submit)
     TextView tvSubmit;
-
     /**
      * 意见反馈
      */

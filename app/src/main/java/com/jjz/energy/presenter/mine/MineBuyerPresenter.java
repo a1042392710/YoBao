@@ -123,7 +123,7 @@ public class MineBuyerPresenter extends BasePresenter<MineBuyerModel, IMineBuyer
                     @Override
                     protected void onSuccess(String response) {
                         mView.stopLoading();
-                        mView.isFail(response,false);
+                        mView.isFail("提醒成功",false);
                     }
 
                     @Override
@@ -150,7 +150,7 @@ public class MineBuyerPresenter extends BasePresenter<MineBuyerModel, IMineBuyer
                     @Override
                     protected void onSuccess(String response) {
                         mView.stopLoading();
-                        mView.isFail(response,false);
+                        mView.isFail("提醒成功",false);
                     }
 
                     @Override
