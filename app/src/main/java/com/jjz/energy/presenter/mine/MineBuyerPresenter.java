@@ -95,7 +95,6 @@ public class MineBuyerPresenter extends BasePresenter<MineBuyerModel, IMineBuyer
                         mView.stopLoading();
                         mView.isConfirmReceiptSuc(response);
                     }
-
                     @Override
                     protected void onFail(String errorMsg, boolean isNetAndSeriveError) {
                         mView.isFail(errorMsg, isNetAndSeriveError);

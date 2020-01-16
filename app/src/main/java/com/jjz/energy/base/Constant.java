@@ -63,6 +63,10 @@ public class Constant {
     //--------------------------------------- Intent 请求码
 
     /**
+     * 选择城市
+     */
+    public static final int SELECT_CITY_CODE = 50;
+    /**
      * 选择物流公司
      */
     public static final int SELECT_COMPANY_CODE = 40;

@@ -12,6 +12,7 @@ import com.jjz.energy.entry.community.Community;
 import com.jjz.energy.entry.community.CommunityBean;
 import com.jjz.energy.entry.community.CommunityCommentBean;
 import com.jjz.energy.entry.home.BindBean;
+import com.jjz.energy.entry.home.EntrustListBean;
 import com.jjz.energy.entry.home.HomeDetailBean;
 import com.jjz.energy.entry.jiusu.AgencyBean;
 import com.jjz.energy.entry.jiusu.BillEntry;
@@ -556,6 +557,58 @@ public interface Api {
     @FormUrlEncoded
     @POST("shop/goods/search")
     Flowable<ResponseData<LikeGoodsBean>> getSearchGoodsResult(@Field(PACK_NO) String pack_no);
+
+
+    // -----------------------------------------------------------  委托大厅
+
+    /**
+     * 委托大厅列表 mine  0为主页列表 1为发布者，2为接收者
+     */
+    @FormUrlEncoded
+    @POST("shop/Demand/demandList")
+    Flowable<ResponseData<EntrustListBean>> getEntrustList(@Field(PACK_NO) String pack_no);
+
+    /**
+     * 我接受的委托列表
+     */
+    @FormUrlEncoded
+    @POST("shop/Demand/demandList")
+    Flowable<ResponseData<EntrustListBean>> getMineAccpetEntrustList(@Field(PACK_NO) String pack_no);
+
+    /**
+     * 我发布的委托列表
+     */
+    @FormUrlEncoded
+    @POST("shop/Demand/demandList")
+    Flowable<ResponseData<EntrustListBean>> getMinePutEntrustList(@Field(PACK_NO) String pack_no);
+
+    /**
+     * 发布委托
+     */
+    @FormUrlEncoded
+    @POST("shop/demand/create")
+    Flowable<ResponseData<OrderPayTypeBean>> putEntrust(@Field(PACK_NO) String pack_no);
+
+    /**
+     * 接受委托
+     */
+    @FormUrlEncoded
+    @POST("shop/demand/receive_order")
+    Flowable<ResponseData<String>> accpetEnturst(@Field(PACK_NO) String pack_no);
+
+    /**
+     * 完成委托
+     */
+    @FormUrlEncoded
+    @POST("shop/demand/finish_order")
+    Flowable<ResponseData<String>> finishEntrust(@Field(PACK_NO) String pack_no);
+
+    /**
+     * 取消委托
+     */
+    @FormUrlEncoded
+    @POST("shop/demand/cancel_order")
+    Flowable<ResponseData<String>> cancleEntrust(@Field(PACK_NO) String pack_no);
 
 
 

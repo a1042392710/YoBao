@@ -526,6 +526,19 @@
         <activity android:name="com.jjz.energy.ui.mine.MineJiuSuCollectionDetailsActivity"
             android:configChanges="orientation|screenSize"/>
 
+        <!--委托大厅-->
+        <activity android:name="com.jjz.energy.ui.home.entrust.EntrustListActivity"
+            android:configChanges="orientation|screenSize"/>
+
+        <!--发布委托-->
+        <activity android:name="com.jjz.energy.ui.home.entrust.PutEntrustActivity"
+            android:configChanges="orientation|screenSize"/>
+
+        <!--我的委托-->
+        <activity android:name="com.jjz.energy.ui.home.entrust.MineEntrustActivity"
+            android:configChanges="orientation|screenSize"/>
+
+
 
 
         <!--****************** 支付****************** -->

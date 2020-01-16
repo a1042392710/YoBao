@@ -24,6 +24,7 @@ import com.jjz.energy.base.Constant;
 import com.jjz.energy.entry.UserInfo;
 import com.jjz.energy.entry.jiusu.MineBean;
 import com.jjz.energy.presenter.mine.MinePresenter;
+import com.jjz.energy.ui.home.entrust.MineEntrustActivity;
 import com.jjz.energy.ui.home.jiusu.JiuSuVCodeDetailActivity;
 import com.jjz.energy.ui.jiusu_shop.JiuSuShopHomePageActivity;
 import com.jjz.energy.ui.jiusu_shop.ShopSureBuyActivity;
@@ -138,6 +139,7 @@ public class MineFragment  extends BaseLazyFragment<MinePresenter> implements IM
         mList.add(new MineBean("我的积分",R.mipmap.ic_mine_integral));
         mList.add(new MineBean("消费记录",R.mipmap.ic_mine_shopping_list));
         mList.add(new MineBean("收款记录",R.mipmap.ic_mine_get_money));
+        mList.add(new MineBean("我的委托",R.mipmap.ic_mine_entrust));
 //        mList.add(new MineBean("我的公益", R.mipmap.ic_mine_charity));
 //        mList.add(new MineBean("我的物流", R.mipmap.ic_mine_logistics));
 //        mList.add(new MineBean("我的保险", R.mipmap.ic_mine_insurance));
@@ -147,13 +149,20 @@ public class MineFragment  extends BaseLazyFragment<MinePresenter> implements IM
         rvMine.setAdapter(mineAdapter);
         mineAdapter.setOnItemClickListener((adapter, view, position) -> {
             switch (mineAdapter.getItem(position).getTitle()){
+                case "收款记录":
+                    startActivity(new Intent(mContext, MineJiuSuCollectionListActivity.class));
+                    break;
+                case "消费记录":
+                    startActivity(new Intent(mContext,MineJiuSuShoppingListActivity.class));
+                    break;
                 case "我的帖子":
                     startActivity(new Intent(mContext,MinePostActivity.class));
                     break;
-                case "我的评价":
-                    break;
                 case "我的积分":
                     startActivity(new Intent(mContext,MineIntegralActivity.class));
+                    break;
+                case "我的委托":
+                    startActivity(new Intent(mContext, MineEntrustActivity.class));
                     break;
                 case "我的公益":
                     break;
@@ -165,12 +174,7 @@ public class MineFragment  extends BaseLazyFragment<MinePresenter> implements IM
                     break;
                 case "我的教育":
                     break;
-                case "收款记录":
-                    startActivity(new Intent(mContext, MineJiuSuCollectionListActivity.class));
-                    break;
-                case "消费记录":
-                    startActivity(new Intent(mContext,MineJiuSuShoppingListActivity.class));
-                    break;
+
             }
         });
 

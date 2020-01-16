@@ -1,4 +1,4 @@
-package com.jjz.energy.ui.mine;
+package com.jjz.energy.ui.home.entrust;
 
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -17,10 +17,11 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
- * @Features: 我的粉丝和我的关注
+ * @Features: 我接受的委托和我发布的委托
  * @author: create by chenhao on 2019/8/14
  */
-public class MineFansAndLikeActivity extends BaseActivity {
+public class MineEntrustActivity extends BaseActivity {
+
     @BindView(R.id.ll_toolbar_left)
     LinearLayout llToolbarLeft;
     @BindView(R.id.tv_toolbar_title)
@@ -31,10 +32,8 @@ public class MineFansAndLikeActivity extends BaseActivity {
     TabLayout tablayout;
     @BindView(R.id.vp_fans)
     ViewPager vpFans;
-    /**
-     * 0 默认选中关注的人  1 默认我的粉丝
-     */
-    private int vpSelectIndex ;
+
+
 
     @Override
     protected BasePresenter getPresenter() {
@@ -43,13 +42,12 @@ public class MineFansAndLikeActivity extends BaseActivity {
 
     @Override
     protected int layoutId() {
-        return R.layout.act_mine_fans;
+        return R.layout.act_mine_entrust;
     }
 
     @Override
     protected void initView() {
-        tvToolbarTitle.setText("关注和粉丝");
-        vpSelectIndex  = getIntent().getIntExtra("index",0);
+        tvToolbarTitle.setText("我的委托");
         initVpAndVp();
     }
 
@@ -61,8 +59,6 @@ public class MineFansAndLikeActivity extends BaseActivity {
         //初始化ViewPager 并与TabLayout绑定
         vpFans.setAdapter(new ViewPagerAdapter(getSupportFragmentManager()));
         tablayout.setupWithViewPager(vpFans);
-        //设置选中
-        vpFans.setCurrentItem(vpSelectIndex);
     }
 
     @Override
@@ -83,9 +79,9 @@ public class MineFansAndLikeActivity extends BaseActivity {
     }
 
     class ViewPagerAdapter extends FragmentPagerAdapter {
-        private String[] title = {"关注的人", "我的粉丝"};
+        private String[] title = {"我接受的", "我发布的"};
 
-        private Fragment[] mFragments = new Fragment[]{new MineLikeFragment(), new MineFansFragment()};
+        private Fragment[] mFragments = new Fragment[]{new AccpetEntrustFragment(), new PutEntrustFragment()};
 
         public ViewPagerAdapter(FragmentManager fm) {
             super(fm);

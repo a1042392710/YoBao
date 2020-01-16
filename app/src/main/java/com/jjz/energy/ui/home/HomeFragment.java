@@ -25,8 +25,10 @@ import com.jjz.energy.presenter.home.HomePresenter;
 import com.jjz.energy.ui.MainActivity;
 import com.jjz.energy.ui.city.CityPickerActivity;
 import com.jjz.energy.ui.home.commodity.HomeCommodityFragment;
+import com.jjz.energy.ui.home.entrust.EntrustListActivity;
 import com.jjz.energy.ui.home.jiusu.JiuSuHomeActivity;
 import com.jjz.energy.ui.home.login.LoginActivity;
+import com.jjz.energy.ui.home.logistics.LogisticsActivity;
 import com.jjz.energy.ui.jiusu_shop.JiuSuShopActivity;
 import com.jjz.energy.ui.notice.NoticeListActivity;
 import com.jjz.energy.util.StringUtil;
@@ -187,7 +189,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements IHomeVi
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @OnClick({R.id.tv_city, R.id.card_search, R.id.img_notice, R.id.ll_logistics,R.id.ll_shop_discount,
-            R.id.ll_insurance, R.id.ll_old, R.id.ll_charitable,R.id.ll_jiusu,R.id.ll_education})
+            R.id.ll_insurance, R.id.ll_old, R.id.ll_charitable,R.id.ll_jiusu,R.id.ll_education ,R.id.ll_commission})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             //切换城市
@@ -211,10 +213,15 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements IHomeVi
                 //需要验证登录
                 ActivityUtils.startActivity(!UserLoginBiz.getInstance(mContext).detectUserLoginStatus() ? LoginActivity.class : NoticeListActivity.class);
                 break;
+            //委托专区
+            case R.id.ll_commission:
+                //需要验证登录
+                ActivityUtils.startActivity(!UserLoginBiz.getInstance(mContext).detectUserLoginStatus() ? LoginActivity.class : EntrustListActivity.class);
+                break;
             //物流
             case R.id.ll_logistics:
-                showToast("暂未开放");
-//                startActivity(new Intent(mContext, LogisticsActivity.class));
+//                showToast("暂未开放");
+                startActivity(new Intent(mContext, LogisticsActivity.class));
                 break;
             //保险
             case R.id.ll_insurance:
@@ -256,6 +263,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements IHomeVi
             //同城
             case R.id.ll_same_city:
                 break;
+
         }
     }
 

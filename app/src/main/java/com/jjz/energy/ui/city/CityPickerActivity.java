@@ -28,8 +28,8 @@ import com.jjz.energy.ui.city.bean.CityPickerBean;
 import com.jjz.energy.ui.city.bean.LocateState;
 import com.jjz.energy.ui.city.util.PinyinUtils;
 import com.jjz.energy.ui.city.util.ReadAssetsFileUtil;
-import com.jjz.energy.util.system.PopWindowUtil;
 import com.jjz.energy.util.city.widget.SideLetterBar;
+import com.jjz.energy.util.system.PopWindowUtil;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -68,6 +68,10 @@ public class CityPickerActivity extends FragmentActivity {
     public MyLocationListener mMyLocationListener = new MyLocationListener();
     //定位配置
     private LocationClientOption option = new LocationClientOption();
+    /**
+     * 选择类型 0 刷新定位  1 仅选择
+     */
+    private int mSelectType ;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -75,6 +79,7 @@ public class CityPickerActivity extends FragmentActivity {
         setContentView(R.layout.cp_activity_city_list);
         ButterKnife.bind(this);
         tvToolbarTitle.setText("选择城市");
+        mSelectType = getIntent().getIntExtra("type",0);
         initView();
         initData();
         initLocation();
@@ -101,9 +106,15 @@ public class CityPickerActivity extends FragmentActivity {
         mCityAdapter.setOnCityClickListener(new CityListAdapter.OnCityClickListener() {
             @Override
             public void onCityClick(String name) {
-                //选择城市
-                EventBus.getDefault().post(new LocationEvent(name));
-                finish();
+                if (mSelectType!=0){
+                    Intent intent = new Intent();
+                    intent.putExtra("city",name);
+                    setResult(RESULT_OK,intent);
+                    finish();
+                }else{
+                    //选择城市
+                    EventBus.getDefault().post(new LocationEvent(name));
+                }
             }
 
             @Override

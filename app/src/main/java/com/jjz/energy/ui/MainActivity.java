@@ -33,6 +33,7 @@ import com.jjz.energy.presenter.MainPresenter;
 import com.jjz.energy.ui.community.PutCommunityActivity;
 import com.jjz.energy.ui.home.commodity.PutCommodityActivity;
 import com.jjz.energy.ui.home.login.LoginActivity;
+import com.jjz.energy.ui.home.logistics.ReleaseLogisticsActivity;
 import com.jjz.energy.ui.mine.information.MineAccountsActivity;
 import com.jjz.energy.util.Utils;
 import com.jjz.energy.util.networkUtil.PacketUtil;
@@ -106,11 +107,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IMainVi
         initLocation();
         vpMain.setAdapter(new ViewPagerAdapter(getSupportFragmentManager()));
         vpMain.setOffscreenPageLimit(3);
-        //获取推送Id
-        String rid = JPushInterface.getRegistrationID(this);
-        if (!StringUtils.isEmpty(rid)){
-            mPresenter.submitRegistrationId(PacketUtil.getRequestPacket(Utils.stringToMap("push_id",rid)));
-        }
+
     }
 
 
@@ -171,9 +168,9 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IMainVi
         //发布物流
         item_ll_put_logistics.setOnClickListener(v -> {
             popupWindow.dismiss();
-            showToast("该功能暂未开放");
+//            showToast("该功能暂未开放");
             //发布物流
-//            startActivity(new Intent(mContext, ReleaseLogisticsActivity.class));
+            startActivity(new Intent(mContext, ReleaseLogisticsActivity.class));
         });
         //发布商品
         item_ll_put_idle.setOnClickListener(v -> {
@@ -304,6 +301,13 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IMainVi
         //再次显示的时候重新定位
         if (null != mLocationClient && mLocationClient.isStarted()) {
             mLocationClient.requestLocation();
+        }
+        //获取推送Id
+        String rid = JPushInterface.getRegistrationID(this);
+        if (!StringUtils.isEmpty(rid)){
+            if (mPresenter!=null) {
+                mPresenter.submitRegistrationId(PacketUtil.getRequestPacket(Utils.stringToMap("push_id", rid)));
+            }
         }
     }
 

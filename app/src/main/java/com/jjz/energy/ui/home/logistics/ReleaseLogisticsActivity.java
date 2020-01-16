@@ -1,7 +1,6 @@
 package com.jjz.energy.ui.home.logistics;
 
 import android.app.DatePickerDialog;
-import android.app.TimePickerDialog;
 import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.EditText;
@@ -108,7 +107,7 @@ public class ReleaseLogisticsActivity extends BaseActivity {
                         (this, (view1, year, month, dayOfMonth) -> {
                     //这里的year,monthOfYear,dayOfMonth的值与DatePickerDialog控件设置的最新值一致
                             calendar.set(Calendar.YEAR, year);
-                            calendar.set(Calendar.MONTH, month);
+                            calendar.set(Calendar.MONTH, month+1);
                             calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
                             tvTimeStart.setText(year+"年"+month+"月"+dayOfMonth+"日");
                         }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
@@ -117,10 +116,16 @@ public class ReleaseLogisticsActivity extends BaseActivity {
 
                 //选择卸货时间
             case R.id.tv_time_end:
-               new TimePickerDialog(this, (view12, hourOfDay
-                        , minute) -> {
-
-                        },1,10,false).show();
+                //生成一个DatePickerDialog对象，并显示。显示的DatePickerDialog控件可以选择年月日，并设置
+                new DatePickerDialog
+                        (this, (view1, year, month, dayOfMonth) -> {
+                            //这里的year,monthOfYear,dayOfMonth的值与DatePickerDialog控件设置的最新值一致
+                            calendar.set(Calendar.YEAR, year);
+                            calendar.set(Calendar.MONTH, month+1);
+                            calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                            tvTimeEnd.setText(year+"年"+month+"月"+dayOfMonth+"日");
+                        }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
+                                calendar.get(Calendar.DAY_OF_MONTH)).show();
                 break;
 
                 //选择起点

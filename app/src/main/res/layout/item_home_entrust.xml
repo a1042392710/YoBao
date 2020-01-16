@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:elevation="3dp"
+    android:layout_marginLeft="8dp"
+    android:layout_marginRight="8dp"
+    android:layout_marginBottom="9dp"
+    android:background="@drawable/bg_white_radius"
+    android:padding="12dp">
+
+
+    <ImageView
+        android:id="@+id/item_img_user_head"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        tools:src="@color/red_fe8977" />
+
+    <TextView
+        android:id="@+id/item_tv_user_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_toRightOf="@id/item_img_user_head"
+        android:text="南昌彭于晏"
+        android:textColor="@color/text_black33"
+        android:textSize="13sp"
+        android:textStyle="bold" />
+
+    <TextView
+
+        android:id="@id/item_tv_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/item_tv_user_name"
+        android:layout_alignLeft="@id/item_tv_user_name"
+        android:layout_marginTop="13dp"
+        android:layout_marginRight="5dp"
+        android:textColor="@color/text_black33"
+        android:textSize="13sp"
+        tools:text="找一个人帮我买一瓶老干妈。要可乐味的老干妈，还要一些牛皮纸，一些洋葱。" />
+
+
+
+
+    <TextView
+        android:id="@+id/item_tv_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:text="¥10"
+        android:textColor="@color/red_fd3c3c"
+        android:textSize="16sp"/>
+
+    <TextView
+        android:id="@+id/item_tv_accept_entrust"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="21dp"
+        android:background="@drawable/bg_red_solid"
+        android:padding="4dp"
+        android:text="接受委托"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/item_tv_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/item_tv_location"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="3dp"
+        android:text="蒸湘区芙蓉路科创智谷1608"
+        android:layout_alignLeft="@id/item_tv_content"
+        android:textSize="9sp"
+        android:layout_alignTop="@id/item_tv_accept_entrust"
+        android:textColor="#48a0d2"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/item_tv_time"
+        android:layout_width="wrap_content"
+        android:layout_below="@id/item_tv_location"
+        android:layout_alignLeft="@id/item_tv_location"
+        android:layout_marginTop="5dp"
+        tools:text="5分钟前"
+        android:textColor="@color/text_black6a"
+        android:textSize="10sp"
+        android:layout_height="wrap_content"/>
+
+
+</RelativeLayout>

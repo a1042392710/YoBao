@@ -126,7 +126,7 @@ public class JiuSuMineActivity extends BaseActivity<JiuSuMinePresenter> implemen
 
     Badge mBadge;
 
-    @OnClick({R.id.tv_vip_level, R.id.ll_mine_wallet, R.id.ll_share, R.id.ll_mine_seller_order,
+    @OnClick({ R.id.ll_toolbar_left,R.id.tv_vip_level, R.id.ll_mine_wallet, R.id.ll_share, R.id.ll_mine_seller_order,
             R.id.ll_label_no_vip, R.id.ll_mine_vip, R.id.ll_label_one, R.id.ll_label_two,
             R.id.ll_label_three, R.id.ll_label_four, R.id.ll_mine_order})
     public void onViewClicked(View view) {
@@ -186,6 +186,10 @@ public class JiuSuMineActivity extends BaseActivity<JiuSuMinePresenter> implemen
                     return;
                 }
                 startActivity(new Intent(mContext, JiuSuMineVipActivity.class).putExtra(Constant.INTENT_KEY_OBJECT,mLoginBean));
+                break;
+
+            case R.id.ll_toolbar_left:
+                finish();
                 break;
 
         }
