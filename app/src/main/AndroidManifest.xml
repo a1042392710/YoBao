@@ -169,6 +169,10 @@
         <activity android:name=".ui.home.logistics.LogisticsActivity"
                   android:configChanges="orientation|screenSize"/>
 
+        <!--地图选点-->
+        <activity android:name=".ui.home.logistics.MapSelectActivity"
+                  android:configChanges="orientation|screenSize"/>
+
         <!--物流详情-->
         <activity android:name=".ui.home.logistics.LogisticsDetailActivity"
                   android:configChanges="orientation|screenSize"/>

@@ -14,8 +14,8 @@ import android.webkit.WebView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.github.lzyzsd.jsbridge.BridgeWebView;
 import com.jjz.energy.R;
-import com.jjz.energy.util.jsbridge.BridgeWebView;
 
 import butterknife.BindView;
 import butterknife.OnClick;

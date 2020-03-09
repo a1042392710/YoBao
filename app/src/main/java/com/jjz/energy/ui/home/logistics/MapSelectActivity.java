@@ -1,13 +1,24 @@
 package com.jjz.energy.ui.home.logistics;
 
+import android.content.Intent;
+import android.util.Log;
+import android.view.KeyEvent;
+import android.webkit.WebChromeClient;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.baidu.mapapi.map.BaiduMap;
-import com.baidu.mapapi.map.BitmapDescriptor;
-import com.baidu.mapapi.map.TextureMapView;
+import com.github.lzyzsd.jsbridge.BridgeWebView;
+import com.github.lzyzsd.jsbridge.CallBackFunction;
+import com.github.lzyzsd.jsbridge.DefaultHandler;
 import com.jjz.energy.R;
 import com.jjz.energy.base.BaseActivity;
 import com.jjz.energy.base.BasePresenter;
+import com.jjz.energy.base.Constant;
+
+import java.io.Serializable;
+
+import butterknife.BindView;
+import cn.jmessage.support.google.gson.Gson;
 
 /**
  * @Features: 地图选点功能
@@ -15,136 +26,114 @@ import com.jjz.energy.base.BasePresenter;
  */
 public class MapSelectActivity extends BaseActivity {
 
-    private TextureMapView mMapView;
-    private BaiduMap mBaiduMap;
-    private BitmapDescriptor bitmap;
+    @BindView(R.id.webView)
+    BridgeWebView mWebView;
+    @BindView(R.id.ll_toolbar_left)
+    LinearLayout llToolbarLeft;
+    @BindView(R.id.tv_toolbar_title)
+    TextView tvToolbarTitle;
+    @BindView(R.id.tv_toolbar_right)
+    TextView tvToolbarRight;
 
-    private TextView tvAddress;
-
+    private String webUrl = "http://172.16.32.7/web/index/map";
+    /**
+     * 起点还是终点
+     */
+    private String type  ;
     @Override
     public void initView() {
-        mBaiduMap = mMapView.getMap();
-//        initMap();
-//        addMaker(bitmap);
+        tvToolbarTitle.setText("选择位置");
+        llToolbarLeft.setOnClickListener(v -> finish());
+        type = getIntent().getStringExtra("type");
+        initWebView();
     }
 
 
-    /**
-     * 初始化配置地图
-     */
-//    private void initMap() {
-//        //生成maker点图标
-//        bitmap = BitmapDescriptorFactory.fromResource(R.mipmap.ic_map_select_mark);
-//        // 隐藏LOGO
-//        View child = mMapView.getChildAt(1);
-//        if (child != null && (child instanceof ImageView || child instanceof ZoomControls)) {
-//            child.setVisibility(View.INVISIBLE);
-//        }
-//        // 隐藏比例尺
-//        mMapView.showScaleControl(false);
-//        // 隐藏缩放控件
-//        mMapView.showZoomControls(false);
-//
-//        //开启交通图
-////        mBaiduMap.setTrafficEnabled(true);
-//        //设置地图显示类型   普通/卫星/空白
-//        mBaiduMap.setMapType(BaiduMap.MAP_TYPE_NORMAL);
-//
-//        //设置地图的默认显示地点和缩放级别
-//        mBaiduMap.setMapStatus(MapStatusUpdateFactory
-//                .newLatLngZoom(new LatLng(Double.valueOf(Config.latitude),
-//                        Double.valueOf(Config.longitude)), 18.0f));
-//
-//        //监听
-//        mBaiduMap.setOnMapClickListener(new BaiduMap.OnMapClickListener() {
-//            @Override
-//            public void onMapClick(LatLng latLng) {
-//                //获取经纬度
-//                double latitude = latLng.latitude;
-//                double longitude = latLng.longitude;
-//                //清除图层
-//                mBaiduMap.clear();
-//                // 定义Maker坐标点
-//                LatLng point = new LatLng(latitude, longitude);
-//                //定义options设置maker属性
-//                OverlayOptions options = new MarkerOptions().position(point).icon(bitmap);
-//                //将maker添加到地图
-//                mBaiduMap.addOverlay(options);
-//                //实例化一个地理编码查询对象
-//                GeoCoder geoCoder = GeoCoder.newInstance();
-//                //设置反地理编码位置坐标
-//                ReverseGeoCodeOption op = new ReverseGeoCodeOption();
-//                op.location(point);
-//                //发起反地理编码请求(经纬度->地址信息)
-//                geoCoder.setOnGetGeoCodeResultListener(new OnGetGeoCoderResultListener() {
-//                    @Override
-//                    public void onGetGeoCodeResult(GeoCodeResult geoCodeResult) {
-//                        if (geoCodeResult == null
-//                                || geoCodeResult.error != SearchResult.ERRORNO.NO_ERROR) {
-//                            Toast.makeText(getContext(), "没有检测到结果", Toast.LENGTH_SHORT).show();
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onGetReverseGeoCodeResult(ReverseGeoCodeResult reverseGeoCodeResult) {
-//                        if (reverseGeoCodeResult == null
-//                                || reverseGeoCodeResult.error != SearchResult.ERRORNO.NO_ERROR) {
-//                            Toast.makeText(getContext(), "没有检测到结果", Toast.LENGTH_SHORT).show();
-//                        } else {
-//                            //获取点击的坐标地址
-//                            String address = reverseGeoCodeResult.getAddressDetail().countryName
-//                                    + reverseGeoCodeResult.getAddressDetail().province
-//                                    + reverseGeoCodeResult.getAddressDetail().city
-//                                    + reverseGeoCodeResult.getAddressDetail().district
-//                                    + reverseGeoCodeResult.getAddressDetail().street
-//                                    + reverseGeoCodeResult.getAddressDetail().town;
-//                            tvAddress.setText(address);
-////                            Toast.makeText(MainActivity.this, "位置：" + address, Toast.LENGTH_LONG).show();
-//                        }
-//                    }
-//                });
-//                geoCoder.reverseGeoCode(op);
-//                // 释放实例
-//                geoCoder.destroy();
-//            }
-//
-//            @Override
-//            public boolean onMapPoiClick(MapPoi mapPoi) {
-//                return false;
-//            }
-//        });
-//    }
+    private void initWebView() {
+        mWebView.setWebChromeClient(new WebChromeClient());
+        //加载服务器网页或者本地网页
+        mWebView.loadUrl(webUrl);
 
-//    private void addMaker(BitmapDescriptor bitmap) {
-//        //构建中心点
-//        LatLng point = new LatLng(Double.valueOf(Config.latitude), Double.valueOf(Config.longitude));
-//        //构建MarkerOption，用于在地图上添加Marker
-//        OverlayOptions option = new MarkerOptions().position(point).icon(bitmap).draggable(true);
-//        //在地图上添加Marker，并显示
-//        mBaiduMap.addOverlay(option);
-//    }
+        // 重写handler方法接收js的消息
+        mWebView.setDefaultHandler(new DefaultHandler(){
+            @Override
+            public void handler(String data, CallBackFunction function) {
+                Log.e("address",data);
+                LatLngBean bean =new Gson().fromJson(data,LatLngBean.class);
+                if ("start".equals(type)){
+                    setResult(0, new Intent().putExtra(Constant.INTENT_KEY_OBJECT,bean));
+                }else{
+                    setResult(1, new Intent().putExtra(Constant.INTENT_KEY_OBJECT,bean));
+                }
+                finish();
+                //在此接收js返回的数据
+                function.onCallBack(data);
+            }
+        });
 
+    }
+
+   public class LatLngBean implements Serializable {
+        private double lat;
+       private double lng;
+       private String poiname;
+       private String cityname;
+       private String poiaddress;
+
+       public String getPoiname() {
+           return poiname == null ? "" : poiname;
+       }
+
+       public void setPoiname(String poiname) {
+           this.poiname = poiname;
+       }
+
+       public String getCityname() {
+           return cityname == null ? "" : cityname;
+       }
+
+       public void setCityname(String cityname) {
+           this.cityname = cityname;
+       }
+
+       public String getPoiaddress() {
+           return poiaddress == null ? "" : poiaddress;
+       }
+
+       public void setPoiaddress(String poiaddress) {
+           this.poiaddress = poiaddress;
+       }
+
+       public double getLat() {
+           return lat;
+       }
+
+       public void setLat(double lat) {
+           this.lat = lat;
+       }
+
+       public double getLng() {
+           return lng;
+       }
+
+       public void setLng(double lng) {
+           this.lng = lng;
+       }
+   }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        //在activity执行onResume时执行mMapView. onResume ()，实现地图生命周期管理
-        mMapView.onResume();
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+            if (mWebView.canGoBack()){
+                mWebView.goBack();
+            }else{
+                finish();
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        //在activity执行onPause时执行mMapView. onPause ()，实现地图生命周期管理
-        mMapView.onPause();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        //在activity执行onDestroy时执行mMapView.onDestroy()，实现地图生命周期管理
-        mMapView.onDestroy();
-    }
 
     @Override
     protected BasePresenter getPresenter() {
@@ -165,4 +154,7 @@ public class MapSelectActivity extends BaseActivity {
     public void stopLoading() {
 
     }
+
+
+
 }

@@ -1,5 +1,7 @@
 package com.jjz.energy.ui.home.logistics;
 
+import android.content.Intent;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.EditText;
@@ -9,6 +11,7 @@ import android.widget.TextView;
 import com.jjz.energy.R;
 import com.jjz.energy.base.BaseActivity;
 import com.jjz.energy.base.BasePresenter;
+import com.jjz.energy.base.Constant;
 import com.jjz.energy.util.StringUtil;
 import com.jjz.energy.widgets.datepicker.CustomDatePicker;
 
@@ -105,10 +108,12 @@ public class ReleaseLogisticsActivity extends BaseActivity {
 
                 //选择起点
             case R.id.tv_location_start:
+                startActivityForResult(new Intent(mContext,MapSelectActivity.class).putExtra("type","start"),0);
                 break;
 
                 //选择终点
             case R.id.tv_location_end:
+                startActivityForResult(new Intent(mContext,MapSelectActivity.class).putExtra("type","end"),0);
                 break;
 
                 //发布物流
@@ -125,5 +130,22 @@ public class ReleaseLogisticsActivity extends BaseActivity {
     @Override
     public void stopLoading() {
 
+    }
+    //起点和终点
+    private MapSelectActivity.LatLngBean startLatLngBean;
+    private MapSelectActivity.LatLngBean endLatLngBean;
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        MapSelectActivity.LatLngBean bean =
+                (MapSelectActivity.LatLngBean) data.getSerializableExtra(Constant.INTENT_KEY_OBJECT);
+        if (resultCode == 0) {
+            startLatLngBean = bean;
+            tvLocationStart.setText(startLatLngBean.getPoiname());
+        } else {
+            endLatLngBean = bean;
+            tvLocationEnd.setText(endLatLngBean.getPoiname());
+        }
     }
 }

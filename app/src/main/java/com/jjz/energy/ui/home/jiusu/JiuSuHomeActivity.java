@@ -435,8 +435,7 @@ public class  JiuSuHomeActivity extends BaseActivity<JiuSuHomePresenter> impleme
              * @param mapPoi 点击的 poi 信息
              */
             @Override
-            public boolean onMapPoiClick(MapPoi mapPoi) {
-                return false;
+            public void onMapPoiClick(MapPoi mapPoi) {
             }
         });
 
