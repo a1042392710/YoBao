@@ -1,6 +1,5 @@
 package com.jjz.energy.ui.home.logistics;
 
-import android.app.DatePickerDialog;
 import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.EditText;
@@ -10,10 +9,8 @@ import android.widget.TextView;
 import com.jjz.energy.R;
 import com.jjz.energy.base.BaseActivity;
 import com.jjz.energy.base.BasePresenter;
-
-import java.text.DateFormat;
-import java.util.Calendar;
-import java.util.Locale;
+import com.jjz.energy.util.StringUtil;
+import com.jjz.energy.widgets.datepicker.CustomDatePicker;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -32,8 +29,6 @@ public class ReleaseLogisticsActivity extends BaseActivity {
     TextView tvToolbarRight;
     @BindView(R.id.tv_time_start)
     TextView tvTimeStart;
-    @BindView(R.id.tv_time_end)
-    TextView tvTimeEnd;
     @BindView(R.id.tv_location_start)
     TextView tvLocationStart;
     @BindView(R.id.tv_location_end)
@@ -61,7 +56,8 @@ public class ReleaseLogisticsActivity extends BaseActivity {
     /**
      * 时间选择器
      */
-//    DatePickerDialog mStartPicker;
+    private CustomDatePicker mCustomDatePicker;
+
     @Override
     protected BasePresenter getPresenter() {
         return null;
@@ -75,23 +71,21 @@ public class ReleaseLogisticsActivity extends BaseActivity {
     @Override
     protected void initView() {
         tvToolbarTitle.setText("发布物流");
+        //初始化时间选择器
+        mCustomDatePicker = new CustomDatePicker(this, time -> {
+            // 回调接口，获得选中的时间
+//            String birthDayDate = time.split(" ")[0];
+            tvTimeStart.setText(time);
+        }); // 初始化日期格式请用：yyyy-MM-dd HH:mm，否则不能正常运行
+        mCustomDatePicker.showSpecificTime(true); // 不显示时和分
+        mCustomDatePicker.setIsLoop(false); // 不允许循环滚动
 
     }
 
-    @Override
-    public void showLoading() {
 
-    }
 
-    @Override
-    public void stopLoading() {
 
-    }
-    DateFormat format =  DateFormat.getDateTimeInstance();
-    //获取日期格式器对象
-    Calendar calendar = Calendar.getInstance(Locale.CHINA);
-
-    @OnClick({R.id.ll_toolbar_left, R.id.tv_time_start, R.id.tv_time_end, R.id.tv_location_start,
+    @OnClick({R.id.ll_toolbar_left, R.id.tv_time_start, R.id.tv_location_start,
             R.id.tv_location_end, R.id.cv_release})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -102,30 +96,11 @@ public class ReleaseLogisticsActivity extends BaseActivity {
 
             //选择发货时间
             case R.id.tv_time_start:
-                //生成一个DatePickerDialog对象，并显示。显示的DatePickerDialog控件可以选择年月日，并设置
-                new DatePickerDialog
-                        (this, (view1, year, month, dayOfMonth) -> {
-                    //这里的year,monthOfYear,dayOfMonth的值与DatePickerDialog控件设置的最新值一致
-                            calendar.set(Calendar.YEAR, year);
-                            calendar.set(Calendar.MONTH, month+1);
-                            calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                            tvTimeStart.setText(year+"年"+month+"月"+dayOfMonth+"日");
-                        }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
-                                calendar.get(Calendar.DAY_OF_MONTH)).show();
-                break;
-
-                //选择卸货时间
-            case R.id.tv_time_end:
-                //生成一个DatePickerDialog对象，并显示。显示的DatePickerDialog控件可以选择年月日，并设置
-                new DatePickerDialog
-                        (this, (view1, year, month, dayOfMonth) -> {
-                            //这里的year,monthOfYear,dayOfMonth的值与DatePickerDialog控件设置的最新值一致
-                            calendar.set(Calendar.YEAR, year);
-                            calendar.set(Calendar.MONTH, month+1);
-                            calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                            tvTimeEnd.setText(year+"年"+month+"月"+dayOfMonth+"日");
-                        }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
-                                calendar.get(Calendar.DAY_OF_MONTH)).show();
+                if (StringUtil.isEmpty(tvTimeStart.getText().toString()) || "请选择".equals(tvTimeStart.getText().toString())) {
+                    mCustomDatePicker.showNow();
+                } else {
+                    mCustomDatePicker.show(tvTimeStart.getText().toString());
+                }
                 break;
 
                 //选择起点
@@ -140,5 +115,15 @@ public class ReleaseLogisticsActivity extends BaseActivity {
             case R.id.cv_release:
                 break;
         }
+    }
+
+    @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void stopLoading() {
+
     }
 }

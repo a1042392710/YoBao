@@ -37,7 +37,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="11dp"
-                    android:text="今天1点 装货"
+                    android:text="今天1点 发货"
                     android:textColor="#292929"
                     android:textSize="12sp"/>
 

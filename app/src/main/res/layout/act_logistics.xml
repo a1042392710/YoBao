@@ -128,7 +128,7 @@
             android:textColor="#292929"
             android:paddingRight="8dp"
             android:background="@drawable/bg_tv_logistics"
-            android:text="装货时间"
+            android:text="发货时间"
             android:layout_height="wrap_content"/>
 
     </LinearLayout>

@@ -1,5 +1,6 @@
 package com.jjz.energy.widgets.datepicker;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -21,7 +22,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 /**
- * Created by liuwan on 2016/9/28.
+ * Created by ChenHao on 2018/9/28.
  */
 public class DatePickerView extends View {
 
@@ -61,6 +62,7 @@ public class DatePickerView extends View {
     private Timer timer;
     private MyTimerTask mTask;
 
+    @SuppressLint("HandlerLeak")
     private Handler updateHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {

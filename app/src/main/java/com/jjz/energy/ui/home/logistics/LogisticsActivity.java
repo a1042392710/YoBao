@@ -104,7 +104,7 @@ public class LogisticsActivity extends BaseActivity {
                 //起点
             case R.id.tv_first:
                 cityType = 0;
-                startActivityForResult(new Intent(mContext, CityPickerActivity.class),
+                startActivityForResult(new Intent(mContext, CityPickerActivity.class).putExtra("type",1),
                         Constant.SELECT_CITY_CODE);
                 break;
                 //起点终点翻转
