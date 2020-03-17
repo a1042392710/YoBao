@@ -14,6 +14,8 @@ import com.jjz.energy.entry.community.CommunityCommentBean;
 import com.jjz.energy.entry.home.BindBean;
 import com.jjz.energy.entry.home.EntrustListBean;
 import com.jjz.energy.entry.home.HomeDetailBean;
+import com.jjz.energy.entry.home.LogisticsBean;
+import com.jjz.energy.entry.home.LogisticsListBean;
 import com.jjz.energy.entry.jiusu.AgencyBean;
 import com.jjz.energy.entry.jiusu.BillEntry;
 import com.jjz.energy.entry.jiusu.BindOwnerInfoBean;
@@ -345,6 +347,28 @@ public interface Api {
     @FormUrlEncoded
     @POST("shop/time_line/sendComment")
     Flowable<ResponseData<String>> putPostComment(@Field(PACK_NO) String pack_no);
+
+    // ----------------------------------------------------------  物流
+
+    //发布物流信息
+    @FormUrlEncoded
+    @POST("express/app/issue")
+    Flowable<ResponseData<String>> putLogisticsInfo(@Field(PACK_NO) String pack_no);
+
+    //查看物流列表
+    @FormUrlEncoded
+    @POST("express/app/getExpressInfo")
+    Flowable<ResponseData<LogisticsListBean>> getLogisticsInfo(@Field(PACK_NO) String pack_no);
+
+    //查看物流详情
+    @FormUrlEncoded
+    @POST("express/app/getDetailInfo")
+    Flowable<ResponseData<LogisticsBean>> getLogisticsDetail(@Field(PACK_NO) String pack_no);
+
+    //撤销物流发布
+    @FormUrlEncoded
+    @POST("express/app/delInfo")
+    Flowable<ResponseData<String>> cancleLogistics(@Field(PACK_NO) String pack_no);
 
 
     // ----------------------------------------------------------  订单

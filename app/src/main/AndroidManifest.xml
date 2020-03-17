@@ -177,6 +177,10 @@
         <activity android:name=".ui.home.logistics.LogisticsDetailActivity"
                   android:configChanges="orientation|screenSize"/>
 
+        <!--我的物流-->
+        <activity android:name=".ui.home.logistics.MineLogisticsActivity"
+                  android:configChanges="orientation|screenSize"/>
+
         <!--公益慈善首页-->
         <activity android:name=".ui.home.charitable.CharitableActivity"
                   android:configChanges="orientation|screenSize"/>

@@ -35,7 +35,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="发货时间"
+                    android:text="装货时间"
                     android:textColor="#292929"
                     android:textSize="13sp"/>
 
@@ -47,7 +47,7 @@
                     android:layout_marginLeft="47dp"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
-                    android:hint="请选择发货时间"
+                    android:hint="请选择装货时间"
                     android:textColor="@color/text_black66"
                     android:textSize="13sp"/>
 
@@ -77,7 +77,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="发货地点"
+                    android:text="装货地点"
                     android:textColor="#292929"
                     android:textSize="13sp"/>
 
@@ -89,7 +89,7 @@
                     android:layout_marginLeft="47dp"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
-                    android:hint="请选择发货地点"
+                    android:hint="请选择装货地点"
                     android:textColor="@color/text_black66"
                     android:textSize="13sp"/>
 
@@ -166,6 +166,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginLeft="47dp"
                     android:layout_weight="1"
+                    android:singleLine="true"
                     android:background="@color/white"
                     android:gravity="center_vertical"
                     android:hint="请输入名称"
@@ -204,7 +205,8 @@
                     android:inputType="numberDecimal"
                     android:background="@color/white"
                     android:gravity="center_vertical"
-                    android:hint="请输入价格"
+                    android:singleLine="true"
+                    android:hint="请输入价格(元)"
                     android:textColor="@color/text_black66"
                     android:textSize="13sp"/>
             </LinearLayout>
@@ -235,9 +237,9 @@
                     android:layout_marginLeft="47dp"
                     android:layout_weight="1"
                     android:background="@color/white"
+                    android:singleLine="true"
                     android:gravity="center_vertical"
-                    android:inputType="number"
-                    android:hint="请输入重量(kg)"
+                    android:hint="请输入重量"
                     android:textColor="@color/text_black66"
                     android:textSize="13sp"/>
 
@@ -268,6 +270,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginLeft="47dp"
                     android:layout_weight="1"
+                    android:singleLine="true"
                     android:background="@color/white"
                     android:gravity="center_vertical"
                     android:hint="请输入体积(选填)"
@@ -275,7 +278,40 @@
                     android:textSize="13sp"/>
 
             </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.7dp"
+                android:background="@color/color_primary_f5"/>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="51dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="期望价格"
+                    android:textColor="#292929"
+                    android:textSize="13sp"/>
+
+                <EditText
+                    android:id="@+id/et_price"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="47dp"
+                    android:layout_weight="1"
+                    android:background="@color/white"
+                    android:singleLine="true"
+                    android:inputType="numberDecimal"
+                    android:gravity="center_vertical"
+                    android:hint="请输入期望运费(元)"
+                    android:textColor="@color/text_black66"
+                    android:textSize="13sp"/>
+
+            </LinearLayout>
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.7dp"
@@ -302,6 +338,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginLeft="47dp"
                     android:layout_weight="1"
+                    android:singleLine="true"
                     android:background="@color/white"
                     android:gravity="center_vertical"
                     android:hint="文字说明(选填)"
@@ -337,6 +374,7 @@
                     android:layout_weight="1"
                     android:background="@color/white"
                     android:gravity="center_vertical"
+                    android:singleLine="true"
                     android:hint="请输入名称"
                     android:textColor="@color/text_black66"
                     android:textSize="13sp"/>
@@ -371,6 +409,7 @@
                     android:layout_weight="1"
                     android:background="@color/white"
                     android:inputType="number"
+                    android:singleLine="true"
                     android:gravity="center_vertical"
                     android:hint="请输入联系方式"
                     android:textColor="@color/text_black66"
@@ -404,6 +443,7 @@
                     android:layout_marginLeft="47dp"
                     android:layout_weight="1"
                     android:background="@color/white"
+                    android:singleLine="true"
                     android:gravity="center_vertical"
                     android:hint="请输入名称"
                     android:textColor="@color/text_black66"
@@ -439,6 +479,7 @@
                     android:layout_weight="1"
                     android:background="@color/white"
                     android:inputType="number"
+                    android:singleLine="true"
                     android:gravity="center_vertical"
                     android:hint="请输入联系方式"
                     android:textColor="@color/text_black66"

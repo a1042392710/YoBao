@@ -2,7 +2,6 @@ package com.jjz.energy.ui.home.logistics;
 
 import android.content.Intent;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.webkit.WebChromeClient;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -11,6 +10,7 @@ import com.github.lzyzsd.jsbridge.BridgeWebView;
 import com.github.lzyzsd.jsbridge.CallBackFunction;
 import com.github.lzyzsd.jsbridge.DefaultHandler;
 import com.jjz.energy.R;
+import com.jjz.energy.base.Api;
 import com.jjz.energy.base.BaseActivity;
 import com.jjz.energy.base.BasePresenter;
 import com.jjz.energy.base.Constant;
@@ -35,7 +35,7 @@ public class MapSelectActivity extends BaseActivity {
     @BindView(R.id.tv_toolbar_right)
     TextView tvToolbarRight;
 
-    private String webUrl = "http://172.16.32.7/web/index/map";
+    private String webUrl = Api.BASE_URL+"web/index/map";
     /**
      * 起点还是终点
      */
@@ -120,19 +120,6 @@ public class MapSelectActivity extends BaseActivity {
            this.lng = lng;
        }
    }
-
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
-            if (mWebView.canGoBack()){
-                mWebView.goBack();
-            }else{
-                finish();
-            }
-            return true;
-        }
-        return super.onKeyDown(keyCode, event);
-    }
 
 
     @Override

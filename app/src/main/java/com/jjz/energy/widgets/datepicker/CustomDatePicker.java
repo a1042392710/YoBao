@@ -61,14 +61,12 @@ public class CustomDatePicker {
     private TextView tv_cancle, tv_select, hour_text, minute_text;
 
     public CustomDatePicker(Context context, ResultHandler resultHandler) {
-        //开始时间和结束时间使用默认值
+        //设置开始时间
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date());
-        //结束时间为明年年底
         calendar.set(1900,1,1);
-        //开始时间为当前时间
+        //结束时间为当前时间
         Date startDate = calendar.getTime();
-//        if (isValidDate(startDate, "yyyy-MM-dd HH:mm") && isValidDate(endDate, "yyyy-MM-dd HH:mm")) {
         canAccess = true;
         this.context = context;
         this.handler = resultHandler;
@@ -81,8 +79,23 @@ public class CustomDatePicker {
         endCalendar.setTime(new Date());
         initDialog();
         initView();
-//        }
     }
+
+    public CustomDatePicker(Context context, Date startDate,Date endDate, ResultHandler resultHandler) {
+        //设置开始时间，和结束时间
+        canAccess = true;
+        this.context = context;
+        this.handler = resultHandler;
+        selectedCalender = Calendar.getInstance();
+        startCalendar = Calendar.getInstance();
+        endCalendar = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.CHINA);
+        startCalendar.setTime(startDate);
+        endCalendar.setTime(endDate);
+        initDialog();
+        initView();
+    }
+
 
     private void initDialog() {
         if (datePickerDialog == null) {

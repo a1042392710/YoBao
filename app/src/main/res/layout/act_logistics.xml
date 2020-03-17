@@ -82,6 +82,11 @@
         android:paddingLeft="18dp"
         android:paddingRight="18dp"
         android:orientation="horizontal">
+        <LinearLayout
+            android:id="@+id/ll_loaction_select"
+            android:layout_width="wrap_content"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
 
         <TextView
             android:id="@+id/tv_first"
@@ -93,12 +98,13 @@
             android:textColor="#292929"
             android:paddingRight="8dp"
             android:background="@drawable/bg_tv_logistics"
-            android:text="南昌市"
+            android:text="发货地"
             android:layout_height="wrap_content"/>
 
         <ImageView
             android:id="@+id/img_sort"
             android:layout_width="20dp"
+            android:layout_gravity="center_vertical"
             android:layout_marginLeft="6dp"
             android:src="@mipmap/ic_round_trip"
             android:layout_height="13dp"/>
@@ -117,6 +123,8 @@
             android:text="目的地"
             android:layout_height="wrap_content"/>
 
+        </LinearLayout>
+
         <TextView
             android:id="@+id/tv_time"
             android:layout_width="wrap_content"
@@ -128,10 +136,15 @@
             android:textColor="#292929"
             android:paddingRight="8dp"
             android:background="@drawable/bg_tv_logistics"
-            android:text="发货时间"
+            android:text="装货时间"
             android:layout_height="wrap_content"/>
 
     </LinearLayout>
+
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:layout_width="match_parent"
+        android:id="@+id/smart_refresh"
+        android:layout_height="match_parent">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_goods"
@@ -141,6 +154,6 @@
         android:paddingRight="9dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
-
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
 </LinearLayout>

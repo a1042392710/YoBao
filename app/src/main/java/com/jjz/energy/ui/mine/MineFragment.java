@@ -26,6 +26,7 @@ import com.jjz.energy.entry.jiusu.MineBean;
 import com.jjz.energy.presenter.mine.MinePresenter;
 import com.jjz.energy.ui.home.entrust.MineEntrustActivity;
 import com.jjz.energy.ui.home.jiusu.JiuSuVCodeDetailActivity;
+import com.jjz.energy.ui.home.logistics.MineLogisticsActivity;
 import com.jjz.energy.ui.jiusu_shop.JiuSuShopHomePageActivity;
 import com.jjz.energy.ui.jiusu_shop.ShopSureBuyActivity;
 import com.jjz.energy.ui.mine.information.HomePageActivity;
@@ -141,7 +142,7 @@ public class MineFragment  extends BaseLazyFragment<MinePresenter> implements IM
         mList.add(new MineBean("收款记录",R.mipmap.ic_mine_get_money));
         mList.add(new MineBean("我的委托",R.mipmap.ic_mine_entrust));
 //        mList.add(new MineBean("我的公益", R.mipmap.ic_mine_charity));
-//        mList.add(new MineBean("我的物流", R.mipmap.ic_mine_logistics));
+        mList.add(new MineBean("我的物流", R.mipmap.ic_mine_logistics));
 //        mList.add(new MineBean("我的保险", R.mipmap.ic_mine_insurance));
 //        mList.add(new MineBean("我的养老", R.mipmap.ic_mine_pension));
 //        mList.add(new MineBean("我的教育",R.mipmap.ic_mine_education));
@@ -167,6 +168,7 @@ public class MineFragment  extends BaseLazyFragment<MinePresenter> implements IM
                 case "我的公益":
                     break;
                 case "我的物流":
+                    startActivity(new Intent(mContext, MineLogisticsActivity.class));
                     break;
                 case "我的保险":
                     break;

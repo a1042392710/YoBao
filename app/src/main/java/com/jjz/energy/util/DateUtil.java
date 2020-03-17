@@ -28,6 +28,21 @@ public class DateUtil  {
         return ts+"";
     }
 
+    public static String dateToStampStr(String s ,String fomat) {
+        String res;
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(fomat);
+        Date date = null;
+        try {
+            date = simpleDateFormat.parse(s);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        res = String.valueOf(date.getTime());
+//        res = res.substring(0, 10);
+        long ts = new BigInteger(res).longValue()/1000;
+        return ts+"";
+    }
+
     /**
      * 将时间戳转换为时间
      */
